@@ -30,7 +30,7 @@ void Calibration::loop() {
         return;
     }
 
-    if (stabilityStartTime > 0 && millis() - stabilityStartTime >= settings.getStabilityTime() * 60 * 1000) {
+    if (stabilityStartTime > 0 && millis() - stabilityStartTime >= settings.getStabilityTime() * 1000) {
         registerPoint();
         nextPoint();
     }

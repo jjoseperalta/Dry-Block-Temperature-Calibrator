@@ -18,9 +18,10 @@ enum class BeepType {
 struct BeepStep {
     uint16_t frequency; // Frecuencia del tono (Hz)
     uint16_t duration;  // Duración del tono (ms)
+    uint8_t volume;     // NUEVO: Volumen (0 a 100)
 };
 
-const int BUZZER_PIN = 26;
+const int BUZZER_PIN = 26; //13
 
 class Buzzer {
 public:
@@ -57,7 +58,7 @@ private:
     // Patrones de sonido (Definiciones de las secuencias de BeepStep)
     const BeepStep* getPattern(BeepType type, size_t& size);
 
-    void setTone(uint16_t freq, uint16_t duration);
+    void setTone(uint16_t freq, uint16_t duration, uint8_t volume);
 };
 
 #endif // BUZZER_H

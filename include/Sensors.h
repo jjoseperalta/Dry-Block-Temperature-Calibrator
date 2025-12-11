@@ -31,6 +31,7 @@ public:
     float readMasterTemperature();
     float readTestTemperature();
     void configureTestSensor(SensorType type, int wires);
+    float getFilteredMasterTemperature(int numReadings);
 
 private:
     Settings& settings;

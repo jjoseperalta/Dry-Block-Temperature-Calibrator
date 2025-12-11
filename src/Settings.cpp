@@ -40,24 +40,16 @@ void Settings::resetToDefaults() {
     pidTd = DEFAULT_PID_TD;
     pidPeriod = DEFAULT_PID_PERIOD;
     stabilityTime = DEFAULT_STABILITY_TIME;
+    calibrationPoints[0] = DEFAULT_P1;
+    calibrationPoints[1] = DEFAULT_P2;
+    calibrationPoints[2] = DEFAULT_P3;
+    calibrationPoints[3] = DEFAULT_P4;
     alarmUpperLimit = DEFAULT_ALARM_UPPER;
     alarmLowerLimit = DEFAULT_ALARM_LOWER;
-    
-    for (int i = 0; i < 4; i++) {
-        calibrationPoints[i] = 0.0;
-    }
-    masterCalibrationOffset = DEFAULT_CAL_OFFSET;
-    
-    Serial.println("Valores por defecto cargados en memoria.");
-
-    // DEBUG: Verificar si los valores por defecto NO son cero.
-    Serial.println(F("--- DEBUG: Valores por Defecto Cargados ---"));
-    Serial.print(F("  DEBUG - SETP: ")); Serial.println(setTemperature, 2);
-    Serial.print(F("  DEBUG - KP: ")); Serial.println(pidKp, 2);
-    Serial.print(F("  DEBUG - ALARM HIGH: ")); Serial.println(alarmUpperLimit, 2);
-    Serial.print(F("  DEBUG - PID PERIOD: ")); Serial.println(pidPeriod);
-    Serial.print(F("  DEBUG - SENSOR TYPE (0=PT100): ")); Serial.println((int)sensorType);
-    Serial.println(F("------------------------------------------"));
+    masterOffset = DEFAULT_MASTER_OFFSET;
+    testOffset = DEFAULT_TEST_OFFSET;
+    dangerTemperature = DEFAULT_DANGER_TEMP;
+    safeTemperature = DEFAULT_SAFE_TEMP;
 }
 
 // ***************************************************************
@@ -103,7 +95,10 @@ void Settings::load() {
     stabilityTime = doc["stability_time"].as<int>();
     alarmUpperLimit = doc["alarm_upper"].as<float>();
     alarmLowerLimit = doc["alarm_lower"].as<float>();
-    masterCalibrationOffset = doc["m_cal_off"].as<float>();
+    masterOffset = doc["m_cal_off"].as<float>();
+    testOffset = doc["t_cal_off"].as<float>();
+    dangerTemperature = doc["danger_temp"].as<float>();
+    safeTemperature = doc["safe_temp"].as<float>();
 
     // Manejo del Array de Puntos de Calibración
     JsonArray calPoints = doc["cal_points"].as<JsonArray>();
@@ -120,7 +115,6 @@ void Settings::load() {
     // DEBUG: Verificar qué valores leyó del JSON
     Serial.println(F("--- DEBUG: Valores Leídos del Archivo ---"));
     Serial.print(F("  DEBUG - SETP (File): ")); Serial.println(setTemperature, 2);
-    Serial.print(F("  DEBUG - KP (File): ")); Serial.println(pidKp, 2);
     Serial.println(F("------------------------------------------"));
 }
 
@@ -142,7 +136,10 @@ void Settings::save() {
     doc["stability_time"] = stabilityTime;
     doc["alarm_upper"] = alarmUpperLimit;
     doc["alarm_lower"] = alarmLowerLimit;
-    doc["m_cal_off"] = masterCalibrationOffset;
+    doc["m_cal_off"] = masterOffset;
+    doc["t_cal_off"] = testOffset;
+    doc["danger_temp"] = dangerTemperature;
+    doc["safe_temp"] = safeTemperature;
 
     // Creación del Array de Puntos de Calibración
     JsonArray calPoints = doc.createNestedArray("cal_points");
@@ -192,7 +189,7 @@ float Settings::getPidTi() const { return pidTi; }
 void Settings::setPidTi(float ti) { pidTi = ti; }
 
 float Settings::getPidTd() const { return pidTd; }
-void Settings::setPidTd(float td) { setPidTd(td); }
+void Settings::setPidTd(float td) { pidTd = td; }
 
 int Settings::getPidPeriod() const { return pidPeriod; }
 void Settings::setPidPeriod(int period) { pidPeriod = period; }
@@ -219,10 +216,34 @@ void Settings::setCalibrationPoint(int index, float temp) {
     }
 }
 
-float Settings::getMasterCalibrationOffset() const {
-    return masterCalibrationOffset;
+float Settings::getMasterOffset() const {
+    return masterOffset;
 }
 
-void Settings::setMasterCalibrationOffset(float offset) {
-    masterCalibrationOffset = offset;
+void Settings::setMasterOffset(float offset) {
+    masterOffset = offset;
+}
+
+float Settings::getTestOffset() const {
+    return testOffset;
+}
+
+void Settings::setTestOffset(float offset) {
+    testOffset = offset;
+}
+
+float Settings::getDangerTemperature() const {
+    return dangerTemperature;
+}
+
+void Settings::setDangerTemperature(float temp) {
+    dangerTemperature = temp;
+}
+
+float Settings::getSafeTemperature() const {
+    return safeTemperature;
+}
+
+void Settings::setSafeTemperature(float temp) {
+    safeTemperature = temp;
 }

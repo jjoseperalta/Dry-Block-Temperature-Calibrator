@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Probador de BeepStep</title>
+</head>
+<body>
+  <h2>Probador de Melodías</h2>
+  <button onclick="playMelody()">▶ Reproducir</button>
+
+  <script>
+    /*
+      Formato EXACTO tipo Arduino:
+      [ frecuencia(Hz), duración(ms), volumen(0–100) ]
+    */
+    const readyPattern = [
+      [800, 100, 100],
+    [790, 100, 100], 
+    [0, 100, 0],
+    [800, 100, 100],
+    [790, 100, 100],
+    [0, 100, 0],
+    [800, 100, 100],
+    [790, 100, 100],
+    [0, 1, 0]
+    ];
+
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playMelody() {
+      let currentTime = audioCtx.currentTime;
+
+      readyPattern.forEach(step => {
+        const freq = step[0];
+        const duration = step[1];
+        const volume = step[2];
+
+        if (freq > 0 && volume > 0) {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+
+          osc.type = "square";           // similar a buzzer pasivo
+          osc.frequency.value = freq;
+          gain.gain.value = volume / 100;
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+
+          osc.start(currentTime);
+          osc.stop(currentTime + duration / 1000);
+        }
+
+        currentTime += duration / 1000;
+      });
+    }
+  </script>
+</body>
+</html>

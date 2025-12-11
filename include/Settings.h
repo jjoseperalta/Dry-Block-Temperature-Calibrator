@@ -51,6 +51,12 @@ public:
     int getStabilityTime() const;
     void setStabilityTime(int time);
 
+    float getMasterOffset() const;
+    void setMasterOffset(float offset);
+
+    float getTestOffset() const;
+    void setTestOffset(float offset);
+
     float getAlarmUpperLimit() const;
     void setAlarmUpperLimit(float limit);
 
@@ -60,12 +66,31 @@ public:
     float getCalibrationPoint(int index) const;
     void setCalibrationPoint(int index, float temp);
 
-    float getMasterCalibrationOffset() const;
-    void setMasterCalibrationOffset(float offset);
+    float getDangerTemperature() const;
+    void setDangerTemperature(float temp);
+
+    float getSafeTemperature() const;
+    void setSafeTemperature(float temp);
 
     // Método que permite a otras clases obtener una referencia a la estructura completa
     // (Útil si se usa en la clase Calibrator, como en Calibrador_PT.ino)
     Settings& get() { return *this; }
+
+    static float getDefaultPidkp() { return DEFAULT_PID_KP; }
+    static float getDefaultPidTi() { return DEFAULT_PID_TI; }
+    static float getDefaultPidTd() { return DEFAULT_PID_TD; }
+    static int getDefaultPidPeriod() { return DEFAULT_PID_PERIOD; }
+    static int getDefaultStabilityTime() { return DEFAULT_STABILITY_TIME; }
+    static float getDefaultP1() { return DEFAULT_P1; }
+    static float getDefaultP2() { return DEFAULT_P2; }
+    static float getDefaultP3() { return DEFAULT_P3; }
+    static float getDefaultP4() { return DEFAULT_P4; }
+    static float getDefaultMasterOffset() { return DEFAULT_MASTER_OFFSET; }
+    static float getDefaultTestOffset() { return DEFAULT_TEST_OFFSET; }
+    static float getDefaultAlarmUpperLimit() { return DEFAULT_ALARM_UPPER; }
+    static float getDefaultAlarmLowerLimit() { return DEFAULT_ALARM_LOWER; }
+    static float getDefaultDangerTemperature() { return DEFAULT_DANGER_TEMP; }
+    static float getDefaultSafeTemperature() { return DEFAULT_SAFE_TEMP; }
 
 private:
     // *** Eliminamos 'Preferences preferences' ***
@@ -83,21 +108,31 @@ private:
     float alarmUpperLimit;
     float alarmLowerLimit;
     float calibrationPoints[4]; // Array para 4 puntos de calibración
-    float masterCalibrationOffset;
+    float masterOffset;
+    float testOffset;
+    float dangerTemperature;
+    float safeTemperature;
 
     // Constantes de valores por defecto (ayudan en load() y resetToDefaults())
     static const SensorType DEFAULT_SENSOR_TYPE = SensorType::PT100;
-    static const int DEFAULT_SENSOR_WIRES = 3;
+    static const int DEFAULT_SENSOR_WIRES = 2;
     static const TemperatureScale DEFAULT_TEMP_SCALE = TemperatureScale::CELSIUS;
     static constexpr float DEFAULT_SET_TEMP = 25.0;
-    static constexpr float DEFAULT_PID_KP = 1.0;
-    static constexpr float DEFAULT_PID_TI = 10.0;
-    static constexpr float DEFAULT_PID_TD = 0.1;
-    static const int DEFAULT_PID_PERIOD = 1;
-    static const int DEFAULT_STABILITY_TIME = 1;
-    static constexpr float DEFAULT_ALARM_UPPER = 150.0;
-    static constexpr float DEFAULT_ALARM_LOWER = -10.0;
-    static constexpr float DEFAULT_CAL_OFFSET = 0.0;
+    static constexpr float DEFAULT_PID_KP = 8.0;
+    static constexpr float DEFAULT_PID_TI = 700; //300
+    static constexpr float DEFAULT_PID_TD = 8.0;
+    static const int DEFAULT_PID_PERIOD = 3;
+    static const int DEFAULT_STABILITY_TIME = 60;
+    static constexpr float DEFAULT_P1 = 25.0;
+    static constexpr float DEFAULT_P2 = 30.0;
+    static constexpr float DEFAULT_P3 = 35.0;
+    static constexpr float DEFAULT_P4 = 40.0;
+    static constexpr float DEFAULT_MASTER_OFFSET = 0.0;
+    static constexpr float DEFAULT_TEST_OFFSET = 0.0;
+    static constexpr float DEFAULT_ALARM_UPPER = 100.0;
+    static constexpr float DEFAULT_ALARM_LOWER = 10.0;
+    static constexpr float DEFAULT_DANGER_TEMP = 40.0;
+    static constexpr float DEFAULT_SAFE_TEMP = 35.0;
 };
 
 #endif // SETTINGS_H
