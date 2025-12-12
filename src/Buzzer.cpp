@@ -193,3 +193,29 @@ void Buzzer::handle() {
         }
     }
 }
+
+void Buzzer::playBlocking(BeepType type) {
+    // 1. Lógica de inicio de patrón (similar a beep())
+    if (_isPlaying) {
+        stop(); 
+    }
+
+    _currentPattern = getPattern(type, _patternSize);
+    if (_currentPattern == nullptr) return;
+
+    _patternIndex = 0;
+    _isPlaying = true;
+
+    setTone(
+        _currentPattern[_patternIndex].frequency, 
+        _currentPattern[_patternIndex].duration, 
+        _currentPattern[_patternIndex].volume
+    );
+
+    // 2. Bucle de bloqueo: Ejecuta handle() hasta que el patrón termine
+    while (_isPlaying) { 
+        handle(); 
+        // Pequeño delay de 1ms para que FreeRTOS pueda alternar (aunque setup() bloquea)
+        delay(1); 
+    }
+}

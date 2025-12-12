@@ -93,4 +93,26 @@ void Calibration::registerPoint() {
 
     currentPoint++;
     stabilityStartTime = 0;
+
+    // int newPointIndex = 0;
+    if (onPointRegistered) {
+        onPointRegistered(index);
+    }
+}
+
+void Calibration::setRegisterCallback(CalibrationRegisteredCallback callback) {
+    onPointRegistered = callback;
+}
+
+const CalibrationData& Calibration::getCalibrationData(int index) const {
+    // Comprobación de rango básico. Si el índice está fuera de rango,
+    // es mejor devolver un valor seguro o, en este caso, el primer elemento (índice 0)
+    // para evitar un fallo de memoria fuera de límites.
+    if (index >= 0 && index < 8) {
+        return data[index];
+    }
+    
+    // Si el índice es inválido, devuelve el primer elemento (o lanza una excepción si usaras STL)
+    // Es una solución segura para evitar crashes en sistemas embebidos.
+    return data[0]; 
 }

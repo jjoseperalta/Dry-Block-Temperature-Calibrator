@@ -191,11 +191,11 @@ void Settings::setPidTi(float ti) { pidTi = ti; }
 float Settings::getPidTd() const { return pidTd; }
 void Settings::setPidTd(float td) { pidTd = td; }
 
-int Settings::getPidPeriod() const { return pidPeriod; }
-void Settings::setPidPeriod(int period) { pidPeriod = period; }
+float Settings::getPidPeriod() const { return pidPeriod; }
+void Settings::setPidPeriod(float period) { pidPeriod = period; }
 
-int Settings::getStabilityTime() const { return stabilityTime; }
-void Settings::setStabilityTime(int time) { stabilityTime = time; }
+float Settings::getStabilityTime() const { return stabilityTime; }
+void Settings::setStabilityTime(float time) { stabilityTime = time; }
 
 float Settings::getAlarmUpperLimit() const { return alarmUpperLimit; }
 void Settings::setAlarmUpperLimit(float limit) { alarmUpperLimit = limit; }

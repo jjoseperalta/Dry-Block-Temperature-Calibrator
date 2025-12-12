@@ -20,12 +20,12 @@ void Heater::begin() {
     
     // **CRÍTICO:** Habilitar ambos lados del driver (R_EN y L_EN)
     // El driver está ahora "listo" para aceptar comandos PWM.
-    digitalWrite(EN_HEATER_PIN, HIGH); 
-    digitalWrite(EN_COOLING_PIN, HIGH);
+    digitalWrite(EN_HEATER_PIN, LOW); 
+    digitalWrite(EN_COOLING_PIN, LOW);
 
     // 3. Detener ambos al inicio (PWM en 0)
     stop();
-    Serial.println("Heater/Cooler initialized with PWM Dual (2kHz).");
+    Serial.println("Heater/Cooler initialized with PWM Dual (5kHz).");
     // Serial.println("R_EN (Pin 22) and L_EN (Pin 21) set to HIGH.");
 }
 

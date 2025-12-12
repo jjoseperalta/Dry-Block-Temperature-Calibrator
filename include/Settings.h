@@ -45,11 +45,11 @@ public:
     float getPidTd() const;
     void setPidTd(float td);
 
-    int getPidPeriod() const;
-    void setPidPeriod(int period);
+    float getPidPeriod() const;
+    void setPidPeriod(float period);
 
-    int getStabilityTime() const;
-    void setStabilityTime(int time);
+    float getStabilityTime() const;
+    void setStabilityTime(float time);
 
     float getMasterOffset() const;
     void setMasterOffset(float offset);
@@ -79,8 +79,8 @@ public:
     static float getDefaultPidkp() { return DEFAULT_PID_KP; }
     static float getDefaultPidTi() { return DEFAULT_PID_TI; }
     static float getDefaultPidTd() { return DEFAULT_PID_TD; }
-    static int getDefaultPidPeriod() { return DEFAULT_PID_PERIOD; }
-    static int getDefaultStabilityTime() { return DEFAULT_STABILITY_TIME; }
+    static float getDefaultPidPeriod() { return DEFAULT_PID_PERIOD; }
+    static float getDefaultStabilityTime() { return DEFAULT_STABILITY_TIME; }
     static float getDefaultP1() { return DEFAULT_P1; }
     static float getDefaultP2() { return DEFAULT_P2; }
     static float getDefaultP3() { return DEFAULT_P3; }
@@ -103,8 +103,8 @@ private:
     float pidKp;
     float pidTi;
     float pidTd;
-    int pidPeriod;
-    int stabilityTime;
+    float pidPeriod;
+    float stabilityTime;
     float alarmUpperLimit;
     float alarmLowerLimit;
     float calibrationPoints[4]; // Array para 4 puntos de calibración
@@ -121,12 +121,12 @@ private:
     static constexpr float DEFAULT_PID_KP = 8.0;
     static constexpr float DEFAULT_PID_TI = 700; //300
     static constexpr float DEFAULT_PID_TD = 8.0;
-    static const int DEFAULT_PID_PERIOD = 3;
-    static const int DEFAULT_STABILITY_TIME = 60;
-    static constexpr float DEFAULT_P1 = 25.0;
-    static constexpr float DEFAULT_P2 = 30.0;
-    static constexpr float DEFAULT_P3 = 35.0;
-    static constexpr float DEFAULT_P4 = 40.0;
+    static constexpr float DEFAULT_PID_PERIOD = 1;
+    static constexpr float DEFAULT_STABILITY_TIME = 60.0;
+    static constexpr float DEFAULT_P1 = 30.0;
+    static constexpr float DEFAULT_P2 = 35.0;
+    static constexpr float DEFAULT_P3 = 40.0;
+    static constexpr float DEFAULT_P4 = 45.0;
     static constexpr float DEFAULT_MASTER_OFFSET = 0.0;
     static constexpr float DEFAULT_TEST_OFFSET = 0.0;
     static constexpr float DEFAULT_ALARM_UPPER = 100.0;

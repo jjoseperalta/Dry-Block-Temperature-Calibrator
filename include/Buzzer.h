@@ -21,7 +21,7 @@ struct BeepStep {
     uint8_t volume;     // NUEVO: Volumen (0 a 100)
 };
 
-const int BUZZER_PIN = 26; //13
+const int BUZZER_PIN = 13; //26
 
 class Buzzer {
 public:
@@ -40,6 +40,9 @@ public:
     // Métodos de control
     void stop();
     void mute(bool enable);
+
+    // Método para reproducir un patrón completo en setup(), donde el bloqueo es aceptable.
+    void playBlocking(BeepType type);
 
 private:
     const int buzzerPwmChannel = 2;

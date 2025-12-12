@@ -12,6 +12,8 @@ struct CalibrationData {
     float difference;
 };
 
+typedef void (*CalibrationRegisteredCallback)(int pointIndex);
+
 class Calibration {
 public:
     Calibration(Settings& settings, Sensors& sensors, Buzzer& buzzer);
@@ -20,6 +22,9 @@ public:
     void loop();
     bool isRunning() const;
     void targetReached();
+    // const CalibrationData& getCalibrationData() const;
+    const CalibrationData& getCalibrationData(int index) const;
+    void setRegisterCallback(CalibrationRegisteredCallback callback);
 
     unsigned long stabilityStartTime;
 
@@ -34,6 +39,8 @@ private:
 
     void nextPoint();
     void registerPoint();
+
+    CalibrationRegisteredCallback onPointRegistered = nullptr;
 };
 
 #endif // CALIBRATION_H

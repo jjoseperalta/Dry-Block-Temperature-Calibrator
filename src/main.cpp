@@ -5,18 +5,22 @@
 #include "PIDController.h"
 #include "Sensors.h"
 #include "Settings.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/semphr.h"
+#include "freertos/task.h"
 #include <Arduino.h>
-
-// Define this to bypass the real sensor reading and use a simulated value
-// #define SENSOR_SIMULATION
 
 // Function prototypes
 void handleCommand(String command);
 void printHelp();
 void printSettings();
-void printTemperatures(); // ¡NUEVO! Función para mostrar temperaturas
+void printTemperatures();
 void renderNavBarUI();
 void renderConfigUI(u_int8_t page);
+
+// Prototipos de las tareas de FreeRTOS
+void taskControlCore(void *parameter);
+void taskInterfaceCore(void *parameter);
 
 // Global objects
 Settings settings;
@@ -27,26 +31,24 @@ PIDController pid(settings);
 Calibration calibration(settings, sensors, buzzer);
 HMIController hmi;
 
-// State variables
 enum class ControlState { STOPPED, RUNNING };
 
 ControlState controlState = ControlState::STOPPED;
 unsigned long lastPidTime = 0;
 bool targetReachedNotified = false;
 
-long contador = 0;
 const long intervalo = 500;
 unsigned long tiempoAnterior = 0;
-char cadenaContador[12];
 
 char buffer[32];
 size_t buffer_size = sizeof(buffer);
 
 float masterTemp = 0.0f;
 
-// ----------------------------------------------------
-// 1. CAPTURA DEL EVENTO CALLBACK (Definición en el *.ino)
-// ----------------------------------------------------
+// VARIABLES Y OBJETOS DE FREERTOS
+SemaphoreHandle_t controlStateMutex; // Mutex para proteger controlState
+SemaphoreHandle_t masterTempMutex;   // Mutex para proteger masterTemp
+
 void callbackSensorType(NextionEventType type, INextionTouchable *widget) {
   Serial.println("Callback Sensor Type triggered");
   if (type == NEX_EVENT_POP) {
@@ -200,6 +202,33 @@ void callbackQuickTest(NextionEventType type, INextionTouchable *widget) {
   }
 }
 
+void callbackAdvancedTest(NextionEventType type, INextionTouchable *widget) {
+  Serial.println("Callback Advanced Test triggered");
+  if (type == NEX_EVENT_POP) {
+    u_int8_t indexBtn = widget->getComponentID();
+
+    if (indexBtn == run.getComponentID()) {
+
+      controlState = ControlState::RUNNING;
+
+      pid.reset();
+
+      calibration.start();
+
+      Serial.println("Calibration started.");
+
+    } else if (indexBtn == stop_2.getComponentID()) {
+      controlState = ControlState::STOPPED;
+
+      heater.stop();
+
+      calibration.stop();
+
+      Serial.println("All processes stopped.");
+    }
+  }
+}
+
 void callbackConfig(NextionEventType type, INextionTouchable *widget) {
   Serial.println("Callback Config triggered");
   if (type == NEX_EVENT_POP) {
@@ -273,6 +302,33 @@ void callbackConfig(NextionEventType type, INextionTouchable *widget) {
   }
 }
 
+void handleCalibrationUpdate(int index) {
+  Serial.print("MAIN: Callback recibido. El punto ");
+  Serial.print(index);
+  Serial.println(" fue registrado. Actualizando HMI.");
+
+  const CalibrationData &pointData = calibration.getCalibrationData(index);
+
+  // 2. Mostrar los valores en la HMI
+  Serial.print("SETP: ");
+  Serial.println(pointData.setpoint, 2);
+  Serial.print("MASTER: ");
+  Serial.println(pointData.masterTemp, 2);
+  Serial.print("TEST: ");
+  Serial.println(pointData.testTemp, 2);
+  Serial.print("DIFF: ");
+  Serial.println(pointData.difference, 3);
+
+  snprintf(buffer, buffer_size, "%.1f", pointData.setpoint);
+  temp_p1.setText(buffer);
+  snprintf(buffer, buffer_size, "%.2f", pointData.masterTemp);
+  up_temp_master_p1.setText(buffer);
+  snprintf(buffer, buffer_size, "%.2f", pointData.testTemp);
+  up_temp_test_p1.setText(buffer);
+  snprintf(buffer, buffer_size, "%.3f", pointData.difference);
+  up_diff_p1.setText(buffer);
+}
+
 void setup() {
   Serial.begin(115200);
   while (!Serial) {
@@ -281,19 +337,15 @@ void setup() {
 
   // Llama a Settings::begin(), que monta LittleFS y llama a settings.load()
   settings.begin();
-#ifndef SENSOR_SIMULATION
   sensors.begin();
-#endif
   heater.begin();
   buzzer.begin();
   hmi.init();
 
-  buzzer.beep(BeepType::TARGET_REACHED);
-  uint32_t t = millis();
-while (millis() - t < 600) { // Ejecutar por unos 400ms para asegurar el fin del patrón
-    buzzer.handle();
-    // Aquí puedes llamar a otras funciones de inicialización no-bloqueantes si las tienes.
-}
+  buzzer.playBlocking(BeepType::READY);
+
+  calibration.setRegisterCallback(handleCalibrationUpdate);
+
   Serial.println("Dry Block Temperature Calibrator");
   Serial.println("Type 'HELP' for a list of commands.");
 
@@ -320,9 +372,9 @@ while (millis() - t < 600) { // Ejecutar por unos 400ms para asegurar el fin del
 
   HMIController::registerCallback(&pt_2, callbackSensorType);
   HMIController::registerCallback(&scale_2, callbackTemperatureScale);
-  // HMIController::registerCallback(&run, callbackAdvancedTest);
+  HMIController::registerCallback(&run, callbackAdvancedTest);
   HMIController::registerCallback(&config, callbackPage3);
-  // HMIController::registerCallback(&stop_2, callbackAdvancedTest);
+  HMIController::registerCallback(&stop_2, callbackAdvancedTest);
   HMIController::registerCallback(&home_2, callbackPage0);
 
   HMIController::registerCallback(&pt_3, callbackSensorType);
@@ -346,121 +398,320 @@ while (millis() - t < 600) { // Ejecutar por unos 400ms para asegurar el fin del
   HMIController::registerCallback(&default_5, callbackConfig);
   HMIController::registerCallback(&save_5, callbackConfig);
   HMIController::registerCallback(&backAdvancedTest_5, callbackPage2);
+
+  controlStateMutex = xSemaphoreCreateMutex();
+  masterTempMutex = xSemaphoreCreateMutex();
+
+  // Tarea 1: Control (Core 1 / App Core) - Mayor prioridad para el control
+  xTaskCreatePinnedToCore(taskControlCore,          // Función a ejecutar
+                          "ControlTask",            // Nombre de la tarea
+                          10000,                    // Tamaño de pila (bytes)
+                          NULL,                     // Parámetro de la tarea
+                          configMAX_PRIORITIES - 1, // Prioridad (Alta)
+                          NULL, // Handle de la tarea (No necesario aquí)
+                          1     // NÚCLEO 1 (App Core)
+  );
+
+  // Tarea 2: Interfaz (Core 0 / Pro Core) - Baja prioridad, permite al SO
+  // funcionar
+  xTaskCreatePinnedToCore(taskInterfaceCore, // Función a ejecutar
+                          "InterfaceTask",   // Nombre de la tarea
+                          4000,              // Tamaño de pila (bytes)
+                          NULL,              // Parámetro de la tarea
+                          1,                 // Prioridad (Baja)
+                          NULL,              // Handle de la tarea
+                          0                  // NÚCLEO 0 (Pro Core)
+  );
 }
 
 void loop() {
-  // Read serial commands
-  if (Serial.available() > 0) {
-    String command = Serial.readStringUntil('\n');
-    command.trim();
-    command.toUpperCase();
-    handleCommand(command);
-  }
+  //   // Read serial commands
+  //   if (Serial.available() > 0) {
+  //     String command = Serial.readStringUntil('\n');
+  //     command.trim();
+  //     command.toUpperCase();
+  //     handleCommand(command);
+  //   }
 
-#if 0
-    // Old PID timing: uses settings.getPidPeriod() directly as seconds
-#endif
-  // PID control loop (uses real elapsed time dt)
-  unsigned long now = millis();
-  masterTemp = sensors.getFilteredMasterTemperature(20);
-  float setpoint = settings.getSetTemperature();
-  if (controlState == ControlState::RUNNING &&
-      (now - lastPidTime >= (unsigned long)settings.getPidPeriod() * 1000UL)) {
-#ifdef SENSOR_SIMULATION
-    float masterTemp = 25.0f; // Simulate a constant room temperature
-#else
-    // float masterTemp = sensors.readMasterTemperature();
-    // masterTemp = sensors.getFilteredMasterTemperature(10);
-#endif
-    // float setpoint = settings.getSetTemperature();
-    float dt = (now - lastPidTime) / 1000.0f; // seconds
-    float output = pid.calculate(setpoint, masterTemp, dt);
+  // #if 0
+  //     // Old PID timing: uses settings.getPidPeriod() directly as seconds
+  // #endif
+  //   // PID control loop (uses real elapsed time dt)
+  //   unsigned long now = millis();
+  //   masterTemp = sensors.getFilteredMasterTemperature(20);
+  //   float setpoint = settings.getSetTemperature();
+  //   if (controlState == ControlState::RUNNING &&
+  //       (now - lastPidTime >= (unsigned long)settings.getPidPeriod() *
+  //       1000UL)) {
+  // #ifdef SENSOR_SIMULATION
+  //     float masterTemp = 25.0f; // Simulate a constant room temperature
+  // #else
+  //     // float masterTemp = sensors.readMasterTemperature();
+  //     // masterTemp = sensors.getFilteredMasterTemperature(10);
+  // #endif
+  //     // float setpoint = settings.getSetTemperature();
+  //     float dt = (now - lastPidTime) / 1000.0f; // seconds
+  //     float output = pid.calculate(setpoint, masterTemp, dt);
 
-    // Un-comment the line below for debugging PID values
-    Serial.println("Output: " + String(output) + " | Temp: " +
-                   String(masterTemp) + " | Setpoint: " + String(setpoint));
+  //     // Un-comment the line below for debugging PID values
+  //     Serial.println("Output: " + String(output) + " | Temp: " +
+  //                    String(masterTemp) + " | Setpoint: " +
+  //                    String(setpoint));
 
-    if (output >= 0) {
-      // We need to heat or maintain temperature
-      heater.setCool(0); // Ensure cooling is off
-      heater.setHeat(output > 100.0f ? 100.0f
-                                     : output); // Apply heat, capped at 100
-    } else {
-      // We need to cool
-      heater.setCool(fabsf(output) > 100.0f
-                         ? 100.0f
-                         : fabsf(output)); // Apply cooling, capped at 100
-      heater.setHeat(0);                   // Ensure heating is off
+  //     if (output >= 0) {
+  //       // We need to heat or maintain temperature
+  //       heater.setCool(0); // Ensure cooling is off
+  //       heater.setHeat(output > 100.0f ? 100.0f
+  //                                      : output); // Apply heat, capped at 100
+  //     } else {
+  //       // We need to cool
+  //       heater.setCool(fabsf(output) > 100.0f
+  //                          ? 100.0f
+  //                          : fabsf(output)); // Apply cooling, capped at 100
+  //       heater.setHeat(0);                   // Ensure heating is off
+  //     }
+
+  //     // // Check if target temperature is reached
+  //     // if (abs(masterTemp - setpoint) < 0.5) {
+  //     //   if (!targetReachedNotified) {
+  //     //     buzzer.beep(BeepType::TARGET_REACHED);
+  //     //     targetReachedNotified = true;
+  //     //     if (calibration.isRunning()) {
+  //     //       calibration.targetReached();
+  //     //     }
+  //     //   }
+  //     // } else {
+  //     //   targetReachedNotified = false;
+  //     // }
+
+  //     // // Check for alarms
+  //     // if (masterTemp > settings.getAlarmUpperLimit() ||
+  //     //     masterTemp < settings.getAlarmLowerLimit()) {
+  //     //   buzzer.beep(BeepType::ALARM);
+  //     // }
+
+  //     lastPidTime = now;
+  //   } else if (controlState == ControlState::STOPPED) {
+  //     heater.stop(); // Ensure heater is off when stopped
+  //   }
+
+  //   // Check if target temperature is reached
+  //   if (abs(masterTemp - setpoint) < 0.5) {
+  //     if (!targetReachedNotified) {
+  //       buzzer.beep(BeepType::TARGET_REACHED);
+  //       targetReachedNotified = true;
+  //       if (calibration.isRunning()) {
+  //         calibration.targetReached();
+  //       }
+  //     }
+  //   } else {
+  //     targetReachedNotified = false;
+  //   }
+
+  //   // Check for alarms
+  //   if (masterTemp > settings.getAlarmUpperLimit() ||
+  //       masterTemp < settings.getAlarmLowerLimit()) {
+  //     buzzer.beep(BeepType::ALARM);
+  //   }
+
+  //   // Calibration loop
+  //   calibration.loop();
+
+  //   hmi.poll();
+
+  //   buzzer.handle();
+
+  //   unsigned long tiempoActual = millis();
+  //   if (tiempoActual - tiempoAnterior >= intervalo) {
+  //     tiempoAnterior = tiempoActual;
+
+  //     const char *unit =
+  //         settings.getTemperatureScale() == TemperatureScale::CELSIUS ? "C" :
+  //         "F";
+  //     // Convertir el contador a cadena
+  //     //   sprintf(buffer, "%.2f \xB0%s", sensors.readMasterTemperature(), unit);
+
+  //     // Mostrar en Serial (para depuración)
+  //     //   Serial.print("Temperatura: ");
+  //     //   Serial.println(sensors.readMasterTemperature());
+
+  //     // snprintf(buffer, buffer_size, "%.2f \xB0%s",
+  //     //          sensors.readMasterTemperature(), unit);
+  //     snprintf(buffer, buffer_size, "%.1f \xB0%s", masterTemp, unit);
+  //     temp_1.setText(buffer);
+
+  //     snprintf(buffer, buffer_size, "%.1f/%.1f", masterTemp,
+  //              settings.getSetTemperature());
+  //     temp_2.setText(buffer);
+  //   }
+}
+
+// Tarea 1: Control y Sensores (Core 1)
+// Necesitas un Mutex para proteger masterTemp, declarado globalmente:
+// SemaphoreHandle_t masterTempMutex;
+
+void taskControlCore(void *parameter) {
+  // Variable para manejar la cadencia PID exacta de FreeRTOS
+  TickType_t xLastWakeTime = xTaskGetTickCount();
+
+  // El período PID se define en settings (segundos), lo convertimos a Ticks
+  TickType_t xPidFrequency = pdMS_TO_TICKS(settings.getPidPeriod() * 1000UL);
+
+  while (true) {
+    // --- CÁLCULO PID Y CONTROL (BLOQUE DE CADA PID PERIOD) ---
+
+    // Esperamos con precisión hasta el siguiente ciclo PID.
+    vTaskDelayUntil(&xLastWakeTime, xPidFrequency);
+
+    // 1. Obtener Lectura de Sensor (CRÍTICA)
+    float currentMasterTemp = sensors.getFilteredMasterTemperature(20);
+
+    // Aseguramos la escritura de masterTemp (CRÍTICO: Core 1 escribe, Core 0
+    // lee)
+    if (xSemaphoreTake(masterTempMutex, (TickType_t)10) == pdTRUE) {
+      masterTemp = currentMasterTemp;
+      xSemaphoreGive(masterTempMutex);
     }
 
-    // // Check if target temperature is reached
-    // if (abs(masterTemp - setpoint) < 0.5) {
-    //   if (!targetReachedNotified) {
-    //     buzzer.beep(BeepType::TARGET_REACHED);
-    //     targetReachedNotified = true;
-    //     if (calibration.isRunning()) {
-    //       calibration.targetReached();
-    //     }
-    //   }
-    // } else {
-    //   targetReachedNotified = false;
-    // }
+    float setpoint = settings.getSetTemperature();
+    // unsigned long now = millis(); // Para calcular dt
 
-    // // Check for alarms
-    // if (masterTemp > settings.getAlarmUpperLimit() ||
-    //     masterTemp < settings.getAlarmLowerLimit()) {
-    //   buzzer.beep(BeepType::ALARM);
-    // }
+    // 2. Ejecución del PID (Si está corriendo)
+    if (controlState == ControlState::RUNNING) {
+      float dt =
+          xPidFrequency /
+          (float)configTICK_RATE_HZ; // Tiempo exacto del ciclo en segundos
+      float output = pid.calculate(setpoint, masterTemp, dt);
 
-    lastPidTime = now;
-  } else if (controlState == ControlState::STOPPED) {
-    heater.stop(); // Ensure heater is off when stopped
-  }
+      // Un-comment the line below for debugging PID values
+      Serial.println("Output: " + String(output) + " | Temp: " +
+                     String(masterTemp) + " | Setpoint: " + String(setpoint));
 
-  // Check if target temperature is reached
-    if (abs(masterTemp - setpoint) < 0.5) {
-      if (!targetReachedNotified) {
-        buzzer.beep(BeepType::TARGET_REACHED);
-        targetReachedNotified = true;
-        if (calibration.isRunning()) {
-          calibration.targetReached();
-        }
+      // 3. Actuación del Heater
+      if (output >= 0) {
+        heater.setCool(0);
+        heater.setHeat(output > 100.0f ? 100.0f : output);
+      } else {
+        heater.setCool(fabsf(output) > 100.0f ? 100.0f : fabsf(output));
+        heater.setHeat(0);
       }
-    } else {
-      targetReachedNotified = false;
+
+      // 4. Lógica de Target Reached (ALARMA/CALIBRACIÓN)
+      if (abs(masterTemp - setpoint) < 0.5) {
+        if (!targetReachedNotified) {
+          Serial.println("Target reached!");
+          buzzer.beep(BeepType::TARGET_REACHED);
+          targetReachedNotified = true;
+          if (calibration.isRunning()) {
+            calibration.targetReached();
+          }
+        }
+      } else {
+        targetReachedNotified = false;
+      }
     }
 
-    // Check for alarms
+    // 5. Lógica de STOP y Alarmas (Fuera del RUNNING para que se verifique
+    // siempre)
+    if (xSemaphoreTake(controlStateMutex, (TickType_t)10) == pdTRUE) {
+      if (controlState == ControlState::STOPPED) {
+        heater.stop();
+      }
+      // No hace falta proteger la lectura de controlState en este core si no se
+      // modifica simultáneamente por otra parte de esta misma lógica, pero el
+      // cambio a STOPPED debe protegerse por si viene de la tarea de comandos.
+      xSemaphoreGive(controlStateMutex);
+    }
+
     if (masterTemp > settings.getAlarmUpperLimit() ||
         masterTemp < settings.getAlarmLowerLimit()) {
       buzzer.beep(BeepType::ALARM);
     }
 
-  // Calibration loop
-  calibration.loop();
+    // 6. Loop de Calibración
+    calibration.loop();
 
-  hmi.poll();
+    // NOTA: No es necesario usar el Mutex en masterTemp si solo se actualiza
+    // una vez por ciclo PID. El riesgo es bajo, pero si deseas máxima
+    // seguridad, usa xSemaphoreTake y xSemaphoreGive alrededor de la
+    // escritura/lectura.
+  }
+}
 
-  buzzer.handle();
+// Tarea 2: Interfaz HMI y Comunicación Serial (Core 0)
+void taskInterfaceCore(void *parameter) {
+  // --- Configuración de Frecuencias ---
 
-  unsigned long tiempoActual = millis();
-  if (tiempoActual - tiempoAnterior >= intervalo) {
-    tiempoAnterior = tiempoActual;
-    contador++;
+  // Frecuencia para la actualización LENTA de texto en la UI (500ms)
+  const TickType_t xInterfaceUpdateFrequency = pdMS_TO_TICKS(500);
+  // Frecuencia RÁPIDA para el polling del HMI y Buzzer (10ms es un buen
+  // equilibrio)
+  const TickType_t xFastPollDelay = pdMS_TO_TICKS(10);
 
-    const char *unit =
-        settings.getTemperatureScale() == TemperatureScale::CELSIUS ? "C" : "F";
-    // Convertir el contador a cadena
-    //   sprintf(buffer, "%.2f \xB0%s", sensors.readMasterTemperature(), unit);
+  // Variable para rastrear el tiempo del último despertar (necesaria para el
+  // delay)
+  TickType_t xLastWakeTime = xTaskGetTickCount();
 
-    // Mostrar en Serial (para depuración)
-    //   Serial.print("Temperatura: ");
-    //   Serial.println(sensors.readMasterTemperature());
+  // Variable para rastrear el tiempo de la última actualización de texto
+  // (independiente del delay)
+  TickType_t xLastUpdateTime = xTaskGetTickCount();
 
-    // snprintf(buffer, buffer_size, "%.2f \xB0%s",
-    //          sensors.readMasterTemperature(), unit);
-    snprintf(buffer, buffer_size, "%.1f \xB0%s", masterTemp, unit);
-    temp_1.setText(buffer);
+  while (true) {
+    // --- 1. TAREAS DE ALTA FRECUENCIA (Polling HMI, Buzzer, y Comandos
+    // Seriales) --- Estas tareas se ejecutarán cada 10ms
+
+    buzzer.handle();
+    hmi.poll(); // ¡CRÍTICO! Necesita ejecutarse rápido para los callbacks
+                // Nextion.
+
+    // --- COMUNICACIÓN SERIAL (Comandos) ---
+    if (Serial.available() > 0) {
+      String command = Serial.readStringUntil('\n');
+      command.trim();
+      command.toUpperCase();
+      handleCommand(command);
+    }
+
+    // --- 2. ACTUALIZACIÓN DE UI (Lógica de 500ms) ---
+    TickType_t xNow = xTaskGetTickCount();
+
+    // Comprobamos si ha pasado el tiempo necesario desde la última
+    // actualización de texto
+    if ((xNow - xLastUpdateTime) >= xInterfaceUpdateFrequency) {
+
+      // --- LECTURA PROTEGIDA DE TEMPERATURA ---
+      float tempToDisplay = 0.0f;
+      // Se asume que masterTempMutex es un SemaphoreHandle_t
+      if (xSemaphoreTake(masterTempMutex, (TickType_t)10) == pdTRUE) {
+        tempToDisplay = masterTemp;
+        xSemaphoreGive(masterTempMutex);
+      }
+
+      // --- FORMATO Y ESCRITURA DE TEXTO HMI ---
+
+      // Obtener la unidad de temperatura
+      const char *unit =
+          settings.getTemperatureScale() == TemperatureScale::CELSIUS ? "C"
+                                                                      : "F";
+
+      // Actualizar Widget temp_1 (Temperatura actual con unidad)
+      snprintf(buffer, buffer_size, "%.1f \xB0%s", tempToDisplay, unit);
+      temp_1.setText(buffer);
+
+      // Actualizar Widget temp_2 (Temperatura actual / Setpoint)
+      snprintf(buffer, buffer_size, "%.1f/%.1f", tempToDisplay,
+               settings.getSetTemperature());
+      temp_2.setText(buffer);
+
+      // Restablecer el tiempo de la última actualización
+      xLastUpdateTime = xNow;
+    }
+
+    // --- 3. CEDER TIEMPO (Garantizar la cadencia rápida de 10ms) ---
+    // Usamos vTaskDelay para suspender la tarea por un tiempo corto,
+    // asegurando que otras tareas de alta prioridad (como la de control) tengan
+    // tiempo de CPU.
+    vTaskDelay(xFastPollDelay);
   }
 }
 
@@ -686,12 +937,6 @@ void printHelp() {
   Serial.println("  HELP                - Show this help message");
 }
 
-/**
- * @brief Muestra las temperaturas actuales del Master y Test Sensor, junto con
- * el Setpoint.
- * * NOTA: La lectura de sensores es una simulación (#ifdef SENSOR_SIMULATION) o
- * lectura real. Si se usa simulación, la lectura de masterTemp será 25.0f.
- */
 void printTemperatures() {
   // Definimos los valores de temperatura
 #ifdef SENSOR_SIMULATION
