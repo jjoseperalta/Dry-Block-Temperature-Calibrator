@@ -25,6 +25,7 @@ public:
     // const CalibrationData& getCalibrationData() const;
     const CalibrationData& getCalibrationData(int index) const;
     void setRegisterCallback(CalibrationRegisteredCallback callback);
+    void notifyStable();
 
     unsigned long stabilityStartTime;
 
@@ -34,11 +35,14 @@ private:
     Buzzer& buzzer;
 
     bool running;
-    int currentPoint;
+    uint16_t currentPoint;
+    uint16_t stableCounter;
+    const uint16_t requiredStableSamples = 5;
     CalibrationData data[8];
 
     void nextPoint();
     void registerPoint();
+    void tryRegisterPoint();
 
     CalibrationRegisteredCallback onPointRegistered = nullptr;
 };

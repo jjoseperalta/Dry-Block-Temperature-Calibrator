@@ -31,12 +31,16 @@ public:
     float readMasterTemperature();
     float readTestTemperature();
     void configureTestSensor(SensorType type, int wires);
-    float getFilteredMasterTemperature(int numReadings);
+    float getFilteredMasterTemperature(float alpha = 0.1f);
+    float getFilteredTestTemperature(float alpha = 0.1f);
 
 private:
     Settings& settings;
     Adafruit_MAX31865 masterSensor;
     Adafruit_MAX31865 testSensor;
+
+    float _emaMasterTemperature = SENSOR_ERROR_VALUE;
+    float _emaTestTemperature = SENSOR_ERROR_VALUE;
 
     // Helper para la conversión de escala
     float applyScaleConversion(float tempC);

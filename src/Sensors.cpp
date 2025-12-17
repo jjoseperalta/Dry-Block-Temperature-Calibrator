@@ -1,4 +1,6 @@
 #include "Sensors.h"
+#include "Logger.h"
+#include <Arduino.h>
 
 Sensors::Sensors(Settings &settings)
     : settings(settings), masterSensor(Adafruit_MAX31865(
@@ -7,12 +9,10 @@ Sensors::Sensors(Settings &settings)
 
 void Sensors::begin() {
   masterSensor.begin(MAX31865_3WIRE);
-  Serial.println("Master Sensor Initialized (CS: " + String(MAX_CS_MASTER) +
-                 ")");
+  logf("Master Sensor Initialized (CS: %d)\n", MAX_CS_MASTER);
 
-  // The test sensor is configured based on saved settings
   configureTestSensor(settings.getSensorType(), settings.getSensorWires());
-  Serial.println("Test Sensor Initialized (CS: " + String(MAX_CS_TEST) + ")");
+  logf("Test Sensor Initialized (CS: %d)\n", MAX_CS_TEST);
 }
 
 // ***************************************************************
@@ -22,25 +22,21 @@ bool Sensors::checkAndLogFault(Adafruit_MAX31865 &sensor,
                                const String &sensorName) {
   uint8_t fault = sensor.readFault();
   if (fault) {
-    Serial.print("ERROR: ");
-    Serial.print(sensorName);
-    Serial.print(" Fault Detected (0x");
-    Serial.print(fault, HEX);
-    Serial.print("): ");
+    logf("ERROR: %s Fault Detected (0x%X): ", sensorName, fault);
 
     if (fault & MAX31865_FAULT_HIGHTHRESH)
-      Serial.print("High Threshold, ");
+      log("High Threshold, ");
     if (fault & MAX31865_FAULT_LOWTHRESH)
-      Serial.print("Low Threshold, ");
+      log("Low Threshold, ");
     if (fault & MAX31865_FAULT_REFINLOW)
-      Serial.print("REFIN Low, ");
+      log("REFIN Low, ");
     if (fault & MAX31865_FAULT_REFINHIGH)
-      Serial.print("REFIN High, ");
+      log("REFIN High, ");
     if (fault & MAX31865_FAULT_RTDINLOW)
-      Serial.print("RTD Low, ");
+      log("RTD Low, ");
     if (fault & MAX31865_FAULT_OVUV)
-      Serial.print("Over/Under Voltage");
-    Serial.println();
+      log("Over/Under Voltage");
+    logln("");
     return true; // Hay un fallo
   }
   return false; // No hay fallo
@@ -60,9 +56,6 @@ float Sensors::applyScaleConversion(float tempC) {
 // LECTURA: Sensor Maestro
 // ***************************************************************
 float Sensors::readMasterTemperature() {
-  // En un sistema real, el sensor maestro debe ser PT100 o PT1000 fijo para ser
-  // una referencia. Usamos PT100 como estándar de referencia para el MASTER.
-
   // 1. Lectura de temperatura
   float tempC = masterSensor.temperature(R_NOMINAL_PT100, R_REF_PT100);
 
@@ -82,7 +75,6 @@ float Sensors::readMasterTemperature() {
 // LECTURA: Sensor de Prueba
 // ***************************************************************
 float Sensors::readTestTemperature() {
-  // Los valores de referencia y nominales dependen de la configuración guardada
   float r_ref = (settings.getSensorType() == SensorType::PT100) ? R_REF_PT100
                                                                 : R_REF_PT1000;
   float nominal_res = (settings.getSensorType() == SensorType::PT100)
@@ -97,7 +89,10 @@ float Sensors::readTestTemperature() {
     return SENSOR_ERROR_VALUE;
   }
 
-  // 3. Aplicar conversión de escala (Fahrenheit)
+  // 3. Aplicar compensación de calibración maestra (si aplica)
+  tempC += settings.getTestOffset();
+
+  // 4. Aplicar conversión de escala (Fahrenheit)
   return applyScaleConversion(tempC);
 }
 
@@ -105,8 +100,6 @@ float Sensors::readTestTemperature() {
 // CONFIGURACIÓN: Sensor de Prueba
 // ***************************************************************
 void Sensors::configureTestSensor(SensorType type, int wires) {
-  // Actualizar settings (esto es solo por si se llama desde un comando, asegura
-  // que los valores están actualizados)
   settings.setSensorType(type);
   settings.setSensorWires(wires);
 
@@ -122,34 +115,66 @@ void Sensors::configureTestSensor(SensorType type, int wires) {
     testSensor.begin(MAX31865_4WIRE);
     break;
   default:
-    Serial.println("WARNING: Invalid wire count, defaulting to 3-wire.");
+    logln("WARNING: Invalid wire count, defaulting to 3-wire.");
     testSensor.begin(MAX31865_3WIRE);
     break;
   }
 }
 
 // ***************************************************************
-// LECTURA FILTRADA: Sensor Maestro (para el PID)
+// LECTURA FILTRADA: Sensor Maestro (para el PID) aplicando EMA
 // ***************************************************************
-float Sensors::getFilteredMasterTemperature(int numReadings) {
-  float sum = 0.0f;
-  int validReads = 0;
+float Sensors::getFilteredMasterTemperature(float alpha) {
+  // 1. Obtener la lectura bruta (ya aplica offset, fallos y conversión de
+  // escala)
+  float currentReading = readMasterTemperature(); // X_n
 
-  for (int i = 0; i < numReadings; ++i) {
-    float temp =
-        readMasterTemperature(); // Llama a tu función de lectura existente
-
-    if (temp != SENSOR_ERROR_VALUE) {
-      sum += temp;
-      validReads++;
-    }
-    // Opcional: Pequeña pausa para evitar sobrecargar la SPI
-    // delay(1);
+  // 2. Manejar valores de error (Robustez)
+  if (currentReading == SENSOR_ERROR_VALUE) {
+    // Si la lectura es inválida, devolvemos el último valor filtrado válido.
+    return _emaMasterTemperature;
   }
 
-  if (validReads > 0) {
-    return sum / validReads;
-  } else {
-    return SENSOR_ERROR_VALUE;
+  // 3. Inicialización del filtro (Si es la primera lectura válida)
+  if (_emaMasterTemperature == SENSOR_ERROR_VALUE) {
+    _emaMasterTemperature = currentReading;
+    return _emaMasterTemperature;
   }
+
+  // 4. Aplicar la Ecuación del EMA
+  // Y_n = (alpha * X_n) + ( (1 - alpha) * Y_{n-1} )
+  _emaMasterTemperature =
+      (alpha * currentReading) + ((1.0f - alpha) * _emaMasterTemperature);
+
+  // Devolver el valor filtrado
+  return _emaMasterTemperature;
+}
+
+// ***************************************************************
+// LECTURA FILTRADA: Sensor de Prueba (EMA)
+// ***************************************************************
+float Sensors::getFilteredTestTemperature(float alpha) {
+  // 1. Obtener la lectura bruta (ya aplica offset, fallos y conversión de
+  // escala)
+  float currentReading = readTestTemperature(); // X_n
+
+  // 2. Manejar valores de error (Robustez)
+  if (currentReading == SENSOR_ERROR_VALUE) {
+    // Si la lectura es inválida, devolvemos el último valor filtrado válido.
+    return _emaTestTemperature;
+  }
+
+  // 3. Inicialización del filtro (Si es la primera lectura válida)
+  if (_emaTestTemperature == SENSOR_ERROR_VALUE) {
+    _emaTestTemperature = currentReading;
+    return _emaTestTemperature;
+  }
+
+  // 4. Aplicar la Ecuación del EMA
+  // Y_n = (alpha * X_n) + ( (1 - alpha) * Y_{n-1} )
+  _emaTestTemperature =
+      (alpha * currentReading) + ((1.0f - alpha) * _emaTestTemperature);
+
+  // Devolver el valor filtrado
+  return _emaTestTemperature;
 }

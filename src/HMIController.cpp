@@ -1,6 +1,8 @@
 // HMIController.cpp
 #include "HMIController.h"
-#include <Arduino.h> // Incluir para usar Serial, etc.
+#include <Arduino.h>
+#include <map>
+#include "Logger.h"
 
 // Definición de objetos Nextion (NO SON extern aquí)
 Nextion nex(Serial2);
@@ -134,16 +136,16 @@ void HMIController::globalNextionCallback(NextionEventType type, INextionTouchab
         eventMap[componentId](type, widget);
     } else {
         // Opcional: Manejo de eventos no mapeados
-        Serial.print("Evento del componente ID ");
-        Serial.print(componentId);
-        Serial.println(" recibido, pero no tiene callback registrado.");
+        log("Evento del componente ID ");
+        log(componentId);
+        logln(" recibido, pero no tiene callback registrado.");
     }
 }
 
 // Función para registrar los callbacks
 bool HMIController::registerCallback(INextionTouchable* componentPtr, NextionCallbackFunc callbackPtr) {
     if (componentPtr == nullptr || callbackPtr == nullptr) {
-        Serial.println("ERROR: Puntero de componente o callback nulo.");
+        logln("ERROR: Puntero de componente o callback nulo.");
         return false;
     }
     
@@ -156,8 +158,8 @@ bool HMIController::registerCallback(INextionTouchable* componentPtr, NextionCal
     // 3. Asegurarse de que el callback global esté adjunto al widget
     componentPtr->attachCallback(&HMIController::globalNextionCallback);
     
-    Serial.print("Registrado: Componente con ID ");
-    Serial.print(componentId);
-    Serial.println(" -> OK.");
+    log("Registrado: Componente con ID ");
+    log(componentId);
+    logln(" -> OK.");
     return true;
 }

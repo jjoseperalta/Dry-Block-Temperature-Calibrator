@@ -11,7 +11,6 @@
 #include <NextionNumber.h>
 #include <map>
 
-// Definiciones de pines para Serial2 (ESP32)
 #define RXD2 16
 #define TXD2 17
 

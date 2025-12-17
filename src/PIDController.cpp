@@ -1,84 +1,178 @@
 #include "PIDController.h"
+#include "Logger.h"
 #include <Arduino.h>
+#include <cmath>
 
-PIDController::PIDController(Settings& settings) : settings(settings) {
-    integralLimit = 0.0f;
-    reset();
+PIDController::PIDController(Settings &settings) : settings(settings) {
+  // integralLimit = 0.0f;
+  reset();
 }
 
 void PIDController::reset() {
-    integral = 0.0f;
-    previous_error = 0.0f;
-    previous_pv = 0.0f;
+  integral = 0.0f;
+  // previous_error = 0.0f;
+  previous_pv = 0.0f;
+  inFineZone = false;
 }
 
-float PIDController::calculate(float setpoint, float process_variable, float dt) {
-    // Lectura de parámetros (Asumo que esta parte lee desde la clase settings)
-    float kp = settings.getPidKp();
-    float ti = settings.getPidTi();
-    float td = settings.getPidTd();
+PIDGains PIDController::computeGains(float error, bool fineZone) {
+  float kp = settings.getPidKp();
+  float ti = settings.getPidTi();
+  float td = settings.getPidTd();
 
-    // Protección: Asegurar que dt no es cero
-    if (dt <= 0.0f) dt = 0.001f; 
+  bool heating = (error >= 0.0f);
 
-    float error = setpoint - process_variable;
+  PIDGains g;
 
-    // --- 1. Término Proporcional (P) ---
-    float p_out = kp * error;
+  if (heating) {
+    // CALENTAR (más agresivo)
+    g.kp = kp * (fineZone ? 0.5f : 1.5f); //(fineZone ? 0.6f : 1.2f);
+    g.ti = ti * (fineZone ? 2.0f : 0.7f);
+    g.td = td * 0.6f; //(fineZone ? 0.3f : 0.0f);
+  } else {
+    // ENFRIAR (más lento, más amortiguado)
+    g.kp = kp * (fineZone ? 0.35f : 0.8f);
+    g.ti = ti * (fineZone ? 2.0f : 1.0f);
+    g.td = td * 1.3f; //(fineZone ? 1.5f : 1.3f);
+  }
 
-    // --- 2. Término Derivativo (D) ---
-    // Derivativo en la medición (PV) para evitar picos en el cambio de setpoint
-    float derivative = (process_variable - previous_pv) / dt;
-    float d_out = -kp * td * derivative; // Signo negativo para frenar el calentamiento
+  return g;
+}
 
-    // --- 3. Término Integral (I) con Anti-Windup Clamping ---
-    float i_out = 0.0f;
-    float tentative_output = p_out + d_out; // Salida P+D antes de incluir la Integral
-    
-    if (ti > 1e-6f) {
-        // Cálculo de la acción I (Ki * integral)
-        float kp_over_ti = kp / ti; 
-        
-        // 1. Determinar si la salida P+D+I estaría saturada
-        // Usamos el estado actual de la integral para ver si contribuye a la saturación.
-        float tentative_output_full = tentative_output + (kp_over_ti * integral);
+float PIDController::calculate(float setpoint, float process_variable,
+                               float dt) {
+  if (dt <= 0.0f)
+    dt = 0.001f;
 
-        // 2. Lógica de Anti-Windup (Clamping)
-        // Solo integramos si:
-        // a) La salida NO está saturada (entre -100 y 100), O
-        // b) El error es NEGATIVO (necesitamos enfriar) Y la salida está saturada POSITIVAMENTE (>100),
-        // c) El error es POSITIVO (necesitamos calentar) Y la salida está saturada NEGATIVAMENTE (<-100).
-        // (La lógica b y c permite desenrollar el windup si la saturación es incorrecta)
-        
-        bool output_clamped = false;
-        if (tentative_output_full > 100.0f && error > 0.0f) {
-            output_clamped = true;
-        } else if (tentative_output_full < -100.0f && error < 0.0f) {
-            output_clamped = true;
-        }
+  float error = setpoint - process_variable;
+  float absError = fabsf(error);
 
-        if (!output_clamped) {
-             // Acumular el error si no estamos saturados
-             integral += error * dt;
-        }
+  // --------------------------------------------------
+  // ZONAS con histéresis (industrial)
+  // --------------------------------------------------
+  const float ZONE_ENTER_FINE = 0.25f;
+  const float ZONE_EXIT_FINE = 0.50f;
 
-        // 3. Calcular la salida final del término I
-        i_out = kp_over_ti * integral;
-    } else {
-        // Si Ti es cero o muy pequeño, la integral no se usa y se limpia
-        integral = 0.0f; 
+  bool wasFine = inFineZone;
+
+  if (inFineZone) {
+    if (absError > ZONE_EXIT_FINE)
+      inFineZone = false;
+  } else {
+    if (absError < ZONE_ENTER_FINE)
+      inFineZone = true;
+  }
+
+  // --------------------------------------------------
+  // Descarga parcial de la integral al cruzar setpoint
+  // --------------------------------------------------
+  bool heatingNow = (error >= 0.0f);
+
+  if (lastHeating && !heatingNow) {
+    // Pasamos de calentar a enfriar (cruce del setpoint)
+    integral *= 0.3f; // descarga suave, NO reset total
+  }
+
+  lastHeating = heatingNow;
+
+  // Velocidad de cambio térmico (°C/s)
+  float tempRate = (process_variable - previous_pv) / dt;
+
+  // Si nos acercamos rápido al setpoint, frenar la integral
+  // if ((error > 0 && tempRate > 0.02f) || (error < 0 && tempRate < -0.02f)) {
+  //   // Estamos yendo hacia el setpoint con inercia
+  //   // NO integrar
+  // } else {
+  //   integral += error * dt;
+  // }
+
+  integral = constrain(integral, -10.0f, 10.0f);
+
+  // Reset integral SOLO al entrar en zona fina
+  if (inFineZone) {
+    integral = constrain(integral, -8.0f, 8.0f);
+  }
+
+  // --------------------------------------------------
+  // Selección de ganancias
+  // --------------------------------------------------
+  PIDGains g = computeGains(error, inFineZone);
+
+  // --- 1. Término Proporcional (P) ---
+  float p_out = g.kp * error;
+
+  // --- 2. Término Derivativo (D) ---
+  // Derivativo en la medición (PV) para evitar picos en el cambio de setpoint
+  float derivative = (process_variable - previous_pv) / dt;
+  float d_out =
+      -g.kp * g.td * derivative; // Signo negativo para frenar el calentamiento
+
+  // --- 3. Término Integral (I) con Anti-Windup Clamping ---
+  float i_out = 0.0f;
+  float tentative_output =
+      p_out + d_out; // Salida P+D antes de incluir la Integral
+
+  if (g.ti > 1e-6f) {
+    // Cálculo de la acción I (Ki * integral)
+    float kp_over_ti = g.kp / g.ti;
+
+    // 1. Determinar si la salida P+D+I estaría saturada
+    // Usamos el estado actual de la integral para ver si contribuye a la
+    // saturación.
+    float tentative_output_full = tentative_output + (kp_over_ti * integral);
+
+    bool output_clamped = false;
+    if (tentative_output_full > 100.0f && error > 0.0f) {
+      output_clamped = true;
+    } else if (tentative_output_full < -100.0f && error < 0.0f) {
+      output_clamped = true;
     }
 
-    // --- 4. Salida Total ---
-    float output = p_out + i_out + d_out;
+    // float minHeat = settings.getMinHeatPower();
+    // float minCool = settings.getMinCoolPower();
 
-    // --- 5. Clamping Final (Saturación del Driver) ---
-    // Limitar la salida que va al driver al rango [-100, 100]
-    if (output > 100.0f) output = 100.0f;
-    else if (output < -100.0f) output = -100.0f;
+    // float minHeatEffective = inFineZone ? (minHeat + 0.8f) : minHeat;
 
-    previous_error = error;
-    previous_pv = process_variable;
+    // bool actuatorEffective =
+    //     (tentative_output > minHeatEffective) || (tentative_output <
+    //     -minCool);
 
-    return output;
+    if (!output_clamped) {
+      if (!inFineZone || fabs(error) < 0.3f) {
+        integral += error * dt;
+      }
+    }
+
+    // 3. Calcular la salida final del término I
+    i_out = kp_over_ti * integral;
+  } else {
+    // Si Ti es cero o muy pequeño, la integral no se usa y se limpia
+    integral = 0.0f;
+  }
+
+  // 1) Calcular output PID
+  float output = p_out + i_out + d_out;
+
+  // 2) Integral lenta de HOLD
+  // if (inFineZone && fabsf(error) < 0.6f) {
+  //   const float I_HOLD_GAIN = 0.035f;
+  //   integral += error * dt * I_HOLD_GAIN;
+  //   integral = constrain(integral, -5.0f, 5.0f);
+  // }
+
+  // 3) Recalcular i_out tras modificar integral
+  // i_out = (g.kp / g.ti) * integral;
+  // output = p_out + i_out + d_out;
+
+  // 4) Bloquear cooling SOLO cerca del setpoint real (no en cooling profundo)
+if (inFineZone && output < 0.0f && process_variable < setpoint + 0.2f) {
+    output = 0.0f;
+}
+
+  // 5) Clamp final
+  output = constrain(output, -100.0f, 100.0f);
+
+  previous_pv = process_variable;
+
+  return output;
 }

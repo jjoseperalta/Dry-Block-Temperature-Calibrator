@@ -2,6 +2,7 @@
 #include "Calibration.h"
 #include "HMIController.h"
 #include "Heater.h"
+#include "Logger.h"
 #include "PIDController.h"
 #include "Sensors.h"
 #include "Settings.h"
@@ -9,18 +10,23 @@
 #include "freertos/semphr.h"
 #include "freertos/task.h"
 #include <Arduino.h>
+#include <cmath>
+
+#define CMD_BUFFER_SIZE 64
 
 // Function prototypes
-void handleCommand(String command);
+void handleCommand(const char *command);
 void printHelp();
 void printSettings();
 void printTemperatures();
 void renderNavBarUI();
 void renderConfigUI(u_int8_t page);
+bool isStableEnoughForCalibration(float masterTemp, float setpoint);
 
 // Prototipos de las tareas de FreeRTOS
 void taskControlCore(void *parameter);
 void taskInterfaceCore(void *parameter);
+void taskConsole(void *parameter);
 
 // Global objects
 Settings settings;
@@ -31,9 +37,12 @@ PIDController pid(settings);
 Calibration calibration(settings, sensors, buzzer);
 HMIController hmi;
 
-enum class ControlState { STOPPED, RUNNING };
+enum class ThermalState { RAMPING, APPROACHING, HOLDING };
+static ThermalState thermalState = ThermalState::RAMPING;
 
-ControlState controlState = ControlState::STOPPED;
+enum class ControlState { STOPPED, RUNNING };
+static ControlState controlState = ControlState::STOPPED;
+
 unsigned long lastPidTime = 0;
 bool targetReachedNotified = false;
 
@@ -48,19 +57,18 @@ float masterTemp = 0.0f;
 // VARIABLES Y OBJETOS DE FREERTOS
 SemaphoreHandle_t controlStateMutex; // Mutex para proteger controlState
 SemaphoreHandle_t masterTempMutex;   // Mutex para proteger masterTemp
+SemaphoreHandle_t serialMutex;       // Mutex para proteger acceso a Serial
 
 void callbackSensorType(NextionEventType type, INextionTouchable *widget) {
-  Serial.println("Callback Sensor Type triggered");
+  // logln("Callback Sensor Type triggered");
   if (type == NEX_EVENT_POP) {
     NextionDualStateButton *btn = static_cast<NextionDualStateButton *>(widget);
 
     btn->isActive() ? settings.setSensorType(SensorType::PT1000)
                     : settings.setSensorType(SensorType::PT100);
 
-    Serial.println("Sensor type set to: " +
-                   String(settings.getSensorType() == SensorType::PT1000
-                              ? "PT1000"
-                              : "PT100"));
+    logf("Sensor type set to: %s\n",
+         settings.getSensorType() == SensorType::PT1000 ? "PT1000" : "PT100");
 
     settings.save();
   }
@@ -68,110 +76,109 @@ void callbackSensorType(NextionEventType type, INextionTouchable *widget) {
 
 void callbackTemperatureScale(NextionEventType type,
                               INextionTouchable *widget) {
-  Serial.println("Callback Temperature Scale triggered");
+  // logln("Callback Temperature Scale triggered");
   if (type == NEX_EVENT_POP) {
     NextionDualStateButton *btn = static_cast<NextionDualStateButton *>(widget);
 
     btn->isActive() ? settings.setTemperatureScale(TemperatureScale::FAHRENHEIT)
                     : settings.setTemperatureScale(TemperatureScale::CELSIUS);
 
-    Serial.println(
-        "Temperature scale set to: " +
-        String(settings.getTemperatureScale() == TemperatureScale::FAHRENHEIT
-                   ? "Fahrenheit"
-                   : "Celsius"));
+    logf("Temperature scale set to: %s\n",
+         settings.getTemperatureScale() == TemperatureScale::FAHRENHEIT
+             ? "Fahrenheit"
+             : "Celsius");
 
     settings.save();
   }
 }
 
 void callbackPage0(NextionEventType type, INextionTouchable *widget) {
-  Serial.println("Callback Page 0 triggered");
+  // logln("Callback Page 0 triggered");
   if (type == NEX_EVENT_PUSH) {
     pt_0.setActive(settings.getSensorType() == SensorType::PT1000);
     scale_0.setActive(settings.getTemperatureScale() ==
                       TemperatureScale::FAHRENHEIT);
-    pt_0.setActive(settings.getSensorType() == SensorType::PT1000);
-    scale_0.setActive(settings.getTemperatureScale() ==
-                      TemperatureScale::FAHRENHEIT);
+    // pt_0.setActive(settings.getSensorType() == SensorType::PT1000);
+    // scale_0.setActive(settings.getTemperatureScale() ==
+    //                   TemperatureScale::FAHRENHEIT);
   }
 }
 
 void callbackPage1(NextionEventType type, INextionTouchable *widget) {
-  Serial.println("Callback Page 1 triggered");
+  // logln("Callback Page 1 triggered");
   if (type == NEX_EVENT_PUSH) {
     pt_1.setActive(settings.getSensorType() == SensorType::PT1000);
     scale_1.setActive(settings.getTemperatureScale() ==
                       TemperatureScale::FAHRENHEIT);
-    pt_1.setActive(settings.getSensorType() == SensorType::PT1000);
-    scale_1.setActive(settings.getTemperatureScale() ==
-                      TemperatureScale::FAHRENHEIT);
+    // pt_1.setActive(settings.getSensorType() == SensorType::PT1000);
+    // scale_1.setActive(settings.getTemperatureScale() ==
+    //                   TemperatureScale::FAHRENHEIT);
 
     char buffer[16];
     sprintf(buffer, "%.2f", settings.getSetTemperature());
     setp.setText(buffer);
-    setp.setText(buffer);
+    // setp.setText(buffer);
 
-    Serial.println("setp value: " + String(settings.getSetTemperature()));
+    logf("SETP displayed as: %s\n", buffer);
   }
 }
 
 void callbackPage2(NextionEventType type, INextionTouchable *widget) {
-  Serial.println("Callback Page 2 triggered");
+  // logln("Callback Page 2 triggered");
   if (type == NEX_EVENT_PUSH) {
     pt_2.setActive(settings.getSensorType() == SensorType::PT1000);
     scale_2.setActive(settings.getTemperatureScale() ==
                       TemperatureScale::FAHRENHEIT);
-    pt_2.setActive(settings.getSensorType() == SensorType::PT1000);
-    scale_2.setActive(settings.getTemperatureScale() ==
-                      TemperatureScale::FAHRENHEIT);
+    // pt_2.setActive(settings.getSensorType() == SensorType::PT1000);
+    // scale_2.setActive(settings.getTemperatureScale() ==
+    //                   TemperatureScale::FAHRENHEIT);
   }
 }
 
 void callbackPage3(NextionEventType type, INextionTouchable *widget) {
-  Serial.println("Callback Page 3 triggered");
+  // logln("Callback Page 3 triggered");
   if (type == NEX_EVENT_PUSH) {
     pt_3.setActive(settings.getSensorType() == SensorType::PT1000);
     scale_3.setActive(settings.getTemperatureScale() ==
                       TemperatureScale::FAHRENHEIT);
-    pt_3.setActive(settings.getSensorType() == SensorType::PT1000);
-    scale_3.setActive(settings.getTemperatureScale() ==
-                      TemperatureScale::FAHRENHEIT);
+    // pt_3.setActive(settings.getSensorType() == SensorType::PT1000);
+    // scale_3.setActive(settings.getTemperatureScale() ==
+    //                   TemperatureScale::FAHRENHEIT);
     renderConfigUI(3);
-    renderConfigUI(3);
+    // renderConfigUI(3);
   }
 }
 
 void callbackPage4(NextionEventType type, INextionTouchable *widget) {
-  Serial.println("Callback Page 4 triggered");
+  // logln("Callback Page 4 triggered");
   if (type == NEX_EVENT_PUSH) {
     pt_4.setActive(settings.getSensorType() == SensorType::PT1000);
     scale_4.setActive(settings.getTemperatureScale() ==
                       TemperatureScale::FAHRENHEIT);
-    pt_4.setActive(settings.getSensorType() == SensorType::PT1000);
-    scale_4.setActive(settings.getTemperatureScale() ==
-                      TemperatureScale::FAHRENHEIT);
+    // pt_4.setActive(settings.getSensorType() == SensorType::PT1000);
+    // scale_4.setActive(settings.getTemperatureScale() ==
+    //                   TemperatureScale::FAHRENHEIT);
     renderConfigUI(4);
-    renderConfigUI(4);
+    // renderConfigUI(4);
   }
 }
 
 void callbackPage5(NextionEventType type, INextionTouchable *widget) {
-  Serial.println("Callback Page 5 triggered");
+  // logln("Callback Page 5 triggered");
   if (type == NEX_EVENT_PUSH) {
     pt_5.setActive(settings.getSensorType() == SensorType::PT1000);
     scale_5.setActive(settings.getTemperatureScale() ==
                       TemperatureScale::FAHRENHEIT);
-    pt_5.setActive(settings.getSensorType() == SensorType::PT1000);
-    scale_5.setActive(settings.getTemperatureScale() ==
-                      TemperatureScale::FAHRENHEIT);
+    // pt_5.setActive(settings.getSensorType() == SensorType::PT1000);
+    // scale_5.setActive(settings.getTemperatureScale() ==
+    //                   TemperatureScale::FAHRENHEIT);
     renderConfigUI(5);
-    renderConfigUI(5);
+    // renderConfigUI(5);
   }
 }
 
 void callbackQuickTest(NextionEventType type, INextionTouchable *widget) {
-  Serial.println("Callback Quick Test triggered");
+  // logln("Callback Quick Test triggered");
   if (type == NEX_EVENT_POP) {
     u_int8_t indexBtn = widget->getComponentID();
 
@@ -181,14 +188,15 @@ void callbackQuickTest(NextionEventType type, INextionTouchable *widget) {
       settings.setSetTemperature(
           setp.getText(buffer, buffer_size) ? atof(buffer) : 0.0f);
 
-      Serial.println("SETP set to: " + String(settings.getSetTemperature(), 2));
+      logf("SETP set to: %.2f\n", settings.getSetTemperature());
 
       controlState = ControlState::RUNNING;
 
       pid.reset();
 
-      Serial.println("PID control started. Target: " +
-                     String(settings.getSetTemperature(), 2));
+      pid.setPreviousPV(masterTemp);
+
+      logf("PID control started. Target: %.2f\n", settings.getSetTemperature());
 
     } else if (indexBtn == stop_1.getComponentID()) {
       controlState = ControlState::STOPPED;
@@ -197,15 +205,16 @@ void callbackQuickTest(NextionEventType type, INextionTouchable *widget) {
 
       calibration.stop();
 
-      Serial.println("All processes stopped.");
+      logln("All processes stopped.");
     }
   }
 }
 
 void callbackAdvancedTest(NextionEventType type, INextionTouchable *widget) {
-  Serial.println("Callback Advanced Test triggered");
+  // logln("Callback Advanced Test triggered");
   if (type == NEX_EVENT_POP) {
     u_int8_t indexBtn = widget->getComponentID();
+    // logf("Button ID: %d\n", indexBtn);
 
     if (indexBtn == run.getComponentID()) {
 
@@ -213,9 +222,11 @@ void callbackAdvancedTest(NextionEventType type, INextionTouchable *widget) {
 
       pid.reset();
 
+      pid.setPreviousPV(masterTemp);
+
       calibration.start();
 
-      Serial.println("Calibration started.");
+      logln("Calibration started.");
 
     } else if (indexBtn == stop_2.getComponentID()) {
       controlState = ControlState::STOPPED;
@@ -224,13 +235,13 @@ void callbackAdvancedTest(NextionEventType type, INextionTouchable *widget) {
 
       calibration.stop();
 
-      Serial.println("All processes stopped.");
+      logln("All processes stopped.");
     }
   }
 }
 
 void callbackConfig(NextionEventType type, INextionTouchable *widget) {
-  Serial.println("Callback Config triggered");
+  // logln("Callback Config triggered");
   if (type == NEX_EVENT_POP) {
     u_int8_t indexBtn = widget->getComponentID();
 
@@ -242,7 +253,7 @@ void callbackConfig(NextionEventType type, INextionTouchable *widget) {
 
       // renderConfigUI();
 
-      Serial.println("Settings reset to default values.");
+      logln("Settings reset to default values.");
 
     } else if (indexBtn == save_3.getComponentID() ||
                indexBtn == save_4.getComponentID() ||
@@ -297,27 +308,27 @@ void callbackConfig(NextionEventType type, INextionTouchable *widget) {
 
       settings.save();
 
-      Serial.println("Settings saved.");
+      logln("Settings saved.");
     }
   }
 }
 
 void handleCalibrationUpdate(int index) {
-  Serial.print("MAIN: Callback recibido. El punto ");
-  Serial.print(index);
-  Serial.println(" fue registrado. Actualizando HMI.");
+  log("MAIN: Callback recibido. El punto ");
+  log(index);
+  logln(" fue registrado. Actualizando HMI.");
 
   const CalibrationData &pointData = calibration.getCalibrationData(index);
 
   // 2. Mostrar los valores en la HMI
-  Serial.print("SETP: ");
-  Serial.println(pointData.setpoint, 2);
-  Serial.print("MASTER: ");
-  Serial.println(pointData.masterTemp, 2);
-  Serial.print("TEST: ");
-  Serial.println(pointData.testTemp, 2);
-  Serial.print("DIFF: ");
-  Serial.println(pointData.difference, 3);
+  log("SETP: ");
+  logf("%.2f\n", pointData.setpoint);
+  log("MASTER: ");
+  logf("%.2f\n", pointData.masterTemp);
+  log("TEST: ");
+  logf("%.2f\n", pointData.testTemp);
+  log("DIFF: ");
+  logf("%.3f\n", pointData.difference);
 
   snprintf(buffer, buffer_size, "%.1f", pointData.setpoint);
   temp_p1.setText(buffer);
@@ -346,13 +357,13 @@ void setup() {
 
   calibration.setRegisterCallback(handleCalibrationUpdate);
 
-  Serial.println("Dry Block Temperature Calibrator");
-  Serial.println("Type 'HELP' for a list of commands.");
+  logln("Dry Block Temperature Calibrator");
+  logln("Type 'HELP' for a list of commands.");
 
   // DEBUG: Imprimimos la configuración inmediatamente después de cargar
-  Serial.println("--- DEBUG: Configuración cargada ---");
+  logln("--- DEBUG: Configuración cargada ---");
   printSettings();
-  Serial.println("------------------------------------");
+  logln("------------------------------------");
 
   // Initialize PID timer
   lastPidTime = millis();
@@ -401,6 +412,7 @@ void setup() {
 
   controlStateMutex = xSemaphoreCreateMutex();
   masterTempMutex = xSemaphoreCreateMutex();
+  serialMutex = xSemaphoreCreateMutex();
 
   // Tarea 1: Control (Core 1 / App Core) - Mayor prioridad para el control
   xTaskCreatePinnedToCore(taskControlCore,          // Función a ejecutar
@@ -422,219 +434,138 @@ void setup() {
                           NULL,              // Handle de la tarea
                           0                  // NÚCLEO 0 (Pro Core)
   );
+
+  xTaskCreatePinnedToCore(taskConsole, "ConsoleTask", 4096, nullptr,
+                          1, // prioridad baja
+                          nullptr,
+                          0 // Core 0 (interfaz)
+  );
 }
 
-void loop() {
-  //   // Read serial commands
-  //   if (Serial.available() > 0) {
-  //     String command = Serial.readStringUntil('\n');
-  //     command.trim();
-  //     command.toUpperCase();
-  //     handleCommand(command);
-  //   }
-
-  // #if 0
-  //     // Old PID timing: uses settings.getPidPeriod() directly as seconds
-  // #endif
-  //   // PID control loop (uses real elapsed time dt)
-  //   unsigned long now = millis();
-  //   masterTemp = sensors.getFilteredMasterTemperature(20);
-  //   float setpoint = settings.getSetTemperature();
-  //   if (controlState == ControlState::RUNNING &&
-  //       (now - lastPidTime >= (unsigned long)settings.getPidPeriod() *
-  //       1000UL)) {
-  // #ifdef SENSOR_SIMULATION
-  //     float masterTemp = 25.0f; // Simulate a constant room temperature
-  // #else
-  //     // float masterTemp = sensors.readMasterTemperature();
-  //     // masterTemp = sensors.getFilteredMasterTemperature(10);
-  // #endif
-  //     // float setpoint = settings.getSetTemperature();
-  //     float dt = (now - lastPidTime) / 1000.0f; // seconds
-  //     float output = pid.calculate(setpoint, masterTemp, dt);
-
-  //     // Un-comment the line below for debugging PID values
-  //     Serial.println("Output: " + String(output) + " | Temp: " +
-  //                    String(masterTemp) + " | Setpoint: " +
-  //                    String(setpoint));
-
-  //     if (output >= 0) {
-  //       // We need to heat or maintain temperature
-  //       heater.setCool(0); // Ensure cooling is off
-  //       heater.setHeat(output > 100.0f ? 100.0f
-  //                                      : output); // Apply heat, capped at 100
-  //     } else {
-  //       // We need to cool
-  //       heater.setCool(fabsf(output) > 100.0f
-  //                          ? 100.0f
-  //                          : fabsf(output)); // Apply cooling, capped at 100
-  //       heater.setHeat(0);                   // Ensure heating is off
-  //     }
-
-  //     // // Check if target temperature is reached
-  //     // if (abs(masterTemp - setpoint) < 0.5) {
-  //     //   if (!targetReachedNotified) {
-  //     //     buzzer.beep(BeepType::TARGET_REACHED);
-  //     //     targetReachedNotified = true;
-  //     //     if (calibration.isRunning()) {
-  //     //       calibration.targetReached();
-  //     //     }
-  //     //   }
-  //     // } else {
-  //     //   targetReachedNotified = false;
-  //     // }
-
-  //     // // Check for alarms
-  //     // if (masterTemp > settings.getAlarmUpperLimit() ||
-  //     //     masterTemp < settings.getAlarmLowerLimit()) {
-  //     //   buzzer.beep(BeepType::ALARM);
-  //     // }
-
-  //     lastPidTime = now;
-  //   } else if (controlState == ControlState::STOPPED) {
-  //     heater.stop(); // Ensure heater is off when stopped
-  //   }
-
-  //   // Check if target temperature is reached
-  //   if (abs(masterTemp - setpoint) < 0.5) {
-  //     if (!targetReachedNotified) {
-  //       buzzer.beep(BeepType::TARGET_REACHED);
-  //       targetReachedNotified = true;
-  //       if (calibration.isRunning()) {
-  //         calibration.targetReached();
-  //       }
-  //     }
-  //   } else {
-  //     targetReachedNotified = false;
-  //   }
-
-  //   // Check for alarms
-  //   if (masterTemp > settings.getAlarmUpperLimit() ||
-  //       masterTemp < settings.getAlarmLowerLimit()) {
-  //     buzzer.beep(BeepType::ALARM);
-  //   }
-
-  //   // Calibration loop
-  //   calibration.loop();
-
-  //   hmi.poll();
-
-  //   buzzer.handle();
-
-  //   unsigned long tiempoActual = millis();
-  //   if (tiempoActual - tiempoAnterior >= intervalo) {
-  //     tiempoAnterior = tiempoActual;
-
-  //     const char *unit =
-  //         settings.getTemperatureScale() == TemperatureScale::CELSIUS ? "C" :
-  //         "F";
-  //     // Convertir el contador a cadena
-  //     //   sprintf(buffer, "%.2f \xB0%s", sensors.readMasterTemperature(), unit);
-
-  //     // Mostrar en Serial (para depuración)
-  //     //   Serial.print("Temperatura: ");
-  //     //   Serial.println(sensors.readMasterTemperature());
-
-  //     // snprintf(buffer, buffer_size, "%.2f \xB0%s",
-  //     //          sensors.readMasterTemperature(), unit);
-  //     snprintf(buffer, buffer_size, "%.1f \xB0%s", masterTemp, unit);
-  //     temp_1.setText(buffer);
-
-  //     snprintf(buffer, buffer_size, "%.1f/%.1f", masterTemp,
-  //              settings.getSetTemperature());
-  //     temp_2.setText(buffer);
-  //   }
-}
+void loop() {}
 
 // Tarea 1: Control y Sensores (Core 1)
-// Necesitas un Mutex para proteger masterTemp, declarado globalmente:
-// SemaphoreHandle_t masterTempMutex;
-
 void taskControlCore(void *parameter) {
   // Variable para manejar la cadencia PID exacta de FreeRTOS
+  static uint32_t stableTime = 0;
+
+  static float stableSum = 0.0f;
+  static uint32_t stableSamples = 0;
+
   TickType_t xLastWakeTime = xTaskGetTickCount();
 
-  // El período PID se define en settings (segundos), lo convertimos a Ticks
-  TickType_t xPidFrequency = pdMS_TO_TICKS(settings.getPidPeriod() * 1000UL);
-
   while (true) {
-    // --- CÁLCULO PID Y CONTROL (BLOQUE DE CADA PID PERIOD) ---
+    // 1. Cálculo de Frecuencia
+    TickType_t xPidFrequency = pdMS_TO_TICKS(settings.getPidPeriod() * 1000UL);
 
-    // Esperamos con precisión hasta el siguiente ciclo PID.
-    vTaskDelayUntil(&xLastWakeTime, xPidFrequency);
+    // Aseguramos que el PID no se congele si hay un valor de 0
+    if (xPidFrequency == 0) {
+      xPidFrequency = pdMS_TO_TICKS(100UL); // Default a 100ms si es 0
+    }
 
-    // 1. Obtener Lectura de Sensor (CRÍTICA)
-    float currentMasterTemp = sensors.getFilteredMasterTemperature(20);
+    // 2. Obtener Lectura de Sensor (CRÍTICA y con EMA)
+    // Usamos alpha = 0.1f para un suavizado moderado.
+    float currentMasterTemp = sensors.getFilteredMasterTemperature(0.1f);
 
-    // Aseguramos la escritura de masterTemp (CRÍTICO: Core 1 escribe, Core 0
-    // lee)
+    // 3. Comunicación Inter-Core: Escritura de masterTemp (CRÍTICA)
+    // Protegemos la escritura de la variable compartida 'masterTemp'.
+    // Usar '0' o un tiempo muy corto de espera (ej. 10) es lo correcto aquí.
     if (xSemaphoreTake(masterTempMutex, (TickType_t)10) == pdTRUE) {
       masterTemp = currentMasterTemp;
       xSemaphoreGive(masterTempMutex);
     }
 
     float setpoint = settings.getSetTemperature();
-    // unsigned long now = millis(); // Para calcular dt
 
-    // 2. Ejecución del PID (Si está corriendo)
-    if (controlState == ControlState::RUNNING) {
+    float error = setpoint - currentMasterTemp;
+
+    if (fabs(error) > 0.5f) {
+      thermalState = ThermalState::RAMPING;
+    } else if (fabs(error) > 0.08f) {
+      thermalState = ThermalState::APPROACHING;
+    } else {
+      thermalState = ThermalState::HOLDING;
+    }
+
+    // 4. Ejecución del PID (Si está corriendo)
+
+    // *************************************************************
+    // FIX CRÍTICO: Proteger la lectura de la variable compartida 'controlState'
+    // *************************************************************
+    ControlState currentState;
+    if (xSemaphoreTake(controlStateMutex, (TickType_t)10) == pdTRUE) {
+      currentState = controlState;
+      xSemaphoreGive(controlStateMutex);
+    } else {
+      // Si falla la toma del mutex, asumimos que el estado es inestable o
+      // detenido
+      currentState = ControlState::STOPPED;
+      stableTime = 0;
+      targetReachedNotified = false;
+    }
+
+    if (currentState == ControlState::RUNNING) {
       float dt =
           xPidFrequency /
           (float)configTICK_RATE_HZ; // Tiempo exacto del ciclo en segundos
-      float output = pid.calculate(setpoint, masterTemp, dt);
 
-      // Un-comment the line below for debugging PID values
-      Serial.println("Output: " + String(output) + " | Temp: " +
-                     String(masterTemp) + " | Setpoint: " + String(setpoint));
+      switch (thermalState) {
+      case ThermalState::RAMPING:
+      case ThermalState::APPROACHING: {
+        float output = pid.calculate(setpoint, currentMasterTemp, dt);
 
-      // 3. Actuación del Heater
-      if (output >= 0) {
-        heater.setCool(0);
-        heater.setHeat(output > 100.0f ? 100.0f : output);
-      } else {
-        heater.setCool(fabsf(output) > 100.0f ? 100.0f : fabsf(output));
-        heater.setHeat(0);
+        logf("Output: %.2f | Temp: %.2f | Setpoint: %.2f\n", output,
+             currentMasterTemp, setpoint);
+        heater.setPower(output, pid.isInFineZone());
+        break;
       }
 
-      // 4. Lógica de Target Reached (ALARMA/CALIBRACIÓN)
-      if (abs(masterTemp - setpoint) < 0.5) {
+      case ThermalState::HOLDING:
+        pid.reset(); // 🔥 CLAVE: sacar PID del lazo
+        heater.hold(currentMasterTemp, setpoint);
+        break;
+      }
+
+      // 6. Lógica de Target Reached (ALARMA/CALIBRACIÓN)
+      if (isStableEnoughForCalibration(currentMasterTemp, setpoint)) {
+
         if (!targetReachedNotified) {
-          Serial.println("Target reached!");
           buzzer.beep(BeepType::TARGET_REACHED);
           targetReachedNotified = true;
+          logln("Thermal stability reached");
           if (calibration.isRunning()) {
-            calibration.targetReached();
+            // calibration.targetReached();
+            calibration.notifyStable();
           }
         }
       } else {
+        stableTime = 0;
+        stableSum = 0.0f;
+        stableSamples = 0;
         targetReachedNotified = false;
       }
     }
-
-    // 5. Lógica de STOP y Alarmas (Fuera del RUNNING para que se verifique
-    // siempre)
-    if (xSemaphoreTake(controlStateMutex, (TickType_t)10) == pdTRUE) {
-      if (controlState == ControlState::STOPPED) {
-        heater.stop();
-      }
-      // No hace falta proteger la lectura de controlState en este core si no se
-      // modifica simultáneamente por otra parte de esta misma lógica, pero el
-      // cambio a STOPPED debe protegerse por si viene de la tarea de comandos.
-      xSemaphoreGive(controlStateMutex);
+    // Lógica de STOP y Alarmas (Fuera del RUNNING para que se verifique
+    // siempre) La lógica de STOP aquí es redundante si se protege la lectura de
+    // controlState, pero la mantendremos si la clase 'heater' necesita un
+    // 'stop()' periódico.
+    if (currentState == ControlState::STOPPED) {
+      heater.stop();
     }
 
-    if (masterTemp > settings.getAlarmUpperLimit() ||
-        masterTemp < settings.getAlarmLowerLimit()) {
+    // 7. Alarmas
+    if (currentMasterTemp > settings.getAlarmUpperLimit() ||
+        currentMasterTemp < settings.getAlarmLowerLimit()) {
       buzzer.beep(BeepType::ALARM);
     }
 
-    // 6. Loop de Calibración
+    // 8. Loop de Calibración
     calibration.loop();
 
-    // NOTA: No es necesario usar el Mutex en masterTemp si solo se actualiza
-    // una vez por ciclo PID. El riesgo es bajo, pero si deseas máxima
-    // seguridad, usa xSemaphoreTake y xSemaphoreGive alrededor de la
-    // escritura/lectura.
+    // *************************************************************
+    // FIX CRÍTICO: La función de espera de FreeRTOS debe estar aquí
+    // *************************************************************
+    vTaskDelayUntil(&xLastWakeTime, xPidFrequency);
   }
 }
 
@@ -642,46 +573,49 @@ void taskControlCore(void *parameter) {
 void taskInterfaceCore(void *parameter) {
   // --- Configuración de Frecuencias ---
 
-  // Frecuencia para la actualización LENTA de texto en la UI (500ms)
-  const TickType_t xInterfaceUpdateFrequency = pdMS_TO_TICKS(500);
-  // Frecuencia RÁPIDA para el polling del HMI y Buzzer (10ms es un buen
-  // equilibrio)
-  const TickType_t xFastPollDelay = pdMS_TO_TICKS(10);
+  // Frecuencia RÁPIDA (Base de la tarea): 10ms
+  const TickType_t xFastPollFrequency = pdMS_TO_TICKS(10);
+  // Frecuencia LENTA (Actualización de UI): 500ms / 10ms = 50 ciclos
+  const int UPDATE_CYCLES = 50;
 
-  // Variable para rastrear el tiempo del último despertar (necesaria para el
-  // delay)
+  // Variable para rastrear el tiempo del último despertar (CRÍTICA para
+  // DelayUntil)
   TickType_t xLastWakeTime = xTaskGetTickCount();
 
-  // Variable para rastrear el tiempo de la última actualización de texto
-  // (independiente del delay)
-  TickType_t xLastUpdateTime = xTaskGetTickCount();
+  // Contador de ciclos para el temporizador de 500ms
+  int updateCycleCounter = 0;
 
   while (true) {
-    // --- 1. TAREAS DE ALTA FRECUENCIA (Polling HMI, Buzzer, y Comandos
-    // Seriales) --- Estas tareas se ejecutarán cada 10ms
-
+    // ***************************************************************
+    // 1. TAREAS DE ALTA FRECUENCIA (Ejecutadas en cada ciclo de 10ms)
+    // ***************************************************************
     buzzer.handle();
-    hmi.poll(); // ¡CRÍTICO! Necesita ejecutarse rápido para los callbacks
-                // Nextion.
+    hmi.poll(); // ¡CRÍTICO! Polling de la HMI
 
     // --- COMUNICACIÓN SERIAL (Comandos) ---
-    if (Serial.available() > 0) {
-      String command = Serial.readStringUntil('\n');
-      command.trim();
-      command.toUpperCase();
-      handleCommand(command);
-    }
+    // NOTA: Es seguro usar String aquí si el comando serial es infrecuente
+    // y se usa readStringUntil, pero se recomienda Char Array para máxima
+    // robustez.
+    // if (xSemaphoreTake(serialMutex, pdMS_TO_TICKS(50)) == pdTRUE) {
+    //   if (Serial.available() > 0) {
+    //     String command = Serial.readStringUntil('\n');
+    //     command.trim();
+    //     command.toUpperCase();
+    //     handleCommand(command);
+    //   }
+    //   xSemaphoreGive(serialMutex);
+    // }
 
-    // --- 2. ACTUALIZACIÓN DE UI (Lógica de 500ms) ---
-    TickType_t xNow = xTaskGetTickCount();
-
-    // Comprobamos si ha pasado el tiempo necesario desde la última
-    // actualización de texto
-    if ((xNow - xLastUpdateTime) >= xInterfaceUpdateFrequency) {
+    // ***************************************************************
+    // 2. ACTUALIZACIÓN DE UI (Lógica de 500ms / 50 ciclos)
+    // ***************************************************************
+    updateCycleCounter++;
+    if (updateCycleCounter >= UPDATE_CYCLES) {
+      updateCycleCounter = 0; // Resetear el contador de ciclos
 
       // --- LECTURA PROTEGIDA DE TEMPERATURA ---
       float tempToDisplay = 0.0f;
-      // Se asume que masterTempMutex es un SemaphoreHandle_t
+      // Lectura del valor compartido (MasterTemp)
       if (xSemaphoreTake(masterTempMutex, (TickType_t)10) == pdTRUE) {
         tempToDisplay = masterTemp;
         xSemaphoreGive(masterTempMutex);
@@ -689,12 +623,14 @@ void taskInterfaceCore(void *parameter) {
 
       // --- FORMATO Y ESCRITURA DE TEXTO HMI ---
 
-      // Obtener la unidad de temperatura
+      // Obtener la unidad de temperatura (Uso de 'const char *' es correcto)
       const char *unit =
           settings.getTemperatureScale() == TemperatureScale::CELSIUS ? "C"
                                                                       : "F";
 
       // Actualizar Widget temp_1 (Temperatura actual con unidad)
+      // snprintf es el método correcto para formateo seguro en
+      // microcontroladores
       snprintf(buffer, buffer_size, "%.1f \xB0%s", tempToDisplay, unit);
       temp_1.setText(buffer);
 
@@ -702,239 +638,271 @@ void taskInterfaceCore(void *parameter) {
       snprintf(buffer, buffer_size, "%.1f/%.1f", tempToDisplay,
                settings.getSetTemperature());
       temp_2.setText(buffer);
-
-      // Restablecer el tiempo de la última actualización
-      xLastUpdateTime = xNow;
     }
 
-    // --- 3. CEDER TIEMPO (Garantizar la cadencia rápida de 10ms) ---
-    // Usamos vTaskDelay para suspender la tarea por un tiempo corto,
-    // asegurando que otras tareas de alta prioridad (como la de control) tengan
-    // tiempo de CPU.
-    vTaskDelay(xFastPollDelay);
+    // ***************************************************************
+    // 3. CEDER TIEMPO (Garantizar la cadencia rápida de 10ms)
+    // ***************************************************************
+    // Usar vTaskDelayUntil garantiza que la tarea se despierte exactamente
+    // 10ms después de su último despertar, previniendo el 'time drift'.
+    vTaskDelayUntil(&xLastWakeTime, xFastPollFrequency);
   }
 }
 
-void handleCommand(String command) {
-  if (command.startsWith("SET")) {
-    // SET <parameter> <value>
-    // Los comandos SET SCALE, SET SENSOR y SET WIRES son de dos palabras,
-    // por lo que usamos el substring para manejar ambos formatos.
+void taskConsole(void *parameter) {
+  static char cmdBuffer[CMD_BUFFER_SIZE];
+  size_t idx = 0;
 
-    int firstSpace = command.indexOf(' ');
-    if (firstSpace == -1) {
-      Serial.println("Invalid SET command format. Use SET <PARAM> <VALUE>");
+  for (;;) {
+    while (Serial.available()) {
+      char c = Serial.read();
+
+      if (c == '\n' || c == '\r') {
+        if (idx > 0) {
+          cmdBuffer[idx] = '\0';
+          handleCommand(cmdBuffer); // 👈 ahora char*
+          idx = 0;
+        }
+      } else if (idx < CMD_BUFFER_SIZE - 1) {
+        cmdBuffer[idx++] = c;
+      } else {
+        idx = 0; // protección overflow
+      }
+    }
+    vTaskDelay(pdMS_TO_TICKS(10));
+  }
+}
+
+void handleCommand(const char *command) {
+
+  // Copia local modificable
+  char cmd[CMD_BUFFER_SIZE];
+  strncpy(cmd, command, CMD_BUFFER_SIZE);
+  cmd[CMD_BUFFER_SIZE - 1] = '\0';
+
+  // Convertir a MAYÚSCULAS
+  for (char *p = cmd; *p; ++p) {
+    *p = toupper(*p);
+  }
+
+  // Tokenización segura
+  char *saveptr;
+  char *token = strtok_r(cmd, " ", &saveptr);
+
+  if (!token)
+    return;
+
+  // =================================================
+  // =================== SET =========================
+  // =================================================
+  if (strcmp(token, "SET") == 0) {
+
+    char *param = strtok_r(nullptr, " ", &saveptr);
+    char *value = strtok_r(nullptr, "", &saveptr); // resto de línea
+
+    if (!param || !value) {
+      logln("Invalid SET command. Use SET <PARAM> <VALUE>");
       return;
     }
 
-    String part1 = command.substring(firstSpace + 1);
-    int secondSpace = part1.indexOf(' ');
+    // -------- PID --------
+    if (strcmp(param, "KP") == 0) {
+      settings.setPidKp(atof(value));
+      logf("KP set to: %.2f\n", settings.getPidKp());
 
-    String parameter, valueStr;
+    } else if (strcmp(param, "TI") == 0) {
+      settings.setPidTi(atof(value));
+      logf("TI set to: %.2f\n", settings.getPidTi());
 
-    if (secondSpace == -1) {
-      // Manejar comandos de una palabra (e.g., SETP, SAVE) que deberían haber
-      // sido capturados antes, pero por seguridad
-      Serial.println("Invalid SET command format. Missing value.");
-      return;
-    }
+    } else if (strcmp(param, "TD") == 0) {
+      settings.setPidTd(atof(value));
+      logf("TD set to: %.2f\n", settings.getPidTd());
 
-    parameter = part1.substring(0, secondSpace);
-    valueStr = part1.substring(secondSpace + 1);
+    } else if (strcmp(param, "SETP") == 0) {
+      settings.setSetTemperature(atof(value));
+      logf("SETP set to: %.2f\n", settings.getSetTemperature());
 
-    // Convertir parámetros a mayúsculas para la comparación
-    parameter.toUpperCase();
-    valueStr.toUpperCase();
+      // -------- OFFSETS --------
+    } else if (strcmp(param, "MOFFSET") == 0) {
+      settings.setMasterOffset(atof(value));
+      logf("MOFFSET set to: %.2f\n", settings.getMasterOffset());
 
-    // ***************************************************
-    // COMANDOS DE VALOR (Flotante o Entero)
-    // ***************************************************
+    } else if (strcmp(param, "TOFFSET") == 0) {
+      settings.setTestOffset(atof(value));
+      logf("TOFFSET set to: %.2f\n", settings.getTestOffset());
 
-    if (parameter == "KP") {
-      settings.setPidKp(valueStr.toFloat());
-      Serial.println("KP set to: " + String(settings.getPidKp(), 2));
-    } else if (parameter == "TI") {
-      settings.setPidTi(valueStr.toFloat());
-      Serial.println("TI set to: " + String(settings.getPidTi(), 2));
-    } else if (parameter == "TD") {
-      settings.setPidTd(valueStr.toFloat());
-      Serial.println("TD set to: " + String(settings.getPidTd(), 2));
-    } else if (parameter == "SETP") {
-      settings.setSetTemperature(valueStr.toFloat());
-      Serial.println("SETP set to: " + String(settings.getSetTemperature(), 2));
-    } else if (parameter == "MOFFSET") {
-      settings.setMasterOffset(valueStr.toFloat());
-      Serial.println("MOFFSET set to: " +
-                     String(settings.getMasterOffset(), 2));
-    } else if (parameter == "TOFFSET") {
-      settings.setTestOffset(valueStr.toFloat());
-      Serial.println("TOFFSET set to: " + String(settings.getTestOffset(), 2));
-    } else if (parameter == "DANGER") {
-      settings.setDangerTemperature(valueStr.toFloat());
-      Serial.println("DANGER set to: " +
-                     String(settings.getDangerTemperature(), 2));
-    } else if (parameter == "SAFE") {
-      settings.setSafeTemperature(valueStr.toFloat());
-      Serial.println("SAFE set to: " +
-                     String(settings.getSafeTemperature(), 2));
-    } else if (parameter == "HIGH") {
-      settings.setAlarmUpperLimit(valueStr.toFloat());
-      Serial.println("Alarm High set to: " +
-                     String(settings.getAlarmUpperLimit(), 2));
-    } else if (parameter == "LOW") {
-      settings.setAlarmLowerLimit(valueStr.toFloat());
-      Serial.println("Alarm Low set to: " +
-                     String(settings.getAlarmLowerLimit(), 2));
-    } else if (parameter == "PERIOD") {
-      int intValue = valueStr.toInt();
-      if (intValue > 0) {
-        settings.setPidPeriod(intValue);
-        Serial.println("PID Period set to: " + String(settings.getPidPeriod()) +
-                       "s");
+      // -------- LIMITES --------
+    } else if (strcmp(param, "HIGH") == 0) {
+      settings.setAlarmUpperLimit(atof(value));
+      logf("Alarm High set to: %.2f\n", settings.getAlarmUpperLimit());
+
+    } else if (strcmp(param, "LOW") == 0) {
+      settings.setAlarmLowerLimit(atof(value));
+      logf("Alarm Low set to: %.2f\n", settings.getAlarmLowerLimit());
+
+    } else if (strcmp(param, "DANGER") == 0) {
+      settings.setDangerTemperature(atof(value));
+      logf("Danger Temp set to: %.2f\n", settings.getDangerTemperature());
+
+    } else if (strcmp(param, "SAFE") == 0) {
+      settings.setSafeTemperature(atof(value));
+      logf("Safe Temp set to: %.2f\n", settings.getSafeTemperature());
+
+      // -------- TIME --------
+    } else if (strcmp(param, "PERIOD") == 0) {
+      int v = atoi(value);
+      if (v > 0) {
+        settings.setPidPeriod(v);
+        logf("PID Period set to: %d s\n", v);
       } else {
-        Serial.println("ERROR: PID Period must be > 0.");
+        logln("ERROR: PERIOD must be > 0");
       }
-    } else if (parameter == "STABLE") {
-      int intValue = valueStr.toInt();
-      if (intValue >= 0) {
-        settings.setStabilityTime(intValue);
-        Serial.println("Stability Time set to: " +
-                       String(settings.getStabilityTime()) + "s");
-      } else {
-        Serial.println("ERROR: Stability Time must be >= 0.");
-      }
-    } else if (parameter == "P1") {
-      settings.setCalibrationPoint(0, valueStr.toFloat());
-      Serial.println("P1 set to: " +
-                     String(settings.getCalibrationPoint(0), 2));
-    } else if (parameter == "P2") {
-      settings.setCalibrationPoint(1, valueStr.toFloat());
-      Serial.println("P2 set to: " +
-                     String(settings.getCalibrationPoint(1), 2));
-    } else if (parameter == "P3") {
-      settings.setCalibrationPoint(2, valueStr.toFloat());
-      Serial.println("P3 set to: " +
-                     String(settings.getCalibrationPoint(2), 2));
-    } else if (parameter == "P4") {
-      settings.setCalibrationPoint(3, valueStr.toFloat());
-      Serial.println("P4 set to: " +
-                     String(settings.getCalibrationPoint(3), 2));
-    }
 
-    // ***************************************************
-    // COMANDOS DE OPCIONES (Cuerdas/Enum)
-    // ***************************************************
-    else if (parameter == "SCALE") {
-      if (valueStr == "C") {
+    } else if (strcmp(param, "STABLE") == 0) {
+      int v = atoi(value);
+      if (v >= 0) {
+        settings.setStabilityTime(v);
+        logf("Stability Time set to: %d s\n", v);
+      } else {
+        logln("ERROR: STABLE must be >= 0");
+      }
+
+      // -------- CALIB POINTS --------
+    } else if (strcmp(param, "P1") == 0) {
+      settings.setCalibrationPoint(0, atof(value));
+      logf("P1 set to: %.2f\n", settings.getCalibrationPoint(0));
+
+    } else if (strcmp(param, "P2") == 0) {
+      settings.setCalibrationPoint(1, atof(value));
+      logf("P2 set to: %.2f\n", settings.getCalibrationPoint(1));
+
+    } else if (strcmp(param, "P3") == 0) {
+      settings.setCalibrationPoint(2, atof(value));
+      logf("P3 set to: %.2f\n", settings.getCalibrationPoint(2));
+
+    } else if (strcmp(param, "P4") == 0) {
+      settings.setCalibrationPoint(3, atof(value));
+      logf("P4 set to: %.2f\n", settings.getCalibrationPoint(3));
+
+      // -------- ENUMS --------
+    } else if (strcmp(param, "SCALE") == 0) {
+      if (strcmp(value, "C") == 0) {
         settings.setTemperatureScale(TemperatureScale::CELSIUS);
-        Serial.println(F("Scale updated to: Celsius"));
-      } else if (valueStr == "F") {
+        logln("Scale set to Celsius");
+      } else if (strcmp(value, "F") == 0) {
         settings.setTemperatureScale(TemperatureScale::FAHRENHEIT);
-        Serial.println(F("Scale updated to: Fahrenheit"));
+        logln("Scale set to Fahrenheit");
       } else {
-        Serial.println(F("ERROR: Use SET SCALE C or SET SCALE F."));
-      }
-    } else if (parameter == "SENSOR") {
-      SensorType newType = settings.getSensorType();
-
-      if (valueStr == "100") {
-        newType = SensorType::PT100;
-      } else if (valueStr == "1000") {
-        newType = SensorType::PT1000;
-      } else {
-        Serial.println(F("ERROR: Use SET SENSOR 100 or SET SENSOR 1000."));
-        return;
+        logln("ERROR: SET SCALE C | F");
       }
 
-      // Notifica a la clase Sensors para configurar el hardware (manteniendo
-      // los hilos)
-      sensors.configureTestSensor(newType, settings.getSensorWires());
-      Serial.println("Sensor Type updated to: " + valueStr);
-    } else if (parameter == "WIRES") {
-      int intValue = valueStr.toInt();
-      if (intValue >= 2 && intValue <= 4) {
-        // Notifica a la clase Sensors para configurar el hardware
-        sensors.configureTestSensor(settings.getSensorType(), intValue);
-        Serial.println("Sensor Wires updated to: " + String(intValue));
+    } else if (strcmp(param, "SENSOR") == 0) {
+      if (strcmp(value, "100") == 0) {
+        sensors.configureTestSensor(SensorType::PT100,
+                                    settings.getSensorWires());
+        logln("Sensor set to PT100");
+      } else if (strcmp(value, "1000") == 0) {
+        sensors.configureTestSensor(SensorType::PT1000,
+                                    settings.getSensorWires());
+        logln("Sensor set to PT1000");
       } else {
-        Serial.println(F("ERROR: El numero de hilos debe ser 2, 3 o 4."));
+        logln("ERROR: SET SENSOR 100 | 1000");
       }
+
+    } else if (strcmp(param, "WIRES") == 0) {
+      int w = atoi(value);
+      if (w >= 2 && w <= 4) {
+        sensors.configureTestSensor(settings.getSensorType(), w);
+        logf("Sensor wires set to: %d\n", w);
+      } else {
+        logln("ERROR: WIRES must be 2–4");
+      }
+
     } else {
-      Serial.println("Unknown parameter: " + parameter);
+      logf("Unknown SET parameter: %s\n", param);
     }
 
-  } else if (command == "HEAT" || command == "COOL") {
+    return;
+  }
+
+  // =================================================
+  // ================= COMMANDS ======================
+  // =================================================
+  if (strcmp(token, "HEAT") == 0 || strcmp(token, "COOL") == 0) {
     controlState = ControlState::RUNNING;
     pid.reset();
-    Serial.println("PID control started. Target: " +
-                   String(settings.getSetTemperature(), 2));
-  } else if (command == "STOP") {
+    pid.setPreviousPV(masterTemp);
+    logf("PID control started. Target: %.2f\n", settings.getSetTemperature());
+
+  } else if (strcmp(token, "STOP") == 0) {
     controlState = ControlState::STOPPED;
     heater.stop();
     calibration.stop();
-    Serial.println("All processes stopped.");
-  } else if (command == "RUN") {
+    logln("All processes stopped.");
+
+  } else if (strcmp(token, "RUN") == 0) {
     controlState = ControlState::RUNNING;
     pid.reset();
+    pid.setPreviousPV(masterTemp);
     calibration.start();
-    Serial.println("Run processes");
-  } else if (command == "DEFAULT") {
+    logln("Calibration started.");
+
+  } else if (strcmp(token, "DEFAULT") == 0) {
     settings.resetToDefaults();
-    Serial.println("Restored default settings. REMEMBER TO SAVE!");
-  } else if (command == "SAVE") {
+    logln("Defaults restored. Use SAVE.");
+
+  } else if (strcmp(token, "SAVE") == 0) {
     settings.save();
-    Serial.println("Saved current settings.");
-  } else if (command == "HELP") {
-    printHelp();
-  } else if (command == "SHOW") {
+    logln("Settings saved.");
+
+  } else if (strcmp(token, "SHOW") == 0) {
     printSettings();
-  } else if (command == "TEMP") { // ¡NUEVO! Manejar comando TEMP
+
+  } else if (strcmp(token, "TEMP") == 0) {
     printTemperatures();
+
+  } else if (strcmp(token, "HELP") == 0) {
+    printHelp();
+
   } else {
-    Serial.println("Unknown command");
+    logf("Unknown command: %s\n", token);
   }
 }
 
 void printHelp() {
-  Serial.println("Available commands:");
-  Serial.println("  TEMP                - Show current block temperatures and "
-                 "setpoint"); // ¡NUEVO!
-  Serial.println("  SET SETP <value>    - Set target temperature");
-  Serial.println("  SET KP <value>      - Set Kp for PID");
-  Serial.println("  SET TI <value>      - Set Ti for PID (seconds)");
-  Serial.println("  SET TD <value>      - Set Td for PID (seconds)");
-  Serial.println(
-      "  SET PERIOD <value>  - Set PID cycle period (seconds, integer) ");
-  Serial.println(
-      "  SET STABLE <value>  - Set stability time (seconds, integer)");
-  Serial.println("  SET HIGH <value>    - Set high alarm limit");
-  Serial.println("  SET LOW <value>     - Set low alarm limit");
-  Serial.println(
-      "  SET MOFFSET <value> - Set master sensor calibration offset");
-  Serial.println(
-      "  SET TOFFSET <value> - Set under test sensor calibration offset");
-  Serial.println("  SET DANGER <value>  - Set danger temperature limit");
-  Serial.println("  SET SAFE <value>    - Set safe temperature limit");
-  Serial.println("  SET P1 <value>      - Set calibration point 1");
-  Serial.println("  SET P2 <value>      - Set calibration point 2");
-  Serial.println("  SET P3 <value>      - Set calibration point 3");
-  Serial.println("  SET P4 <value>      - Set calibration point 4");
-  Serial.println(
-      "  SET SCALE C|F       - Set temperature scale (Celsius/Fahrenheit)");
-  Serial.println("  SET SENSOR 100|1000 - Set test sensor type (PT100/PT1000)");
-  Serial.println("  SET WIRES 2|3|4     - Set test sensor wiring mode");
-  Serial.println("  --------------------------------------------------");
-  Serial.println("  HEAT                - Start heating (PID control)");
-  Serial.println("  COOL                - Start cooling (PID control)");
-  Serial.println("  STOP                - Stop all processes "
-                 "(heating/cooling/calibration)");
-  Serial.println("  RUN                 - Start calibration cycle");
-  Serial.println(
+  logln("Available commands:");
+  logln("  TEMP                - Show current block temperatures and "
+        "setpoint"); // ¡NUEVO!
+  logln("  SET SETP <value>    - Set target temperature");
+  logln("  SET KP <value>      - Set Kp for PID");
+  logln("  SET TI <value>      - Set Ti for PID (seconds)");
+  logln("  SET TD <value>      - Set Td for PID (seconds)");
+  logln("  SET PERIOD <value>  - Set PID cycle period (seconds, integer) ");
+  logln("  SET STABLE <value>  - Set stability time (seconds, integer)");
+  logln("  SET HIGH <value>    - Set high alarm limit");
+  logln("  SET LOW <value>     - Set low alarm limit");
+  logln("  SET MOFFSET <value> - Set master sensor calibration offset");
+  logln("  SET TOFFSET <value> - Set under test sensor calibration offset");
+  logln("  SET DANGER <value>  - Set danger temperature limit");
+  logln("  SET SAFE <value>    - Set safe temperature limit");
+  logln("  SET P1 <value>      - Set calibration point 1");
+  logln("  SET P2 <value>      - Set calibration point 2");
+  logln("  SET P3 <value>      - Set calibration point 3");
+  logln("  SET P4 <value>      - Set calibration point 4");
+  logln("  SET SCALE C|F       - Set temperature scale (Celsius/Fahrenheit)");
+  logln("  SET SENSOR 100|1000 - Set test sensor type (PT100/PT1000)");
+  logln("  SET WIRES 2|3|4     - Set test sensor wiring mode");
+  logln("  --------------------------------------------------");
+  logln("  HEAT                - Start heating (PID control)");
+  logln("  COOL                - Start cooling (PID control)");
+  logln("  STOP                - Stop all processes "
+        "(heating/cooling/calibration)");
+  logln("  RUN                 - Start calibration cycle");
+  logln(
       "  DEFAULT             - Reset all settings to default (requires SAVE)");
-  Serial.println("  SAVE                - Save current settings to LittleFS");
-  Serial.println(
-      "  SHOW                - Show current settings and temperatures");
-  Serial.println("  HELP                - Show this help message");
+  logln("  SAVE                - Save current settings to LittleFS");
+  logln("  SHOW                - Show current settings and temperatures");
+  logln("  HELP                - Show this help message");
 }
 
 void printTemperatures() {
@@ -947,89 +915,71 @@ void printTemperatures() {
   float testTemp = sensors.readTestTemperature();
 #endif
   float setpoint = settings.getSetTemperature();
-  String status =
+  const char *status =
       (controlState == ControlState::RUNNING) ? "RUNNING" : "STOPPED";
 
   // Usamos el macro F() para ahorrar RAM.
-  Serial.println(F("===================================="));
-  Serial.println(F("          CURRENT STATUS"));
-  Serial.println(F("===================================="));
-  Serial.print(F("  SETPOINT:    "));
-  Serial.println(String(setpoint, 2));
-  Serial.print(F("  MASTER TEMP: "));
-  Serial.println(String(masterTemp, 2));
-  Serial.print(F("  TEST TEMP:   "));
-  Serial.println(String(testTemp, 2));
-  Serial.println(F("------------------------------------"));
-  Serial.println("  STATUS:      " + status);
-  Serial.println(F("===================================="));
+  logln("====================================");
+  logln("          CURRENT STATUS");
+  logln("====================================");
+  log("  SETPOINT:    ");
+  logf("%.2f\n", setpoint);
+  log("  MASTER TEMP: ");
+  logf("%.2f\n", masterTemp);
+  log("  TEST TEMP:   ");
+  logf("%.2f\n", testTemp);
+  logln("------------------------------------");
+  logf("  STATUS:      %s\n", status);
+  logln("====================================");
 }
 
 void printSettings() {
-  // Usamos el macro F() para ahorrar RAM y el constructor String(float,
-  // decimales) para forzar la precisión.
-  Serial.println(F("===================================="));
-  Serial.println(F("       CALIBRATOR SETTINGS"));
-  Serial.println(F("===================================="));
+  logln("====================================");
+  logln("       CALIBRATOR SETTINGS");
+  logln("====================================");
 
   // --- CONTROL & ALARMAS ---
-  Serial.println(F("--- [CONTROL & ALARMAS] ---"));
-  Serial.print(F("  SETPOINT: "));
-  Serial.println(String(settings.getSetTemperature(), 2));
-  Serial.print(F("  Alarm High: "));
-  Serial.println(String(settings.getAlarmUpperLimit(), 2));
-  Serial.print(F("  Alarm Low: "));
-  Serial.println(String(settings.getAlarmLowerLimit(), 2));
-  Serial.print(F("  Danger Temp.: "));
-  Serial.println(String(settings.getDangerTemperature(), 2));
-  Serial.print(F("  Safe Temp.: "));
-  Serial.println(String(settings.getSafeTemperature(), 2));
+  logln("--- [CONTROL & ALARMAS] ---");
+  logf("  SETPOINT: %.2f\n", settings.getSetTemperature());
+  logf("  Alarm High: %.2f\n", settings.getAlarmUpperLimit());
+  logf("  Alarm Low: %.2f\n", settings.getAlarmLowerLimit());
+  logf("  Danger Temp.: %.2f\n", settings.getDangerTemperature());
+  logf("  Safe Temp.: %.2f\n", settings.getSafeTemperature());
 
   // --- PID PARAMETERS ---
-  Serial.println(F("--- [PID PARAMETERS] ---"));
-  Serial.print(F("  KP: "));
-  Serial.println(String(settings.getPidKp(), 2));
-  Serial.print(F("  TI: "));
-  Serial.print(String(settings.getPidTi(), 2));
-  Serial.println(F("s"));
-  Serial.print(F("  TD: "));
-  Serial.print(String(settings.getPidTd(), 2));
-  Serial.println(F("s"));
-  Serial.print(F("  PID Period: "));
-  Serial.print(settings.getPidPeriod());
-  Serial.println(F("s"));
-  Serial.print(F("  Stability Time: "));
-  Serial.print(settings.getStabilityTime());
-  Serial.println(F("s"));
+  logln("--- [PID PARAMETERS] ---");
+  logf("  KP: %.2f\n", settings.getPidKp());
+  logf("  TI: %.2f s\n", settings.getPidTi());
+  logf("  TD: %.2f s\n", settings.getPidTd());
+  logf("  PID Period: %.2f s\n", settings.getPidPeriod());
+  logf("  Stability Time: %.2f s\n", settings.getStabilityTime());
 
   // --- SENSOR CONFIG ---
-  Serial.println(F("--- [SENSOR CONFIGURATION] ---"));
-  String sensorTypeStr =
-      (settings.getSensorType() == SensorType::PT100) ? "PT100" : "PT1000";
-  Serial.println("  Sensor Type: " + sensorTypeStr);
-  Serial.println("  Sensor Wires: " + String(settings.getSensorWires()));
-  String tempScaleStr =
-      (settings.getTemperatureScale() == TemperatureScale::CELSIUS)
-          ? "Celsius"
-          : "Fahrenheit";
-  Serial.println("  Temp. Scale: " + tempScaleStr);
-  Serial.print(F("  Master Cal. Offset: "));
-  Serial.println(String(settings.getMasterOffset(), 2));
-  Serial.print(F("  Test Cal. Offset: "));
-  Serial.println(String(settings.getTestOffset(), 2));
+  logln("--- [SENSOR CONFIGURATION] ---");
+  logf("  Sensor Type: %s\n",
+       settings.getSensorType() == SensorType::PT100 ? "PT100" : "PT1000");
+
+  logf("  Sensor Wires: %d\n", settings.getSensorWires());
+
+  logf("  Temp. Scale: %s\n",
+       settings.getTemperatureScale() == TemperatureScale::CELSIUS
+           ? "Celsius"
+           : "Fahrenheit");
+
+  logf("  Master Cal. Offset: %.2f\n", settings.getMasterOffset());
+  logf("  Test Cal. Offset: %.2f\n", settings.getTestOffset());
+  logf("  Min heater power for heating: %.2f\n", settings.getMinHeatPower());
+  logf("  Min heater power for cooling: %.2f\n", settings.getMinCoolPower());
+  logf("  Calibration tolerance: %.2f\n", settings.getCalibrationTolerance());
 
   // --- CALIBRATION POINTS ---
-  Serial.println(F("--- [CALIBRATION POINTS] ---"));
-  Serial.print(F("  Calib. P1: "));
-  Serial.println(String(settings.getCalibrationPoint(0), 2));
-  Serial.print(F("  Calib. P2: "));
-  Serial.println(String(settings.getCalibrationPoint(1), 2));
-  Serial.print(F("  Calib. P3: "));
-  Serial.println(String(settings.getCalibrationPoint(2), 2));
-  Serial.print(F("  Calib. P4: "));
-  Serial.println(String(settings.getCalibrationPoint(3), 2));
+  logln("--- [CALIBRATION POINTS] ---");
+  logf("  Calib. P1: %.2f\n", settings.getCalibrationPoint(0));
+  logf("  Calib. P2: %.2f\n", settings.getCalibrationPoint(1));
+  logf("  Calib. P3: %.2f\n", settings.getCalibrationPoint(2));
+  logf("  Calib. P4: %.2f\n", settings.getCalibrationPoint(3));
 
-  Serial.println(F("===================================="));
+  logln("====================================");
 }
 
 void renderNavBarUI() {
@@ -1119,4 +1069,30 @@ void renderConfigUI(u_int8_t page) {
              settings.getSafeTemperature());
     safe.setText(bufferDefault);
   }
+}
+
+bool isStableEnoughForCalibration(float temp, float setpoint) {
+  static float sum = 0.0f;
+  static uint32_t samples = 0;
+  static uint32_t timeStable = 0;
+
+  const float TOL = 0.05f;
+  const float AVG_TOL = 0.05f;
+
+  if (fabs(temp - setpoint) < TOL) {
+    timeStable += settings.getPidPeriod();
+    sum += temp;
+    samples++;
+
+    if (timeStable >= settings.getStabilityTime()) {
+      float avg = sum / samples;
+      return fabs(avg - setpoint) <= AVG_TOL;
+    }
+  } else {
+    timeStable = 0;
+    sum = 0.0f;
+    samples = 0;
+  }
+
+  return false;
 }
