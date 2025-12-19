@@ -56,6 +56,8 @@ void Settings::resetToDefaults() {
   safeTemperature = DEFAULT_SAFE_TEMP;
   minHeatPower = DEFAULT_MIN_HEAT_POWER;
   minCoolPower = DEFAULT_MIN_COOL_POWER;
+  maxHeatPower = DEFAULT_MAX_HEAT_POWER;
+  maxCoolPower = DEFAULT_MAX_COOL_POWER;
   calibrationTolerance = DEFAULT_CALIBRATION_TOLERANCE;
 }
 
@@ -108,6 +110,8 @@ void Settings::load() {
   safeTemperature = doc["safe_temp"].as<float>();
   minHeatPower = doc["min_heat_power"].as<float>();
   minCoolPower = doc["min_cool_power"].as<float>();
+  maxHeatPower = doc["max_heat_power"].as<float>();
+  maxCoolPower = doc["max_cool_power"].as<float>();
   calibrationTolerance = doc["calibration_tolerance"].as<float>();
 
   // Manejo del Array de Puntos de Calibración
@@ -153,6 +157,8 @@ void Settings::save() {
   doc["safe_temp"] = safeTemperature;
   doc["min_heat_power"] = minHeatPower;
   doc["min_cool_power"] = minCoolPower;
+  doc["max_heat_power"] = maxHeatPower;
+  doc["max_cool_power"] = maxCoolPower;
   doc["calibration_tolerance"] = calibrationTolerance;
 
   // Creación del Array de Puntos de Calibración
@@ -248,15 +254,25 @@ float Settings::getSafeTemperature() const { return safeTemperature; }
 
 void Settings::setSafeTemperature(float temp) { safeTemperature = temp; }
 
-float Settings::getMinHeatPower() const { return minHeatPower; }
-void Settings::setMinHeatPower(float power) {
-  minHeatPower = constrain(power, 0.0f, 100.0f);
-}
+// float Settings::getMinHeatPower() const { return minHeatPower; }
+// void Settings::setMinHeatPower(float power) {
+//   minHeatPower = constrain(power, 0.0f, 100.0f);
+// }
 
-float Settings::getMinCoolPower() const { return minCoolPower; }
-void Settings::setMinCoolPower(float power) {
-  minCoolPower = constrain(power, 0.0f, 100.0f);
-}
+// float Settings::getMinCoolPower() const { return minCoolPower; }
+// void Settings::setMinCoolPower(float power) {
+//   minCoolPower = constrain(power, 0.0f, 100.0f);
+// }
+
+// float Settings::getMaxHeatPower() const { return maxHeatPower; }
+// void Settings::setMaxHeatPower(float power) {
+//   maxHeatPower = constrain(power, 0.0f, 100.0f);
+// }
+
+// float Settings::getMaxCoolPower() const { return maxCoolPower; }
+// void Settings::setMaxCoolPower(float power) {
+//   maxCoolPower = constrain(power, 0.0f, 100.0f);
+// }
 
 float Settings::getCalibrationTolerance() const { return calibrationTolerance; }
 void Settings::setCalibrationTolerance(float tol) {

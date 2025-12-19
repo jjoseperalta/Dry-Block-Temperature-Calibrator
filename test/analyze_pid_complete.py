@@ -2,6 +2,7 @@ import re
 import sys
 from statistics import mean, stdev
 from datetime import datetime
+import numpy as np
 
 # ============================================================
 # CONFIGURACIÓN GENERAL
@@ -10,7 +11,7 @@ RISE_TOL = 0.5            # ±0.5 °C
 SETPOINT_TOL = 0.1        # ±0.1 °C
 SETTLING_TOL = 0.1        # ±0.1 °C
 SETTLING_TIME_SEC = 10    # settling "clásico"
-SOLID_STABILITY_SEC = 120  # estabilidad metrológica
+SOLID_STABILITY_SEC = 60  # estabilidad metrológica
 
 # ============================================================
 # ARCHIVO DE LOG
@@ -25,7 +26,7 @@ else:
 # REGEX
 # ============================================================
 pid_line = re.compile(
-    r"(\d{2}:\d{2}:\d{2}:\d{3})\s*->\s*Output:\s*(-?\d+\.?\d*)\s*\|\s*Temp:\s*(-?\d+\.?\d*)\s*\|\s*Setpoint:\s*(-?\d+\.?\d*)"
+    r"(\d{2}:\d{2}:\d{2}:\d{3})\s*->\s*State:\s*(\w+)\s*\|\s*Error:\s*(-?\d+\.?\d*)\s*\|\s*Output:\s*(-?\d+\.?\d*)\s*\|\s*Temp:\s*(-?\d+\.?\d*)\s*\|\s*Setpoint:\s*(-?\d+\.?\d*)"
 )
 heat_line = re.compile(r"Heater set to\s*(\d+\.?\d*)%")
 cool_line = re.compile(r"Cooling set to\s*(\d+\.?\d*)%")
@@ -49,9 +50,11 @@ with open(LOG_FILE, "r", encoding="utf-8") as f:
         m = pid_line.search(line)
         if m:
             timestamps.append(datetime.strptime(m.group(1), "%H:%M:%S:%f"))
-            outputs.append(float(m.group(2)))
-            temps.append(float(m.group(3)))
-            setpoints.append(float(m.group(4)))
+            # state = m.group(2)
+            # error = float(m.group(3))
+            outputs.append(float(m.group(4)))
+            temps.append(float(m.group(5)))
+            setpoints.append(float(m.group(6)))
 
         m = heat_line.search(line)
         if m:
@@ -160,6 +163,41 @@ for i in range(1, len(temps)):
 
 initial_temp = temps[0]
 delta_t = SP - initial_temp
+
+# ============================================================
+# OTROS DATOS
+# ============================================================
+temps_array = np.array(temps)
+setpoints_array = np.array(setpoints)
+outputs_array = np.array(outputs)
+
+def count_state_changes(mask):
+    """Cuenta cuántas veces se entra/sale de un estado"""
+    if len(mask) == 0:
+        return 0
+    
+    changes = 0
+    in_state = mask[0]
+    
+    for i in range(1, len(mask)):
+        if mask[i] != in_state:
+            if mask[i]:  # Entrando al estado
+                changes += 1
+            in_state = mask[i]
+    
+    return changes
+
+# Detectar overshoot (temp > setpoint + umbral)
+overshoot_mask = temps_array > (setpoints_array)
+overshoot_indices = np.where(overshoot_mask)[0]
+    
+# Detectar undershoot (temp < setpoint - umbral)
+undershoot_mask = temps_array < (setpoints_array)
+undershoot_indices = np.where(undershoot_mask)[0]
+    
+# Contar eventos (cambios de estado)
+overshoot_events = count_state_changes(overshoot_mask)
+undershoot_events = count_state_changes(undershoot_mask)
 # ============================================================
 # REPORTE
 # ============================================================
@@ -182,6 +220,15 @@ print(f"  Settling Time (±{SETTLING_TOL} °C, {SETTLING_TIME_SEC}s): {settling_
 print(f"\n📉 Amortiguación")
 print(f"  Overshoot: {overshoot:.3f} °C @ {max_temp_time:.1f} s ({format_hms(max_temp_time)})")
 print(f"  Undershoot: {undershoot:.3f} °C @ {min_temp_time:.1f} s ({format_hms(min_temp_time)})")
+ # Calcular overshoot máximo
+if len(overshoot_indices) > 0:
+    max_overshoot = np.max(temps_array[overshoot_mask] - setpoints_array[overshoot_mask])
+    print(f"   • Overshoot máximo: {max_overshoot:.3f}°C")
+    
+# Calcular undershoot máximo
+if len(undershoot_indices) > 0:
+    max_undershoot = np.max(setpoints_array[undershoot_mask] - temps_array[undershoot_mask])
+    print(f"   • Undershoot máximo: {max_undershoot:.3f}°C")
 
 print(f"\n🟢 Estabilidad")
 print(f"  % muestras dentro ±{SETTLING_TOL} °C: {stability_ratio:.1f} %")

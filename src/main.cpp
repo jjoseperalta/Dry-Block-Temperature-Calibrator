@@ -39,9 +39,9 @@ HMIController hmi;
 
 enum class ThermalState { RAMPING, APPROACHING, HOLDING };
 static ThermalState thermalState = ThermalState::RAMPING;
-
-enum class ControlState { STOPPED, RUNNING };
-static ControlState controlState = ControlState::STOPPED;
+const char *stateNames[] = {"RAMPING", "APPROACHING", "HOLDING"};
+enum class ControlState { STOPPED, RUNNING, IDLE };
+static ControlState controlState = ControlState::IDLE;
 
 unsigned long lastPidTime = 0;
 bool targetReachedNotified = false;
@@ -314,9 +314,7 @@ void callbackConfig(NextionEventType type, INextionTouchable *widget) {
 }
 
 void handleCalibrationUpdate(int index) {
-  log("MAIN: Callback recibido. El punto ");
-  log(index);
-  logln(" fue registrado. Actualizando HMI.");
+  logf("MAIN: Callback recibido. El punto %i fue registrado.", index);
 
   const CalibrationData &pointData = calibration.getCalibrationData(index);
 
@@ -330,14 +328,71 @@ void handleCalibrationUpdate(int index) {
   log("DIFF: ");
   logf("%.3f\n", pointData.difference);
 
-  snprintf(buffer, buffer_size, "%.1f", pointData.setpoint);
-  temp_p1.setText(buffer);
-  snprintf(buffer, buffer_size, "%.2f", pointData.masterTemp);
-  up_temp_master_p1.setText(buffer);
-  snprintf(buffer, buffer_size, "%.2f", pointData.testTemp);
-  up_temp_test_p1.setText(buffer);
-  snprintf(buffer, buffer_size, "%.3f", pointData.difference);
-  up_diff_p1.setText(buffer);
+  if (index == 0) {
+    snprintf(buffer, buffer_size, "%.1f", pointData.setpoint);
+    temp_p1.setText(buffer);
+    snprintf(buffer, buffer_size, "%.2f", pointData.masterTemp);
+    up_temp_master_p1.setText(buffer);
+    snprintf(buffer, buffer_size, "%.2f", pointData.testTemp);
+    up_temp_test_p1.setText(buffer);
+    snprintf(buffer, buffer_size, "%.3f", pointData.difference);
+    up_diff_p1.setText(buffer);
+  } else if (index == 1) {
+    snprintf(buffer, buffer_size, "%.1f", pointData.setpoint);
+    temp_p2.setText(buffer);
+    snprintf(buffer, buffer_size, "%.2f", pointData.masterTemp);
+    up_temp_master_p2.setText(buffer);
+    snprintf(buffer, buffer_size, "%.2f", pointData.testTemp);
+    up_temp_test_p2.setText(buffer);
+    snprintf(buffer, buffer_size, "%.3f", pointData.difference);
+    up_diff_p2.setText(buffer);
+  } else if (index == 2) {
+    snprintf(buffer, buffer_size, "%.1f", pointData.setpoint);
+    temp_p3.setText(buffer);
+    snprintf(buffer, buffer_size, "%.2f", pointData.masterTemp);
+    up_temp_master_p3.setText(buffer);
+    snprintf(buffer, buffer_size, "%.2f", pointData.testTemp);
+    up_temp_test_p3.setText(buffer);
+    snprintf(buffer, buffer_size, "%.3f", pointData.difference);
+    up_diff_p3.setText(buffer);
+  } else if (index == 3) {
+    snprintf(buffer, buffer_size, "%.1f", pointData.setpoint);
+    temp_p4.setText(buffer);
+    snprintf(buffer, buffer_size, "%.2f", pointData.masterTemp);
+    up_temp_master_p4.setText(buffer);
+    snprintf(buffer, buffer_size, "%.2f", pointData.testTemp);
+    up_temp_test_p4.setText(buffer);
+    snprintf(buffer, buffer_size, "%.3f", pointData.difference);
+    up_diff_p4.setText(buffer);
+  } else if (index == 4) {
+    snprintf(buffer, buffer_size, "%.1f", pointData.setpoint);
+    down_temp_master_p4.setText(buffer);
+    snprintf(buffer, buffer_size, "%.2f", pointData.testTemp);
+    down_temp_test_p4.setText(buffer);
+    snprintf(buffer, buffer_size, "%.3f", pointData.difference);
+    down_diff_p4.setText(buffer);
+  } else if (index == 5) {
+    snprintf(buffer, buffer_size, "%.1f", pointData.setpoint);
+    down_temp_master_p3.setText(buffer);
+    snprintf(buffer, buffer_size, "%.2f", pointData.testTemp);
+    down_temp_test_p3.setText(buffer);
+    snprintf(buffer, buffer_size, "%.3f", pointData.difference);
+    down_diff_p3.setText(buffer);
+  } else if (index == 6) {
+    snprintf(buffer, buffer_size, "%.1f", pointData.setpoint);
+    down_temp_master_p2.setText(buffer);
+    snprintf(buffer, buffer_size, "%.2f", pointData.testTemp);
+    down_temp_test_p2.setText(buffer);
+    snprintf(buffer, buffer_size, "%.3f", pointData.difference);
+    down_diff_p2.setText(buffer);
+  } else if (index == 7) {
+    snprintf(buffer, buffer_size, "%.1f", pointData.setpoint);
+    down_temp_master_p1.setText(buffer);
+    snprintf(buffer, buffer_size, "%.2f", pointData.testTemp);
+    down_temp_test_p1.setText(buffer);
+    snprintf(buffer, buffer_size, "%.3f", pointData.difference);
+    down_diff_p1.setText(buffer);
+  }
 }
 
 void setup() {
@@ -444,127 +499,161 @@ void setup() {
 
 void loop() {}
 
+// static float thermalBias = -0.8f;
 // Tarea 1: Control y Sensores (Core 1)
 void taskControlCore(void *parameter) {
-  // Variable para manejar la cadencia PID exacta de FreeRTOS
+  // Variables de control de estado y tiempo
   static uint32_t stableTime = 0;
-
   static float stableSum = 0.0f;
   static uint32_t stableSamples = 0;
+  static bool wasHolding = false;
+  static float lastTempForHold = NAN;
+  static float tempDeltaForHold = 0.0f;
+
+  // VARIABLE CLAVE: Para detectar cambios de estado
+  static ControlState lastState = ControlState::STOPPED;
 
   TickType_t xLastWakeTime = xTaskGetTickCount();
 
   while (true) {
-    // 1. Cálculo de Frecuencia
+    // 1. Cálculo de Frecuencia (Sincronizado con settings)
     TickType_t xPidFrequency = pdMS_TO_TICKS(settings.getPidPeriod() * 1000UL);
+    if (xPidFrequency == 0)
+      xPidFrequency = pdMS_TO_TICKS(100UL);
 
-    // Aseguramos que el PID no se congele si hay un valor de 0
-    if (xPidFrequency == 0) {
-      xPidFrequency = pdMS_TO_TICKS(100UL); // Default a 100ms si es 0
-    }
-
-    // 2. Obtener Lectura de Sensor (CRÍTICA y con EMA)
-    // Usamos alpha = 0.1f para un suavizado moderado.
+    // 2. Obtener Lectura de Sensor
     float currentMasterTemp = sensors.getFilteredMasterTemperature(0.1f);
 
-    // 3. Comunicación Inter-Core: Escritura de masterTemp (CRÍTICA)
-    // Protegemos la escritura de la variable compartida 'masterTemp'.
-    // Usar '0' o un tiempo muy corto de espera (ej. 10) es lo correcto aquí.
+    // 3. Comunicación Inter-Core: Escritura de masterTemp (Protegida)
     if (xSemaphoreTake(masterTempMutex, (TickType_t)10) == pdTRUE) {
       masterTemp = currentMasterTemp;
       xSemaphoreGive(masterTempMutex);
     }
 
+    // --- Lógica de Estados Térmicos ---
     float setpoint = settings.getSetTemperature();
-
     float error = setpoint - currentMasterTemp;
 
-    if (fabs(error) > 0.5f) {
+    // --- Lógica de Estados Térmicos (mejorada) ---
+    if (fabs(error) > 1.0f) {
       thermalState = ThermalState::RAMPING;
-    } else if (fabs(error) > 0.08f) {
+    } else if (fabs(error) > 0.3f) {
       thermalState = ThermalState::APPROACHING;
     } else {
       thermalState = ThermalState::HOLDING;
     }
 
-    // 4. Ejecución del PID (Si está corriendo)
-
-    // *************************************************************
-    // FIX CRÍTICO: Proteger la lectura de la variable compartida 'controlState'
-    // *************************************************************
+    // 4. Obtener Estado de Control (Mutex)
     ControlState currentState;
     if (xSemaphoreTake(controlStateMutex, (TickType_t)10) == pdTRUE) {
       currentState = controlState;
       xSemaphoreGive(controlStateMutex);
     } else {
-      // Si falla la toma del mutex, asumimos que el estado es inestable o
-      // detenido
       currentState = ControlState::STOPPED;
-      stableTime = 0;
-      targetReachedNotified = false;
     }
 
+    // *************************************************************
+    // GESTIÓN DE TRANSICIONES (Ejecutar solo una vez al cambiar)
+    // *************************************************************
+    if (currentState != lastState) {
+      if (currentState == ControlState::STOPPED) {
+        heater.stop(); // Se llama SOLO al entrar en STOPPED
+        // --- RESETS DE SEGURIDAD AL DETENER ---
+        stableTime = 0;
+        stableSum = 0.0f;
+        stableSamples = 0;
+        targetReachedNotified = false;
+        logln("System STOPPED: Heater off.");
+      }
+      lastState = currentState; // Actualizar el estado previo
+    }
+
+    // 5. Ejecución del PID o Mantenimiento
     if (currentState == ControlState::RUNNING) {
-      float dt =
-          xPidFrequency /
-          (float)configTICK_RATE_HZ; // Tiempo exacto del ciclo en segundos
+      float dt = xPidFrequency / (float)configTICK_RATE_HZ;
+
+      float output = pid.calculate(setpoint, currentMasterTemp, dt);
+
+      logf("State: %s | Error: %.2f | Output: %.2f | Temp: %.2f | Setpoint: "
+           "%.2f\n",
+           stateNames[(int)thermalState], error, output, currentMasterTemp,
+           setpoint);
 
       switch (thermalState) {
       case ThermalState::RAMPING:
-      case ThermalState::APPROACHING: {
-        float output = pid.calculate(setpoint, currentMasterTemp, dt);
-
-        logf("Output: %.2f | Temp: %.2f | Setpoint: %.2f\n", output,
-             currentMasterTemp, setpoint);
-        heater.setPower(output, pid.isInFineZone());
+        wasHolding = false;
+        heater.setPower(output, false);
         break;
-      }
-
+      case ThermalState::APPROACHING:
+        wasHolding = false;
+        heater.setPower(output, true);
+        break;
       case ThermalState::HOLDING:
-        pid.reset(); // 🔥 CLAVE: sacar PID del lazo
-        heater.hold(currentMasterTemp, setpoint);
+        // Seguridad: si vuelve la dinámica → salir de HOLD
+        if (fabs(error) > 0.25f) {
+          wasHolding = false;
+          // heater.setPower(output, true);
+        } else {
+          if (!wasHolding) {
+            pid.reset();
+            wasHolding = true;
+          }
+          // logf("Entering HOLD mode at Temp: %.2f\n", currentMasterTemp);
+          heater.hold(currentMasterTemp, setpoint);
+        }
         break;
       }
 
-      // 6. Lógica de Target Reached (ALARMA/CALIBRACIÓN)
-      if (isStableEnoughForCalibration(currentMasterTemp, setpoint)) {
+      // Lógica de Estabilidad (Alarma Reached)
+      float tolerance =
+          settings.getCalibrationTolerance(); // El 0.1f que mencionas
 
-        if (!targetReachedNotified) {
-          buzzer.beep(BeepType::TARGET_REACHED);
-          targetReachedNotified = true;
-          logln("Thermal stability reached");
-          if (calibration.isRunning()) {
-            // calibration.targetReached();
-            calibration.notifyStable();
+      // if (fabs(currentMasterTemp - setpoint) <= tolerance) {
+      if (error >= 0.0f && error <= -0.2f) {
+        stableSamples++;
+        stableSum += currentMasterTemp;
+
+        // Sumamos el tiempo de este ciclo
+        stableTime += settings.getPidPeriod();
+        // logf("<- Stable for %.2f s (Samples: %d)\n", stableTime / 1000.0f,
+        //      stableSamples);
+
+        if (stableTime >= settings.getStabilityTime()) {
+          float avg = stableSum / (float)stableSamples;
+          // logf("Temp: %.1f stable for %.1f s. Avg: %.3f\n",
+          // currentMasterTemp,
+          //      stableTime, avg);
+          // Verificamos si el PROMEDIO también está dentro de la tolerancia
+          if (fabs(avg - setpoint) <= tolerance) {
+            if (!targetReachedNotified) {
+              buzzer.beep(BeepType::TARGET_REACHED);
+              targetReachedNotified = true;
+              logln("Thermal stability reached (within tolerance).");
+              if (calibration.isRunning())
+                calibration.notifyStable();
+            }
           }
         }
       } else {
+        // RESET TOTAL: Si un solo punto se sale de la tolerancia, el cronómetro
+        // vuelve a cero
         stableTime = 0;
         stableSum = 0.0f;
         stableSamples = 0;
         targetReachedNotified = false;
       }
     }
-    // Lógica de STOP y Alarmas (Fuera del RUNNING para que se verifique
-    // siempre) La lógica de STOP aquí es redundante si se protege la lectura de
-    // controlState, pero la mantendremos si la clase 'heater' necesita un
-    // 'stop()' periódico.
-    if (currentState == ControlState::STOPPED) {
-      heater.stop();
-    }
 
-    // 7. Alarmas
+    // 6. Alarmas Críticas (Siempre activas)
     if (currentMasterTemp > settings.getAlarmUpperLimit() ||
         currentMasterTemp < settings.getAlarmLowerLimit()) {
       buzzer.beep(BeepType::ALARM);
     }
 
-    // 8. Loop de Calibración
-    calibration.loop();
+    // 7. Loop de Calibración
+    // calibration.loop();
 
-    // *************************************************************
-    // FIX CRÍTICO: La función de espera de FreeRTOS debe estar aquí
-    // *************************************************************
+    // Sincronización de tarea
     vTaskDelayUntil(&xLastWakeTime, xPidFrequency);
   }
 }
@@ -631,11 +720,11 @@ void taskInterfaceCore(void *parameter) {
       // Actualizar Widget temp_1 (Temperatura actual con unidad)
       // snprintf es el método correcto para formateo seguro en
       // microcontroladores
-      snprintf(buffer, buffer_size, "%.1f \xB0%s", tempToDisplay, unit);
+      snprintf(buffer, buffer_size, "%.2f \xB0%s", tempToDisplay, unit);
       temp_1.setText(buffer);
 
       // Actualizar Widget temp_2 (Temperatura actual / Setpoint)
-      snprintf(buffer, buffer_size, "%.1f/%.1f", tempToDisplay,
+      snprintf(buffer, buffer_size, "%.2f/%.2f", tempToDisplay,
                settings.getSetTemperature());
       temp_2.setText(buffer);
     }
@@ -968,8 +1057,6 @@ void printSettings() {
 
   logf("  Master Cal. Offset: %.2f\n", settings.getMasterOffset());
   logf("  Test Cal. Offset: %.2f\n", settings.getTestOffset());
-  logf("  Min heater power for heating: %.2f\n", settings.getMinHeatPower());
-  logf("  Min heater power for cooling: %.2f\n", settings.getMinCoolPower());
   logf("  Calibration tolerance: %.2f\n", settings.getCalibrationTolerance());
 
   // --- CALIBRATION POINTS ---
@@ -1069,30 +1156,4 @@ void renderConfigUI(u_int8_t page) {
              settings.getSafeTemperature());
     safe.setText(bufferDefault);
   }
-}
-
-bool isStableEnoughForCalibration(float temp, float setpoint) {
-  static float sum = 0.0f;
-  static uint32_t samples = 0;
-  static uint32_t timeStable = 0;
-
-  const float TOL = 0.05f;
-  const float AVG_TOL = 0.05f;
-
-  if (fabs(temp - setpoint) < TOL) {
-    timeStable += settings.getPidPeriod();
-    sum += temp;
-    samples++;
-
-    if (timeStable >= settings.getStabilityTime()) {
-      float avg = sum / samples;
-      return fabs(avg - setpoint) <= AVG_TOL;
-    }
-  } else {
-    timeStable = 0;
-    sum = 0.0f;
-    samples = 0;
-  }
-
-  return false;
 }

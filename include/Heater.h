@@ -31,9 +31,9 @@ public:
 private:
     const int heatPwmChannel = 0;
     const int coolPwmChannel = 1;
-    // ¡Ajuste de Frecuencia Crítico! 1Hz es muy bajo. Usaremos 2kHz.
     const int pwmFrequency = 500; 
-    const int pwmResolution = 8;
+    const int pwmResolution = 10;
+    MicroPWMConfig microFine;
 };
 
 #endif // HEATER_H

@@ -78,6 +78,12 @@ public:
   float getMinCoolPower() const;
   void setMinCoolPower(float power);
 
+  float getMaxHeatPower() const;
+  void setMaxHeatPower(float power);
+
+  float getMaxCoolPower() const;
+  void setMaxCoolPower(float power);
+
   float getCalibrationTolerance() const;
   void setCalibrationTolerance(float tol);
 
@@ -100,6 +106,11 @@ public:
   static float getDefaultAlarmLowerLimit() { return DEFAULT_ALARM_LOWER; }
   static float getDefaultDangerTemperature() { return DEFAULT_DANGER_TEMP; }
   static float getDefaultSafeTemperature() { return DEFAULT_SAFE_TEMP; }
+  static float getDefaultMinHeatPower() { return DEFAULT_MIN_HEAT_POWER; }
+  static float getDefaultMinCoolPower() { return DEFAULT_MIN_COOL_POWER; }
+  static float getDefaultMaxHeatPower() { return DEFAULT_MAX_HEAT_POWER; }
+  static float getDefaultMaxCoolPower() { return DEFAULT_MAX_COOL_POWER; }
+  static float getDefaultCalibrationTolerance() { return DEFAULT_CALIBRATION_TOLERANCE; }
 
 private:
   // *** Eliminamos 'Preferences preferences' ***
@@ -116,13 +127,15 @@ private:
   float stabilityTime;
   float alarmUpperLimit;
   float alarmLowerLimit;
-  float calibrationPoints[4]; // Array para 4 puntos de calibración
+  float calibrationPoints[4];
   float masterOffset;
   float testOffset;
   float dangerTemperature;
   float safeTemperature;
-  float minHeatPower;  // %
-  float minCoolPower; // %
+  float minHeatPower;
+  float minCoolPower;
+  float maxHeatPower;
+  float maxCoolPower;
   float calibrationTolerance;
 
   // Constantes de valores por defecto (ayudan en load() y resetToDefaults())
@@ -145,9 +158,11 @@ private:
   static constexpr float DEFAULT_ALARM_LOWER = 10;
   static constexpr float DEFAULT_DANGER_TEMP = 40;
   static constexpr float DEFAULT_SAFE_TEMP = 35;
-  static constexpr float DEFAULT_MIN_HEAT_POWER = 6.5;
+  static constexpr float DEFAULT_MIN_HEAT_POWER = 6.2;
   static constexpr float DEFAULT_MIN_COOL_POWER = 10;
-  static constexpr float DEFAULT_CALIBRATION_TOLERANCE = 0.25;
+  static constexpr float DEFAULT_MAX_HEAT_POWER = 90;
+  static constexpr float DEFAULT_MAX_COOL_POWER = 90;
+  static constexpr float DEFAULT_CALIBRATION_TOLERANCE = 0.1;
 };
 
 #endif // SETTINGS_H

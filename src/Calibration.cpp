@@ -132,6 +132,7 @@ const CalibrationData &Calibration::getCalibrationData(int index) const {
 void Calibration::notifyStable() {
   if (!running)
     return;
+  // tryRegisterPoint();
 
   stableCounter++;
 

@@ -37,7 +37,7 @@ private:
     bool running;
     uint16_t currentPoint;
     uint16_t stableCounter;
-    const uint16_t requiredStableSamples = 5;
+    const uint16_t requiredStableSamples = 0;
     CalibrationData data[8];
 
     void nextPoint();

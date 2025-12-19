@@ -2,17 +2,11 @@
 #include "Logger.h"
 #include <Arduino.h>
 
-static MicroPWMConfig microFine = {
-    .minPower = 6.2f, // ajustable 6.0–7.0 %
-    .periodMs = 8000, // 5 segundos
-    .onTimeMs = 400   // 10 % duty térmico
-};
-
-/**
- * @brief Inicializa los pines y los canales PWM del ESP32.
- */
 void Heater::begin() {
-  // 1. Configuración de Canales PWM
+  microFine.minPower = 6.1f;
+  microFine.periodMs = 4000;
+  microFine.onTimeMs = 400;
+
   ledcSetup(heatPwmChannel, pwmFrequency,
             pwmResolution); // Canal 0 para Calentar (Pin 14)
   ledcAttachPin(PWM_HEATER_PIN, heatPwmChannel);
@@ -21,28 +15,24 @@ void Heater::begin() {
             pwmResolution); // Canal 1 para Enfriar (Pin 27)
   ledcAttachPin(PWM_COOLING_PIN, coolPwmChannel);
 
-  // 2. Configuración de Pines de Habilitación (ENABLE)
   pinMode(EN_HEATER_PIN, OUTPUT);
   pinMode(EN_COOLING_PIN, OUTPUT);
 
-  // **CRÍTICO:** Habilitar ambos lados del driver (R_EN y L_EN)
-  // El driver está ahora "listo" para aceptar comandos PWM.
-  digitalWrite(EN_HEATER_PIN, LOW);
-  digitalWrite(EN_COOLING_PIN, LOW);
-
-  // 3. Detener ambos al inicio (PWM en 0)
   stop();
   logln("Heater/Cooler initialized with PWM Dual (5kHz).");
-  // logln("R_EN (Pin 22) and L_EN (Pin 21) set to HIGH.");
 }
 
 void Heater::setPower(float dutyCycle, bool fineZone) {
   dutyCycle = constrain(dutyCycle, -100.0f, 100.0f);
 
+  // Extraer magnitud y signo
+  float magnitude = fabs(dutyCycle);
+  float sign = (dutyCycle >= 0) ? 1.0f : -1.0f;
+
   // --------------------------------------------------
-  // Micro-PWM térmico metrológico (zona fina)
+  // Micro-PWM térmico metrológico (zona fina simétrica)
   // --------------------------------------------------
-  if (fineZone && dutyCycle > 0.0f && dutyCycle < microFine.minPower) {
+  if (fineZone && magnitude > 0.0f && magnitude < microFine.minPower) {
 
     static uint32_t t0 = 0;
     uint32_t now = millis();
@@ -52,30 +42,30 @@ void Heater::setPower(float dutyCycle, bool fineZone) {
 
     uint32_t phase = (now - t0) % microFine.periodMs;
 
+    // Calculamos qué potencia usar:
+    // Si el PID pide más que el mínimo, usamos lo que pide el PID como "Pico".
+    // Si pide menos, usamos el minPower para asegurar que la resistencia
+    // caliente.
+    float peakPower =
+        (magnitude > microFine.minPower) ? magnitude : microFine.minPower;
+
     if (phase < microFine.onTimeMs) {
-      dutyCycle = microFine.minPower;
+      dutyCycle = peakPower * sign;
     } else {
       dutyCycle = 0.0f;
     }
+  } else {
+    // Si salimos de la zona fina, podrías resetear t0 para el próximo ciclo
+    // t0 = 0;
   }
 
   // --------------------------------------------------
-  // Mínimo efectivo físico (después del dither)
-  // --------------------------------------------------
-  dutyCycle = applyMinimumEffectivePower(dutyCycle, fineZone);
-
-  // --------------------------------------------------
-  // Actuación final
+  // Actuación final (Despacho de potencia)
   // --------------------------------------------------
   if (dutyCycle > 0.0f) {
-    setCool(0);
     setHeat(dutyCycle);
-
   } else if (dutyCycle < 0.0f) {
-    float coolPower = min(-dutyCycle, 80.0f);
-    setHeat(0);
-    setCool(coolPower);
-
+    setCool(fabs(dutyCycle));
   } else {
     stop();
   }
@@ -98,33 +88,20 @@ float Heater::applyMinimumEffectivePower(float dutyCycle, bool fineZone) {
 }
 
 void Heater::setHeat(float dutyCycle) {
-  // 1. Capado de seguridad (0% - 100%)
-  if (dutyCycle < 0.0f)
-    dutyCycle = 0.0f;
-  if (dutyCycle > 100.0f)
-    dutyCycle = 100.0f;
+  dutyCycle = constrain(dutyCycle, 0.0f, 100.0f);
 
-  uint32_t maxDuty = (1 << pwmResolution) - 1; // 255 (Asumiendo 8 bits)
-
-  // **NOTA DE LA CORRECCIÓN:** Se elimina la variable MIN_DUTY_THRESHOLD
-  // y la lógica de umbral condicional para lograr un control lineal.
+  uint32_t maxDuty = (1 << pwmResolution) - 1;
 
   uint32_t duty = 0;
 
   if (dutyCycle > 0.0f) {
-    // 1. Calcular el valor lineal (0 - 255)
     float linear_duty = (dutyCycle / 100.0f) * (float)maxDuty;
-
-    // 2. Asignar el Duty directamente (Control Lineal)
     duty = (uint32_t)linear_duty;
   }
 
   if (duty > maxDuty)
     duty = maxDuty; // Cap final (solo por seguridad)
 
-  // La mutua exclusión y llamadas a ledcWrite son correctas.
-  // Asumimos que EN_HEATER_PIN y EN_COOLING_PIN son pines de habilitación
-  // general.
   digitalWrite(EN_HEATER_PIN, HIGH);
   digitalWrite(EN_COOLING_PIN, HIGH);
 
@@ -139,33 +116,20 @@ void Heater::setHeat(float dutyCycle) {
 }
 
 void Heater::setCool(float dutyCycle) {
-  // 1. Capado de seguridad (0% - 100%)
-  if (dutyCycle < 0.0f)
-    dutyCycle = 0.0f;
-  if (dutyCycle > 100.0f)
-    dutyCycle = 100.0f;
+  dutyCycle = constrain(dutyCycle, 0.0f, 100.0f);
 
-  // 2. Definición de constantes
-  uint32_t maxDuty = (1 << pwmResolution) - 1; // 255 (Asumiendo 8 bits)
-
-  // **NOTA DE LA CORRECCIÓN:** Se elimina la variable MIN_DUTY_THRESHOLD
-  // y la lógica de umbral condicional para lograr un control lineal.
+  uint32_t maxDuty = (1 << pwmResolution) - 1;
 
   uint32_t duty = 0;
 
   if (dutyCycle > 0.0f) {
-
-    // 3. Calcular el valor lineal (0 - 255)
     float linear_duty = (dutyCycle / 100.0f) * (float)maxDuty;
-
-    // 4. Asignar el Duty directamente (Control Lineal)
     duty = (uint32_t)linear_duty;
   }
 
   if (duty > maxDuty)
-    duty = maxDuty; // Cap de seguridad (Duty 255)
+    duty = maxDuty;
 
-  // 5. Mutua Exclusión y Aplicación
   digitalWrite(EN_HEATER_PIN, HIGH);
   digitalWrite(EN_COOLING_PIN, HIGH);
 
@@ -179,37 +143,101 @@ void Heater::setCool(float dutyCycle) {
   ledcWrite(coolPwmChannel, duty);
 }
 
-/**
- * @brief Detiene completamente los elementos de calentamiento y enfriamiento.
- */
 void Heater::stop() {
-  // Solo necesitamos poner ambos PWM en 0 (L_EN y R_EN siguen en HIGH)
   ledcWrite(heatPwmChannel, 0);
   ledcWrite(coolPwmChannel, 0);
 
-  // **OPCIONAL PERO RECOMENDADO:** Deshabilitar el driver completamente para
-  // mayor seguridad. Si el driver tiene un modo de "Inhibit", es mejor usarlo.
-  // Si no, poner los EN en LOW.
   digitalWrite(EN_HEATER_PIN, LOW);
   digitalWrite(EN_COOLING_PIN, LOW);
 
-  // logln("Heater/Cooler stopped.");
+  logln("Heater/Cooler stopped.");
 }
 
+// void Heater::hold(float temp, float setpoint) {
+//   static float lastTemp = temp;
+//   static uint32_t lastPulseTime = 0;
+
+//   uint32_t now = millis();
+//   float dt = (now - lastPulseTime) / 1000.0f;
+//   if (dt <= 0)
+//     dt = 0.1f;
+
+//   float dTdt = (temp - lastTemp) / dt;
+//   lastTemp = temp;
+
+//   // --- Parámetros de HOLD ---
+//   // const float DEAD = 0.3f;                  // ya estás dentro
+//   const float COOL_RATE_TH = -0.005f;       // °C/s
+//   const uint32_t MIN_PULSE_INTERVAL = 2000; // ms
+//   const float HOLD_PWM = 3.0f;              // % muy suave
+
+//   // 1️⃣ Nunca actuar si aún sube
+//   if (dTdt >= 0.0f) {
+//     // logln("Hold: Temp rising or stable. No action taken.");
+//     setPower(0.0f, true); // sin energía
+//     return;
+//   }
+
+//   // 2️⃣ Si se enfría naturalmente
+//   if (dTdt < COOL_RATE_TH) {
+//     // 3️⃣ Respetar intervalo entre pulsos
+//     if (now - lastPulseTime > MIN_PULSE_INTERVAL) {
+//       logf("Hold: Temp dropping (%.4f °C/s). Applying pulse.\n", dTdt);
+//       setHeat(HOLD_PWM);
+//       delay(200); // pulso corto
+//       setPower(0.0f, true);
+//       lastPulseTime = now;
+//     }
+//   }
+// }
+
 void Heater::hold(float temp, float setpoint) {
-  static float holdPWM = 8.0f; // valor inicial seguro
+  static float lastTemp = temp;
+  static uint32_t lastPulseTime = 0;
+  static uint32_t lastSampleTime = 0;
 
-  const float STEP = 0.15f;    // ajuste fino
-  const float DEAD = 0.02f;    // banda muerta térmica
+  uint32_t now = millis();
+  float dt = (now - lastSampleTime) / 1000.0f;
 
-  if (temp < setpoint - DEAD) {
-    holdPWM += STEP;
+  // Protección contra llamadas demasiado frecuentes (evita dt = 0)
+  if (dt < 0.1f)
+    return;
+
+  float dTdt = (temp - lastTemp) / dt;
+
+  // --- PARÁMETROS CRÍTICOS ---
+  const float HOLD_PWM = 5.0f;
+  // 1. Bajamos el umbral: el sensor baja de 0.01 en 0.01.
+  // Con -0.005 capturamos cualquier bajada real.
+  const float COOL_RATE_TH = -0.005f;
+
+  // --- LÓGICA DE ACTIVACIÓN ---
+
+  // 1️⃣ REGLA DE ORO: Si estamos por encima del setpoint, NUNCA calentar.
+  // El modo HOLD es para evitar que caiga, no para alimentar un overshoot.
+  if (temp > setpoint) {
+    this->stop(); // Asegurar apagado
+    lastTemp = temp;
+    lastSampleTime = now;
+    return;
   }
-  else if (temp > setpoint + DEAD) {
-    holdPWM -= STEP;
+
+  // 2️⃣ Solo actuar si estamos en la "zona de peligro" (bajo el setpoint)
+  // pero no tan abajo como para que el PID deba tomar el control total.
+  else if (temp <= (setpoint + 0.0f) && temp >= (setpoint - 0.5f)) {
+    if (dTdt < COOL_RATE_TH) {
+      if (now - lastPulseTime >= 1000) {
+        this->setHeat(HOLD_PWM);
+        lastPulseTime = now;
+        logf("!!! HOLD PULSE !!! Preventivo. Temp: %.2f\n", temp);
+      }
+    }
+  } else {
+    // Fuera de rango: dejamos que el PID actúe normalmente
+    this->stop(); // Asegurar apagado
   }
 
-  holdPWM = constrain(holdPWM, 0.0f, 15.0f);
-
-  setHeat(holdPWM);
+  // Actualizamos para la siguiente iteración
+  lastTemp = temp;
+  lastSampleTime = now;
 }

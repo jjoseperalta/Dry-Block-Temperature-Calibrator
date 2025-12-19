@@ -12,7 +12,6 @@ struct PIDGains {
 class PIDController {
 public:
     PIDController(Settings& settings);
-    // dt: elapsed time in seconds since last calculation
     float calculate(float setpoint, float process_variable, float dt);
     void reset();
     void setPreviousPV(float pv) { previous_pv = pv; }
@@ -24,11 +23,7 @@ private:
     float integral = 0.0f;
     float previous_pv = 0.0f;
     bool inFineZone = false;
-    bool lastHeating = true;
-
-
-    // static constexpr float MIN_HEAT = 6.0f;   // %
-    // static constexpr float MIN_COOL = 10.0f;  // %
+    float lastError = 0.0f;
     
     PIDGains computeGains(float error, bool fineZone);
 };
