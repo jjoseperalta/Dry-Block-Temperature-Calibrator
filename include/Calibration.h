@@ -25,7 +25,7 @@ public:
     // const CalibrationData& getCalibrationData() const;
     const CalibrationData& getCalibrationData(int index) const;
     void setRegisterCallback(CalibrationRegisteredCallback callback);
-    void notifyStable();
+    void notifyStable(float masterTemp, float testTemp);
 
     unsigned long stabilityStartTime;
 
@@ -41,7 +41,7 @@ private:
     CalibrationData data[8];
 
     void nextPoint();
-    void registerPoint();
+    void registerPoint(float masterTemp, float testTemp);
     void tryRegisterPoint();
 
     CalibrationRegisteredCallback onPointRegistered = nullptr;

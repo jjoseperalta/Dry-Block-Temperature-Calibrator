@@ -2,6 +2,9 @@ import re
 import sys
 from statistics import mean, stdev
 from datetime import datetime
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 
 # ============================================================
 # CONFIGURACIÓN GENERAL
@@ -60,6 +63,54 @@ if not temps:
     print("❌ No se encontraron datos válidos")
     sys.exit(1)
 
+# Extraer segundos con decimales
+start = timestamps[0]
+seconds = [(ts - start).total_seconds() for ts in timestamps]
+
+elapsed_seconds = np.array(seconds).astype(int)
+outputs = np.array(outputs)
+temps = np.array(temps)
+
+# print("len elapsed_seconds:", len(elapsed_seconds))
+# print("len outputs:", len(outputs))
+# print("len temps:", len(temps))
+
+np.set_printoptions(threshold=np.inf)
+np.set_printoptions(precision=2, suppress=True)
+# print(outputs)
+# print(np.array2string(elapsed_seconds, separator=", "))
+# print(np.array2string(outputs, separator=", "))
+# print(np.array2string(temps, separator=", "))
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5))
+
+# Gráfica 1: Temperatura 25°C
+ax1.plot(elapsed_seconds, temps, 'b-', linewidth=2, label='Temperatura')
+ax1.axhline(y=setpoints[0], color='r', linestyle='--', linewidth=1.5, label=f'Setpoint {setpoints[0]}°C')
+ax1.fill_between(elapsed_seconds, setpoints[0] - 0.1, setpoints[0] + 0.1, alpha=0.1, color='green')
+ax1.set_title(f'Setpoint {setpoints[0]}°C - Respuesta de Temperatura')
+ax1.set_xlabel('Tiempo (s)')
+ax1.set_ylabel('Temperatura (°C)')
+ax1.grid(True, alpha=0.3)
+ax1.legend()
+ax1.set_ylim(np.min(temps) - 0.1, np.max(temps) + 0.1)
+# ax1.xaxis.set_major_locator(ticker.MultipleLocator(2))
+# ax1.yaxis.set_major_locator(ticker.MultipleLocator(0.25))
+
+# Gráfica 2: Salida 25°C
+ax2.plot(elapsed_seconds, outputs, 'g-', linewidth=2)
+ax2.fill_between(elapsed_seconds, 0, outputs, alpha=0.3, color='green')
+ax2.set_title(f'Setpoint {setpoints[0]}°C - Salida del Controlador')
+ax2.set_xlabel('Tiempo (s)')
+ax2.set_ylabel('Potencia (%)')
+ax2.grid(True, alpha=0.3)
+ax2.set_ylim(np.min(outputs) - 0.1, np.max(outputs) + 0.1)
+# ax2.yaxis.set_major_locator(ticker.MultipleLocator(2.5))
+
+plt.tight_layout()
+plt.show()
+
+sys.exit()
 # ============================================================
 # TIEMPO RELATIVO
 # ============================================================

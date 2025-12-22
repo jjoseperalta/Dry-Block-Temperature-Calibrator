@@ -37,6 +37,7 @@ bool Sensors::checkAndLogFault(Adafruit_MAX31865 &sensor,
     if (fault & MAX31865_FAULT_OVUV)
       log("Over/Under Voltage");
     logln("");
+    sensor.clearFault();
     return true; // Hay un fallo
   }
   return false; // No hay fallo

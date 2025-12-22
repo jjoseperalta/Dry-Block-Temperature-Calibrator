@@ -14,7 +14,7 @@ void Calibration::start() {
   logln("Starting calibration process...");
   running = true;
   currentPoint = 0;
-  stabilityStartTime = 0;
+  // stabilityStartTime = 0;
   stableCounter = 0;
   nextPoint();
 }
@@ -27,7 +27,7 @@ void Calibration::stop() {
 
   running = false;
   currentPoint = 0;
-  stabilityStartTime = 0;
+  // stabilityStartTime = 0;
   stableCounter = 0;
 
   logln("Calibration stopped.");
@@ -83,9 +83,7 @@ void Calibration::nextPoint() {
   logf("Moving to calibration point %d: %.2f C\n", currentPoint + 1, setpoint);
 }
 
-void Calibration::registerPoint() {
-  float masterTemp = sensors.readMasterTemperature();
-  float testTemp = sensors.readTestTemperature();
+void Calibration::registerPoint(float masterTemp, float testTemp) {
   float diff = 0.0;
   if (masterTemp != 0) {
     diff = ((testTemp - masterTemp) / masterTemp) * 100.0;
@@ -103,7 +101,7 @@ void Calibration::registerPoint() {
        masterTemp, testTemp, diff);
 
   currentPoint++;
-  stabilityStartTime = 0;
+  // stabilityStartTime = 0;
 
   // int newPointIndex = 0;
   if (onPointRegistered) {
@@ -129,7 +127,7 @@ const CalibrationData &Calibration::getCalibrationData(int index) const {
   return data[0];
 }
 
-void Calibration::notifyStable() {
+void Calibration::notifyStable(float masterTemp, float testTemp) {
   if (!running)
     return;
   // tryRegisterPoint();
@@ -137,24 +135,25 @@ void Calibration::notifyStable() {
   stableCounter++;
 
   if (stableCounter >= requiredStableSamples) {
-    tryRegisterPoint();
+    registerPoint(masterTemp, testTemp);
+    nextPoint();
     stableCounter = 0;
   }
 }
 
-void Calibration::tryRegisterPoint() {
+// void Calibration::tryRegisterPoint() {
 
-  float tol = settings.getCalibrationTolerance();
-  float masterTemp = sensors.readMasterTemperature();
-  float testTemp = sensors.readTestTemperature();
+//   float tol = settings.getCalibrationTolerance();
+//   float masterTemp = sensors.readMasterTemperature();
+//   float testTemp = sensors.readTestTemperature();
 
-  // Protección SOLO lógica (no física)
-  if (fabs(masterTemp - testTemp) > tol) {
-    logf("Calibration rejected: |%.3f - %.3f| > %.3f\n", masterTemp, testTemp,
-         tol);
-    return;
-  }
+//   // Protección SOLO lógica (no física)
+//   if (fabs(masterTemp - testTemp) > tol) {
+//     logf("Calibration rejected: |%.3f - %.3f| > %.3f\n", masterTemp, testTemp,
+//          tol);
+//     return;
+//   }
 
-  registerPoint();
-  nextPoint();
-}
+//   registerPoint();
+//   nextPoint();
+// }
