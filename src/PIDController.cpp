@@ -23,180 +23,69 @@ PIDGains PIDController::computeGains(float error, bool fineZone) {
 
   PIDGains g;
 
-  // if (heating) {
-  //   g.kp = kp * (fineZone ? 0.5f : 1.5f);
-  //   g.ti = ti * (fineZone ? 2.0f : 0.7f);
-  //   g.td = td * 0.6f;
-  // } else {
-  //   g.kp = kp * (fineZone ? 0.6f : 1.2f);
-  //   g.ti = ti * (fineZone ? 2.5f : 0.8f);
-  //   g.td = td * (fineZone ? 1.2f : 0.8f);
-  // }
   if (heating) {
     // CALENTAR: Agresivo para llegar, predictivo para frenar
-    g.kp = kp * (fineZone ? 0.8f : 1.5f);
-    g.ti = ti * (fineZone ? 0.6f : 0.7f); // Ti más pequeña = Integral más rápida
-    g.td = td * (fineZone ? 0.3f : 0.0f); // Td solo en zona fina para frenar inercia
+    g.kp = kp * (fineZone ? 1.0f : 1.0f);//0.8f : 1.5f OK - pero 1.0f : 1.2f más suave
+    g.ti = ti * (fineZone ? 0.5f : 1.0f);//0.3f : 0.7f OK - pero 0.5f : 1.0f más suave
+    g.td = td * (fineZone ? 1.0f : 1.0f);//1.5f : 0.0f OK - pero 1.0f : 1.0f más suave
   } else {
     // ENFRIAR: Suave en potencia, pero muy alto en frenado (D)
     g.kp = kp * (fineZone ? 0.4f : 1.2f);
     g.ti = ti * (fineZone ? 1.5f : 0.8f);
-    g.td = td * (fineZone ? 2.0f : 1.0f); // D muy alta para no pasarse enfriando
+    g.td = td * (fineZone ? 2.0f : 1.0f);
   }
 
   return g;
 }
 
-// float PIDController::calculate(float setpoint, float process_variable,
-//                                float dt) {
-//   if (dt <= 0.0f)
-//     dt = 0.001f;
-
-//   float error = setpoint - process_variable;
-//   float absError = fabsf(error);
-
-//   // Inicialización para el primer ciclo de ejecución
-//   static bool firstRun = true;
-//   if (firstRun) {
-//     lastError = error;
-//     previous_pv = process_variable;
-//     firstRun = false;
-//   }
-
-//   const float ZONE_ENTER_FINE = 0.15f;
-//   const float ZONE_EXIT_FINE = 0.60f;
-
-//   if (inFineZone) {
-//     if (absError > ZONE_EXIT_FINE)
-//       inFineZone = false;
-//   } else {
-//     if (absError < ZONE_ENTER_FINE)
-//       inFineZone = true;
-//   }
-
-//   if (!inFineZone && ((lastError > 0.0f && error <= 0.0f) ||
-//                       (lastError < 0.0f && error >= 0.0f))) {
-//     integral *= 0.3f;
-//   }
-//   lastError = error;
-
-//   float integralLimit = inFineZone ? 8.0f : 10.0f;
-//   integral = constrain(integral, -integralLimit, integralLimit);
-
-//   // Selección de ganancias
-//   PIDGains g = computeGains(error, inFineZone);
-
-//   // --- 1. Término Proporcional (P) ---
-//   float p_out = g.kp * error;
-
-//   // --- 2. Término Derivativo (D) ---
-//   float derivative = (process_variable - previous_pv) / dt;
-//   float d_out =
-//       -g.kp * g.td * derivative; // Signo negativo para frenar el
-//       calentamiento
-
-//   // --- 3. Término Integral (I) con Anti-Windup Clamping ---
-//   float i_out = 0.0f;
-//   if (g.ti > 1e-6f) {
-//     float kp_over_ti = g.kp / g.ti;
-
-//     float tentative_output_full = p_out + d_out + (kp_over_ti * integral);
-
-//     bool output_clamped = false;
-//     if (tentative_output_full > 100.0f && error > 0.0f) {
-//       output_clamped = true;
-//     } else if (tentative_output_full < -100.0f && error < 0.0f) {
-//       output_clamped = true;
-//     }
-
-//     if (!output_clamped) {
-//       if (!inFineZone) {
-//         integral += error * dt;
-//       }
-//     }
-
-//     i_out = kp_over_ti * integral;
-//   }
-
-//   // 1) Calcular output PID
-//   float output = p_out + i_out + d_out;
-
-//   if (inFineZone) {
-//     // Si falta calor (error > 0) pero el PID intenta enfriar (output < 0)
-//     cerca
-//     // del setpoint
-//     if (error > 0.0f && output < 0.0f && process_variable > setpoint - 0.2f)
-//     {
-//       output = 0.0f;
-//     }
-//     // Si falta frío (error < 0) pero el PID intenta calentar (output > 0)
-//     cerca
-//     // del setpoint
-//     else if (error < 0.0f && output > 0.0f &&
-//              process_variable < setpoint + 0.2f) {
-//       output = 0.0f;
-//     }
-//   }
-
-//   // Limitador de enfriamiento agresivo cerca del setpoint
-//   if (output < 0.0f && fabs(error) < 1.0f) {
-//     output = max(output, -30.0f);
-//   }
-
-//   previous_pv = process_variable;
-
-//   return constrain(output, -100.0f, 100.0f);
-// }
-
 float PIDController::calculate(float setpoint, float process_variable,
                                float dt) {
   if (dt <= 0.0f)
-    dt = 0.001f;
+    dt = 0.01f; // Un dt mínimo más realista que 0.001
 
-  // --- Error ---
   float error = setpoint - process_variable;
 
-  // --- Inicialización segura ---
-  static bool firstRun = true;
-  if (firstRun) {
-    previous_pv = process_variable;
-    integral = 0.0f;
-    firstRun = false;
-  }
+  // ACTUALIZAR ESTO: Detectar si estamos a menos de 1 grado
+  // Reducir el radio de la zona fina para que empuje fuerte hasta el final
+  inFineZone = (fabs(error) < 1.0f); // Antes era 1.0f
 
-  // --- Ganancias base (SIN zonas) ---
-  PIDGains g = computeGains(error, false); // false = sin zona fina
+  // --- 1. GANANCIAS ADAPTATIVAS ---
+  // IMPORTANTE: Aquí es donde podemos decirle que si estamos en HOLD, use
+  // ganancias más suaves
+  PIDGains g = computeGains(error, inFineZone);
 
-  // --- Proporcional ---
+  // --- 2. PROPORCIONAL ---
   float p_out = g.kp * error;
 
-  // --- Derivada sobre la medición ---
+  // --- 3. DERIVADA (Filtrada o protegida) ---
   float derivative = (process_variable - previous_pv) / dt;
+
+  // Limitemos la derivada para evitar ruidos de fase (el famoso -100.00)
+  derivative = constrain(derivative, -0.5f, 0.5f);
+
   float d_out = -g.kp * g.td * derivative;
 
-  // --- Integral con anti-windup por clamping ---
+  // --- 4. INTEGRAL (La clave de la estabilidad) ---
   if (g.ti > 1e-6f) {
-    float ki = g.kp / g.ti;
-    integral += error * dt;
+    // Solo acumulamos integral si el error no es gigantesco (evita overshoot
+    // inicial)
+    if (fabs(error) < 3.0f) { //fabs(error) < 2.0f OK - pero 3.0f más suave
+      integral += error * dt;
+    }
 
-    // Límite duro de integral (simple y estable)
-    integral = constrain(integral, -10.0f, 10.0f);
-
-    // Aplicar integral
-    // (se suma abajo)
+    // Tu límite de 10.0f está bien, pero recuerda que es "integral acumulada"
+    integral = constrain(integral, -20.0f, 60.0f); //-20.0f, 75.0f OK - pero 60.0f más suave
   } else {
     integral = 0.0f;
   }
 
   float i_out = (g.ti > 1e-6f) ? (g.kp / g.ti) * integral : 0.0f;
 
-  // --- Salida PID ---
+  // --- 5. SALIDA FINAL ---
   float output = p_out + i_out + d_out;
-
-  // --- Clamp final ---
   output = constrain(output, -100.0f, 100.0f);
 
-  // --- Actualizar estado ---
+  // --- 6. ACTUALIZAR ESTADO ---
   previous_pv = process_variable;
 
   return output;

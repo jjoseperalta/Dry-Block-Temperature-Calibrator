@@ -215,26 +215,16 @@ void callbackAdvancedTest(NextionEventType type, INextionTouchable *widget) {
   if (type == NEX_EVENT_POP) {
     u_int8_t indexBtn = widget->getComponentID();
     // logf("Button ID: %d\n", indexBtn);
-
     if (indexBtn == run.getComponentID()) {
-
       controlState = ControlState::RUNNING;
-
       pid.reset();
-
       pid.setPreviousPV(masterTemp);
-
       calibration.start();
-
       logln("Calibration started.");
-
     } else if (indexBtn == stop_2.getComponentID()) {
       controlState = ControlState::STOPPED;
-
       heater.stop();
-
       calibration.stop();
-
       logln("All processes stopped.");
     }
   }
@@ -499,7 +489,6 @@ void setup() {
 
 void loop() {}
 
-// static float thermalBias = -0.8f;
 // Tarea 1: Control y Sensores (Core 1)
 void taskControlCore(void *parameter) {
   // Variables de control de estado y tiempo
@@ -509,22 +498,22 @@ void taskControlCore(void *parameter) {
   static bool wasHolding = false;
   static float lastTempForHold = NAN;
   static float tempDeltaForHold = 0.0f;
-
-  // VARIABLE CLAVE: Para detectar cambios de estado
   static ControlState lastState = ControlState::STOPPED;
-
   TickType_t xLastWakeTime = xTaskGetTickCount();
 
   while (true) {
-    // 1. Cálculo de Frecuencia (Sincronizado con settings)
+    Serial.flush();
+
+    // Cálculo de Frecuencia (Sincronizado con settings)
     TickType_t xPidFrequency = pdMS_TO_TICKS(settings.getPidPeriod() * 1000UL);
     if (xPidFrequency == 0)
       xPidFrequency = pdMS_TO_TICKS(100UL);
 
-    // 2. Obtener Lectura de Sensor
+    // Obtener Lectura de Sensor
     float currentMasterTemp = sensors.getFilteredMasterTemperature(0.1f);
+    float currentTestTemp = sensors.getFilteredTestTemperature(0.1f);
 
-    // 3. Comunicación Inter-Core: Escritura de masterTemp (Protegida)
+    // Comunicación Inter-Core: Escritura de masterTemp (Protegida)
     if (xSemaphoreTake(masterTempMutex, (TickType_t)10) == pdTRUE) {
       masterTemp = currentMasterTemp;
       xSemaphoreGive(masterTempMutex);
@@ -534,16 +523,23 @@ void taskControlCore(void *parameter) {
     float setpoint = settings.getSetTemperature();
     float error = setpoint - currentMasterTemp;
 
-    // --- Lógica de Estados Térmicos (mejorada) ---
-    if (fabs(error) > 1.0f) {
-      thermalState = ThermalState::RAMPING;
-    } else if (fabs(error) > 0.3f) {
-      thermalState = ThermalState::APPROACHING;
-    } else {
-      thermalState = ThermalState::HOLDING;
+    // Implementa una pequeña histéresis para evitar el "titubeo" de estados
+    if (thermalState == ThermalState::RAMPING) {
+      if (error < 0.8f)
+        thermalState =
+            ThermalState::APPROACHING; // No cambia hasta bajar de 0.8
+    } else if (thermalState == ThermalState::APPROACHING) {
+      if (error > 1.2f)
+        thermalState =
+            ThermalState::RAMPING; // No vuelve a RAMPING hasta subir de 1.2
+      if (error < 0.10f)
+        thermalState = ThermalState::HOLDING;
+    } else if (thermalState == ThermalState::HOLDING) {
+      if (error > 0.5f)
+        thermalState = ThermalState::APPROACHING;
     }
 
-    // 4. Obtener Estado de Control (Mutex)
+    // Obtener Estado de Control (Mutex)
     ControlState currentState;
     if (xSemaphoreTake(controlStateMutex, (TickType_t)10) == pdTRUE) {
       currentState = controlState;
@@ -552,27 +548,32 @@ void taskControlCore(void *parameter) {
       currentState = ControlState::STOPPED;
     }
 
-    // *************************************************************
-    // GESTIÓN DE TRANSICIONES (Ejecutar solo una vez al cambiar)
-    // *************************************************************
     if (currentState != lastState) {
       if (currentState == ControlState::STOPPED) {
         heater.stop(); // Se llama SOLO al entrar en STOPPED
-        // --- RESETS DE SEGURIDAD AL DETENER ---
         stableTime = 0;
         stableSum = 0.0f;
         stableSamples = 0;
         targetReachedNotified = false;
         logln("System STOPPED: Heater off.");
       }
-      lastState = currentState; // Actualizar el estado previo
+      lastState = currentState;
     }
 
-    // 5. Ejecución del PID o Mantenimiento
+    // Ejecución del PID o Mantenimiento
     if (currentState == ControlState::RUNNING) {
       float dt = xPidFrequency / (float)configTICK_RATE_HZ;
+      if (dt <= 0)
+        dt = 1.0f;
+
+      static float lastTemp = currentMasterTemp;
+      float dTdt = (currentMasterTemp - lastTemp) / dt;
+      lastTemp = currentMasterTemp;
 
       float output = pid.calculate(setpoint, currentMasterTemp, dt);
+
+      static float frenoExtra = 0.0f;
+      static uint32_t ultimoPulsoFreno = 0;
 
       logf("State: %s | Error: %.2f | Output: %.2f | Temp: %.2f | Setpoint: "
            "%.2f\n",
@@ -581,48 +582,44 @@ void taskControlCore(void *parameter) {
 
       switch (thermalState) {
       case ThermalState::RAMPING:
-        wasHolding = false;
         heater.setPower(output, false);
         break;
       case ThermalState::APPROACHING:
-        wasHolding = false;
-        heater.setPower(output, true);
-        break;
       case ThermalState::HOLDING:
-        // Seguridad: si vuelve la dinámica → salir de HOLD
-        if (fabs(error) > 0.25f) {
-          wasHolding = false;
-          // heater.setPower(output, true);
-        } else {
-          if (!wasHolding) {
-            pid.reset();
-            wasHolding = true;
-          }
-          // logf("Entering HOLD mode at Temp: %.2f\n", currentMasterTemp);
-          heater.hold(currentMasterTemp, setpoint);
+        if (millis() - ultimoPulsoFreno > 3000) {
+          frenoExtra = 0.0f;
         }
+
+        if (dTdt < -0.005f && currentMasterTemp < (setpoint + 0.15f)) {
+          if (millis() - ultimoPulsoFreno > 3000) {
+            frenoExtra = fabs(dTdt) * 35.0f + 2.0f;
+            ultimoPulsoFreno = millis();
+            logf("!!! FRENO INTELIGENTE !!! Potencia: +%.1f%%\n", frenoExtra);
+          }
+        }
+        float potenciaFinal = output + frenoExtra;
+
+        if (potenciaFinal < 0 && currentMasterTemp < (setpoint + 0.05f)) {
+          potenciaFinal = 0.0f;
+        }
+        heater.setPower(potenciaFinal, true);
         break;
       }
 
       // Lógica de Estabilidad (Alarma Reached)
       float tolerance =
-          settings.getCalibrationTolerance(); // El 0.1f que mencionas
+          settings.getCalibrationTolerance();
 
-      // if (fabs(currentMasterTemp - setpoint) <= tolerance) {
-      if (error >= 0.0f && error <= -0.2f) {
+      if (currentMasterTemp >= (setpoint - 0.01f) &&
+          currentMasterTemp <= (setpoint + 0.1f)) {
         stableSamples++;
         stableSum += currentMasterTemp;
 
         // Sumamos el tiempo de este ciclo
         stableTime += settings.getPidPeriod();
-        // logf("<- Stable for %.2f s (Samples: %d)\n", stableTime / 1000.0f,
-        //      stableSamples);
 
         if (stableTime >= settings.getStabilityTime()) {
           float avg = stableSum / (float)stableSamples;
-          // logf("Temp: %.1f stable for %.1f s. Avg: %.3f\n",
-          // currentMasterTemp,
-          //      stableTime, avg);
           // Verificamos si el PROMEDIO también está dentro de la tolerancia
           if (fabs(avg - setpoint) <= tolerance) {
             if (!targetReachedNotified) {
@@ -630,13 +627,11 @@ void taskControlCore(void *parameter) {
               targetReachedNotified = true;
               logln("Thermal stability reached (within tolerance).");
               if (calibration.isRunning())
-                calibration.notifyStable();
+                calibration.notifyStable(currentMasterTemp, currentTestTemp);
             }
           }
         }
       } else {
-        // RESET TOTAL: Si un solo punto se sale de la tolerancia, el cronómetro
-        // vuelve a cero
         stableTime = 0;
         stableSum = 0.0f;
         stableSamples = 0;
@@ -644,14 +639,11 @@ void taskControlCore(void *parameter) {
       }
     }
 
-    // 6. Alarmas Críticas (Siempre activas)
+    // Alarmas Críticas (Siempre activas)
     if (currentMasterTemp > settings.getAlarmUpperLimit() ||
         currentMasterTemp < settings.getAlarmLowerLimit()) {
       buzzer.beep(BeepType::ALARM);
     }
-
-    // 7. Loop de Calibración
-    // calibration.loop();
 
     // Sincronización de tarea
     vTaskDelayUntil(&xLastWakeTime, xPidFrequency);

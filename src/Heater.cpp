@@ -3,8 +3,8 @@
 #include <Arduino.h>
 
 void Heater::begin() {
-  microFine.minPower = 6.1f;
-  microFine.periodMs = 4000;
+  microFine.minPower = 15.0f; // 6.1f para 25Grados
+  microFine.periodMs = 3000;  // 4000 para 25Grados
   microFine.onTimeMs = 400;
 
   ledcSetup(heatPwmChannel, pwmFrequency,
@@ -24,44 +24,44 @@ void Heater::begin() {
 
 void Heater::setPower(float dutyCycle, bool fineZone) {
   dutyCycle = constrain(dutyCycle, -100.0f, 100.0f);
-
-  // Extraer magnitud y signo
   float magnitude = fabs(dutyCycle);
   float sign = (dutyCycle >= 0) ? 1.0f : -1.0f;
 
-  // --------------------------------------------------
-  // Micro-PWM térmico metrológico (zona fina simétrica)
-  // --------------------------------------------------
-  if (fineZone && magnitude > 0.0f && magnitude < microFine.minPower) {
-
+  if (fineZone && magnitude > 0.0f) {
     static uint32_t t0 = 0;
     uint32_t now = millis();
-
     if (t0 == 0)
       t0 = now;
 
     uint32_t phase = (now - t0) % microFine.periodMs;
 
-    // Calculamos qué potencia usar:
-    // Si el PID pide más que el mínimo, usamos lo que pide el PID como "Pico".
-    // Si pide menos, usamos el minPower para asegurar que la resistencia
-    // caliente.
-    float peakPower =
-        (magnitude > microFine.minPower) ? magnitude : microFine.minPower;
+    // --- CÁLCULO DINÁMICO MEJORADO ---
+    uint32_t dynamicOnTime = (magnitude / 100.0f) * microFine.periodMs;
 
-    if (phase < microFine.onTimeMs) {
-      dutyCycle = peakPower * sign;
+    // Reducimos el mínimo de 600ms a 400ms para permitir ajustes más finos
+    if (magnitude > 0.01f)
+      if (dynamicOnTime < 250)
+        dynamicOnTime = 250;
+
+    if (dynamicOnTime > microFine.periodMs)
+      dynamicOnTime = microFine.periodMs;
+
+    if (phase < dynamicOnTime) {
+      // En lugar de un valor fijo (7 o 12), usamos una base mínima
+      // y le sumamos un poquito de la magnitud que pide el PID.
+      // Si el PID pide mucho (setpoint alto), la potencia base sube.
+      float powerLevel = 7.0f + (magnitude * 0.3f);
+
+      // Limitemos el powerLevel para que no se vuelva loco
+      if (powerLevel > 15.0f)
+        powerLevel = 15.0f;
+      dutyCycle = powerLevel * sign;
     } else {
       dutyCycle = 0.0f;
     }
-  } else {
-    // Si salimos de la zona fina, podrías resetear t0 para el próximo ciclo
-    // t0 = 0;
   }
 
-  // --------------------------------------------------
-  // Actuación final (Despacho de potencia)
-  // --------------------------------------------------
+  // Despacho de potencia
   if (dutyCycle > 0.0f) {
     setHeat(dutyCycle);
   } else if (dutyCycle < 0.0f) {
@@ -150,94 +150,67 @@ void Heater::stop() {
   digitalWrite(EN_HEATER_PIN, LOW);
   digitalWrite(EN_COOLING_PIN, LOW);
 
-  logln("Heater/Cooler stopped.");
+  // logln("Heater/Cooler stopped.");
 }
-
-// void Heater::hold(float temp, float setpoint) {
-//   static float lastTemp = temp;
-//   static uint32_t lastPulseTime = 0;
-
-//   uint32_t now = millis();
-//   float dt = (now - lastPulseTime) / 1000.0f;
-//   if (dt <= 0)
-//     dt = 0.1f;
-
-//   float dTdt = (temp - lastTemp) / dt;
-//   lastTemp = temp;
-
-//   // --- Parámetros de HOLD ---
-//   // const float DEAD = 0.3f;                  // ya estás dentro
-//   const float COOL_RATE_TH = -0.005f;       // °C/s
-//   const uint32_t MIN_PULSE_INTERVAL = 2000; // ms
-//   const float HOLD_PWM = 3.0f;              // % muy suave
-
-//   // 1️⃣ Nunca actuar si aún sube
-//   if (dTdt >= 0.0f) {
-//     // logln("Hold: Temp rising or stable. No action taken.");
-//     setPower(0.0f, true); // sin energía
-//     return;
-//   }
-
-//   // 2️⃣ Si se enfría naturalmente
-//   if (dTdt < COOL_RATE_TH) {
-//     // 3️⃣ Respetar intervalo entre pulsos
-//     if (now - lastPulseTime > MIN_PULSE_INTERVAL) {
-//       logf("Hold: Temp dropping (%.4f °C/s). Applying pulse.\n", dTdt);
-//       setHeat(HOLD_PWM);
-//       delay(200); // pulso corto
-//       setPower(0.0f, true);
-//       lastPulseTime = now;
-//     }
-//   }
-// }
 
 void Heater::hold(float temp, float setpoint) {
   static float lastTemp = temp;
+  static float peakTemp = 0; // Para memorizar el valor del overshoot
   static uint32_t lastPulseTime = 0;
   static uint32_t lastSampleTime = 0;
 
   uint32_t now = millis();
   float dt = (now - lastSampleTime) / 1000.0f;
-
-  // Protección contra llamadas demasiado frecuentes (evita dt = 0)
   if (dt < 0.1f)
     return;
 
   float dTdt = (temp - lastTemp) / dt;
 
-  // --- PARÁMETROS CRÍTICOS ---
-  const float HOLD_PWM = 5.0f;
-  // 1. Bajamos el umbral: el sensor baja de 0.01 en 0.01.
-  // Con -0.005 capturamos cualquier bajada real.
-  const float COOL_RATE_TH = -0.005f;
+  // 1️⃣ DETECTAR EL PICO (OVERSHOOT)
+  // Si veníamos subiendo y ahora empezamos a bajar, registramos el pico
+  if (temp > setpoint && dTdt < 0 && temp > peakTemp) {
+    peakTemp = temp;
+  }
 
-  // --- LÓGICA DE ACTIVACIÓN ---
-
-  // 1️⃣ REGLA DE ORO: Si estamos por encima del setpoint, NUNCA calentar.
-  // El modo HOLD es para evitar que caiga, no para alimentar un overshoot.
-  if (temp > setpoint) {
-    this->stop(); // Asegurar apagado
+  // 2️⃣ REGLA DE SEGURIDAD
+  if (temp > (setpoint + 0.5f)) { // Demasiado arriba, no hacer nada
+    this->stop();
     lastTemp = temp;
     lastSampleTime = now;
     return;
   }
 
-  // 2️⃣ Solo actuar si estamos en la "zona de peligro" (bajo el setpoint)
-  // pero no tan abajo como para que el PID deba tomar el control total.
-  else if (temp <= (setpoint + 0.0f) && temp >= (setpoint - 0.5f)) {
-    if (dTdt < COOL_RATE_TH) {
-      if (now - lastPulseTime >= 1000) {
-        this->setHeat(HOLD_PWM);
-        lastPulseTime = now;
-        logf("!!! HOLD PULSE !!! Preventivo. Temp: %.2f\n", temp);
-      }
+  // 3️⃣ EVALUACIÓN DESDE EL DESCENSO
+  // Si ya estamos bajando desde el pico hacia el setpoint
+  if (temp > setpoint && dTdt < -0.001f) {
+
+    // Calculamos qué tan cerca estamos del "suelo" (setpoint)
+    // Entre más cerca del setpoint, más "nervioso" debe ponerse el freno
+    float distanceToFloor = temp - setpoint;
+
+    if (now - lastPulseTime >= 1500) { // Pulsos espaciados para no recalentar
+
+      // Potencia proporcional a la velocidad de caída y cercanía al suelo
+      // A menor distancia, mayor necesidad de frenar
+      float brakeForce = fabs(dTdt) * 20.0f;
+      float proximityBonus =
+          (0.2f / (distanceToFloor + 0.05f)); // Sube al acercarse a SP
+
+      float dynamicHold = 4.0f + brakeForce + proximityBonus;
+      dynamicHold = constrain(dynamicHold, 5.0f, 15.0f);
+
+      this->setHeat(dynamicHold);
+      lastPulseTime = now;
+      logf("!!! FRENO ACTIVO !!! Temp: %.2f | Dist: %.2f | Pot: %.1f\n", temp,
+           distanceToFloor, dynamicHold);
     }
-  } else {
-    // Fuera de rango: dejamos que el PID actúe normalmente
-    this->stop(); // Asegurar apagado
   }
 
-  // Actualizamos para la siguiente iteración
+  // 4️⃣ RESET DEL PICO
+  if (temp <= setpoint) {
+    peakTemp = 0; // Reiniciar para el siguiente ciclo
+  }
+
   lastTemp = temp;
   lastSampleTime = now;
 }
