@@ -71,6 +71,12 @@ elapsed_seconds = np.array(seconds).astype(int)
 outputs = np.array(outputs)
 temps = np.array(temps)
 
+# Formatear el eje X para mostrar MM:SS
+def segundos_a_formato(x, pos=None):
+    minutos = int(x) // 60
+    segundos = int(x) % 60
+    return f"{minutos}:{segundos:02d}"
+
 # print("len elapsed_seconds:", len(elapsed_seconds))
 # print("len outputs:", len(outputs))
 # print("len temps:", len(temps))
@@ -89,23 +95,26 @@ ax1.plot(elapsed_seconds, temps, 'b-', linewidth=2, label='Temperatura')
 ax1.axhline(y=setpoints[0], color='r', linestyle='--', linewidth=1.5, label=f'Setpoint {setpoints[0]}°C')
 ax1.fill_between(elapsed_seconds, setpoints[0] - 0.1, setpoints[0] + 0.1, alpha=0.1, color='green')
 ax1.set_title(f'Setpoint {setpoints[0]}°C - Respuesta de Temperatura')
-ax1.set_xlabel('Tiempo (s)')
+ax1.set_xlabel('Tiempo (m:s)')
 ax1.set_ylabel('Temperatura (°C)')
 ax1.grid(True, alpha=0.3)
 ax1.legend()
 ax1.set_ylim(np.min(temps) - 0.1, np.max(temps) + 0.1)
-# ax1.xaxis.set_major_locator(ticker.MultipleLocator(2))
+ax1.xaxis.set_major_locator(ticker.MultipleLocator(250))
 # ax1.yaxis.set_major_locator(ticker.MultipleLocator(0.25))
+ax1.xaxis.set_major_formatter(ticker.FuncFormatter(segundos_a_formato))
 
 # Gráfica 2: Salida 25°C
 ax2.plot(elapsed_seconds, outputs, 'g-', linewidth=2)
 ax2.fill_between(elapsed_seconds, 0, outputs, alpha=0.3, color='green')
 ax2.set_title(f'Setpoint {setpoints[0]}°C - Salida del Controlador')
-ax2.set_xlabel('Tiempo (s)')
+ax2.set_xlabel('Tiempo (m:s)')
 ax2.set_ylabel('Potencia (%)')
 ax2.grid(True, alpha=0.3)
 ax2.set_ylim(np.min(outputs) - 0.1, np.max(outputs) + 0.1)
+ax2.xaxis.set_major_locator(ticker.MultipleLocator(250))
 # ax2.yaxis.set_major_locator(ticker.MultipleLocator(2.5))
+ax2.xaxis.set_major_formatter(ticker.FuncFormatter(segundos_a_formato))
 
 plt.tight_layout()
 plt.show()

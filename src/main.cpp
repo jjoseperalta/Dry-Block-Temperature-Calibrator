@@ -215,26 +215,16 @@ void callbackAdvancedTest(NextionEventType type, INextionTouchable *widget) {
   if (type == NEX_EVENT_POP) {
     u_int8_t indexBtn = widget->getComponentID();
     // logf("Button ID: %d\n", indexBtn);
-
     if (indexBtn == run.getComponentID()) {
-
       controlState = ControlState::RUNNING;
-
       pid.reset();
-
       pid.setPreviousPV(masterTemp);
-
       calibration.start();
-
       logln("Calibration started.");
-
     } else if (indexBtn == stop_2.getComponentID()) {
       controlState = ControlState::STOPPED;
-
       heater.stop();
-
       calibration.stop();
-
       logln("All processes stopped.");
     }
   }
@@ -286,9 +276,9 @@ void callbackConfig(NextionEventType type, INextionTouchable *widget) {
       setp3.getText(buffer, sizeof(buffer));
       settings.setCalibrationPoint(
           2, (buffer[0] != '\0') ? atof(buffer) : Settings::getDefaultP3());
-      setp4.getText(buffer, sizeof(buffer));
-      settings.setCalibrationPoint(
-          3, (buffer[0] != '\0') ? atof(buffer) : Settings::getDefaultP4());
+      // setp4.getText(buffer, sizeof(buffer));
+      // settings.setCalibrationPoint(
+      //     3, (buffer[0] != '\0') ? atof(buffer) : Settings::getDefaultP4());
       upperlimit.getText(buffer, sizeof(buffer));
       settings.setAlarmUpperLimit((buffer[0] != '\0')
                                       ? atof(buffer)
@@ -499,7 +489,6 @@ void setup() {
 
 void loop() {}
 
-// static float thermalBias = -0.8f;
 // Tarea 1: Control y Sensores (Core 1)
 void taskControlCore(void *parameter) {
   // Variables de control de estado y tiempo
@@ -509,23 +498,22 @@ void taskControlCore(void *parameter) {
   static bool wasHolding = false;
   static float lastTempForHold = NAN;
   static float tempDeltaForHold = 0.0f;
-
-  // VARIABLE CLAVE: Para detectar cambios de estado
   static ControlState lastState = ControlState::STOPPED;
-
   TickType_t xLastWakeTime = xTaskGetTickCount();
 
   while (true) {
-    // 1. Cálculo de Frecuencia (Sincronizado con settings)
+    Serial.flush();
+
+    // Cálculo de Frecuencia (Sincronizado con settings)
     TickType_t xPidFrequency = pdMS_TO_TICKS(settings.getPidPeriod() * 1000UL);
     if (xPidFrequency == 0)
       xPidFrequency = pdMS_TO_TICKS(100UL);
 
-    // 2. Obtener Lectura de Sensor
+    // Obtener Lectura de Sensor
     float currentMasterTemp = sensors.getFilteredMasterTemperature(0.1f);
     float currentTestTemp = sensors.getFilteredTestTemperature(0.1f);
 
-    // 3. Comunicación Inter-Core: Escritura de masterTemp (Protegida)
+    // Comunicación Inter-Core: Escritura de masterTemp (Protegida)
     if (xSemaphoreTake(masterTempMutex, (TickType_t)10) == pdTRUE) {
       masterTemp = currentMasterTemp;
       xSemaphoreGive(masterTempMutex);
@@ -551,7 +539,7 @@ void taskControlCore(void *parameter) {
         thermalState = ThermalState::APPROACHING;
     }
 
-    // 4. Obtener Estado de Control (Mutex)
+    // Obtener Estado de Control (Mutex)
     ControlState currentState;
     if (xSemaphoreTake(controlStateMutex, (TickType_t)10) == pdTRUE) {
       currentState = controlState;
@@ -560,13 +548,9 @@ void taskControlCore(void *parameter) {
       currentState = ControlState::STOPPED;
     }
 
-    // *************************************************************
-    // GESTIÓN DE TRANSICIONES (Ejecutar solo una vez al cambiar)
-    // *************************************************************
     if (currentState != lastState) {
       if (currentState == ControlState::STOPPED) {
         heater.stop(); // Se llama SOLO al entrar en STOPPED
-        // --- RESETS DE SEGURIDAD AL DETENER ---
         stableTime = 0;
         stableSum = 0.0f;
         stableSamples = 0;
@@ -576,7 +560,7 @@ void taskControlCore(void *parameter) {
       lastState = currentState;
     }
 
-    // 5. Ejecución del PID o Mantenimiento
+    // Ejecución del PID o Mantenimiento
     if (currentState == ControlState::RUNNING) {
       float dt = xPidFrequency / (float)configTICK_RATE_HZ;
       if (dt <= 0)
@@ -624,10 +608,10 @@ void taskControlCore(void *parameter) {
 
       // Lógica de Estabilidad (Alarma Reached)
       float tolerance =
-          settings.getCalibrationTolerance(); // El 0.1f que mencionas
+          settings.getCalibrationTolerance();
 
       if (currentMasterTemp >= (setpoint - 0.01f) &&
-          currentMasterTemp <= (setpoint + 0.20f)) {
+          currentMasterTemp <= (setpoint + 0.1f)) {
         stableSamples++;
         stableSum += currentMasterTemp;
 
@@ -648,8 +632,6 @@ void taskControlCore(void *parameter) {
           }
         }
       } else {
-        // RESET TOTAL: Si un solo punto se sale de la tolerancia, el cronómetro
-        // vuelve a cero
         stableTime = 0;
         stableSum = 0.0f;
         stableSamples = 0;
@@ -657,7 +639,7 @@ void taskControlCore(void *parameter) {
       }
     }
 
-    // 6. Alarmas Críticas (Siempre activas)
+    // Alarmas Críticas (Siempre activas)
     if (currentMasterTemp > settings.getAlarmUpperLimit() ||
         currentMasterTemp < settings.getAlarmLowerLimit()) {
       buzzer.beep(BeepType::ALARM);
