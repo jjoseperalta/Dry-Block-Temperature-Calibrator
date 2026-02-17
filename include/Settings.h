@@ -99,7 +99,7 @@ public:
   static float getDefaultP1() { return DEFAULT_P1; }
   static float getDefaultP2() { return DEFAULT_P2; }
   static float getDefaultP3() { return DEFAULT_P3; }
-  static float getDefaultP4() { return DEFAULT_P4; }
+  // static float getDefaultP4() { return DEFAULT_P4; }
   static float getDefaultMasterOffset() { return DEFAULT_MASTER_OFFSET; }
   static float getDefaultTestOffset() { return DEFAULT_TEST_OFFSET; }
   static float getDefaultAlarmUpperLimit() { return DEFAULT_ALARM_UPPER; }
@@ -127,7 +127,7 @@ private:
   float stabilityTime;
   float alarmUpperLimit;
   float alarmLowerLimit;
-  float calibrationPoints[4];
+  float calibrationPoints[3];
   float masterOffset;
   float testOffset;
   float dangerTemperature;
@@ -148,10 +148,10 @@ private:
   static constexpr float DEFAULT_PID_TD = 10;
   static constexpr float DEFAULT_PID_PERIOD = 1;
   static constexpr float DEFAULT_STABILITY_TIME = 60;
-  static constexpr float DEFAULT_P1 = 25;
-  static constexpr float DEFAULT_P2 = 30;
-  static constexpr float DEFAULT_P3 = 35;
-  static constexpr float DEFAULT_P4 = 40;
+  static constexpr float DEFAULT_P1 = 15;
+  static constexpr float DEFAULT_P2 = 27;
+  static constexpr float DEFAULT_P3 = 40;
+  // static constexpr float DEFAULT_P4 = 40;
   static constexpr float DEFAULT_MASTER_OFFSET = 0;
   static constexpr float DEFAULT_TEST_OFFSET = 0;
   static constexpr float DEFAULT_ALARM_UPPER = 100;

@@ -59,13 +59,13 @@ void Calibration::targetReached() {
 }
 
 void Calibration::nextPoint() {
-  if (currentPoint >= 8) {
+  if (currentPoint >= 6) {
     stop();
     logln("Calibration finished.");
     // Print results
     logln("Calibration Results:");
     logln("Setpoint | Master Temp | Test Temp | Difference (%)");
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 6; i++) {
       logf("%.2f | %.2f | %.2f | %.2f\n", data[i].setpoint, data[i].masterTemp,
            data[i].testTemp, data[i].difference);
     }
@@ -73,7 +73,7 @@ void Calibration::nextPoint() {
   }
 
   float setpoint;
-  if (currentPoint < 4) {
+  if (currentPoint < 3) {
     setpoint = settings.getCalibrationPoint(currentPoint);
   } else {
     setpoint = settings.getCalibrationPoint(7 - currentPoint);
@@ -117,7 +117,7 @@ const CalibrationData &Calibration::getCalibrationData(int index) const {
   // Comprobación de rango básico. Si el índice está fuera de rango,
   // es mejor devolver un valor seguro o, en este caso, el primer elemento
   // (índice 0) para evitar un fallo de memoria fuera de límites.
-  if (index >= 0 && index < 8) {
+  if (index >= 0 && index < 6) {
     return data[index];
   }
 

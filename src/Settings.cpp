@@ -47,7 +47,7 @@ void Settings::resetToDefaults() {
   calibrationPoints[0] = DEFAULT_P1;
   calibrationPoints[1] = DEFAULT_P2;
   calibrationPoints[2] = DEFAULT_P3;
-  calibrationPoints[3] = DEFAULT_P4;
+  // calibrationPoints[3] = DEFAULT_P4;
   alarmUpperLimit = DEFAULT_ALARM_UPPER;
   alarmLowerLimit = DEFAULT_ALARM_LOWER;
   masterOffset = DEFAULT_MASTER_OFFSET;
@@ -226,14 +226,14 @@ float Settings::getAlarmLowerLimit() const { return alarmLowerLimit; }
 void Settings::setAlarmLowerLimit(float limit) { alarmLowerLimit = limit; }
 
 float Settings::getCalibrationPoint(int index) const {
-  if (index >= 0 && index < 4) {
+  if (index >= 0 && index < 3) {
     return calibrationPoints[index];
   }
   return 0.0;
 }
 
 void Settings::setCalibrationPoint(int index, float temp) {
-  if (index >= 0 && index < 4) {
+  if (index >= 0 && index < 3) {
     calibrationPoints[index] = temp;
   }
 }

@@ -276,9 +276,9 @@ void callbackConfig(NextionEventType type, INextionTouchable *widget) {
       setp3.getText(buffer, sizeof(buffer));
       settings.setCalibrationPoint(
           2, (buffer[0] != '\0') ? atof(buffer) : Settings::getDefaultP3());
-      setp4.getText(buffer, sizeof(buffer));
-      settings.setCalibrationPoint(
-          3, (buffer[0] != '\0') ? atof(buffer) : Settings::getDefaultP4());
+      // setp4.getText(buffer, sizeof(buffer));
+      // settings.setCalibrationPoint(
+      //     3, (buffer[0] != '\0') ? atof(buffer) : Settings::getDefaultP4());
       upperlimit.getText(buffer, sizeof(buffer));
       settings.setAlarmUpperLimit((buffer[0] != '\0')
                                       ? atof(buffer)

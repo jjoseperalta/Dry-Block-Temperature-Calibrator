@@ -38,7 +38,7 @@ private:
     uint16_t currentPoint;
     uint16_t stableCounter;
     const uint16_t requiredStableSamples = 0;
-    CalibrationData data[8];
+    CalibrationData data[6];
 
     void nextPoint();
     void registerPoint(float masterTemp, float testTemp);
