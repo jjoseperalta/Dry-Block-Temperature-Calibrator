@@ -30,12 +30,13 @@ void Heater::setPower(float dutyCycle, bool fineZone) {
   const float sign = (dutyCycle >= 0) ? 1.0f : -1.0f;
 
   if (fineZone && magnitude > 0.0f) {
-    static uint32_t t0 = 0; //Quitar static
     uint32_t now = millis();
-    if (t0 == 0)
-      t0 = now;
+    if (!fineZoneActive) {  // NUEVO: flag para detectar transición
+      fineZoneActive = true;
+      fineZoneStartTime = now;
+    }
 
-    uint32_t phase = (now - t0) % microFine.periodMs;
+    uint32_t phase = (now - fineZoneStartTime) % microFine.periodMs;
 
     uint32_t dynamicOnTime = (magnitude / 100.0f) * microFine.periodMs;
 
@@ -56,6 +57,9 @@ void Heater::setPower(float dutyCycle, bool fineZone) {
     } else {
       dutyCycle = 0.0f;
     }
+  } else {
+    fineZoneActive = false; // NUEVO: reset flag al salir de zona fina
+    // fineZoneStartTime = 0;
   }
 
   // Despacho de potencia

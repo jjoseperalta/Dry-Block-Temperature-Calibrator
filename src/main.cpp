@@ -115,7 +115,8 @@ void callbackPage1(NextionEventType type, INextionTouchable *widget) {
     //                   TemperatureScale::FAHRENHEIT);
 
     char buffer[16];
-    sprintf(buffer, "%.2f", settings.getSetTemperature());
+    snprintf(buffer, sizeof(buffer), "%.2f",
+             settings.getSetTemperature()); // ✓ SAFE
     setp.setText(buffer);
     // setp.setText(buffer);
 
@@ -566,9 +567,19 @@ void taskControlCore(void *parameter) {
       if (dt <= 0)
         dt = 1.0f;
 
-      static float lastTemp = currentMasterTemp;
-      float dTdt = (currentMasterTemp - lastTemp) / dt;
+      // static float lastTemp = currentMasterTemp;
+      // float dTdt = (currentMasterTemp - lastTemp) / dt;
+      // lastTemp = currentMasterTemp;
+
+      static float lastTemp = NAN; // Inicializa como "no existe"
+      static bool firstRun = true;
+
+      float dTdt = 0.0f;
+      if (!firstRun) {
+        dTdt = (currentMasterTemp - lastTemp) / dt;
+      }
       lastTemp = currentMasterTemp;
+      firstRun = false;
 
       float output = pid.calculate(setpoint, currentMasterTemp, dt);
 
@@ -607,8 +618,7 @@ void taskControlCore(void *parameter) {
       }
 
       // Lógica de Estabilidad (Alarma Reached)
-      float tolerance =
-          settings.getCalibrationTolerance();
+      float tolerance = settings.getCalibrationTolerance();
 
       if (currentMasterTemp >= (setpoint - 0.01f) &&
           currentMasterTemp <= (setpoint + 0.1f)) {
