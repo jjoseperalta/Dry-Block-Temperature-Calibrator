@@ -5,6 +5,7 @@ from datetime import datetime
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
+from matplotlib.widgets import Cursor
 
 # ============================================================
 # CONFIGURACIÓN GENERAL
@@ -88,6 +89,102 @@ np.set_printoptions(precision=2, suppress=True)
 # print(np.array2string(outputs, separator=", "))
 # print(np.array2string(temps, separator=", "))
 
+# ============================================================
+# FUNCIÓN PARA MOSTRAR VALORES AL PASAR EL MOUSE (MOVIMIENTO INTELIGENTE + PERMANENTE)
+# ============================================================
+def hover_annotate(ax, x_data, y_data, fig_reference):
+    """Tooltip con movimiento inteligente y permanencia al salir + clic para ocultar"""
+    tooltip_activo = False
+    ultimo_punto = None
+    
+    # Crear anotación con offset inicial
+    annot = ax.annotate("", xy=(0,0), xytext=(15,15), textcoords="offset points",
+                        bbox=dict(boxstyle="round,pad=0.5", 
+                                 facecolor="white",      
+                                 edgecolor="black",      
+                                 linewidth=1,           
+                                 alpha=1.0),             
+                        arrowprops=dict(arrowstyle="-", 
+                                      color="black", 
+                                      lw=0.5,
+                                      alpha=1.0),        
+                        fontsize=9,
+                        family='monospace',
+                        weight='bold',
+                        visible=False,
+                        annotation_clip=False)  # Permitir que se dibuje fuera del eje
+    annot.set_visible(False)
+    
+    # Punto destacado
+    highlight, = ax.plot([], [], 'ro', markersize=8, 
+                        markerfacecolor='red',
+                        markeredgecolor='white',
+                        markeredgewidth=1.5,
+                        alpha=1.0,                       
+                        visible=False)
+    
+    def on_move(event):
+        nonlocal tooltip_activo, ultimo_punto
+        
+        if event.inaxes == ax and event.xdata is not None and event.ydata is not None:
+            tooltip_activo = True
+            idx = np.argmin(np.abs(np.array(x_data) - event.xdata))
+            ultimo_punto = (x_data[idx], y_data[idx])
+            actualizar_tooltip(ultimo_punto[0], ultimo_punto[1])
+    
+    def on_click(event):
+        nonlocal tooltip_activo
+        if tooltip_activo:
+            tooltip_activo = False
+            highlight.set_visible(False)
+            annot.set_visible(False)
+            fig_reference.canvas.draw_idle()
+    
+    def actualizar_tooltip(x_point, y_point):
+        # Convertir coordenadas de datos a coordenadas de pantalla
+        bbox = ax.get_window_extent()
+        
+        # Obtener las coordenadas de pantalla del punto
+        x_display, y_display = ax.transData.transform([[x_point, y_point]])[0]
+        
+        # Calcular offset inicial en puntos
+        offset_x = 15
+        offset_y = 15
+        
+        # Verificar si el tooltip se sale por la derecha
+        if x_display + 120 > bbox.x1:  # 120 píxeles es un ancho aproximado
+            offset_x = -80
+        
+        # Verificar si el tooltip se sale por arriba
+        if y_display + 50 > bbox.y1:  # 50 píxeles es un alto aproximado
+            offset_y = -40
+        
+        # Verificar si el tooltip se sale por la izquierda
+        if x_display - 80 < bbox.x0 and offset_x < 0:
+            offset_x = 15  # Volver a la derecha si se sale por izquierda
+        
+        # Verificar si el tooltip se sale por abajo
+        if y_display - 40 < bbox.y0 and offset_y < 0:
+            offset_y = 15  # Volver arriba si se sale por abajo
+        
+        # Actualizar punto destacado
+        highlight.set_data([x_point], [y_point])
+        highlight.set_visible(True)
+        
+        # Actualizar anotación
+        text = f'Time: {segundos_a_formato(x_point)}\nTemp: {y_point:.2f}°C'
+        annot.xy = (x_point, y_point)
+        annot.set_position((offset_x, offset_y))
+        annot.set_text(text)
+        annot.set_visible(True)
+        
+        fig_reference.canvas.draw_idle()
+    
+    fig_reference.canvas.mpl_connect('motion_notify_event', on_move)
+    fig_reference.canvas.mpl_connect('button_press_event', on_click)
+    
+    return annot
+
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5))
 
 # Gráfica 1: Temperatura 25°C
@@ -98,7 +195,8 @@ ax1.set_title(f'Setpoint {setpoints[0]}°C - Respuesta de Temperatura')
 ax1.set_xlabel('Tiempo (m:s)')
 ax1.set_ylabel('Temperatura (°C)')
 ax1.grid(True, alpha=0.3)
-ax1.legend()
+# Leyenda fija en la parte inferior derecha
+ax1.legend(loc='lower right')
 ax1.set_ylim(np.min(temps) - 0.1, np.max(temps) + 0.1)
 ax1.xaxis.set_major_locator(ticker.MultipleLocator(250))
 # ax1.yaxis.set_major_locator(ticker.MultipleLocator(0.25))
@@ -115,6 +213,18 @@ ax2.set_ylim(np.min(outputs) - 0.1, np.max(outputs) + 0.1)
 ax2.xaxis.set_major_locator(ticker.MultipleLocator(250))
 # ax2.yaxis.set_major_locator(ticker.MultipleLocator(2.5))
 ax2.xaxis.set_major_formatter(ticker.FuncFormatter(segundos_a_formato))
+
+# # Activar cursor en ambas gráficas
+# cursor1 = Cursor(ax1, useblit=True, color='red', linewidth=1)
+# cursor2 = Cursor(ax2, useblit=True, color='red', linewidth=1)
+
+# Activar líneas guía sutiles (opcional - elimina si no quieres nada)
+cursor1 = Cursor(ax1, useblit=True, color='gray', linewidth=0.5, linestyle=':')
+cursor2 = Cursor(ax2, useblit=True, color='gray', linewidth=0.5, linestyle=':')
+
+# Activar tooltips interactivos
+hover_annotate(ax1, elapsed_seconds, temps, fig)
+hover_annotate(ax2, elapsed_seconds, outputs, fig)
 
 plt.tight_layout()
 plt.show()

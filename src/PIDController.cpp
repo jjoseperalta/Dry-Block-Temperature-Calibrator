@@ -24,19 +24,18 @@ PIDGains PIDController::computeGains(float error, bool fineZone) {
   PIDGains g;
 
   if (heating) {
-    // CALENTAR: Agresivo para llegar, predictivo para frenar
     g.kp =
         kp *
-        (fineZone ? 0.8f : 1.2f); // 0.8f : 1.5f OK - pero 1.0f : 1.2f más suave
+        (fineZone ? 1.2f : 1.5f); // 0.8f : 1.5f OK - pero 1.0f : 1.2f más suave
     g.ti =
         ti *
-        (fineZone ? 0.2f : 0.8f); // 0.3f : 0.7f OK - pero 0.5f : 1.0f más suave
+        (fineZone ? 0.3f : 1.0f); // 0.3f : 0.7f OK - pero 0.5f : 1.0f más suave
     g.td =
         td *
-        (fineZone ? 1.0f : 1.0f); // 1.5f : 0.0f OK - pero 1.0f : 1.0f más suave
+        (fineZone ? 1.2f : 1.0f); // 1.5f : 0.0f OK - pero 1.0f : 1.0f más suave
   } else {
     // ENFRIAR: Suave en potencia, pero muy alto en frenado (D)
-    g.kp = kp * (fineZone ? 0.5f : 1.2f);
+    g.kp = kp * (fineZone ? 0.7f : 1.2f);
     g.ti = ti * (fineZone ? 1.2f : 1.0f);
     g.td = td * (fineZone ? 2.0f : 1.0f);
   }

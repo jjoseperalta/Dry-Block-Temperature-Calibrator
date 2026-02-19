@@ -7,7 +7,7 @@ void Heater::begin() {
   microFine.scaleFactor = 0.5f;
   microFine.minPower = 8.0f; // 6.1f para 25Grados
   microFine.maxPower = 15.0f;
-  microFine.periodMs = 4000; // 4000 para 25Grados
+  microFine.periodMs = 1000; // 4000 para 25Grados
   microFine.onTimeMs = 400;
 
   ledcSetup(heatPwmChannel, pwmFrequency, pwmResolution);
@@ -23,54 +23,54 @@ void Heater::begin() {
   logln("Heater/Cooler initialized with PWM Dual (5kHz).");
 }
 
-void Heater::setPower(float dutyCycle, bool fineZone) {
-  dutyCycle = constrain(dutyCycle, -100.0f, 100.0f);
+// void Heater::setPower(float dutyCycle, bool fineZone) {
+//   dutyCycle = constrain(dutyCycle, -100.0f, 100.0f);
 
-  const float magnitude = fabs(dutyCycle);
-  const float sign = (dutyCycle >= 0) ? 1.0f : -1.0f;
+//   const float magnitude = fabs(dutyCycle);
+//   const float sign = (dutyCycle >= 0) ? 1.0f : -1.0f;
 
-  if (fineZone && magnitude > 0.0f) {
-    uint32_t now = millis();
-    if (!fineZoneActive) {  // NUEVO: flag para detectar transición
-      fineZoneActive = true;
-      fineZoneStartTime = now;
-    }
+//   if (fineZone && magnitude > 0.0f) {
+//     uint32_t now = millis();
+//     if (!fineZoneActive) {  // NUEVO: flag para detectar transición
+//       fineZoneActive = true;
+//       fineZoneStartTime = now;
+//     }
 
-    uint32_t phase = (now - fineZoneStartTime) % microFine.periodMs;
+//     uint32_t phase = (now - fineZoneStartTime) % microFine.periodMs;
 
-    uint32_t dynamicOnTime = (magnitude / 100.0f) * microFine.periodMs;
+//     uint32_t dynamicOnTime = (magnitude / 100.0f) * microFine.periodMs;
 
-    if (magnitude > 0.01f)
-      if (dynamicOnTime < 250)
-        dynamicOnTime = 250;
+//     if (magnitude > 0.01f)
+//       if (dynamicOnTime < 250)
+//         dynamicOnTime = 250;
 
-    if (dynamicOnTime > microFine.periodMs)
-      dynamicOnTime = microFine.periodMs;
+//     if (dynamicOnTime > microFine.periodMs)
+//       dynamicOnTime = microFine.periodMs;
 
-    if (phase < dynamicOnTime) {
-      float powerLevel = 7.0f + (magnitude * 0.3f);
+//     if (phase < dynamicOnTime) {
+//       float powerLevel = 7.0f + (magnitude * 0.3f);
 
-      if (powerLevel > 15.0f)
-        powerLevel = 15.0f;
+//       if (powerLevel > 15.0f)
+//         powerLevel = 15.0f;
 
-      dutyCycle = powerLevel * sign;
-    } else {
-      dutyCycle = 0.0f;
-    }
-  } else {
-    fineZoneActive = false; // NUEVO: reset flag al salir de zona fina
-    // fineZoneStartTime = 0;
-  }
+//       dutyCycle = powerLevel * sign;
+//     } else {
+//       dutyCycle = 0.0f;
+//     }
+//   } else {
+//     fineZoneActive = false; // NUEVO: reset flag al salir de zona fina
+//     // fineZoneStartTime = 0;
+//   }
 
-  // Despacho de potencia
-  if (dutyCycle > 0.0f) {
-    setHeat(dutyCycle);
-  } else if (dutyCycle < 0.0f) {
-    setCool(fabs(dutyCycle));
-  } else {
-    stop();
-  }
-}
+//   // Despacho de potencia
+//   if (dutyCycle > 0.0f) {
+//     setHeat(dutyCycle);
+//   } else if (dutyCycle < 0.0f) {
+//     setCool(fabs(dutyCycle));
+//   } else {
+//     stop();
+//   }
+// }
 
 // void Heater::setPower(float dutyCycle, bool fineZone) {
 //   dutyCycle = constrain(dutyCycle, -100.0f, 100.0f);
@@ -117,6 +117,54 @@ void Heater::setPower(float dutyCycle, bool fineZone) {
 //   else
 //     stop();
 // }
+
+void Heater::setPower(float dutyCycle, bool fineZone) {
+  // 1. Limite físico universal
+  dutyCycle = constrain(dutyCycle, -100.0f, 100.0f);
+
+  const float magnitude = fabs(dutyCycle);
+  const float sign = (dutyCycle >= 0) ? 1.0f : -1.0f;
+
+  if (fineZone && magnitude > 0.01f) {
+    uint32_t now = millis();
+    if (!fineZoneActive) {
+      fineZoneActive = true;
+      fineZoneStartTime = now;
+    }
+
+    // Mantenemos el periodo de 4 segundos para estabilidad
+    uint32_t phase = (now - fineZoneStartTime) % microFine.periodMs;
+
+    // --- LÓGICA VERSÁTIL ---
+    // En lugar de ráfagas fijas de 400ms, hacemos que el tiempo de "encendido" 
+    // dentro del ciclo de 4s sea proporcional a la intensidad que pide el PID.
+    // Si el PID pide 20%, estará encendido el 20% de los 4 segundos.
+    uint32_t dynamicOnTime = (magnitude / 100.0f) * microFine.periodMs;
+
+    // Seguridad: pulso mínimo de 250ms para que la Peltier reaccione
+    if (dynamicOnTime < 250) dynamicOnTime = 250;
+
+    if (phase < dynamicOnTime) {
+      // AQUÍ ESTÁ LA MAGIA: 
+      // No limitamos a 15.0f. Dejamos que la intensidad sea la que el PID mande.
+      // Si necesitas vencer mucha pérdida de calor, el PID subirá esta magnitud.
+      dutyCycle = magnitude * sign; 
+    } else {
+      dutyCycle = 0.0f;
+    }
+  } else {
+    fineZoneActive = false;
+  }
+
+  // Despacho de potencia sin frenos artificiales
+  if (dutyCycle > 0.0f) {
+    setHeat(dutyCycle);
+  } else if (dutyCycle < 0.0f) {
+    setCool(fabs(dutyCycle));
+  } else {
+    stop();
+  }
+}
 
 void Heater::setHeat(float dutyCycle) {
   dutyCycle = constrain(dutyCycle, 0.0f, 100.0f);
