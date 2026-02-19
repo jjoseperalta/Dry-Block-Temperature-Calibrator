@@ -34,6 +34,8 @@ private:
     const int pwmFrequency = 500; 
     const int pwmResolution = 10;
     MicroPWMConfig microFine;
+    bool fineZoneActive = false;
+    uint32_t fineZoneStartTime = 0;
 };
 
 #endif // HEATER_H

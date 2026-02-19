@@ -1,5 +1,6 @@
 #include "Buzzer.h"
 #include "Calibration.h"
+#include "Fan.h"
 #include "HMIController.h"
 #include "Heater.h"
 #include "Logger.h"
@@ -32,6 +33,7 @@ void taskConsole(void *parameter);
 Settings settings;
 Sensors sensors(settings);
 Heater heater;
+Fan fan;
 Buzzer buzzer;
 PIDController pid(settings);
 Calibration calibration(settings, sensors, buzzer);
@@ -115,7 +117,8 @@ void callbackPage1(NextionEventType type, INextionTouchable *widget) {
     //                   TemperatureScale::FAHRENHEIT);
 
     char buffer[16];
-    sprintf(buffer, "%.2f", settings.getSetTemperature());
+    snprintf(buffer, sizeof(buffer), "%.2f",
+             settings.getSetTemperature()); // ✓ SAFE
     setp.setText(buffer);
     // setp.setText(buffer);
 
@@ -397,6 +400,7 @@ void setup() {
   heater.begin();
   buzzer.begin();
   hmi.init();
+  fan.begin();
 
   buzzer.playBlocking(BeepType::READY);
 
@@ -525,13 +529,11 @@ void taskControlCore(void *parameter) {
 
     // Implementa una pequeña histéresis para evitar el "titubeo" de estados
     if (thermalState == ThermalState::RAMPING) {
-      if (error < 0.8f)
-        thermalState =
-            ThermalState::APPROACHING; // No cambia hasta bajar de 0.8
+      if (error < 0.2f)
+        thermalState = ThermalState::APPROACHING;
     } else if (thermalState == ThermalState::APPROACHING) {
-      if (error > 1.2f)
-        thermalState =
-            ThermalState::RAMPING; // No vuelve a RAMPING hasta subir de 1.2
+      if (error > 1.5f)
+        thermalState = ThermalState::RAMPING;
       if (error < 0.10f)
         thermalState = ThermalState::HOLDING;
     } else if (thermalState == ThermalState::HOLDING) {
@@ -551,6 +553,7 @@ void taskControlCore(void *parameter) {
     if (currentState != lastState) {
       if (currentState == ControlState::STOPPED) {
         heater.stop(); // Se llama SOLO al entrar en STOPPED
+        fan.stop();    // Detiene el ventilador al detener el sistema
         stableTime = 0;
         stableSum = 0.0f;
         stableSamples = 0;
@@ -566,9 +569,19 @@ void taskControlCore(void *parameter) {
       if (dt <= 0)
         dt = 1.0f;
 
-      static float lastTemp = currentMasterTemp;
-      float dTdt = (currentMasterTemp - lastTemp) / dt;
+      // static float lastTemp = currentMasterTemp;
+      // float dTdt = (currentMasterTemp - lastTemp) / dt;
+      // lastTemp = currentMasterTemp;
+
+      static float lastTemp = NAN; // Inicializa como "no existe"
+      static bool firstRun = true;
+
+      float dTdt = 0.0f;
+      if (!firstRun) {
+        dTdt = (currentMasterTemp - lastTemp) / dt;
+      }
       lastTemp = currentMasterTemp;
+      firstRun = false;
 
       float output = pid.calculate(setpoint, currentMasterTemp, dt);
 
@@ -583,6 +596,7 @@ void taskControlCore(void *parameter) {
       switch (thermalState) {
       case ThermalState::RAMPING:
         heater.setPower(output, false);
+        fan.setMode(FanMode::HEATING); // Inicia rampa a 20%
         break;
       case ThermalState::APPROACHING:
       case ThermalState::HOLDING:
@@ -590,25 +604,51 @@ void taskControlCore(void *parameter) {
           frenoExtra = 0.0f;
         }
 
-        if (dTdt < -0.005f && currentMasterTemp < (setpoint + 0.15f)) {
-          if (millis() - ultimoPulsoFreno > 3000) {
-            frenoExtra = fabs(dTdt) * 35.0f + 2.0f;
-            ultimoPulsoFreno = millis();
-            logf("!!! FRENO INTELIGENTE !!! Potencia: +%.1f%%\n", frenoExtra);
-          }
-        }
+        // if (dTdt < -0.015f && currentMasterTemp < (setpoint + 0.0f) &&
+        //     error < 0.2f) {
+        //   if (millis() - ultimoPulsoFreno > 3000) {
+        //     frenoExtra = fabs(dTdt) * 8.0f + 0.0f;
+        //     ultimoPulsoFreno = millis();
+        //     logf("!!! FRENO INTELIGENTE !!! Potencia: +%.1f%%\n", frenoExtra);
+        //   }
+        // }
+
         float potenciaFinal = output + frenoExtra;
 
         if (potenciaFinal < 0 && currentMasterTemp < (setpoint + 0.05f)) {
           potenciaFinal = 0.0f;
         }
+
         heater.setPower(potenciaFinal, true);
+
+        // --- Lógica de ventilador Adaptativa ---
+
+        // 1. Caso: Queremos ENFRIAR el bloque (Setpoint por debajo de la
+        // temperatura actual)
+        if (setpoint < currentMasterTemp - 1.0f) {
+          // Si el PID pide enfriar con fuerza, activamos ventiladores al 100%
+          // para disipar el calor que las Peltiers sacan del bloque.
+          if (output < -10.0f) {
+            fan.setMode(FanMode::COOLING);
+          } else {
+            fan.setMode(
+                FanMode::HEATING); // Mantener flujo mínimo si el ajuste es leve
+          }
+        }
+        // 2. Caso: Queremos CALENTAR o MANTENER calor (Setpoint arriba o cerca
+        // del actual)
+        else {
+          // Mientras calentamos o mantenemos, el ventilador se queda al 20%.
+          // Esto evita que el aire ambiente robe calor al bloque de aluminio,
+          // permitiendo que el PID trabaje con menos esfuerzo y más precisión.
+          fan.setMode(FanMode::HEATING);
+        }
+
         break;
       }
 
       // Lógica de Estabilidad (Alarma Reached)
-      float tolerance =
-          settings.getCalibrationTolerance();
+      float tolerance = settings.getCalibrationTolerance();
 
       if (currentMasterTemp >= (setpoint - 0.01f) &&
           currentMasterTemp <= (setpoint + 0.1f)) {
@@ -644,6 +684,9 @@ void taskControlCore(void *parameter) {
         currentMasterTemp < settings.getAlarmLowerLimit()) {
       buzzer.beep(BeepType::ALARM);
     }
+
+    // Sincronización de periféricos
+    fan.update(); // Procesa la rampa de potencia del ventilador
 
     // Sincronización de tarea
     vTaskDelayUntil(&xLastWakeTime, xPidFrequency);
