@@ -1,0 +1,1824 @@
+15:41:29.052 -> Sistema iniciado
+15:41:30.130 -> State: APPROACHING | Error: 4.08 | Output: 7.12 | Temp: 22.92 | Setpoint: 27.00
+15:41:30.130 -> Heater set to 7.12% power (Duty: 72)
+15:41:30.130 -> Fan power: 40.0% (Duty: 409)
+15:41:31.116 -> State: APPROACHING | Error: 4.01 | Output: 17.12 | Temp: 22.99 | Setpoint: 27.00
+15:41:31.116 -> Heater set to 17.12% power (Duty: 175)
+15:41:31.116 -> Fan power: 40.0% (Duty: 409)
+15:41:32.099 -> State: APPROACHING | Error: 3.97 | Output: 21.30 | Temp: 23.03 | Setpoint: 27.00
+15:41:32.099 -> Heater set to 21.30% power (Duty: 217)
+15:41:32.099 -> Fan power: 40.0% (Duty: 409)
+15:41:33.126 -> State: APPROACHING | Error: 3.94 | Output: 21.60 | Temp: 23.06 | Setpoint: 27.00
+15:41:33.126 -> Heater set to 21.60% power (Duty: 220)
+15:41:33.126 -> Fan power: 40.0% (Duty: 409)
+15:41:34.107 -> State: APPROACHING | Error: 4.18 | Output: 23.46 | Temp: 22.82 | Setpoint: 27.00
+15:41:34.107 -> Heater set to 23.46% power (Duty: 240)
+15:41:34.107 -> Fan power: 40.0% (Duty: 409)
+15:41:35.087 -> State: APPROACHING | Error: 4.28 | Output: 24.40 | Temp: 22.72 | Setpoint: 27.00
+15:41:35.135 -> Heater set to 24.40% power (Duty: 249)
+15:41:35.135 -> Fan power: 40.0% (Duty: 409)
+15:41:36.113 -> State: APPROACHING | Error: 4.04 | Output: 23.49 | Temp: 22.96 | Setpoint: 27.00
+15:41:36.113 -> Heater set to 23.49% power (Duty: 240)
+15:41:36.113 -> Fan power: 40.0% (Duty: 409)
+15:41:37.098 -> State: APPROACHING | Error: 4.04 | Output: 24.12 | Temp: 22.96 | Setpoint: 27.00
+15:41:37.098 -> Heater set to 24.12% power (Duty: 246)
+15:41:37.098 -> Fan power: 40.0% (Duty: 409)
+15:41:38.128 -> State: APPROACHING | Error: 4.04 | Output: 24.61 | Temp: 22.96 | Setpoint: 27.00
+15:41:38.128 -> Heater set to 24.61% power (Duty: 251)
+15:41:38.128 -> Fan power: 40.0% (Duty: 409)
+15:41:39.109 -> State: APPROACHING | Error: 4.04 | Output: 25.09 | Temp: 22.96 | Setpoint: 27.00
+15:41:39.109 -> Heater set to 25.09% power (Duty: 256)
+15:41:39.109 -> Fan power: 40.0% (Duty: 409)
+15:41:40.094 -> State: APPROACHING | Error: 4.01 | Output: 25.38 | Temp: 22.99 | Setpoint: 27.00
+15:41:40.094 -> Heater set to 25.38% power (Duty: 259)
+15:41:40.141 -> Fan power: 40.0% (Duty: 409)
+15:41:41.124 -> State: APPROACHING | Error: 3.80 | Output: 24.71 | Temp: 23.20 | Setpoint: 27.00
+15:41:41.124 -> Heater set to 24.71% power (Duty: 252)
+15:41:41.124 -> Fan power: 40.0% (Duty: 409)
+15:41:42.108 -> State: APPROACHING | Error: 3.80 | Output: 25.29 | Temp: 23.20 | Setpoint: 27.00
+15:41:42.108 -> Heater set to 25.29% power (Duty: 258)
+15:41:42.108 -> Fan power: 40.0% (Duty: 409)
+15:41:43.093 -> State: APPROACHING | Error: 3.77 | Output: 25.55 | Temp: 23.23 | Setpoint: 27.00
+15:41:43.093 -> Heater set to 25.55% power (Duty: 261)
+15:41:43.140 -> Fan power: 40.0% (Duty: 409)
+15:41:44.123 -> State: APPROACHING | Error: 3.67 | Output: 25.44 | Temp: 23.33 | Setpoint: 27.00
+15:41:44.123 -> Heater set to 25.44% power (Duty: 260)
+15:41:44.123 -> Fan power: 40.0% (Duty: 409)
+15:41:45.109 -> State: APPROACHING | Error: 3.77 | Output: 26.53 | Temp: 23.23 | Setpoint: 27.00
+15:41:45.109 -> Heater set to 26.53% power (Duty: 271)
+15:41:45.109 -> Fan power: 40.0% (Duty: 409)
+15:41:46.092 -> State: APPROACHING | Error: 3.67 | Output: 26.33 | Temp: 23.33 | Setpoint: 27.00
+15:41:46.092 -> Heater set to 26.33% power (Duty: 269)
+15:41:46.140 -> Fan power: 40.0% (Duty: 409)
+15:41:47.123 -> State: APPROACHING | Error: 3.67 | Output: 26.83 | Temp: 23.33 | Setpoint: 27.00
+15:41:47.123 -> Heater set to 26.83% power (Duty: 274)
+15:41:47.123 -> Fan power: 40.0% (Duty: 409)
+15:41:48.105 -> State: APPROACHING | Error: 3.67 | Output: 27.28 | Temp: 23.33 | Setpoint: 27.00
+15:41:48.105 -> Heater set to 27.28% power (Duty: 279)
+15:41:48.105 -> Fan power: 40.0% (Duty: 409)
+15:41:49.088 -> State: APPROACHING | Error: 3.46 | Output: 26.55 | Temp: 23.54 | Setpoint: 27.00
+15:41:49.135 -> Heater set to 26.55% power (Duty: 271)
+15:41:49.135 -> Fan power: 40.0% (Duty: 409)
+15:41:50.115 -> State: APPROACHING | Error: 3.36 | Output: 26.50 | Temp: 23.64 | Setpoint: 27.00
+15:41:50.115 -> Heater set to 26.50% power (Duty: 271)
+15:41:50.115 -> Fan power: 40.0% (Duty: 409)
+15:41:51.098 -> State: APPROACHING | Error: 3.09 | Output: 25.40 | Temp: 23.91 | Setpoint: 27.00
+15:41:51.098 -> Heater set to 25.40% power (Duty: 259)
+15:41:51.098 -> Fan power: 40.0% (Duty: 409)
+15:41:52.128 -> State: APPROACHING | Error: 3.09 | Output: 25.94 | Temp: 23.91 | Setpoint: 27.00
+15:41:52.128 -> Heater set to 25.94% power (Duty: 265)
+15:41:52.128 -> Fan power: 40.0% (Duty: 409)
+15:41:53.115 -> State: APPROACHING | Error: 3.05 | Output: 26.11 | Temp: 23.95 | Setpoint: 27.00
+15:41:53.115 -> Heater set to 26.11% power (Duty: 267)
+15:41:53.115 -> Fan power: 40.0% (Duty: 409)
+15:41:54.098 -> State: APPROACHING | Error: 2.85 | Output: 25.33 | Temp: 24.15 | Setpoint: 27.00
+15:41:54.098 -> Heater set to 25.33% power (Duty: 259)
+15:41:54.098 -> Fan power: 40.0% (Duty: 409)
+15:41:55.127 -> State: APPROACHING | Error: 2.61 | Output: 24.43 | Temp: 24.39 | Setpoint: 27.00
+15:41:55.127 -> Heater set to 24.43% power (Duty: 249)
+15:41:55.127 -> Fan power: 40.0% (Duty: 409)
+15:41:56.110 -> State: APPROACHING | Error: 2.65 | Output: 25.08 | Temp: 24.35 | Setpoint: 27.00
+15:41:56.110 -> Heater set to 25.08% power (Duty: 256)
+15:41:56.110 -> Fan power: 40.0% (Duty: 409)
+15:41:57.097 -> State: APPROACHING | Error: 2.37 | Output: 23.82 | Temp: 24.63 | Setpoint: 27.00
+15:41:57.097 -> Heater set to 23.82% power (Duty: 243)
+15:41:57.097 -> Fan power: 40.0% (Duty: 409)
+15:41:58.124 -> State: APPROACHING | Error: 2.24 | Output: 23.49 | Temp: 24.76 | Setpoint: 27.00
+15:41:58.124 -> Heater set to 23.49% power (Duty: 240)
+15:41:58.124 -> Fan power: 40.0% (Duty: 409)
+15:41:59.112 -> State: APPROACHING | Error: 2.13 | Output: 23.25 | Temp: 24.87 | Setpoint: 27.00
+15:41:59.112 -> Heater set to 23.25% power (Duty: 237)
+15:41:59.112 -> Fan power: 40.0% (Duty: 409)
+15:42:00.094 -> State: APPROACHING | Error: 2.24 | Output: 24.16 | Temp: 24.76 | Setpoint: 27.00
+15:42:00.094 -> Heater set to 24.16% power (Duty: 247)
+15:42:00.141 -> Fan power: 40.0% (Duty: 409)
+15:42:01.123 -> State: APPROACHING | Error: 2.13 | Output: 23.78 | Temp: 24.87 | Setpoint: 27.00
+15:42:01.123 -> Heater set to 23.78% power (Duty: 243)
+15:42:01.123 -> Fan power: 40.0% (Duty: 409)
+15:42:02.104 -> State: APPROACHING | Error: 1.86 | Output: 22.54 | Temp: 25.14 | Setpoint: 27.00
+15:42:02.104 -> Heater set to 22.54% power (Duty: 230)
+15:42:02.104 -> Fan power: 40.0% (Duty: 409)
+15:42:03.091 -> State: APPROACHING | Error: 1.79 | Output: 22.53 | Temp: 25.21 | Setpoint: 27.00
+15:42:03.138 -> Heater set to 22.53% power (Duty: 230)
+15:42:03.138 -> Fan power: 40.0% (Duty: 409)
+15:42:04.121 -> State: APPROACHING | Error: 1.66 | Output: 22.01 | Temp: 25.34 | Setpoint: 27.00
+15:42:04.121 -> Heater set to 22.01% power (Duty: 225)
+15:42:04.121 -> Fan power: 40.0% (Duty: 409)
+15:42:05.099 -> State: APPROACHING | Error: 1.59 | Output: 21.90 | Temp: 25.41 | Setpoint: 27.00
+15:42:05.099 -> Heater set to 21.90% power (Duty: 224)
+15:42:05.099 -> Fan power: 40.0% (Duty: 409)
+15:42:06.126 -> State: APPROACHING | Error: 1.25 | Output: 20.18 | Temp: 25.75 | Setpoint: 27.00
+15:42:06.126 -> Heater set to 20.18% power (Duty: 206)
+15:42:06.126 -> Fan power: 40.0% (Duty: 409)
+15:42:07.112 -> State: APPROACHING | Error: 1.32 | Output: 20.93 | Temp: 25.68 | Setpoint: 27.00
+15:42:07.112 -> Heater set to 20.93% power (Duty: 214)
+15:42:07.112 -> Fan power: 40.0% (Duty: 409)
+15:42:08.097 -> State: APPROACHING | Error: 1.15 | Output: 20.07 | Temp: 25.85 | Setpoint: 27.00
+15:42:08.097 -> Heater set to 20.07% power (Duty: 205)
+15:42:08.097 -> Fan power: 40.0% (Duty: 409)
+15:42:09.126 -> State: APPROACHING | Error: 1.15 | Output: 20.31 | Temp: 25.85 | Setpoint: 27.00
+15:42:09.126 -> Heater set to 20.31% power (Duty: 207)
+15:42:09.126 -> Fan power: 40.0% (Duty: 409)
+15:42:10.111 -> State: HOLDING | Error: 0.74 | Output: 18.11 | Temp: 26.26 | Setpoint: 27.00
+15:42:10.111 -> Heater set to 18.11% power (Duty: 185)
+15:42:10.111 -> Fan power: 40.0% (Duty: 409)
+15:42:11.093 -> State: HOLDING | Error: 0.57 | Output: 17.46 | Temp: 26.43 | Setpoint: 27.00
+15:42:11.093 -> Heater set to 17.46% power (Duty: 178)
+15:42:11.140 -> Fan power: 40.0% (Duty: 409)
+15:42:12.121 -> State: HOLDING | Error: 0.40 | Output: 16.66 | Temp: 26.60 | Setpoint: 27.00
+15:42:12.121 -> Heater set to 16.66% power (Duty: 170)
+15:42:12.121 -> Fan power: 40.0% (Duty: 409)
+15:42:13.104 -> State: HOLDING | Error: 0.19 | Output: 6.66 | Temp: 26.81 | Setpoint: 27.00
+15:42:13.104 -> Heater set to 6.66% power (Duty: 68)
+15:42:13.104 -> Fan power: 40.0% (Duty: 409)
+15:42:14.089 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:42:14.135 -> Fan power: 40.0% (Duty: 409)
+15:42:15.117 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:42:15.117 -> Fan power: 0.0% (Duty: 0)
+15:42:16.100 -> State: HOLDING | Error: -0.18 | Output: 0.00 | Temp: 27.18 | Setpoint: 27.00
+15:42:16.100 -> Fan power: 0.0% (Duty: 0)
+15:42:17.130 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:42:17.130 -> Fan power: 0.0% (Duty: 0)
+15:42:18.114 -> State: HOLDING | Error: -0.35 | Output: 10.00 | Temp: 27.35 | Setpoint: 27.00
+15:42:18.114 -> Heater set to 10.00% power (Duty: 102)
+15:42:18.114 -> Fan power: 40.0% (Duty: 409)
+15:42:19.099 -> State: HOLDING | Error: -0.52 | Output: 11.95 | Temp: 27.52 | Setpoint: 27.00
+15:42:19.099 -> Heater set to 11.95% power (Duty: 122)
+15:42:19.099 -> Fan power: 40.0% (Duty: 409)
+15:42:20.127 -> State: HOLDING | Error: -0.69 | Output: 11.02 | Temp: 27.69 | Setpoint: 27.00
+15:42:20.127 -> Heater set to 11.02% power (Duty: 112)
+15:42:20.127 -> Fan power: 40.0% (Duty: 409)
+15:42:21.111 -> State: HOLDING | Error: -0.73 | Output: 10.84 | Temp: 27.73 | Setpoint: 27.00
+15:42:21.111 -> Heater set to 10.84% power (Duty: 110)
+15:42:21.111 -> Fan power: 40.0% (Duty: 409)
+15:42:22.095 -> State: HOLDING | Error: -0.83 | Output: 10.19 | Temp: 27.83 | Setpoint: 27.00
+15:42:22.095 -> Heater set to 10.19% power (Duty: 104)
+15:42:22.141 -> Fan power: 40.0% (Duty: 409)
+15:42:23.123 -> State: APPROACHING | Error: -1.04 | Output: 8.98 | Temp: 28.04 | Setpoint: 27.00
+15:42:23.123 -> Heater set to 8.98% power (Duty: 91)
+15:42:23.123 -> Fan power: 40.0% (Duty: 409)
+15:42:24.107 -> State: APPROACHING | Error: -1.04 | Output: 8.98 | Temp: 28.04 | Setpoint: 27.00
+15:42:24.107 -> Heater set to 8.98% power (Duty: 91)
+15:42:24.107 -> Fan power: 40.0% (Duty: 409)
+15:42:25.089 -> State: APPROACHING | Error: -1.10 | Output: 8.47 | Temp: 28.10 | Setpoint: 27.00
+15:42:25.136 -> Heater set to 8.47% power (Duty: 86)
+15:42:25.136 -> Fan power: 40.0% (Duty: 409)
+15:42:26.112 -> State: APPROACHING | Error: -1.24 | Output: 7.59 | Temp: 28.24 | Setpoint: 27.00
+15:42:26.112 -> Heater set to 7.59% power (Duty: 77)
+15:42:26.112 -> Fan power: 40.0% (Duty: 409)
+15:42:27.094 -> State: APPROACHING | Error: -1.17 | Output: 7.92 | Temp: 28.17 | Setpoint: 27.00
+15:42:27.094 -> Heater set to 7.92% power (Duty: 80)
+15:42:27.142 -> Fan power: 40.0% (Duty: 409)
+15:42:28.126 -> State: APPROACHING | Error: -1.51 | Output: 5.79 | Temp: 28.51 | Setpoint: 27.00
+15:42:28.126 -> Heater set to 5.79% power (Duty: 59)
+15:42:28.126 -> Fan power: 40.0% (Duty: 409)
+15:42:29.112 -> State: APPROACHING | Error: -1.51 | Output: 5.81 | Temp: 28.51 | Setpoint: 27.00
+15:42:29.112 -> Heater set to 5.81% power (Duty: 59)
+15:42:29.112 -> Fan power: 40.0% (Duty: 409)
+15:42:30.098 -> State: APPROACHING | Error: -1.65 | Output: 4.85 | Temp: 28.65 | Setpoint: 27.00
+15:42:30.098 -> Heater set to 4.85% power (Duty: 49)
+15:42:30.098 -> Fan power: 40.0% (Duty: 409)
+15:42:31.129 -> State: APPROACHING | Error: -1.48 | Output: 5.71 | Temp: 28.48 | Setpoint: 27.00
+15:42:31.129 -> Heater set to 5.71% power (Duty: 58)
+15:42:31.129 -> Fan power: 40.0% (Duty: 409)
+15:42:32.113 -> State: APPROACHING | Error: -1.34 | Output: 6.21 | Temp: 28.34 | Setpoint: 27.00
+15:42:32.113 -> Heater set to 6.21% power (Duty: 63)
+15:42:32.113 -> Fan power: 40.0% (Duty: 409)
+15:42:33.098 -> State: APPROACHING | Error: -1.58 | Output: 4.60 | Temp: 28.58 | Setpoint: 27.00
+15:42:33.098 -> Heater set to 4.60% power (Duty: 47)
+15:42:33.098 -> Fan power: 40.0% (Duty: 409)
+15:42:34.124 -> State: APPROACHING | Error: -1.55 | Output: 4.75 | Temp: 28.55 | Setpoint: 27.00
+15:42:34.124 -> Heater set to 4.75% power (Duty: 48)
+15:42:34.124 -> Fan power: 40.0% (Duty: 409)
+15:42:35.106 -> State: APPROACHING | Error: -1.68 | Output: 3.76 | Temp: 28.68 | Setpoint: 27.00
+15:42:35.106 -> Heater set to 3.76% power (Duty: 38)
+15:42:35.106 -> Fan power: 40.0% (Duty: 409)
+15:42:36.088 -> State: APPROACHING | Error: -1.75 | Output: 3.25 | Temp: 28.75 | Setpoint: 27.00
+15:42:36.135 -> Heater set to 3.25% power (Duty: 33)
+15:42:36.135 -> Fan power: 40.0% (Duty: 409)
+15:42:37.116 -> State: APPROACHING | Error: -1.89 | Output: 2.30 | Temp: 28.89 | Setpoint: 27.00
+15:42:37.116 -> Heater set to 2.30% power (Duty: 23)
+15:42:37.116 -> Fan power: 40.0% (Duty: 409)
+15:42:38.099 -> State: APPROACHING | Error: -1.96 | Output: 1.77 | Temp: 28.96 | Setpoint: 27.00
+15:42:38.099 -> Heater set to 1.77% power (Duty: 18)
+15:42:38.099 -> Fan power: 40.0% (Duty: 409)
+15:42:39.130 -> State: APPROACHING | Error: -2.06 | Output: 0.99 | Temp: 29.06 | Setpoint: 27.00
+15:42:39.130 -> Heater set to 0.99% power (Duty: 10)
+15:42:39.130 -> Fan power: 40.0% (Duty: 409)
+15:42:40.113 -> State: APPROACHING | Error: -1.75 | Output: 2.56 | Temp: 28.75 | Setpoint: 27.00
+15:42:40.113 -> Heater set to 2.56% power (Duty: 26)
+15:42:40.113 -> Fan power: 40.0% (Duty: 409)
+15:42:41.095 -> State: APPROACHING | Error: -1.89 | Output: 1.38 | Temp: 28.89 | Setpoint: 27.00
+15:42:41.095 -> Heater set to 1.38% power (Duty: 14)
+15:42:41.141 -> Fan power: 40.0% (Duty: 409)
+15:42:42.127 -> State: APPROACHING | Error: -1.89 | Output: 1.24 | Temp: 28.89 | Setpoint: 27.00
+15:42:42.127 -> Heater set to 1.24% power (Duty: 12)
+15:42:42.127 -> Fan power: 40.0% (Duty: 409)
+15:42:43.108 -> State: APPROACHING | Error: -1.82 | Output: 1.40 | Temp: 28.82 | Setpoint: 27.00
+15:42:43.108 -> Heater set to 1.40% power (Duty: 14)
+15:42:43.108 -> Fan power: 40.0% (Duty: 409)
+15:42:44.090 -> State: APPROACHING | Error: -1.89 | Output: 0.75 | Temp: 28.89 | Setpoint: 27.00
+15:42:44.136 -> Heater set to 0.75% power (Duty: 7)
+15:42:44.136 -> Fan power: 40.0% (Duty: 409)
+15:42:45.122 -> State: APPROACHING | Error: -1.85 | Output: 0.76 | Temp: 28.85 | Setpoint: 27.00
+15:42:45.122 -> Heater set to 0.76% power (Duty: 7)
+15:42:45.122 -> Fan power: 40.0% (Duty: 409)
+15:42:46.108 -> State: APPROACHING | Error: -1.79 | Output: 0.91 | Temp: 28.79 | Setpoint: 27.00
+15:42:46.108 -> Heater set to 0.91% power (Duty: 9)
+15:42:46.108 -> Fan power: 40.0% (Duty: 409)
+15:42:47.089 -> State: APPROACHING | Error: -2.02 | Output: -0.71 | Temp: 29.02 | Setpoint: 27.00
+15:42:47.136 -> Cooling set to 0.71% power (Duty: 7)
+15:42:47.136 -> Fan power: 100.1% (Duty: 1024)
+15:42:48.118 -> State: APPROACHING | Error: -1.85 | Output: 0.16 | Temp: 28.85 | Setpoint: 27.00
+15:42:48.118 -> Heater set to 0.16% power (Duty: 1)
+15:42:48.118 -> Fan power: 40.0% (Duty: 409)
+15:42:49.102 -> State: APPROACHING | Error: -1.85 | Output: -0.16 | Temp: 28.85 | Setpoint: 27.00
+15:42:49.102 -> Cooling set to 0.16% power (Duty: 1)
+15:42:49.102 -> Fan power: 100.1% (Duty: 1024)
+15:42:50.127 -> State: APPROACHING | Error: -1.89 | Output: -0.58 | Temp: 28.89 | Setpoint: 27.00
+15:42:50.127 -> Cooling set to 0.58% power (Duty: 5)
+15:42:50.127 -> Fan power: 100.1% (Duty: 1024)
+15:42:51.109 -> State: APPROACHING | Error: -1.89 | Output: -0.78 | Temp: 28.89 | Setpoint: 27.00
+15:42:51.109 -> Cooling set to 0.78% power (Duty: 8)
+15:42:51.109 -> Fan power: 100.1% (Duty: 1024)
+15:42:52.093 -> State: APPROACHING | Error: -1.92 | Output: -1.21 | Temp: 28.92 | Setpoint: 27.00
+15:42:52.093 -> Cooling set to 1.21% power (Duty: 12)
+15:42:52.139 -> Fan power: 100.1% (Duty: 1024)
+15:42:53.121 -> State: APPROACHING | Error: -1.92 | Output: -1.42 | Temp: 28.92 | Setpoint: 27.00
+15:42:53.121 -> Cooling set to 1.42% power (Duty: 14)
+15:42:53.121 -> Fan power: 100.1% (Duty: 1024)
+15:42:54.104 -> State: APPROACHING | Error: -1.79 | Output: -0.87 | Temp: 28.79 | Setpoint: 27.00
+15:42:54.104 -> Cooling set to 0.87% power (Duty: 8)
+15:42:54.104 -> Fan power: 100.1% (Duty: 1024)
+15:42:55.090 -> State: APPROACHING | Error: -1.82 | Output: -1.36 | Temp: 28.82 | Setpoint: 27.00
+15:42:55.136 -> Cooling set to 1.36% power (Duty: 13)
+15:42:55.136 -> Fan power: 100.1% (Duty: 1024)
+15:42:56.124 -> State: APPROACHING | Error: -1.79 | Output: -1.36 | Temp: 28.79 | Setpoint: 27.00
+15:42:56.124 -> Cooling set to 1.36% power (Duty: 13)
+15:42:56.124 -> Fan power: 100.1% (Duty: 1024)
+15:42:57.105 -> State: APPROACHING | Error: -1.79 | Output: -1.60 | Temp: 28.79 | Setpoint: 27.00
+15:42:57.105 -> Cooling set to 1.60% power (Duty: 16)
+15:42:57.105 -> Fan power: 100.1% (Duty: 1024)
+15:42:58.089 -> State: APPROACHING | Error: -1.75 | Output: -1.61 | Temp: 28.75 | Setpoint: 27.00
+15:42:58.136 -> Cooling set to 1.61% power (Duty: 16)
+15:42:58.136 -> Fan power: 100.1% (Duty: 1024)
+15:42:59.119 -> State: APPROACHING | Error: -1.75 | Output: -1.85 | Temp: 28.75 | Setpoint: 27.00
+15:42:59.119 -> Cooling set to 1.85% power (Duty: 18)
+15:42:59.119 -> Fan power: 100.1% (Duty: 1024)
+15:43:00.100 -> State: APPROACHING | Error: -1.65 | Output: -1.47 | Temp: 28.65 | Setpoint: 27.00
+15:43:00.100 -> Cooling set to 1.47% power (Duty: 15)
+15:43:00.100 -> Fan power: 100.1% (Duty: 1024)
+15:43:01.132 -> State: APPROACHING | Error: -1.65 | Output: -1.73 | Temp: 28.65 | Setpoint: 27.00
+15:43:01.132 -> Cooling set to 1.73% power (Duty: 17)
+15:43:01.132 -> Fan power: 100.1% (Duty: 1024)
+15:43:02.115 -> State: APPROACHING | Error: -1.58 | Output: -1.54 | Temp: 28.58 | Setpoint: 27.00
+15:43:02.115 -> Cooling set to 1.54% power (Duty: 15)
+15:43:02.115 -> Fan power: 100.1% (Duty: 1024)
+15:43:03.101 -> State: APPROACHING | Error: -1.58 | Output: -1.77 | Temp: 28.58 | Setpoint: 27.00
+15:43:03.101 -> Cooling set to 1.77% power (Duty: 18)
+15:43:03.101 -> Fan power: 100.1% (Duty: 1024)
+15:43:04.132 -> State: APPROACHING | Error: -1.51 | Output: -1.57 | Temp: 28.51 | Setpoint: 27.00
+15:43:04.132 -> Cooling set to 1.57% power (Duty: 16)
+15:43:04.132 -> Fan power: 100.1% (Duty: 1024)
+15:43:05.116 -> State: APPROACHING | Error: -1.51 | Output: -1.79 | Temp: 28.51 | Setpoint: 27.00
+15:43:05.116 -> Cooling set to 1.79% power (Duty: 18)
+15:43:05.116 -> Fan power: 100.1% (Duty: 1024)
+15:43:06.097 -> State: APPROACHING | Error: -1.41 | Output: -1.39 | Temp: 28.41 | Setpoint: 27.00
+15:43:06.097 -> Cooling set to 1.39% power (Duty: 14)
+15:43:06.097 -> Fan power: 100.1% (Duty: 1024)
+15:43:07.129 -> State: APPROACHING | Error: -1.41 | Output: -1.62 | Temp: 28.41 | Setpoint: 27.00
+15:43:07.129 -> Cooling set to 1.62% power (Duty: 16)
+15:43:07.129 -> Fan power: 100.1% (Duty: 1024)
+15:43:08.109 -> State: APPROACHING | Error: -1.38 | Output: -1.59 | Temp: 28.38 | Setpoint: 27.00
+15:43:08.109 -> Cooling set to 1.59% power (Duty: 16)
+15:43:08.109 -> Fan power: 100.1% (Duty: 1024)
+15:43:09.092 -> State: APPROACHING | Error: -1.38 | Output: -1.78 | Temp: 28.38 | Setpoint: 27.00
+15:43:09.139 -> Cooling set to 1.78% power (Duty: 18)
+15:43:09.139 -> Fan power: 100.1% (Duty: 1024)
+15:43:10.121 -> State: APPROACHING | Error: -1.31 | Output: -1.55 | Temp: 28.31 | Setpoint: 27.00
+15:43:10.121 -> Cooling set to 1.55% power (Duty: 15)
+15:43:10.121 -> Fan power: 100.1% (Duty: 1024)
+15:43:11.104 -> State: APPROACHING | Error: -1.31 | Output: -1.75 | Temp: 28.31 | Setpoint: 27.00
+15:43:11.104 -> Cooling set to 1.75% power (Duty: 17)
+15:43:11.104 -> Fan power: 100.1% (Duty: 1024)
+15:43:12.088 -> State: APPROACHING | Error: -1.14 | Output: -0.93 | Temp: 28.14 | Setpoint: 27.00
+15:43:12.136 -> Cooling set to 0.93% power (Duty: 9)
+15:43:12.136 -> Fan power: 100.1% (Duty: 1024)
+15:43:13.120 -> State: APPROACHING | Error: -1.21 | Output: -1.56 | Temp: 28.21 | Setpoint: 27.00
+15:43:13.120 -> Cooling set to 1.56% power (Duty: 15)
+15:43:13.120 -> Fan power: 100.1% (Duty: 1024)
+15:43:14.104 -> State: APPROACHING | Error: -1.07 | Output: -0.89 | Temp: 28.07 | Setpoint: 27.00
+15:43:14.104 -> Cooling set to 0.89% power (Duty: 9)
+15:43:14.104 -> Fan power: 100.1% (Duty: 1024)
+15:43:15.088 -> State: APPROACHING | Error: -1.04 | Output: -0.90 | Temp: 28.04 | Setpoint: 27.00
+15:43:15.135 -> Cooling set to 0.90% power (Duty: 9)
+15:43:15.135 -> Fan power: 100.1% (Duty: 1024)
+15:43:16.117 -> State: HOLDING | Error: -0.97 | Output: -0.66 | Temp: 27.97 | Setpoint: 27.00
+15:43:16.117 -> Cooling set to 0.66% power (Duty: 6)
+15:43:16.117 -> Fan power: 100.1% (Duty: 1024)
+15:43:17.098 -> State: APPROACHING | Error: -1.04 | Output: -1.20 | Temp: 28.04 | Setpoint: 27.00
+15:43:17.098 -> Cooling set to 1.20% power (Duty: 12)
+15:43:17.098 -> Fan power: 100.1% (Duty: 1024)
+15:43:18.128 -> State: APPROACHING | Error: -1.00 | Output: -1.09 | Temp: 28.00 | Setpoint: 27.00
+15:43:18.128 -> Cooling set to 1.09% power (Duty: 11)
+15:43:18.128 -> Fan power: 100.1% (Duty: 1024)
+15:43:19.111 -> State: HOLDING | Error: -0.90 | Output: -0.65 | Temp: 27.90 | Setpoint: 27.00
+15:43:19.111 -> Cooling set to 0.65% power (Duty: 6)
+15:43:19.111 -> Fan power: 100.1% (Duty: 1024)
+15:43:20.094 -> State: HOLDING | Error: -0.80 | Output: -0.23 | Temp: 27.80 | Setpoint: 27.00
+15:43:20.094 -> Cooling set to 0.23% power (Duty: 2)
+15:43:20.142 -> Fan power: 100.1% (Duty: 1024)
+15:43:21.125 -> State: HOLDING | Error: -0.80 | Output: -0.39 | Temp: 27.80 | Setpoint: 27.00
+15:43:21.125 -> Cooling set to 0.39% power (Duty: 3)
+15:43:21.125 -> Fan power: 100.1% (Duty: 1024)
+15:43:22.107 -> State: HOLDING | Error: -0.66 | Output: 0.30 | Temp: 27.66 | Setpoint: 27.00
+15:43:22.107 -> Heater set to 0.30% power (Duty: 3)
+15:43:22.107 -> Fan power: 40.0% (Duty: 409)
+15:43:23.092 -> State: HOLDING | Error: -0.76 | Output: -0.45 | Temp: 27.76 | Setpoint: 27.00
+15:43:23.138 -> Cooling set to 0.45% power (Duty: 4)
+15:43:23.138 -> Fan power: 100.1% (Duty: 1024)
+15:43:24.125 -> State: HOLDING | Error: -0.66 | Output: 0.10 | Temp: 27.66 | Setpoint: 27.00
+15:43:24.125 -> Heater set to 0.10% power (Duty: 1)
+15:43:24.125 -> Fan power: 40.0% (Duty: 409)
+15:43:25.109 -> State: HOLDING | Error: -0.59 | Output: 0.35 | Temp: 27.59 | Setpoint: 27.00
+15:43:25.109 -> Heater set to 0.35% power (Duty: 3)
+15:43:25.109 -> Fan power: 40.0% (Duty: 409)
+15:43:26.089 -> State: HOLDING | Error: -0.49 | Output: 0.83 | Temp: 27.49 | Setpoint: 27.00
+15:43:26.136 -> Heater set to 0.83% power (Duty: 8)
+15:43:26.136 -> Fan power: 40.0% (Duty: 409)
+15:43:27.122 -> State: HOLDING | Error: -0.66 | Output: -0.27 | Temp: 27.66 | Setpoint: 27.00
+15:43:27.122 -> Cooling set to 0.27% power (Duty: 2)
+15:43:27.122 -> Fan power: 100.1% (Duty: 1024)
+15:43:28.107 -> State: HOLDING | Error: -0.52 | Output: 0.53 | Temp: 27.52 | Setpoint: 27.00
+15:43:28.107 -> Heater set to 0.53% power (Duty: 5)
+15:43:28.107 -> Fan power: 40.0% (Duty: 409)
+15:43:29.091 -> State: HOLDING | Error: -0.63 | Output: -0.20 | Temp: 27.63 | Setpoint: 27.00
+15:43:29.138 -> Cooling set to 0.20% power (Duty: 1)
+15:43:29.138 -> Fan power: 100.1% (Duty: 1024)
+15:43:30.120 -> State: HOLDING | Error: -0.39 | Output: 1.16 | Temp: 27.39 | Setpoint: 27.00
+15:43:30.120 -> Heater set to 1.16% power (Duty: 11)
+15:43:30.120 -> Fan power: 40.0% (Duty: 409)
+15:43:31.100 -> State: HOLDING | Error: -0.42 | Output: 0.77 | Temp: 27.42 | Setpoint: 27.00
+15:43:31.100 -> Heater set to 0.77% power (Duty: 7)
+15:43:31.100 -> Fan power: 40.0% (Duty: 409)
+15:43:32.132 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:43:32.132 -> Fan power: 40.0% (Duty: 409)
+15:43:33.120 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:43:33.120 -> Fan power: 0.0% (Duty: 0)
+15:43:34.107 -> State: HOLDING | Error: -0.22 | Output: 0.00 | Temp: 27.22 | Setpoint: 27.00
+15:43:34.107 -> Fan power: 0.0% (Duty: 0)
+15:43:35.090 -> State: HOLDING | Error: -0.18 | Output: 0.00 | Temp: 27.18 | Setpoint: 27.00
+15:43:35.136 -> Fan power: 0.0% (Duty: 0)
+15:43:36.119 -> State: HOLDING | Error: -0.15 | Output: 0.00 | Temp: 27.15 | Setpoint: 27.00
+15:43:36.119 -> Fan power: 0.0% (Duty: 0)
+15:43:37.101 -> State: HOLDING | Error: -0.08 | Output: 0.00 | Temp: 27.08 | Setpoint: 27.00
+15:43:37.101 -> Fan power: 0.0% (Duty: 0)
+15:43:38.128 -> State: HOLDING | Error: -0.08 | Output: 0.00 | Temp: 27.08 | Setpoint: 27.00
+15:43:38.128 -> Fan power: 0.0% (Duty: 0)
+15:43:39.116 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:43:39.116 -> Fan power: 0.0% (Duty: 0)
+15:43:40.098 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:43:40.098 -> Fan power: 0.0% (Duty: 0)
+15:43:41.129 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:43:41.129 -> Fan power: 0.0% (Duty: 0)
+15:43:42.115 -> State: HOLDING | Error: 0.12 | Output: 0.00 | Temp: 26.88 | Setpoint: 27.00
+15:43:42.115 -> Fan power: 0.0% (Duty: 0)
+15:43:43.099 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:43:43.099 -> Fan power: 0.0% (Duty: 0)
+15:43:44.130 -> State: HOLDING | Error: 0.12 | Output: 0.00 | Temp: 26.88 | Setpoint: 27.00
+15:43:44.130 -> Fan power: 0.0% (Duty: 0)
+15:43:45.115 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:43:45.115 -> Fan power: 0.0% (Duty: 0)
+15:43:46.101 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:43:46.101 -> Fan power: 0.0% (Duty: 0)
+15:43:47.132 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:43:47.132 -> Fan power: 0.0% (Duty: 0)
+15:43:48.115 -> State: HOLDING | Error: 0.36 | Output: 5.22 | Temp: 26.64 | Setpoint: 27.00
+15:43:48.115 -> Heater set to 5.22% power (Duty: 53)
+15:43:48.115 -> Fan power: 40.0% (Duty: 409)
+15:43:49.099 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:43:49.099 -> Fan power: 40.0% (Duty: 409)
+15:43:50.129 -> State: HOLDING | Error: 0.36 | Output: 4.80 | Temp: 26.64 | Setpoint: 27.00
+15:43:50.129 -> Heater set to 4.80% power (Duty: 49)
+15:43:50.129 -> Fan power: 40.0% (Duty: 409)
+15:43:51.113 -> State: HOLDING | Error: 0.33 | Output: 4.65 | Temp: 26.67 | Setpoint: 27.00
+15:43:51.113 -> Heater set to 4.65% power (Duty: 47)
+15:43:51.113 -> Fan power: 40.0% (Duty: 409)
+15:43:52.097 -> State: HOLDING | Error: 0.50 | Output: 5.68 | Temp: 26.50 | Setpoint: 27.00
+15:43:52.097 -> Heater set to 5.68% power (Duty: 58)
+15:43:52.097 -> Fan power: 40.0% (Duty: 409)
+15:43:53.128 -> State: HOLDING | Error: 0.43 | Output: 5.25 | Temp: 26.57 | Setpoint: 27.00
+15:43:53.128 -> Heater set to 5.25% power (Duty: 53)
+15:43:53.128 -> Fan power: 40.0% (Duty: 409)
+15:43:54.110 -> State: HOLDING | Error: 0.46 | Output: 5.54 | Temp: 26.54 | Setpoint: 27.00
+15:43:54.110 -> Heater set to 5.54% power (Duty: 56)
+15:43:54.110 -> Fan power: 40.0% (Duty: 409)
+15:43:55.097 -> State: HOLDING | Error: 0.40 | Output: 5.18 | Temp: 26.60 | Setpoint: 27.00
+15:43:55.097 -> Heater set to 5.18% power (Duty: 53)
+15:43:55.143 -> Fan power: 40.0% (Duty: 409)
+15:43:56.125 -> State: HOLDING | Error: 0.50 | Output: 5.85 | Temp: 26.50 | Setpoint: 27.00
+15:43:56.125 -> Heater set to 5.85% power (Duty: 59)
+15:43:56.125 -> Fan power: 40.0% (Duty: 409)
+15:43:57.107 -> State: HOLDING | Error: 0.33 | Output: 4.88 | Temp: 26.67 | Setpoint: 27.00
+15:43:57.107 -> Heater set to 4.88% power (Duty: 49)
+15:43:57.107 -> Fan power: 40.0% (Duty: 409)
+15:43:58.090 -> State: HOLDING | Error: 0.57 | Output: 6.38 | Temp: 26.43 | Setpoint: 27.00
+15:43:58.136 -> Heater set to 6.38% power (Duty: 65)
+15:43:58.136 -> Fan power: 40.0% (Duty: 409)
+15:43:59.120 -> State: HOLDING | Error: 0.46 | Output: 5.72 | Temp: 26.54 | Setpoint: 27.00
+15:43:59.120 -> Heater set to 5.72% power (Duty: 58)
+15:43:59.120 -> Fan power: 40.0% (Duty: 409)
+15:44:00.104 -> State: HOLDING | Error: 0.60 | Output: 6.62 | Temp: 26.40 | Setpoint: 27.00
+15:44:00.104 -> Heater set to 6.62% power (Duty: 67)
+15:44:00.104 -> Fan power: 40.0% (Duty: 409)
+15:44:01.134 -> State: HOLDING | Error: 0.60 | Output: 6.61 | Temp: 26.40 | Setpoint: 27.00
+15:44:01.134 -> Heater set to 6.61% power (Duty: 67)
+15:44:01.134 -> Fan power: 40.0% (Duty: 409)
+15:44:02.119 -> State: HOLDING | Error: 0.84 | Output: 8.05 | Temp: 26.16 | Setpoint: 27.00
+15:44:02.119 -> Heater set to 8.05% power (Duty: 82)
+15:44:02.119 -> Fan power: 40.0% (Duty: 409)
+15:44:03.105 -> State: HOLDING | Error: 0.70 | Output: 7.23 | Temp: 26.30 | Setpoint: 27.00
+15:44:03.105 -> Heater set to 7.23% power (Duty: 73)
+15:44:03.105 -> Fan power: 40.0% (Duty: 409)
+15:44:04.089 -> State: HOLDING | Error: 0.57 | Output: 6.61 | Temp: 26.43 | Setpoint: 27.00
+15:44:04.136 -> Heater set to 6.61% power (Duty: 67)
+15:44:04.136 -> Fan power: 40.0% (Duty: 409)
+15:44:05.117 -> State: HOLDING | Error: 0.80 | Output: 8.13 | Temp: 26.20 | Setpoint: 27.00
+15:44:05.117 -> Heater set to 8.13% power (Duty: 83)
+15:44:05.117 -> Fan power: 40.0% (Duty: 409)
+15:44:06.100 -> State: HOLDING | Error: 0.80 | Output: 8.08 | Temp: 26.20 | Setpoint: 27.00
+15:44:06.100 -> Heater set to 8.08% power (Duty: 82)
+15:44:06.100 -> Fan power: 40.0% (Duty: 409)
+15:44:07.129 -> State: HOLDING | Error: 0.70 | Output: 7.59 | Temp: 26.30 | Setpoint: 27.00
+15:44:07.129 -> Heater set to 7.59% power (Duty: 77)
+15:44:07.129 -> Fan power: 40.0% (Duty: 409)
+15:44:08.113 -> State: HOLDING | Error: 0.87 | Output: 8.71 | Temp: 26.13 | Setpoint: 27.00
+15:44:08.113 -> Heater set to 8.71% power (Duty: 89)
+15:44:08.113 -> Fan power: 40.0% (Duty: 409)
+15:44:09.096 -> State: HOLDING | Error: 0.67 | Output: 7.55 | Temp: 26.33 | Setpoint: 27.00
+15:44:09.096 -> Heater set to 7.55% power (Duty: 77)
+15:44:09.142 -> Fan power: 40.0% (Duty: 409)
+15:44:10.126 -> State: HOLDING | Error: 0.46 | Output: 6.58 | Temp: 26.54 | Setpoint: 27.00
+15:44:10.126 -> Heater set to 6.58% power (Duty: 67)
+15:44:10.126 -> Fan power: 40.0% (Duty: 409)
+15:44:11.110 -> State: HOLDING | Error: 0.77 | Output: 8.51 | Temp: 26.23 | Setpoint: 27.00
+15:44:11.110 -> Heater set to 8.51% power (Duty: 87)
+15:44:11.110 -> Fan power: 40.0% (Duty: 409)
+15:44:12.093 -> State: HOLDING | Error: 0.63 | Output: 7.64 | Temp: 26.37 | Setpoint: 27.00
+15:44:12.140 -> Heater set to 7.64% power (Duty: 78)
+15:44:12.140 -> Fan power: 40.0% (Duty: 409)
+15:44:13.121 -> State: HOLDING | Error: 0.74 | Output: 8.38 | Temp: 26.26 | Setpoint: 27.00
+15:44:13.121 -> Heater set to 8.38% power (Duty: 85)
+15:44:13.121 -> Fan power: 40.0% (Duty: 409)
+15:44:14.104 -> State: HOLDING | Error: 0.63 | Output: 7.82 | Temp: 26.37 | Setpoint: 27.00
+15:44:14.104 -> Heater set to 7.82% power (Duty: 80)
+15:44:14.104 -> Fan power: 40.0% (Duty: 409)
+15:44:15.134 -> State: HOLDING | Error: 0.70 | Output: 8.35 | Temp: 26.30 | Setpoint: 27.00
+15:44:15.134 -> Heater set to 8.35% power (Duty: 85)
+15:44:15.134 -> Fan power: 40.0% (Duty: 409)
+15:44:16.116 -> State: HOLDING | Error: 0.67 | Output: 8.20 | Temp: 26.33 | Setpoint: 27.00
+15:44:16.116 -> Heater set to 8.20% power (Duty: 83)
+15:44:16.116 -> Fan power: 40.0% (Duty: 409)
+15:44:17.097 -> State: HOLDING | Error: 0.70 | Output: 8.50 | Temp: 26.30 | Setpoint: 27.00
+15:44:17.097 -> Heater set to 8.50% power (Duty: 86)
+15:44:17.144 -> Fan power: 40.0% (Duty: 409)
+15:44:18.125 -> State: HOLDING | Error: 0.57 | Output: 7.78 | Temp: 26.43 | Setpoint: 27.00
+15:44:18.125 -> Heater set to 7.78% power (Duty: 79)
+15:44:18.125 -> Fan power: 40.0% (Duty: 409)
+15:44:19.109 -> State: HOLDING | Error: 0.53 | Output: 7.74 | Temp: 26.47 | Setpoint: 27.00
+15:44:19.109 -> Heater set to 7.74% power (Duty: 79)
+15:44:19.109 -> Fan power: 40.0% (Duty: 409)
+15:44:20.094 -> State: HOLDING | Error: 0.63 | Output: 8.40 | Temp: 26.37 | Setpoint: 27.00
+15:44:20.141 -> Heater set to 8.40% power (Duty: 85)
+15:44:20.141 -> Fan power: 40.0% (Duty: 409)
+15:44:21.129 -> State: HOLDING | Error: 0.63 | Output: 8.42 | Temp: 26.37 | Setpoint: 27.00
+15:44:21.129 -> Heater set to 8.42% power (Duty: 86)
+15:44:21.129 -> Fan power: 40.0% (Duty: 409)
+15:44:22.112 -> State: HOLDING | Error: 0.40 | Output: 7.13 | Temp: 26.60 | Setpoint: 27.00
+15:44:22.112 -> Heater set to 7.13% power (Duty: 72)
+15:44:22.112 -> Fan power: 40.0% (Duty: 409)
+15:44:23.099 -> State: HOLDING | Error: 0.67 | Output: 8.88 | Temp: 26.33 | Setpoint: 27.00
+15:44:23.099 -> Heater set to 8.88% power (Duty: 90)
+15:44:23.099 -> Fan power: 40.0% (Duty: 409)
+15:44:24.130 -> State: HOLDING | Error: 0.36 | Output: 7.04 | Temp: 26.64 | Setpoint: 27.00
+15:44:24.130 -> Heater set to 7.04% power (Duty: 72)
+15:44:24.130 -> Fan power: 40.0% (Duty: 409)
+15:44:25.113 -> State: HOLDING | Error: 0.60 | Output: 8.64 | Temp: 26.40 | Setpoint: 27.00
+15:44:25.113 -> Heater set to 8.64% power (Duty: 88)
+15:44:25.113 -> Fan power: 40.0% (Duty: 409)
+15:44:26.098 -> State: HOLDING | Error: 0.50 | Output: 7.98 | Temp: 26.50 | Setpoint: 27.00
+15:44:26.098 -> Heater set to 7.98% power (Duty: 81)
+15:44:26.098 -> Fan power: 40.0% (Duty: 409)
+15:44:27.128 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:44:27.128 -> Fan power: 40.0% (Duty: 409)
+15:44:28.109 -> State: HOLDING | Error: 0.43 | Output: 7.71 | Temp: 26.57 | Setpoint: 27.00
+15:44:28.109 -> Heater set to 7.71% power (Duty: 78)
+15:44:28.109 -> Fan power: 40.0% (Duty: 409)
+15:44:29.099 -> State: HOLDING | Error: 0.53 | Output: 8.39 | Temp: 26.47 | Setpoint: 27.00
+15:44:29.099 -> Heater set to 8.39% power (Duty: 85)
+15:44:29.099 -> Fan power: 40.0% (Duty: 409)
+15:44:30.127 -> State: HOLDING | Error: 0.33 | Output: 7.22 | Temp: 26.67 | Setpoint: 27.00
+15:44:30.127 -> Heater set to 7.22% power (Duty: 73)
+15:44:30.127 -> Fan power: 40.0% (Duty: 409)
+15:44:31.107 -> State: HOLDING | Error: 0.12 | Output: 0.00 | Temp: 26.88 | Setpoint: 27.00
+15:44:31.107 -> Fan power: 40.0% (Duty: 409)
+15:44:32.136 -> State: HOLDING | Error: 0.33 | Output: 7.38 | Temp: 26.67 | Setpoint: 27.00
+15:44:32.136 -> Heater set to 7.38% power (Duty: 75)
+15:44:32.136 -> Fan power: 40.0% (Duty: 409)
+15:44:33.117 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:44:33.117 -> Fan power: 40.0% (Duty: 409)
+15:44:34.098 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:44:34.098 -> Fan power: 0.0% (Duty: 0)
+15:44:35.127 -> State: HOLDING | Error: 0.16 | Output: 0.00 | Temp: 26.84 | Setpoint: 27.00
+15:44:35.127 -> Fan power: 0.0% (Duty: 0)
+15:44:36.113 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:44:36.113 -> Fan power: 0.0% (Duty: 0)
+15:44:37.094 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:44:37.141 -> Fan power: 0.0% (Duty: 0)
+15:44:38.123 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:44:38.123 -> Fan power: 0.0% (Duty: 0)
+15:44:39.106 -> State: HOLDING | Error: 0.12 | Output: 0.00 | Temp: 26.88 | Setpoint: 27.00
+15:44:39.106 -> Fan power: 0.0% (Duty: 0)
+15:44:40.091 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:44:40.137 -> Fan power: 0.0% (Duty: 0)
+15:44:41.119 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:44:41.119 -> Fan power: 0.0% (Duty: 0)
+15:44:42.102 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:44:42.102 -> Fan power: 0.0% (Duty: 0)
+15:44:43.131 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:44:43.131 -> Fan power: 0.0% (Duty: 0)
+15:44:44.111 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:44:44.111 -> Fan power: 0.0% (Duty: 0)
+15:44:45.094 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:44:45.141 -> Fan power: 0.0% (Duty: 0)
+15:44:46.121 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:44:46.121 -> Fan power: 0.0% (Duty: 0)
+15:44:47.105 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:44:47.105 -> Fan power: 0.0% (Duty: 0)
+15:44:48.133 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:44:48.133 -> Fan power: 0.0% (Duty: 0)
+15:44:49.114 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:44:49.114 -> Fan power: 0.0% (Duty: 0)
+15:44:50.098 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:44:50.098 -> Fan power: 0.0% (Duty: 0)
+15:44:51.129 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:44:51.129 -> Fan power: 0.0% (Duty: 0)
+15:44:52.111 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:44:52.111 -> Fan power: 0.0% (Duty: 0)
+15:44:53.093 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:44:53.141 -> Fan power: 0.0% (Duty: 0)
+15:44:54.121 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:44:54.121 -> Fan power: 0.0% (Duty: 0)
+15:44:55.106 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:44:55.106 -> Fan power: 0.0% (Duty: 0)
+15:44:56.091 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:44:56.137 -> Fan power: 0.0% (Duty: 0)
+15:44:57.118 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:44:57.118 -> Fan power: 0.0% (Duty: 0)
+15:44:58.102 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:44:58.102 -> Fan power: 0.0% (Duty: 0)
+15:44:59.131 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:44:59.131 -> Fan power: 0.0% (Duty: 0)
+15:45:00.114 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:45:00.114 -> Fan power: 0.0% (Duty: 0)
+15:45:01.097 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:45:01.097 -> Fan power: 0.0% (Duty: 0)
+15:45:02.128 -> State: HOLDING | Error: 0.12 | Output: 0.00 | Temp: 26.88 | Setpoint: 27.00
+15:45:02.128 -> Fan power: 0.0% (Duty: 0)
+15:45:03.113 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:45:03.113 -> Fan power: 0.0% (Duty: 0)
+15:45:04.096 -> State: HOLDING | Error: 0.12 | Output: 0.00 | Temp: 26.88 | Setpoint: 27.00
+15:45:04.096 -> Fan power: 0.0% (Duty: 0)
+15:45:05.125 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:45:05.125 -> Fan power: 0.0% (Duty: 0)
+15:45:06.107 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:45:06.107 -> Fan power: 0.0% (Duty: 0)
+15:45:07.092 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:45:07.138 -> Fan power: 0.0% (Duty: 0)
+15:45:08.122 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:45:08.122 -> Fan power: 0.0% (Duty: 0)
+15:45:09.107 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:45:09.107 -> Fan power: 0.0% (Duty: 0)
+15:45:10.091 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:45:10.136 -> Fan power: 0.0% (Duty: 0)
+15:45:11.122 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:45:11.122 -> Fan power: 0.0% (Duty: 0)
+15:45:12.103 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:45:12.103 -> Fan power: 0.0% (Duty: 0)
+15:45:13.134 -> State: HOLDING | Error: 0.36 | Output: 7.62 | Temp: 26.64 | Setpoint: 27.00
+15:45:13.134 -> Heater set to 7.62% power (Duty: 77)
+15:45:13.134 -> Fan power: 40.0% (Duty: 409)
+15:45:14.116 -> State: HOLDING | Error: 0.50 | Output: 8.42 | Temp: 26.50 | Setpoint: 27.00
+15:45:14.116 -> Heater set to 8.42% power (Duty: 86)
+15:45:14.116 -> Fan power: 40.0% (Duty: 409)
+15:45:15.100 -> State: HOLDING | Error: 0.53 | Output: 8.59 | Temp: 26.47 | Setpoint: 27.00
+15:45:15.100 -> Heater set to 8.59% power (Duty: 87)
+15:45:15.100 -> Fan power: 40.0% (Duty: 409)
+15:45:16.128 -> State: HOLDING | Error: 0.36 | Output: 7.66 | Temp: 26.64 | Setpoint: 27.00
+15:45:16.128 -> Heater set to 7.66% power (Duty: 78)
+15:45:16.128 -> Fan power: 40.0% (Duty: 409)
+15:45:17.106 -> State: HOLDING | Error: 0.36 | Output: 7.81 | Temp: 26.64 | Setpoint: 27.00
+15:45:17.106 -> Heater set to 7.81% power (Duty: 79)
+15:45:17.106 -> Fan power: 40.0% (Duty: 409)
+15:45:18.094 -> State: HOLDING | Error: 0.50 | Output: 8.63 | Temp: 26.50 | Setpoint: 27.00
+15:45:18.142 -> Heater set to 8.63% power (Duty: 88)
+15:45:18.142 -> Fan power: 40.0% (Duty: 409)
+15:45:19.124 -> State: HOLDING | Error: 0.40 | Output: 8.02 | Temp: 26.60 | Setpoint: 27.00
+15:45:19.124 -> Heater set to 8.02% power (Duty: 82)
+15:45:19.124 -> Fan power: 40.0% (Duty: 409)
+15:45:20.108 -> State: HOLDING | Error: 0.40 | Output: 8.13 | Temp: 26.60 | Setpoint: 27.00
+15:45:20.108 -> Heater set to 8.13% power (Duty: 83)
+15:45:20.108 -> Fan power: 40.0% (Duty: 409)
+15:45:21.091 -> State: HOLDING | Error: 0.40 | Output: 8.18 | Temp: 26.60 | Setpoint: 27.00
+15:45:21.137 -> Heater set to 8.18% power (Duty: 83)
+15:45:21.137 -> Fan power: 40.0% (Duty: 409)
+15:45:22.121 -> State: HOLDING | Error: 0.53 | Output: 9.01 | Temp: 26.47 | Setpoint: 27.00
+15:45:22.121 -> Heater set to 9.01% power (Duty: 92)
+15:45:22.121 -> Fan power: 40.0% (Duty: 409)
+15:45:23.101 -> State: HOLDING | Error: 0.43 | Output: 8.40 | Temp: 26.57 | Setpoint: 27.00
+15:45:23.101 -> Heater set to 8.40% power (Duty: 85)
+15:45:23.101 -> Fan power: 40.0% (Duty: 409)
+15:45:24.131 -> State: HOLDING | Error: 0.46 | Output: 8.71 | Temp: 26.54 | Setpoint: 27.00
+15:45:24.131 -> Heater set to 8.71% power (Duty: 89)
+15:45:24.131 -> Fan power: 40.0% (Duty: 409)
+15:45:25.115 -> State: HOLDING | Error: 0.50 | Output: 8.94 | Temp: 26.50 | Setpoint: 27.00
+15:45:25.115 -> Heater set to 8.94% power (Duty: 91)
+15:45:25.115 -> Fan power: 40.0% (Duty: 409)
+15:45:26.098 -> State: HOLDING | Error: 0.57 | Output: 9.37 | Temp: 26.43 | Setpoint: 27.00
+15:45:26.098 -> Heater set to 9.37% power (Duty: 95)
+15:45:26.144 -> Fan power: 40.0% (Duty: 409)
+15:45:27.127 -> State: HOLDING | Error: 0.53 | Output: 9.20 | Temp: 26.47 | Setpoint: 27.00
+15:45:27.127 -> Heater set to 9.20% power (Duty: 94)
+15:45:27.127 -> Fan power: 40.0% (Duty: 409)
+15:45:28.110 -> State: HOLDING | Error: 0.50 | Output: 9.09 | Temp: 26.50 | Setpoint: 27.00
+15:45:28.110 -> Heater set to 9.09% power (Duty: 93)
+15:45:28.110 -> Fan power: 40.0% (Duty: 409)
+15:45:29.094 -> State: HOLDING | Error: 0.57 | Output: 9.56 | Temp: 26.43 | Setpoint: 27.00
+15:45:29.141 -> Heater set to 9.56% power (Duty: 97)
+15:45:29.141 -> Fan power: 40.0% (Duty: 409)
+15:45:30.124 -> State: HOLDING | Error: 0.57 | Output: 9.59 | Temp: 26.43 | Setpoint: 27.00
+15:45:30.124 -> Heater set to 9.59% power (Duty: 98)
+15:45:30.124 -> Fan power: 40.0% (Duty: 409)
+15:45:31.106 -> State: HOLDING | Error: 0.40 | Output: 8.68 | Temp: 26.60 | Setpoint: 27.00
+15:45:31.106 -> Heater set to 8.68% power (Duty: 88)
+15:45:31.106 -> Fan power: 40.0% (Duty: 409)
+15:45:32.134 -> State: HOLDING | Error: 0.43 | Output: 9.03 | Temp: 26.57 | Setpoint: 27.00
+15:45:32.134 -> Heater set to 9.03% power (Duty: 92)
+15:45:32.134 -> Fan power: 40.0% (Duty: 409)
+15:45:33.117 -> State: HOLDING | Error: 0.43 | Output: 9.06 | Temp: 26.57 | Setpoint: 27.00
+15:45:33.117 -> Heater set to 9.06% power (Duty: 92)
+15:45:33.117 -> Fan power: 40.0% (Duty: 409)
+15:45:34.099 -> State: HOLDING | Error: 0.33 | Output: 8.53 | Temp: 26.67 | Setpoint: 27.00
+15:45:34.099 -> Heater set to 8.53% power (Duty: 87)
+15:45:34.099 -> Fan power: 40.0% (Duty: 409)
+15:45:35.128 -> State: HOLDING | Error: 0.46 | Output: 9.41 | Temp: 26.54 | Setpoint: 27.00
+15:45:35.128 -> Heater set to 9.41% power (Duty: 96)
+15:45:35.128 -> Fan power: 40.0% (Duty: 409)
+15:45:36.110 -> State: HOLDING | Error: 0.43 | Output: 9.18 | Temp: 26.57 | Setpoint: 27.00
+15:45:36.110 -> Heater set to 9.18% power (Duty: 93)
+15:45:36.110 -> Fan power: 40.0% (Duty: 409)
+15:45:37.092 -> State: HOLDING | Error: 0.43 | Output: 9.26 | Temp: 26.57 | Setpoint: 27.00
+15:45:37.138 -> Heater set to 9.26% power (Duty: 94)
+15:45:37.138 -> Fan power: 40.0% (Duty: 409)
+15:45:38.121 -> State: HOLDING | Error: 0.43 | Output: 9.31 | Temp: 26.57 | Setpoint: 27.00
+15:45:38.121 -> Heater set to 9.31% power (Duty: 95)
+15:45:38.121 -> Fan power: 40.0% (Duty: 409)
+15:45:39.104 -> State: HOLDING | Error: 0.40 | Output: 9.17 | Temp: 26.60 | Setpoint: 27.00
+15:45:39.104 -> Heater set to 9.17% power (Duty: 93)
+15:45:39.104 -> Fan power: 40.0% (Duty: 409)
+15:45:40.133 -> State: HOLDING | Error: 0.36 | Output: 9.04 | Temp: 26.64 | Setpoint: 27.00
+15:45:40.133 -> Heater set to 9.04% power (Duty: 92)
+15:45:40.133 -> Fan power: 40.0% (Duty: 409)
+15:45:41.118 -> State: HOLDING | Error: 0.12 | Output: 0.00 | Temp: 26.88 | Setpoint: 27.00
+15:45:41.118 -> Fan power: 40.0% (Duty: 409)
+15:45:42.100 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:45:42.100 -> Fan power: 0.0% (Duty: 0)
+15:45:43.131 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:45:43.131 -> Fan power: 0.0% (Duty: 0)
+15:45:44.113 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:45:44.113 -> Fan power: 0.0% (Duty: 0)
+15:45:45.098 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:45:45.098 -> Fan power: 0.0% (Duty: 0)
+15:45:46.127 -> State: HOLDING | Error: 0.12 | Output: 0.00 | Temp: 26.88 | Setpoint: 27.00
+15:45:46.127 -> Fan power: 0.0% (Duty: 0)
+15:45:47.108 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:45:47.108 -> Fan power: 0.0% (Duty: 0)
+15:45:48.093 -> State: HOLDING | Error: 0.12 | Output: 0.00 | Temp: 26.88 | Setpoint: 27.00
+15:45:48.140 -> Fan power: 0.0% (Duty: 0)
+15:45:49.121 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:45:49.121 -> Fan power: 0.0% (Duty: 0)
+15:45:50.105 -> State: HOLDING | Error: -0.01 | Output: 0.00 | Temp: 27.01 | Setpoint: 27.00
+15:45:50.105 -> Fan power: 0.0% (Duty: 0)
+15:45:51.134 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:45:51.134 -> Fan power: 0.0% (Duty: 0)
+15:45:52.116 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:45:52.116 -> Fan power: 0.0% (Duty: 0)
+15:45:53.105 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:45:53.105 -> Fan power: 0.0% (Duty: 0)
+15:45:54.136 -> State: HOLDING | Error: -0.01 | Output: 0.00 | Temp: 27.01 | Setpoint: 27.00
+15:45:54.136 -> Fan power: 0.0% (Duty: 0)
+15:45:55.117 -> State: HOLDING | Error: -0.08 | Output: 0.00 | Temp: 27.08 | Setpoint: 27.00
+15:45:55.117 -> Fan power: 0.0% (Duty: 0)
+15:45:56.100 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:45:56.100 -> Fan power: 0.0% (Duty: 0)
+15:45:57.126 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:45:57.126 -> Fan power: 0.0% (Duty: 0)
+15:45:58.109 -> State: HOLDING | Error: -0.08 | Output: 0.00 | Temp: 27.08 | Setpoint: 27.00
+15:45:58.109 -> Fan power: 0.0% (Duty: 0)
+15:45:59.137 -> State: HOLDING | Error: -0.08 | Output: 0.00 | Temp: 27.08 | Setpoint: 27.00
+15:45:59.137 -> Fan power: 0.0% (Duty: 0)
+15:46:00.120 -> State: HOLDING | Error: -0.12 | Output: 0.00 | Temp: 27.12 | Setpoint: 27.00
+15:46:00.120 -> Fan power: 0.0% (Duty: 0)
+15:46:01.102 -> State: HOLDING | Error: -0.08 | Output: 0.00 | Temp: 27.08 | Setpoint: 27.00
+15:46:01.102 -> Fan power: 0.0% (Duty: 0)
+15:46:02.131 -> State: HOLDING | Error: -0.08 | Output: 0.00 | Temp: 27.08 | Setpoint: 27.00
+15:46:02.131 -> Fan power: 0.0% (Duty: 0)
+15:46:03.112 -> State: HOLDING | Error: -0.12 | Output: 0.00 | Temp: 27.12 | Setpoint: 27.00
+15:46:03.112 -> Fan power: 0.0% (Duty: 0)
+15:46:04.095 -> State: HOLDING | Error: -0.12 | Output: 0.00 | Temp: 27.12 | Setpoint: 27.00
+15:46:04.141 -> Fan power: 0.0% (Duty: 0)
+15:46:05.123 -> State: HOLDING | Error: -0.08 | Output: 0.00 | Temp: 27.08 | Setpoint: 27.00
+15:46:05.123 -> Fan power: 0.0% (Duty: 0)
+15:46:06.103 -> State: HOLDING | Error: -0.08 | Output: 0.00 | Temp: 27.08 | Setpoint: 27.00
+15:46:06.103 -> Fan power: 0.0% (Duty: 0)
+15:46:07.136 -> State: HOLDING | Error: -0.12 | Output: 0.00 | Temp: 27.12 | Setpoint: 27.00
+15:46:07.136 -> Fan power: 0.0% (Duty: 0)
+15:46:08.119 -> State: HOLDING | Error: -0.08 | Output: 0.00 | Temp: 27.08 | Setpoint: 27.00
+15:46:08.119 -> Fan power: 0.0% (Duty: 0)
+15:46:09.100 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:46:09.100 -> Fan power: 0.0% (Duty: 0)
+15:46:10.131 -> State: HOLDING | Error: -0.01 | Output: 0.00 | Temp: 27.01 | Setpoint: 27.00
+15:46:10.131 -> Fan power: 0.0% (Duty: 0)
+15:46:11.110 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:46:11.110 -> Fan power: 0.0% (Duty: 0)
+15:46:12.092 -> State: HOLDING | Error: -0.01 | Output: 0.00 | Temp: 27.01 | Setpoint: 27.00
+15:46:12.138 -> Fan power: 0.0% (Duty: 0)
+15:46:13.121 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:46:13.121 -> Fan power: 0.0% (Duty: 0)
+15:46:14.101 -> State: HOLDING | Error: -0.01 | Output: 0.00 | Temp: 27.01 | Setpoint: 27.00
+15:46:14.101 -> Fan power: 0.0% (Duty: 0)
+15:46:15.132 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:46:15.132 -> Fan power: 0.0% (Duty: 0)
+15:46:16.107 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:46:16.107 -> Fan power: 0.0% (Duty: 0)
+15:46:17.134 -> State: HOLDING | Error: 0.12 | Output: 0.00 | Temp: 26.88 | Setpoint: 27.00
+15:46:17.134 -> Fan power: 0.0% (Duty: 0)
+15:46:18.119 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:46:18.119 -> Fan power: 0.0% (Duty: 0)
+15:46:19.105 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:46:19.105 -> Fan power: 0.0% (Duty: 0)
+15:46:20.132 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:46:20.132 -> Fan power: 0.0% (Duty: 0)
+15:46:21.116 -> State: HOLDING | Error: 0.16 | Output: 0.00 | Temp: 26.84 | Setpoint: 27.00
+15:46:21.116 -> Fan power: 0.0% (Duty: 0)
+15:46:22.097 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:46:22.097 -> Fan power: 0.0% (Duty: 0)
+15:46:23.120 -> State: HOLDING | Error: 0.16 | Output: 0.00 | Temp: 26.84 | Setpoint: 27.00
+15:46:23.120 -> Fan power: 0.0% (Duty: 0)
+15:46:24.101 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:46:24.101 -> Fan power: 0.0% (Duty: 0)
+15:46:25.128 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:46:25.128 -> Fan power: 0.0% (Duty: 0)
+15:46:26.111 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:46:26.111 -> Fan power: 0.0% (Duty: 0)
+15:46:27.095 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:46:27.142 -> Fan power: 0.0% (Duty: 0)
+15:46:28.123 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:46:28.123 -> Fan power: 0.0% (Duty: 0)
+15:46:29.107 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:46:29.107 -> Fan power: 0.0% (Duty: 0)
+15:46:30.139 -> State: HOLDING | Error: 0.36 | Output: 9.10 | Temp: 26.64 | Setpoint: 27.00
+15:46:30.139 -> Heater set to 9.10% power (Duty: 93)
+15:46:30.139 -> Fan power: 40.0% (Duty: 409)
+15:46:31.120 -> State: HOLDING | Error: 0.50 | Output: 9.93 | Temp: 26.50 | Setpoint: 27.00
+15:46:31.120 -> Heater set to 9.93% power (Duty: 101)
+15:46:31.120 -> Fan power: 40.0% (Duty: 409)
+15:46:32.104 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:46:32.104 -> Fan power: 40.0% (Duty: 409)
+15:46:33.134 -> State: HOLDING | Error: 0.36 | Output: 9.12 | Temp: 26.64 | Setpoint: 27.00
+15:46:33.134 -> Heater set to 9.12% power (Duty: 93)
+15:46:33.134 -> Fan power: 40.0% (Duty: 409)
+15:46:34.115 -> State: HOLDING | Error: 0.43 | Output: 9.64 | Temp: 26.57 | Setpoint: 27.00
+15:46:34.115 -> Heater set to 9.64% power (Duty: 98)
+15:46:34.115 -> Fan power: 40.0% (Duty: 409)
+15:46:35.096 -> State: HOLDING | Error: 0.33 | Output: 9.06 | Temp: 26.67 | Setpoint: 27.00
+15:46:35.143 -> Heater set to 9.06% power (Duty: 92)
+15:46:35.143 -> Fan power: 40.0% (Duty: 409)
+15:46:36.118 -> State: HOLDING | Error: 0.46 | Output: 9.94 | Temp: 26.54 | Setpoint: 27.00
+15:46:36.118 -> Heater set to 9.94% power (Duty: 101)
+15:46:36.118 -> Fan power: 40.0% (Duty: 409)
+15:46:37.092 -> State: HOLDING | Error: 0.50 | Output: 10.11 | Temp: 26.50 | Setpoint: 27.00
+15:46:37.140 -> Heater set to 10.11% power (Duty: 103)
+15:46:37.140 -> Fan power: 40.0% (Duty: 409)
+15:46:38.118 -> State: HOLDING | Error: 0.57 | Output: 10.54 | Temp: 26.43 | Setpoint: 27.00
+15:46:38.118 -> Heater set to 10.54% power (Duty: 107)
+15:46:38.118 -> Fan power: 40.0% (Duty: 409)
+15:46:39.100 -> State: HOLDING | Error: 0.46 | Output: 9.98 | Temp: 26.54 | Setpoint: 27.00
+15:46:39.100 -> Heater set to 9.98% power (Duty: 102)
+15:46:39.146 -> Fan power: 40.0% (Duty: 409)
+15:46:40.122 -> State: HOLDING | Error: 0.36 | Output: 9.52 | Temp: 26.64 | Setpoint: 27.00
+15:46:40.122 -> Heater set to 9.52% power (Duty: 97)
+15:46:40.122 -> Fan power: 40.0% (Duty: 409)
+15:46:41.106 -> State: HOLDING | Error: 0.57 | Output: 10.79 | Temp: 26.43 | Setpoint: 27.00
+15:46:41.106 -> Heater set to 10.79% power (Duty: 110)
+15:46:41.106 -> Fan power: 40.0% (Duty: 409)
+15:46:42.135 -> State: HOLDING | Error: 0.63 | Output: 11.13 | Temp: 26.37 | Setpoint: 27.00
+15:46:42.135 -> Heater set to 11.13% power (Duty: 113)
+15:46:42.135 -> Fan power: 40.0% (Duty: 409)
+15:46:43.119 -> State: HOLDING | Error: 0.46 | Output: 10.19 | Temp: 26.54 | Setpoint: 27.00
+15:46:43.119 -> Heater set to 10.19% power (Duty: 104)
+15:46:43.119 -> Fan power: 40.0% (Duty: 409)
+15:46:44.102 -> State: HOLDING | Error: 0.33 | Output: 9.57 | Temp: 26.67 | Setpoint: 27.00
+15:46:44.102 -> Heater set to 9.57% power (Duty: 97)
+15:46:44.102 -> Fan power: 40.0% (Duty: 409)
+15:46:45.131 -> State: HOLDING | Error: 0.53 | Output: 10.86 | Temp: 26.47 | Setpoint: 27.00
+15:46:45.131 -> Heater set to 10.86% power (Duty: 111)
+15:46:45.131 -> Fan power: 40.0% (Duty: 409)
+15:46:46.113 -> State: HOLDING | Error: 0.57 | Output: 10.99 | Temp: 26.43 | Setpoint: 27.00
+15:46:46.113 -> Heater set to 10.99% power (Duty: 112)
+15:46:46.113 -> Fan power: 40.0% (Duty: 409)
+15:46:47.100 -> State: HOLDING | Error: 0.46 | Output: 10.45 | Temp: 26.54 | Setpoint: 27.00
+15:46:47.100 -> Heater set to 10.45% power (Duty: 106)
+15:46:47.100 -> Fan power: 40.0% (Duty: 409)
+15:46:48.127 -> State: HOLDING | Error: 0.53 | Output: 10.96 | Temp: 26.47 | Setpoint: 27.00
+15:46:48.127 -> Heater set to 10.96% power (Duty: 112)
+15:46:48.127 -> Fan power: 40.0% (Duty: 409)
+15:46:49.109 -> State: HOLDING | Error: 0.43 | Output: 10.40 | Temp: 26.57 | Setpoint: 27.00
+15:46:49.109 -> Heater set to 10.40% power (Duty: 106)
+15:46:49.109 -> Fan power: 40.0% (Duty: 409)
+15:46:50.092 -> State: HOLDING | Error: 0.26 | Output: 0.40 | Temp: 26.74 | Setpoint: 27.00
+15:46:50.138 -> Heater set to 0.40% power (Duty: 4)
+15:46:50.138 -> Fan power: 40.0% (Duty: 409)
+15:46:51.118 -> State: HOLDING | Error: 0.33 | Output: 9.93 | Temp: 26.67 | Setpoint: 27.00
+15:46:51.118 -> Heater set to 9.93% power (Duty: 101)
+15:46:51.118 -> Fan power: 40.0% (Duty: 409)
+15:46:52.097 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:46:52.144 -> Fan power: 40.0% (Duty: 409)
+15:46:53.129 -> State: HOLDING | Error: 0.36 | Output: 10.00 | Temp: 26.64 | Setpoint: 27.00
+15:46:53.129 -> Heater set to 10.00% power (Duty: 102)
+15:46:53.129 -> Fan power: 40.0% (Duty: 409)
+15:46:54.113 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:46:54.113 -> Fan power: 40.0% (Duty: 409)
+15:46:55.138 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:46:55.138 -> Fan power: 0.0% (Duty: 0)
+15:46:56.125 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:46:56.125 -> Fan power: 0.0% (Duty: 0)
+15:46:57.108 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:46:57.108 -> Fan power: 0.0% (Duty: 0)
+15:46:58.136 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:46:58.136 -> Fan power: 0.0% (Duty: 0)
+15:46:59.117 -> State: HOLDING | Error: 0.16 | Output: 0.00 | Temp: 26.84 | Setpoint: 27.00
+15:46:59.117 -> Fan power: 0.0% (Duty: 0)
+15:47:00.097 -> State: HOLDING | Error: 0.16 | Output: 0.00 | Temp: 26.84 | Setpoint: 27.00
+15:47:00.143 -> Fan power: 0.0% (Duty: 0)
+15:47:01.124 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:47:01.124 -> Fan power: 0.0% (Duty: 0)
+15:47:02.106 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:47:02.106 -> Fan power: 0.0% (Duty: 0)
+15:47:03.134 -> State: HOLDING | Error: 0.12 | Output: 0.00 | Temp: 26.88 | Setpoint: 27.00
+15:47:03.134 -> Fan power: 0.0% (Duty: 0)
+15:47:04.119 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:47:04.119 -> Fan power: 0.0% (Duty: 0)
+15:47:05.103 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:47:05.103 -> Fan power: 0.0% (Duty: 0)
+15:47:06.132 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:47:06.132 -> Fan power: 0.0% (Duty: 0)
+15:47:07.115 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:47:07.115 -> Fan power: 0.0% (Duty: 0)
+15:47:08.096 -> State: HOLDING | Error: -0.08 | Output: 0.00 | Temp: 27.08 | Setpoint: 27.00
+15:47:08.143 -> Fan power: 0.0% (Duty: 0)
+15:47:09.126 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:47:09.126 -> Fan power: 0.0% (Duty: 0)
+15:47:10.107 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:47:10.107 -> Fan power: 0.0% (Duty: 0)
+15:47:11.136 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:47:11.136 -> Fan power: 0.0% (Duty: 0)
+15:47:12.122 -> State: HOLDING | Error: -0.01 | Output: 0.00 | Temp: 27.01 | Setpoint: 27.00
+15:47:12.122 -> Fan power: 0.0% (Duty: 0)
+15:47:13.105 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:47:13.105 -> Fan power: 0.0% (Duty: 0)
+15:47:14.135 -> State: HOLDING | Error: -0.12 | Output: 0.00 | Temp: 27.12 | Setpoint: 27.00
+15:47:14.135 -> Fan power: 0.0% (Duty: 0)
+15:47:15.119 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:47:15.119 -> Fan power: 0.0% (Duty: 0)
+15:47:16.102 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:47:16.102 -> Fan power: 0.0% (Duty: 0)
+15:47:17.128 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:47:17.128 -> Fan power: 0.0% (Duty: 0)
+15:47:18.110 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:47:18.110 -> Fan power: 0.0% (Duty: 0)
+15:47:19.137 -> State: HOLDING | Error: -0.08 | Output: 0.00 | Temp: 27.08 | Setpoint: 27.00
+15:47:19.137 -> Fan power: 0.0% (Duty: 0)
+15:47:20.120 -> State: HOLDING | Error: -0.08 | Output: 0.00 | Temp: 27.08 | Setpoint: 27.00
+15:47:20.120 -> Fan power: 0.0% (Duty: 0)
+15:47:21.109 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:47:21.109 -> Fan power: 0.0% (Duty: 0)
+15:47:22.134 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:47:22.134 -> Fan power: 0.0% (Duty: 0)
+15:47:23.119 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:47:23.119 -> Fan power: 0.0% (Duty: 0)
+15:47:24.105 -> State: HOLDING | Error: -0.01 | Output: 0.00 | Temp: 27.01 | Setpoint: 27.00
+15:47:24.105 -> Fan power: 0.0% (Duty: 0)
+15:47:25.135 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:47:25.135 -> Fan power: 0.0% (Duty: 0)
+15:47:26.118 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:47:26.118 -> Fan power: 0.0% (Duty: 0)
+15:47:27.097 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:47:27.143 -> Fan power: 0.0% (Duty: 0)
+15:47:28.127 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:47:28.127 -> Fan power: 0.0% (Duty: 0)
+15:47:29.108 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:47:29.108 -> Fan power: 0.0% (Duty: 0)
+15:47:30.138 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:47:30.138 -> Fan power: 0.0% (Duty: 0)
+15:47:31.119 -> State: HOLDING | Error: 0.12 | Output: 0.00 | Temp: 26.88 | Setpoint: 27.00
+15:47:31.119 -> Fan power: 0.0% (Duty: 0)
+15:47:32.100 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:47:32.100 -> Fan power: 0.0% (Duty: 0)
+15:47:33.135 -> State: HOLDING | Error: 0.12 | Output: 0.00 | Temp: 26.88 | Setpoint: 27.00
+15:47:33.135 -> Fan power: 0.0% (Duty: 0)
+15:47:34.118 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:47:34.118 -> Fan power: 0.0% (Duty: 0)
+15:47:35.098 -> State: HOLDING | Error: 0.16 | Output: 0.00 | Temp: 26.84 | Setpoint: 27.00
+15:47:35.143 -> Fan power: 0.0% (Duty: 0)
+15:47:36.125 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:47:36.125 -> Fan power: 0.0% (Duty: 0)
+15:47:37.108 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:47:37.108 -> Fan power: 0.0% (Duty: 0)
+15:47:38.092 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:47:38.139 -> Fan power: 0.0% (Duty: 0)
+15:47:39.122 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:47:39.122 -> Fan power: 0.0% (Duty: 0)
+15:47:40.106 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:47:40.106 -> Fan power: 0.0% (Duty: 0)
+15:47:41.132 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:47:41.132 -> Fan power: 0.0% (Duty: 0)
+15:47:42.112 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:47:42.112 -> Fan power: 0.0% (Duty: 0)
+15:47:43.095 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:47:43.142 -> Fan power: 0.0% (Duty: 0)
+15:47:44.124 -> State: HOLDING | Error: 0.33 | Output: 10.00 | Temp: 26.67 | Setpoint: 27.00
+15:47:44.124 -> Heater set to 10.00% power (Duty: 102)
+15:47:44.124 -> Fan power: 40.0% (Duty: 409)
+15:47:45.104 -> State: HOLDING | Error: 0.50 | Output: 11.09 | Temp: 26.50 | Setpoint: 27.00
+15:47:45.104 -> Heater set to 11.09% power (Duty: 113)
+15:47:45.104 -> Fan power: 40.0% (Duty: 409)
+15:47:46.130 -> State: HOLDING | Error: 0.40 | Output: 10.46 | Temp: 26.60 | Setpoint: 27.00
+15:47:46.130 -> Heater set to 10.46% power (Duty: 106)
+15:47:46.130 -> Fan power: 40.0% (Duty: 409)
+15:47:47.110 -> State: HOLDING | Error: 0.29 | Output: 0.46 | Temp: 26.71 | Setpoint: 27.00
+15:47:47.110 -> Heater set to 0.46% power (Duty: 4)
+15:47:47.110 -> Fan power: 40.0% (Duty: 409)
+15:47:48.135 -> State: HOLDING | Error: 0.63 | Output: 10.46 | Temp: 26.37 | Setpoint: 27.00
+15:47:48.135 -> Heater set to 10.46% power (Duty: 106)
+15:47:48.135 -> Fan power: 40.0% (Duty: 409)
+15:47:49.115 -> State: HOLDING | Error: 0.23 | Output: 0.46 | Temp: 26.77 | Setpoint: 27.00
+15:47:49.115 -> Heater set to 0.46% power (Duty: 4)
+15:47:49.115 -> Fan power: 40.0% (Duty: 409)
+15:47:50.098 -> State: HOLDING | Error: 0.50 | Output: 10.46 | Temp: 26.50 | Setpoint: 27.00
+15:47:50.098 -> Heater set to 10.46% power (Duty: 106)
+15:47:50.146 -> Fan power: 40.0% (Duty: 409)
+15:47:51.124 -> State: HOLDING | Error: 0.46 | Output: 11.03 | Temp: 26.54 | Setpoint: 27.00
+15:47:51.124 -> Heater set to 11.03% power (Duty: 112)
+15:47:51.124 -> Fan power: 40.0% (Duty: 409)
+15:47:52.104 -> State: HOLDING | Error: 0.50 | Output: 11.30 | Temp: 26.50 | Setpoint: 27.00
+15:47:52.104 -> Heater set to 11.30% power (Duty: 115)
+15:47:52.104 -> Fan power: 40.0% (Duty: 409)
+15:47:53.135 -> State: HOLDING | Error: 0.43 | Output: 10.95 | Temp: 26.57 | Setpoint: 27.00
+15:47:53.135 -> Heater set to 10.95% power (Duty: 112)
+15:47:53.135 -> Fan power: 40.0% (Duty: 409)
+15:47:54.118 -> State: HOLDING | Error: 0.50 | Output: 11.44 | Temp: 26.50 | Setpoint: 27.00
+15:47:54.118 -> Heater set to 11.44% power (Duty: 116)
+15:47:54.118 -> Fan power: 40.0% (Duty: 409)
+15:47:55.099 -> State: HOLDING | Error: 0.53 | Output: 11.65 | Temp: 26.47 | Setpoint: 27.00
+15:47:55.099 -> Heater set to 11.65% power (Duty: 119)
+15:47:55.145 -> Fan power: 40.0% (Duty: 409)
+15:47:56.128 -> State: HOLDING | Error: 0.57 | Output: 11.89 | Temp: 26.43 | Setpoint: 27.00
+15:47:56.128 -> Heater set to 11.89% power (Duty: 121)
+15:47:56.128 -> Fan power: 40.0% (Duty: 409)
+15:47:57.108 -> State: HOLDING | Error: 0.50 | Output: 11.54 | Temp: 26.50 | Setpoint: 27.00
+15:47:57.108 -> Heater set to 11.54% power (Duty: 118)
+15:47:57.108 -> Fan power: 40.0% (Duty: 409)
+15:47:58.094 -> State: HOLDING | Error: 0.50 | Output: 11.65 | Temp: 26.50 | Setpoint: 27.00
+15:47:58.141 -> Heater set to 11.65% power (Duty: 119)
+15:47:58.141 -> Fan power: 40.0% (Duty: 409)
+15:47:59.124 -> State: HOLDING | Error: 0.36 | Output: 10.93 | Temp: 26.64 | Setpoint: 27.00
+15:47:59.124 -> Heater set to 10.93% power (Duty: 111)
+15:47:59.124 -> Fan power: 40.0% (Duty: 409)
+15:48:00.107 -> State: HOLDING | Error: 0.36 | Output: 11.05 | Temp: 26.64 | Setpoint: 27.00
+15:48:00.107 -> Heater set to 11.05% power (Duty: 113)
+15:48:00.107 -> Fan power: 40.0% (Duty: 409)
+15:48:01.135 -> State: HOLDING | Error: 0.57 | Output: 12.26 | Temp: 26.43 | Setpoint: 27.00
+15:48:01.135 -> Heater set to 12.26% power (Duty: 125)
+15:48:01.135 -> Fan power: 40.0% (Duty: 409)
+15:48:02.121 -> State: HOLDING | Error: 0.36 | Output: 11.04 | Temp: 26.64 | Setpoint: 27.00
+15:48:02.121 -> Heater set to 11.04% power (Duty: 112)
+15:48:02.121 -> Fan power: 40.0% (Duty: 409)
+15:48:03.103 -> State: HOLDING | Error: 0.26 | Output: 1.04 | Temp: 26.74 | Setpoint: 27.00
+15:48:03.103 -> Heater set to 1.04% power (Duty: 10)
+15:48:03.103 -> Fan power: 40.0% (Duty: 409)
+15:48:04.133 -> State: HOLDING | Error: 0.43 | Output: 11.04 | Temp: 26.57 | Setpoint: 27.00
+15:48:04.133 -> Heater set to 11.04% power (Duty: 112)
+15:48:04.133 -> Fan power: 40.0% (Duty: 409)
+15:48:05.114 -> State: HOLDING | Error: 0.46 | Output: 11.80 | Temp: 26.54 | Setpoint: 27.00
+15:48:05.114 -> Heater set to 11.80% power (Duty: 120)
+15:48:05.114 -> Fan power: 40.0% (Duty: 409)
+15:48:06.098 -> State: HOLDING | Error: 0.29 | Output: 1.80 | Temp: 26.71 | Setpoint: 27.00
+15:48:06.098 -> Heater set to 1.80% power (Duty: 18)
+15:48:06.145 -> Fan power: 40.0% (Duty: 409)
+15:48:07.127 -> State: HOLDING | Error: 0.33 | Output: 11.06 | Temp: 26.67 | Setpoint: 27.00
+15:48:07.127 -> Heater set to 11.06% power (Duty: 113)
+15:48:07.127 -> Fan power: 40.0% (Duty: 409)
+15:48:08.113 -> State: HOLDING | Error: 0.43 | Output: 11.76 | Temp: 26.57 | Setpoint: 27.00
+15:48:08.113 -> Heater set to 11.76% power (Duty: 120)
+15:48:08.113 -> Fan power: 40.0% (Duty: 409)
+15:48:09.094 -> State: HOLDING | Error: 0.33 | Output: 11.17 | Temp: 26.67 | Setpoint: 27.00
+15:48:09.140 -> Heater set to 11.17% power (Duty: 114)
+15:48:09.140 -> Fan power: 40.0% (Duty: 409)
+15:48:10.124 -> State: HOLDING | Error: 0.40 | Output: 11.66 | Temp: 26.60 | Setpoint: 27.00
+15:48:10.124 -> Heater set to 11.66% power (Duty: 119)
+15:48:10.124 -> Fan power: 40.0% (Duty: 409)
+15:48:11.106 -> State: HOLDING | Error: 0.19 | Output: 1.66 | Temp: 26.81 | Setpoint: 27.00
+15:48:11.106 -> Heater set to 1.66% power (Duty: 16)
+15:48:11.106 -> Fan power: 40.0% (Duty: 409)
+15:48:12.134 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:48:12.134 -> Fan power: 40.0% (Duty: 409)
+15:48:13.119 -> State: HOLDING | Error: 0.16 | Output: 0.00 | Temp: 26.84 | Setpoint: 27.00
+15:48:13.119 -> Fan power: 0.0% (Duty: 0)
+15:48:14.100 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:48:14.100 -> Fan power: 0.0% (Duty: 0)
+15:48:15.130 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:48:15.130 -> Fan power: 0.0% (Duty: 0)
+15:48:16.111 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:48:16.111 -> Fan power: 0.0% (Duty: 0)
+15:48:17.138 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:48:17.138 -> Fan power: 0.0% (Duty: 0)
+15:48:18.122 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:48:18.122 -> Fan power: 0.0% (Duty: 0)
+15:48:19.103 -> State: HOLDING | Error: -0.12 | Output: 0.00 | Temp: 27.12 | Setpoint: 27.00
+15:48:19.103 -> Fan power: 0.0% (Duty: 0)
+15:48:20.129 -> State: HOLDING | Error: -0.12 | Output: 0.00 | Temp: 27.12 | Setpoint: 27.00
+15:48:20.129 -> Fan power: 0.0% (Duty: 0)
+15:48:21.113 -> State: HOLDING | Error: -0.12 | Output: 0.00 | Temp: 27.12 | Setpoint: 27.00
+15:48:21.113 -> Fan power: 0.0% (Duty: 0)
+15:48:22.095 -> State: HOLDING | Error: -0.15 | Output: 0.00 | Temp: 27.15 | Setpoint: 27.00
+15:48:22.142 -> Fan power: 0.0% (Duty: 0)
+15:48:23.124 -> State: HOLDING | Error: -0.18 | Output: 0.00 | Temp: 27.18 | Setpoint: 27.00
+15:48:23.124 -> Fan power: 0.0% (Duty: 0)
+15:48:24.107 -> State: HOLDING | Error: -0.18 | Output: 0.00 | Temp: 27.18 | Setpoint: 27.00
+15:48:24.107 -> Fan power: 0.0% (Duty: 0)
+15:48:25.138 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:48:25.138 -> Fan power: 0.0% (Duty: 0)
+15:48:26.120 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:48:26.120 -> Fan power: 0.0% (Duty: 0)
+15:48:27.104 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:48:27.104 -> Fan power: 0.0% (Duty: 0)
+15:48:28.134 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:48:28.134 -> Fan power: 0.0% (Duty: 0)
+15:48:29.119 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:48:29.119 -> Fan power: 0.0% (Duty: 0)
+15:48:30.098 -> State: HOLDING | Error: -0.29 | Output: 0.00 | Temp: 27.29 | Setpoint: 27.00
+15:48:30.144 -> Fan power: 0.0% (Duty: 0)
+15:48:31.124 -> State: HOLDING | Error: -0.32 | Output: 7.57 | Temp: 27.32 | Setpoint: 27.00
+15:48:31.124 -> Heater set to 7.57% power (Duty: 77)
+15:48:31.124 -> Fan power: 40.0% (Duty: 409)
+15:48:32.105 -> State: HOLDING | Error: -0.46 | Output: 7.18 | Temp: 27.46 | Setpoint: 27.00
+15:48:32.105 -> Heater set to 7.18% power (Duty: 73)
+15:48:32.105 -> Fan power: 40.0% (Duty: 409)
+15:48:33.134 -> State: HOLDING | Error: -0.39 | Output: 7.60 | Temp: 27.39 | Setpoint: 27.00
+15:48:33.134 -> Heater set to 7.60% power (Duty: 77)
+15:48:33.134 -> Fan power: 40.0% (Duty: 409)
+15:48:34.118 -> State: HOLDING | Error: -0.39 | Output: 7.51 | Temp: 27.39 | Setpoint: 27.00
+15:48:34.118 -> Heater set to 7.51% power (Duty: 76)
+15:48:34.118 -> Fan power: 40.0% (Duty: 409)
+15:48:35.100 -> State: HOLDING | Error: -0.15 | Output: 0.00 | Temp: 27.15 | Setpoint: 27.00
+15:48:35.100 -> Fan power: 40.0% (Duty: 409)
+15:48:36.131 -> State: HOLDING | Error: -0.32 | Output: 7.85 | Temp: 27.32 | Setpoint: 27.00
+15:48:36.131 -> Heater set to 7.85% power (Duty: 80)
+15:48:36.131 -> Fan power: 40.0% (Duty: 409)
+15:48:37.116 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:48:37.116 -> Fan power: 40.0% (Duty: 409)
+15:48:38.099 -> State: HOLDING | Error: -0.29 | Output: 0.00 | Temp: 27.29 | Setpoint: 27.00
+15:48:38.146 -> Fan power: 0.0% (Duty: 0)
+15:48:39.126 -> State: HOLDING | Error: -0.29 | Output: 0.00 | Temp: 27.29 | Setpoint: 27.00
+15:48:39.126 -> Fan power: 0.0% (Duty: 0)
+15:48:40.109 -> State: HOLDING | Error: -0.29 | Output: 0.00 | Temp: 27.29 | Setpoint: 27.00
+15:48:40.109 -> Fan power: 0.0% (Duty: 0)
+15:48:41.137 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:48:41.137 -> Fan power: 0.0% (Duty: 0)
+15:48:42.117 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:48:42.117 -> Fan power: 0.0% (Duty: 0)
+15:48:43.094 -> State: HOLDING | Error: -0.29 | Output: 0.00 | Temp: 27.29 | Setpoint: 27.00
+15:48:43.141 -> Fan power: 0.0% (Duty: 0)
+15:48:44.123 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:48:44.123 -> Fan power: 0.0% (Duty: 0)
+15:48:45.100 -> State: HOLDING | Error: -0.29 | Output: 0.00 | Temp: 27.29 | Setpoint: 27.00
+15:48:45.100 -> Fan power: 0.0% (Duty: 0)
+15:48:46.132 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:48:46.132 -> Fan power: 0.0% (Duty: 0)
+15:48:47.112 -> State: HOLDING | Error: -0.29 | Output: 0.00 | Temp: 27.29 | Setpoint: 27.00
+15:48:47.112 -> Fan power: 0.0% (Duty: 0)
+15:48:48.096 -> State: HOLDING | Error: -0.22 | Output: 0.00 | Temp: 27.22 | Setpoint: 27.00
+15:48:48.143 -> Fan power: 0.0% (Duty: 0)
+15:48:49.129 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:48:49.129 -> Fan power: 0.0% (Duty: 0)
+15:48:50.104 -> State: HOLDING | Error: -0.22 | Output: 0.00 | Temp: 27.22 | Setpoint: 27.00
+15:48:50.104 -> Fan power: 0.0% (Duty: 0)
+15:48:51.136 -> State: HOLDING | Error: -0.18 | Output: 0.00 | Temp: 27.18 | Setpoint: 27.00
+15:48:51.136 -> Fan power: 0.0% (Duty: 0)
+15:48:52.114 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:48:52.114 -> Fan power: 0.0% (Duty: 0)
+15:48:53.096 -> State: HOLDING | Error: -0.18 | Output: 0.00 | Temp: 27.18 | Setpoint: 27.00
+15:48:53.143 -> Fan power: 0.0% (Duty: 0)
+15:48:54.120 -> State: HOLDING | Error: -0.18 | Output: 0.00 | Temp: 27.18 | Setpoint: 27.00
+15:48:54.120 -> Fan power: 0.0% (Duty: 0)
+15:48:55.101 -> State: HOLDING | Error: -0.18 | Output: 0.00 | Temp: 27.18 | Setpoint: 27.00
+15:48:55.101 -> Fan power: 0.0% (Duty: 0)
+15:48:56.126 -> State: HOLDING | Error: -0.18 | Output: 0.00 | Temp: 27.18 | Setpoint: 27.00
+15:48:56.126 -> Fan power: 0.0% (Duty: 0)
+15:48:57.110 -> State: HOLDING | Error: -0.18 | Output: 0.00 | Temp: 27.18 | Setpoint: 27.00
+15:48:57.110 -> Fan power: 0.0% (Duty: 0)
+15:48:58.137 -> State: HOLDING | Error: -0.22 | Output: 0.00 | Temp: 27.22 | Setpoint: 27.00
+15:48:58.137 -> Fan power: 0.0% (Duty: 0)
+15:48:59.120 -> State: HOLDING | Error: -0.18 | Output: 0.00 | Temp: 27.18 | Setpoint: 27.00
+15:48:59.120 -> Fan power: 0.0% (Duty: 0)
+15:49:00.102 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:49:00.102 -> Fan power: 0.0% (Duty: 0)
+15:49:01.131 -> State: HOLDING | Error: -0.12 | Output: 0.00 | Temp: 27.12 | Setpoint: 27.00
+15:49:01.131 -> Fan power: 0.0% (Duty: 0)
+15:49:02.112 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:49:02.112 -> Fan power: 0.0% (Duty: 0)
+15:49:03.101 -> State: HOLDING | Error: -0.12 | Output: 0.00 | Temp: 27.12 | Setpoint: 27.00
+15:49:03.101 -> Fan power: 0.0% (Duty: 0)
+15:49:04.131 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:49:04.131 -> Fan power: 0.0% (Duty: 0)
+15:49:05.113 -> State: HOLDING | Error: -0.01 | Output: 0.00 | Temp: 27.01 | Setpoint: 27.00
+15:49:05.113 -> Fan power: 0.0% (Duty: 0)
+15:49:06.097 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:49:06.143 -> Fan power: 0.0% (Duty: 0)
+15:49:07.127 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:49:07.127 -> Fan power: 0.0% (Duty: 0)
+15:49:08.108 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:49:08.108 -> Fan power: 0.0% (Duty: 0)
+15:49:09.139 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:49:09.139 -> Fan power: 0.0% (Duty: 0)
+15:49:10.121 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:49:10.121 -> Fan power: 0.0% (Duty: 0)
+15:49:11.107 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:49:11.107 -> Fan power: 0.0% (Duty: 0)
+15:49:12.140 -> State: HOLDING | Error: 0.12 | Output: 0.00 | Temp: 26.88 | Setpoint: 27.00
+15:49:12.140 -> Fan power: 0.0% (Duty: 0)
+15:49:13.123 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:49:13.123 -> Fan power: 0.0% (Duty: 0)
+15:49:14.106 -> State: HOLDING | Error: 0.16 | Output: 0.00 | Temp: 26.84 | Setpoint: 27.00
+15:49:14.106 -> Fan power: 0.0% (Duty: 0)
+15:49:15.138 -> State: HOLDING | Error: 0.16 | Output: 0.00 | Temp: 26.84 | Setpoint: 27.00
+15:49:15.138 -> Fan power: 0.0% (Duty: 0)
+15:49:16.124 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:49:16.124 -> Fan power: 0.0% (Duty: 0)
+15:49:17.110 -> State: HOLDING | Error: 0.16 | Output: 0.00 | Temp: 26.84 | Setpoint: 27.00
+15:49:17.110 -> Fan power: 0.0% (Duty: 0)
+15:49:18.140 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:49:18.140 -> Fan power: 0.0% (Duty: 0)
+15:49:19.121 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:49:19.121 -> Fan power: 0.0% (Duty: 0)
+15:49:20.107 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:49:20.107 -> Fan power: 0.0% (Duty: 0)
+15:49:21.137 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:49:21.137 -> Fan power: 0.0% (Duty: 0)
+15:49:22.119 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:49:22.119 -> Fan power: 0.0% (Duty: 0)
+15:49:23.100 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:49:23.146 -> Fan power: 0.0% (Duty: 0)
+15:49:24.129 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:49:24.129 -> Fan power: 0.0% (Duty: 0)
+15:49:25.111 -> State: HOLDING | Error: 0.36 | Output: 10.00 | Temp: 26.64 | Setpoint: 27.00
+15:49:25.111 -> Heater set to 10.00% power (Duty: 102)
+15:49:25.111 -> Fan power: 40.0% (Duty: 409)
+15:49:26.140 -> State: HOLDING | Error: 0.36 | Output: 11.31 | Temp: 26.64 | Setpoint: 27.00
+15:49:26.140 -> Heater set to 11.31% power (Duty: 115)
+15:49:26.140 -> Fan power: 40.0% (Duty: 409)
+15:49:27.124 -> State: HOLDING | Error: 0.53 | Output: 12.33 | Temp: 26.47 | Setpoint: 27.00
+15:49:27.124 -> Heater set to 12.33% power (Duty: 126)
+15:49:27.124 -> Fan power: 40.0% (Duty: 409)
+15:49:28.108 -> State: HOLDING | Error: 0.43 | Output: 11.70 | Temp: 26.57 | Setpoint: 27.00
+15:49:28.108 -> Heater set to 11.70% power (Duty: 119)
+15:49:28.108 -> Fan power: 40.0% (Duty: 409)
+15:49:29.137 -> State: HOLDING | Error: 0.46 | Output: 12.01 | Temp: 26.54 | Setpoint: 27.00
+15:49:29.137 -> Heater set to 12.01% power (Duty: 122)
+15:49:29.137 -> Fan power: 40.0% (Duty: 409)
+15:49:30.117 -> State: HOLDING | Error: 0.50 | Output: 12.24 | Temp: 26.50 | Setpoint: 27.00
+15:49:30.117 -> Heater set to 12.24% power (Duty: 125)
+15:49:30.117 -> Fan power: 40.0% (Duty: 409)
+15:49:31.097 -> State: HOLDING | Error: 0.57 | Output: 12.67 | Temp: 26.43 | Setpoint: 27.00
+15:49:31.145 -> Heater set to 12.67% power (Duty: 129)
+15:49:31.145 -> Fan power: 40.0% (Duty: 409)
+15:49:32.126 -> State: HOLDING | Error: 0.46 | Output: 12.11 | Temp: 26.54 | Setpoint: 27.00
+15:49:32.126 -> Heater set to 12.11% power (Duty: 123)
+15:49:32.126 -> Fan power: 40.0% (Duty: 409)
+15:49:33.109 -> State: HOLDING | Error: 0.53 | Output: 12.62 | Temp: 26.47 | Setpoint: 27.00
+15:49:33.109 -> Heater set to 12.62% power (Duty: 129)
+15:49:33.109 -> Fan power: 40.0% (Duty: 409)
+15:49:34.137 -> State: HOLDING | Error: 0.63 | Output: 13.23 | Temp: 26.37 | Setpoint: 27.00
+15:49:34.137 -> Heater set to 13.23% power (Duty: 135)
+15:49:34.137 -> Fan power: 40.0% (Duty: 409)
+15:49:35.120 -> State: HOLDING | Error: 0.57 | Output: 12.85 | Temp: 26.43 | Setpoint: 27.00
+15:49:35.120 -> Heater set to 12.85% power (Duty: 131)
+15:49:35.120 -> Fan power: 40.0% (Duty: 409)
+15:49:36.101 -> State: HOLDING | Error: 0.63 | Output: 13.35 | Temp: 26.37 | Setpoint: 27.00
+15:49:36.101 -> Heater set to 13.35% power (Duty: 136)
+15:49:36.147 -> Fan power: 40.0% (Duty: 409)
+15:49:37.135 -> State: HOLDING | Error: 0.57 | Output: 13.00 | Temp: 26.43 | Setpoint: 27.00
+15:49:37.135 -> Heater set to 13.00% power (Duty: 132)
+15:49:37.135 -> Fan power: 40.0% (Duty: 409)
+15:49:38.116 -> State: HOLDING | Error: 0.33 | Output: 11.74 | Temp: 26.67 | Setpoint: 27.00
+15:49:38.116 -> Heater set to 11.74% power (Duty: 120)
+15:49:38.116 -> Fan power: 40.0% (Duty: 409)
+15:49:39.097 -> State: HOLDING | Error: 0.33 | Output: 11.92 | Temp: 26.67 | Setpoint: 27.00
+15:49:39.144 -> Heater set to 11.92% power (Duty: 121)
+15:49:39.144 -> Fan power: 40.0% (Duty: 409)
+15:49:40.128 -> State: HOLDING | Error: 0.26 | Output: 1.92 | Temp: 26.74 | Setpoint: 27.00
+15:49:40.128 -> Heater set to 1.92% power (Duty: 19)
+15:49:40.128 -> Fan power: 40.0% (Duty: 409)
+15:49:41.112 -> State: HOLDING | Error: 0.33 | Output: 11.92 | Temp: 26.67 | Setpoint: 27.00
+15:49:41.112 -> Heater set to 11.92% power (Duty: 121)
+15:49:41.112 -> Fan power: 40.0% (Duty: 409)
+15:49:42.140 -> State: HOLDING | Error: 0.46 | Output: 12.78 | Temp: 26.54 | Setpoint: 27.00
+15:49:42.140 -> Heater set to 12.78% power (Duty: 130)
+15:49:42.140 -> Fan power: 40.0% (Duty: 409)
+15:49:43.122 -> State: HOLDING | Error: 0.36 | Output: 12.17 | Temp: 26.64 | Setpoint: 27.00
+15:49:43.122 -> Heater set to 12.17% power (Duty: 124)
+15:49:43.122 -> Fan power: 40.0% (Duty: 409)
+15:49:44.106 -> State: HOLDING | Error: 0.33 | Output: 12.08 | Temp: 26.67 | Setpoint: 27.00
+15:49:44.106 -> Heater set to 12.08% power (Duty: 123)
+15:49:44.106 -> Fan power: 40.0% (Duty: 409)
+15:49:45.134 -> State: HOLDING | Error: 0.33 | Output: 12.14 | Temp: 26.67 | Setpoint: 27.00
+15:49:45.134 -> Heater set to 12.14% power (Duty: 124)
+15:49:45.134 -> Fan power: 40.0% (Duty: 409)
+15:49:46.118 -> State: HOLDING | Error: 0.40 | Output: 12.57 | Temp: 26.60 | Setpoint: 27.00
+15:49:46.118 -> Heater set to 12.57% power (Duty: 128)
+15:49:46.118 -> Fan power: 40.0% (Duty: 409)
+15:49:47.109 -> State: HOLDING | Error: 0.36 | Output: 12.38 | Temp: 26.64 | Setpoint: 27.00
+15:49:47.109 -> Heater set to 12.38% power (Duty: 126)
+15:49:47.109 -> Fan power: 40.0% (Duty: 409)
+15:49:48.137 -> State: HOLDING | Error: 0.05 | Output: 2.38 | Temp: 26.95 | Setpoint: 27.00
+15:49:48.137 -> Heater set to 2.38% power (Duty: 24)
+15:49:48.137 -> Fan power: 40.0% (Duty: 409)
+15:49:49.119 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:49:49.119 -> Fan power: 40.0% (Duty: 409)
+15:49:50.102 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:49:50.102 -> Fan power: 0.0% (Duty: 0)
+15:49:51.130 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:49:51.130 -> Fan power: 0.0% (Duty: 0)
+15:49:52.114 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:49:52.114 -> Fan power: 0.0% (Duty: 0)
+15:49:53.098 -> State: HOLDING | Error: -0.08 | Output: 0.00 | Temp: 27.08 | Setpoint: 27.00
+15:49:53.143 -> Fan power: 0.0% (Duty: 0)
+15:49:54.128 -> State: HOLDING | Error: -0.12 | Output: 0.00 | Temp: 27.12 | Setpoint: 27.00
+15:49:54.128 -> Fan power: 0.0% (Duty: 0)
+15:49:55.111 -> State: HOLDING | Error: -0.18 | Output: 0.00 | Temp: 27.18 | Setpoint: 27.00
+15:49:55.111 -> Fan power: 0.0% (Duty: 0)
+15:49:56.141 -> State: HOLDING | Error: -0.18 | Output: 0.00 | Temp: 27.18 | Setpoint: 27.00
+15:49:56.141 -> Fan power: 0.0% (Duty: 0)
+15:49:57.125 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:49:57.125 -> Fan power: 0.0% (Duty: 0)
+15:49:58.111 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:49:58.111 -> Fan power: 0.0% (Duty: 0)
+15:49:59.095 -> State: HOLDING | Error: -0.29 | Output: 0.00 | Temp: 27.29 | Setpoint: 27.00
+15:49:59.140 -> Fan power: 0.0% (Duty: 0)
+15:50:00.122 -> State: HOLDING | Error: -0.32 | Output: 8.55 | Temp: 27.32 | Setpoint: 27.00
+15:50:00.122 -> Heater set to 8.55% power (Duty: 87)
+15:50:00.122 -> Fan power: 40.0% (Duty: 409)
+15:50:01.104 -> State: HOLDING | Error: -0.35 | Output: 8.72 | Temp: 27.35 | Setpoint: 27.00
+15:50:01.104 -> Heater set to 8.72% power (Duty: 89)
+15:50:01.104 -> Fan power: 40.0% (Duty: 409)
+15:50:02.130 -> State: HOLDING | Error: -0.46 | Output: 8.12 | Temp: 27.46 | Setpoint: 27.00
+15:50:02.130 -> Heater set to 8.12% power (Duty: 83)
+15:50:02.130 -> Fan power: 40.0% (Duty: 409)
+15:50:03.109 -> State: HOLDING | Error: -0.46 | Output: 8.12 | Temp: 27.46 | Setpoint: 27.00
+15:50:03.109 -> Heater set to 8.12% power (Duty: 83)
+15:50:03.109 -> Fan power: 40.0% (Duty: 409)
+15:50:04.138 -> State: HOLDING | Error: -0.29 | Output: 0.00 | Temp: 27.29 | Setpoint: 27.00
+15:50:04.138 -> Fan power: 40.0% (Duty: 409)
+15:50:05.121 -> State: HOLDING | Error: -0.42 | Output: 8.26 | Temp: 27.42 | Setpoint: 27.00
+15:50:05.121 -> Heater set to 8.26% power (Duty: 84)
+15:50:05.121 -> Fan power: 40.0% (Duty: 409)
+15:50:06.104 -> State: HOLDING | Error: -0.39 | Output: 8.39 | Temp: 27.39 | Setpoint: 27.00
+15:50:06.104 -> Heater set to 8.39% power (Duty: 85)
+15:50:06.104 -> Fan power: 40.0% (Duty: 409)
+15:50:07.135 -> State: HOLDING | Error: -0.56 | Output: 7.34 | Temp: 27.56 | Setpoint: 27.00
+15:50:07.135 -> Heater set to 7.34% power (Duty: 75)
+15:50:07.135 -> Fan power: 40.0% (Duty: 409)
+15:50:08.120 -> State: HOLDING | Error: -0.66 | Output: 6.79 | Temp: 27.66 | Setpoint: 27.00
+15:50:08.120 -> Heater set to 6.79% power (Duty: 69)
+15:50:08.120 -> Fan power: 40.0% (Duty: 409)
+15:50:09.100 -> State: HOLDING | Error: -0.59 | Output: 7.17 | Temp: 27.59 | Setpoint: 27.00
+15:50:09.146 -> Heater set to 7.17% power (Duty: 73)
+15:50:09.146 -> Fan power: 40.0% (Duty: 409)
+15:50:10.125 -> State: HOLDING | Error: -0.63 | Output: 6.86 | Temp: 27.63 | Setpoint: 27.00
+15:50:10.125 -> Heater set to 6.86% power (Duty: 70)
+15:50:10.125 -> Fan power: 40.0% (Duty: 409)
+15:50:11.110 -> State: HOLDING | Error: -0.63 | Output: 6.80 | Temp: 27.63 | Setpoint: 27.00
+15:50:11.110 -> Heater set to 6.80% power (Duty: 69)
+15:50:11.110 -> Fan power: 40.0% (Duty: 409)
+15:50:12.137 -> State: HOLDING | Error: -0.52 | Output: 7.31 | Temp: 27.52 | Setpoint: 27.00
+15:50:12.137 -> Heater set to 7.31% power (Duty: 74)
+15:50:12.137 -> Fan power: 40.0% (Duty: 409)
+15:50:13.122 -> State: HOLDING | Error: -0.66 | Output: 6.41 | Temp: 27.66 | Setpoint: 27.00
+15:50:13.122 -> Heater set to 6.41% power (Duty: 65)
+15:50:13.122 -> Fan power: 40.0% (Duty: 409)
+15:50:14.105 -> State: HOLDING | Error: -0.56 | Output: 7.00 | Temp: 27.56 | Setpoint: 27.00
+15:50:14.105 -> Heater set to 7.00% power (Duty: 71)
+15:50:14.105 -> Fan power: 40.0% (Duty: 409)
+15:50:15.134 -> State: HOLDING | Error: -0.42 | Output: 7.65 | Temp: 27.42 | Setpoint: 27.00
+15:50:15.134 -> Heater set to 7.65% power (Duty: 78)
+15:50:15.134 -> Fan power: 40.0% (Duty: 409)
+15:50:16.118 -> State: HOLDING | Error: -0.66 | Output: 6.15 | Temp: 27.66 | Setpoint: 27.00
+15:50:16.118 -> Heater set to 6.15% power (Duty: 62)
+15:50:16.118 -> Fan power: 40.0% (Duty: 409)
+15:50:17.102 -> State: HOLDING | Error: -0.83 | Output: 5.24 | Temp: 27.83 | Setpoint: 27.00
+15:50:17.102 -> Heater set to 5.24% power (Duty: 53)
+15:50:17.149 -> Fan power: 40.0% (Duty: 409)
+15:50:18.130 -> State: HOLDING | Error: -0.80 | Output: 5.44 | Temp: 27.80 | Setpoint: 27.00
+15:50:18.130 -> Heater set to 5.44% power (Duty: 55)
+15:50:18.130 -> Fan power: 40.0% (Duty: 409)
+15:50:19.115 -> State: HOLDING | Error: -0.66 | Output: 6.10 | Temp: 27.66 | Setpoint: 27.00
+15:50:19.115 -> Heater set to 6.10% power (Duty: 62)
+15:50:19.115 -> Fan power: 40.0% (Duty: 409)
+15:50:20.098 -> State: HOLDING | Error: -0.59 | Output: 6.33 | Temp: 27.59 | Setpoint: 27.00
+15:50:20.145 -> Heater set to 6.33% power (Duty: 64)
+15:50:20.145 -> Fan power: 40.0% (Duty: 409)
+15:50:21.128 -> State: HOLDING | Error: -0.59 | Output: 6.22 | Temp: 27.59 | Setpoint: 27.00
+15:50:21.128 -> Heater set to 6.22% power (Duty: 63)
+15:50:21.128 -> Fan power: 40.0% (Duty: 409)
+15:50:22.108 -> State: HOLDING | Error: -0.69 | Output: 5.56 | Temp: 27.69 | Setpoint: 27.00
+15:50:22.108 -> Heater set to 5.56% power (Duty: 56)
+15:50:22.108 -> Fan power: 40.0% (Duty: 409)
+15:50:23.139 -> State: HOLDING | Error: -0.87 | Output: 4.57 | Temp: 27.87 | Setpoint: 27.00
+15:50:23.139 -> Heater set to 4.57% power (Duty: 46)
+15:50:23.139 -> Fan power: 40.0% (Duty: 409)
+15:50:24.120 -> State: HOLDING | Error: -0.59 | Output: 6.12 | Temp: 27.59 | Setpoint: 27.00
+15:50:24.120 -> Heater set to 6.12% power (Duty: 62)
+15:50:24.120 -> Fan power: 40.0% (Duty: 409)
+15:50:25.105 -> State: HOLDING | Error: -0.73 | Output: 5.11 | Temp: 27.73 | Setpoint: 27.00
+15:50:25.105 -> Heater set to 5.11% power (Duty: 52)
+15:50:25.105 -> Fan power: 40.0% (Duty: 409)
+15:50:26.131 -> State: HOLDING | Error: -0.76 | Output: 4.91 | Temp: 27.76 | Setpoint: 27.00
+15:50:26.131 -> Heater set to 4.91% power (Duty: 50)
+15:50:26.131 -> Fan power: 40.0% (Duty: 409)
+15:50:27.116 -> State: HOLDING | Error: -0.87 | Output: 4.25 | Temp: 27.87 | Setpoint: 27.00
+15:50:27.116 -> Heater set to 4.25% power (Duty: 43)
+15:50:27.116 -> Fan power: 40.0% (Duty: 409)
+15:50:28.098 -> State: HOLDING | Error: -0.80 | Output: 4.60 | Temp: 27.80 | Setpoint: 27.00
+15:50:28.145 -> Heater set to 4.60% power (Duty: 47)
+15:50:28.145 -> Fan power: 40.0% (Duty: 409)
+15:50:29.126 -> State: HOLDING | Error: -0.83 | Output: 4.27 | Temp: 27.83 | Setpoint: 27.00
+15:50:29.126 -> Heater set to 4.27% power (Duty: 43)
+15:50:29.126 -> Fan power: 40.0% (Duty: 409)
+15:50:30.109 -> State: HOLDING | Error: -0.73 | Output: 4.77 | Temp: 27.73 | Setpoint: 27.00
+15:50:30.109 -> Heater set to 4.77% power (Duty: 48)
+15:50:30.109 -> Fan power: 40.0% (Duty: 409)
+15:50:31.138 -> State: HOLDING | Error: -0.93 | Output: 3.46 | Temp: 27.93 | Setpoint: 27.00
+15:50:31.138 -> Heater set to 3.46% power (Duty: 35)
+15:50:31.138 -> Fan power: 40.0% (Duty: 409)
+15:50:32.121 -> State: HOLDING | Error: -0.87 | Output: 3.86 | Temp: 27.87 | Setpoint: 27.00
+15:50:32.121 -> Heater set to 3.86% power (Duty: 39)
+15:50:32.121 -> Fan power: 40.0% (Duty: 409)
+15:50:33.107 -> State: HOLDING | Error: -0.76 | Output: 4.30 | Temp: 27.76 | Setpoint: 27.00
+15:50:33.107 -> Heater set to 4.30% power (Duty: 43)
+15:50:33.107 -> Fan power: 40.0% (Duty: 409)
+15:50:34.140 -> State: HOLDING | Error: -0.73 | Output: 4.34 | Temp: 27.73 | Setpoint: 27.00
+15:50:34.140 -> Heater set to 4.34% power (Duty: 44)
+15:50:34.140 -> Fan power: 40.0% (Duty: 409)
+15:50:35.122 -> State: APPROACHING | Error: -1.00 | Output: 2.67 | Temp: 28.00 | Setpoint: 27.00
+15:50:35.122 -> Heater set to 2.67% power (Duty: 27)
+15:50:35.122 -> Fan power: 40.0% (Duty: 409)
+15:50:36.101 -> State: HOLDING | Error: -0.97 | Output: 2.91 | Temp: 27.97 | Setpoint: 27.00
+15:50:36.148 -> Heater set to 2.91% power (Duty: 29)
+15:50:36.148 -> Fan power: 40.0% (Duty: 409)
+15:50:37.128 -> State: HOLDING | Error: -0.90 | Output: 3.16 | Temp: 27.90 | Setpoint: 27.00
+15:50:37.128 -> Heater set to 3.16% power (Duty: 32)
+15:50:37.128 -> Fan power: 40.0% (Duty: 409)
+15:50:38.112 -> State: APPROACHING | Error: -1.00 | Output: 2.43 | Temp: 28.00 | Setpoint: 27.00
+15:50:38.112 -> Heater set to 2.43% power (Duty: 24)
+15:50:38.112 -> Fan power: 40.0% (Duty: 409)
+15:50:39.096 -> State: APPROACHING | Error: -1.00 | Output: 2.37 | Temp: 28.00 | Setpoint: 27.00
+15:50:39.143 -> Heater set to 2.37% power (Duty: 24)
+15:50:39.143 -> Fan power: 40.0% (Duty: 409)
+15:50:40.127 -> State: HOLDING | Error: -0.73 | Output: 3.81 | Temp: 27.73 | Setpoint: 27.00
+15:50:40.127 -> Heater set to 3.81% power (Duty: 38)
+15:50:40.127 -> Fan power: 40.0% (Duty: 409)
+15:50:41.109 -> State: HOLDING | Error: -0.90 | Output: 2.58 | Temp: 27.90 | Setpoint: 27.00
+15:50:41.109 -> Heater set to 2.58% power (Duty: 26)
+15:50:41.109 -> Fan power: 40.0% (Duty: 409)
+15:50:42.140 -> State: HOLDING | Error: -0.97 | Output: 2.19 | Temp: 27.97 | Setpoint: 27.00
+15:50:42.140 -> Heater set to 2.19% power (Duty: 22)
+15:50:42.140 -> Fan power: 40.0% (Duty: 409)
+15:50:43.123 -> State: HOLDING | Error: -0.87 | Output: 2.70 | Temp: 27.87 | Setpoint: 27.00
+15:50:43.123 -> Heater set to 2.70% power (Duty: 27)
+15:50:43.123 -> Fan power: 40.0% (Duty: 409)
+15:50:44.105 -> State: HOLDING | Error: -0.97 | Output: 1.95 | Temp: 27.97 | Setpoint: 27.00
+15:50:44.105 -> Heater set to 1.95% power (Duty: 19)
+15:50:44.105 -> Fan power: 40.0% (Duty: 409)
+15:50:45.132 -> State: HOLDING | Error: -0.87 | Output: 2.48 | Temp: 27.87 | Setpoint: 27.00
+15:50:45.132 -> Heater set to 2.48% power (Duty: 25)
+15:50:45.132 -> Fan power: 40.0% (Duty: 409)
+15:50:46.114 -> State: APPROACHING | Error: -1.07 | Output: 1.14 | Temp: 28.07 | Setpoint: 27.00
+15:50:46.114 -> Heater set to 1.14% power (Duty: 11)
+15:50:46.114 -> Fan power: 40.0% (Duty: 409)
+15:50:47.142 -> State: HOLDING | Error: -0.93 | Output: 1.92 | Temp: 27.93 | Setpoint: 27.00
+15:50:47.142 -> Heater set to 1.92% power (Duty: 19)
+15:50:47.142 -> Fan power: 40.0% (Duty: 409)
+15:50:48.122 -> State: HOLDING | Error: -0.83 | Output: 2.31 | Temp: 27.83 | Setpoint: 27.00
+15:50:48.122 -> Heater set to 2.31% power (Duty: 23)
+15:50:48.122 -> Fan power: 40.0% (Duty: 409)
+15:50:49.104 -> State: HOLDING | Error: -0.93 | Output: 1.56 | Temp: 27.93 | Setpoint: 27.00
+15:50:49.104 -> Heater set to 1.56% power (Duty: 15)
+15:50:49.104 -> Fan power: 40.0% (Duty: 409)
+15:50:50.133 -> State: HOLDING | Error: -0.93 | Output: 1.51 | Temp: 27.93 | Setpoint: 27.00
+15:50:50.133 -> Heater set to 1.51% power (Duty: 15)
+15:50:50.133 -> Fan power: 40.0% (Duty: 409)
+15:50:51.115 -> State: HOLDING | Error: -0.87 | Output: 1.79 | Temp: 27.87 | Setpoint: 27.00
+15:50:51.115 -> Heater set to 1.79% power (Duty: 18)
+15:50:51.115 -> Fan power: 40.0% (Duty: 409)
+15:50:52.142 -> State: HOLDING | Error: -0.90 | Output: 1.45 | Temp: 27.90 | Setpoint: 27.00
+15:50:52.142 -> Heater set to 1.45% power (Duty: 14)
+15:50:52.142 -> Fan power: 40.0% (Duty: 409)
+15:50:53.126 -> State: HOLDING | Error: -0.97 | Output: 0.97 | Temp: 27.97 | Setpoint: 27.00
+15:50:53.126 -> Heater set to 0.97% power (Duty: 9)
+15:50:53.126 -> Fan power: 40.0% (Duty: 409)
+15:50:54.105 -> State: HOLDING | Error: -0.90 | Output: 1.29 | Temp: 27.90 | Setpoint: 27.00
+15:50:54.105 -> Heater set to 1.29% power (Duty: 13)
+15:50:54.105 -> Fan power: 40.0% (Duty: 409)
+15:50:55.127 -> State: HOLDING | Error: -0.90 | Output: 1.14 | Temp: 27.90 | Setpoint: 27.00
+15:50:55.127 -> Heater set to 1.14% power (Duty: 11)
+15:50:55.127 -> Fan power: 40.0% (Duty: 409)
+15:50:56.111 -> State: HOLDING | Error: -0.83 | Output: 1.42 | Temp: 27.83 | Setpoint: 27.00
+15:50:56.111 -> Heater set to 1.42% power (Duty: 14)
+15:50:56.111 -> Fan power: 40.0% (Duty: 409)
+15:50:57.138 -> State: HOLDING | Error: -0.93 | Output: 0.69 | Temp: 27.93 | Setpoint: 27.00
+15:50:57.138 -> Heater set to 0.69% power (Duty: 7)
+15:50:57.138 -> Fan power: 40.0% (Duty: 409)
+15:50:58.119 -> State: HOLDING | Error: -0.90 | Output: 0.84 | Temp: 27.90 | Setpoint: 27.00
+15:50:58.119 -> Heater set to 0.84% power (Duty: 8)
+15:50:58.119 -> Fan power: 40.0% (Duty: 409)
+15:50:59.102 -> State: HOLDING | Error: -0.80 | Output: 1.30 | Temp: 27.80 | Setpoint: 27.00
+15:50:59.102 -> Heater set to 1.30% power (Duty: 13)
+15:50:59.149 -> Fan power: 40.0% (Duty: 409)
+15:51:00.130 -> State: HOLDING | Error: -0.80 | Output: 1.14 | Temp: 27.80 | Setpoint: 27.00
+15:51:00.130 -> Heater set to 1.14% power (Duty: 11)
+15:51:00.130 -> Fan power: 40.0% (Duty: 409)
+15:51:01.114 -> State: HOLDING | Error: -0.80 | Output: 1.04 | Temp: 27.80 | Setpoint: 27.00
+15:51:01.114 -> Heater set to 1.04% power (Duty: 10)
+15:51:01.114 -> Fan power: 40.0% (Duty: 409)
+15:51:02.097 -> State: HOLDING | Error: -0.59 | Output: 2.12 | Temp: 27.59 | Setpoint: 27.00
+15:51:02.143 -> Heater set to 2.12% power (Duty: 21)
+15:51:02.143 -> Fan power: 40.0% (Duty: 409)
+15:51:03.125 -> State: HOLDING | Error: -0.93 | Output: -0.03 | Temp: 27.93 | Setpoint: 27.00
+15:51:03.125 -> Fan power: 100.1% (Duty: 1024)
+15:51:04.109 -> State: HOLDING | Error: -0.76 | Output: 1.04 | Temp: 27.76 | Setpoint: 27.00
+15:51:04.109 -> Heater set to 1.04% power (Duty: 10)
+15:51:04.109 -> Fan power: 40.0% (Duty: 409)
+15:51:05.097 -> State: HOLDING | Error: -0.80 | Output: 0.65 | Temp: 27.80 | Setpoint: 27.00
+15:51:05.144 -> Heater set to 0.65% power (Duty: 6)
+15:51:05.144 -> Fan power: 40.0% (Duty: 409)
+15:51:06.127 -> State: HOLDING | Error: -0.76 | Output: 0.77 | Temp: 27.76 | Setpoint: 27.00
+15:51:06.127 -> Heater set to 0.77% power (Duty: 7)
+15:51:06.127 -> Fan power: 40.0% (Duty: 409)
+15:51:07.109 -> State: HOLDING | Error: -0.59 | Output: 1.63 | Temp: 27.59 | Setpoint: 27.00
+15:51:07.109 -> Heater set to 1.63% power (Duty: 16)
+15:51:07.109 -> Fan power: 40.0% (Duty: 409)
+15:51:08.139 -> State: HOLDING | Error: -0.52 | Output: 1.85 | Temp: 27.52 | Setpoint: 27.00
+15:51:08.139 -> Heater set to 1.85% power (Duty: 18)
+15:51:08.139 -> Fan power: 40.0% (Duty: 409)
+15:51:09.122 -> State: HOLDING | Error: -0.69 | Output: 0.77 | Temp: 27.69 | Setpoint: 27.00
+15:51:09.122 -> Heater set to 0.77% power (Duty: 7)
+15:51:09.122 -> Fan power: 40.0% (Duty: 409)
+15:51:10.108 -> State: HOLDING | Error: -0.66 | Output: 0.99 | Temp: 27.66 | Setpoint: 27.00
+15:51:10.108 -> Heater set to 0.99% power (Duty: 10)
+15:51:10.108 -> Fan power: 40.0% (Duty: 409)
+15:51:11.137 -> State: HOLDING | Error: -0.56 | Output: 1.47 | Temp: 27.56 | Setpoint: 27.00
+15:51:11.137 -> Heater set to 1.47% power (Duty: 15)
+15:51:11.137 -> Fan power: 40.0% (Duty: 409)
+15:51:12.118 -> State: HOLDING | Error: -0.69 | Output: 0.56 | Temp: 27.69 | Setpoint: 27.00
+15:51:12.118 -> Heater set to 0.56% power (Duty: 5)
+15:51:12.118 -> Fan power: 40.0% (Duty: 409)
+15:51:13.106 -> State: HOLDING | Error: -0.42 | Output: 2.12 | Temp: 27.42 | Setpoint: 27.00
+15:51:13.106 -> Heater set to 2.12% power (Duty: 21)
+15:51:13.106 -> Fan power: 40.0% (Duty: 409)
+15:51:14.137 -> State: HOLDING | Error: -0.52 | Output: 1.32 | Temp: 27.52 | Setpoint: 27.00
+15:51:14.137 -> Heater set to 1.32% power (Duty: 13)
+15:51:14.137 -> Fan power: 40.0% (Duty: 409)
+15:51:15.119 -> State: HOLDING | Error: -0.63 | Output: 0.74 | Temp: 27.63 | Setpoint: 27.00
+15:51:15.119 -> Heater set to 0.74% power (Duty: 7)
+15:51:15.119 -> Fan power: 40.0% (Duty: 409)
+15:51:16.100 -> State: HOLDING | Error: -0.52 | Output: 1.31 | Temp: 27.52 | Setpoint: 27.00
+15:51:16.147 -> Heater set to 1.31% power (Duty: 13)
+15:51:16.147 -> Fan power: 40.0% (Duty: 409)
+15:51:17.126 -> State: HOLDING | Error: -0.35 | Output: 2.16 | Temp: 27.35 | Setpoint: 27.00
+15:51:17.126 -> Heater set to 2.16% power (Duty: 22)
+15:51:17.126 -> Fan power: 40.0% (Duty: 409)
+15:51:18.112 -> State: HOLDING | Error: -0.52 | Output: 1.04 | Temp: 27.52 | Setpoint: 27.00
+15:51:18.112 -> Heater set to 1.04% power (Duty: 10)
+15:51:18.112 -> Fan power: 40.0% (Duty: 409)
+15:51:19.142 -> State: HOLDING | Error: -0.32 | Output: 2.25 | Temp: 27.32 | Setpoint: 27.00
+15:51:19.142 -> Heater set to 2.25% power (Duty: 22)
+15:51:19.142 -> Fan power: 40.0% (Duty: 409)
+15:51:20.122 -> State: HOLDING | Error: -0.39 | Output: 1.70 | Temp: 27.39 | Setpoint: 27.00
+15:51:20.122 -> Heater set to 1.70% power (Duty: 17)
+15:51:20.122 -> Fan power: 40.0% (Duty: 409)
+15:51:21.103 -> State: HOLDING | Error: -0.29 | Output: 0.00 | Temp: 27.29 | Setpoint: 27.00
+15:51:21.103 -> Fan power: 40.0% (Duty: 409)
+15:51:22.132 -> State: HOLDING | Error: -0.35 | Output: 1.88 | Temp: 27.35 | Setpoint: 27.00
+15:51:22.132 -> Heater set to 1.88% power (Duty: 19)
+15:51:22.132 -> Fan power: 40.0% (Duty: 409)
+15:51:23.116 -> State: HOLDING | Error: -0.42 | Output: 1.43 | Temp: 27.42 | Setpoint: 27.00
+15:51:23.116 -> Heater set to 1.43% power (Duty: 14)
+15:51:23.116 -> Fan power: 40.0% (Duty: 409)
+15:51:24.143 -> State: HOLDING | Error: -0.46 | Output: 1.23 | Temp: 27.46 | Setpoint: 27.00
+15:51:24.143 -> Heater set to 1.23% power (Duty: 12)
+15:51:24.143 -> Fan power: 40.0% (Duty: 409)
+15:51:25.128 -> State: HOLDING | Error: -0.49 | Output: 1.00 | Temp: 27.49 | Setpoint: 27.00
+15:51:25.128 -> Heater set to 1.00% power (Duty: 10)
+15:51:25.128 -> Fan power: 40.0% (Duty: 409)
+15:51:26.113 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:51:26.113 -> Fan power: 40.0% (Duty: 409)
+15:51:27.140 -> State: HOLDING | Error: -0.22 | Output: 0.00 | Temp: 27.22 | Setpoint: 27.00
+15:51:27.140 -> Fan power: 0.0% (Duty: 0)
+15:51:28.123 -> State: HOLDING | Error: -0.25 | Output: 0.00 | Temp: 27.25 | Setpoint: 27.00
+15:51:28.123 -> Fan power: 0.0% (Duty: 0)
+15:51:29.104 -> State: HOLDING | Error: -0.15 | Output: 0.00 | Temp: 27.15 | Setpoint: 27.00
+15:51:29.104 -> Fan power: 0.0% (Duty: 0)
+15:51:30.131 -> State: HOLDING | Error: -0.18 | Output: 0.00 | Temp: 27.18 | Setpoint: 27.00
+15:51:30.131 -> Fan power: 0.0% (Duty: 0)
+15:51:31.115 -> State: HOLDING | Error: -0.15 | Output: 0.00 | Temp: 27.15 | Setpoint: 27.00
+15:51:31.115 -> Fan power: 0.0% (Duty: 0)
+15:51:32.142 -> State: HOLDING | Error: -0.15 | Output: 0.00 | Temp: 27.15 | Setpoint: 27.00
+15:51:32.142 -> Fan power: 0.0% (Duty: 0)
+15:51:33.124 -> State: HOLDING | Error: -0.12 | Output: 0.00 | Temp: 27.12 | Setpoint: 27.00
+15:51:33.124 -> Fan power: 0.0% (Duty: 0)
+15:51:34.106 -> State: HOLDING | Error: -0.12 | Output: 0.00 | Temp: 27.12 | Setpoint: 27.00
+15:51:34.106 -> Fan power: 0.0% (Duty: 0)
+15:51:35.134 -> State: HOLDING | Error: -0.12 | Output: 0.00 | Temp: 27.12 | Setpoint: 27.00
+15:51:35.134 -> Fan power: 0.0% (Duty: 0)
+15:51:36.118 -> State: HOLDING | Error: -0.08 | Output: 0.00 | Temp: 27.08 | Setpoint: 27.00
+15:51:36.118 -> Fan power: 0.0% (Duty: 0)
+15:51:37.100 -> State: HOLDING | Error: -0.08 | Output: 0.00 | Temp: 27.08 | Setpoint: 27.00
+15:51:37.147 -> Fan power: 0.0% (Duty: 0)
+15:51:38.133 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:51:38.133 -> Fan power: 0.0% (Duty: 0)
+15:51:39.115 -> State: HOLDING | Error: -0.01 | Output: 0.00 | Temp: 27.01 | Setpoint: 27.00
+15:51:39.115 -> Fan power: 0.0% (Duty: 0)
+15:51:40.098 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:51:40.145 -> Fan power: 0.0% (Duty: 0)
+15:51:41.126 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:51:41.126 -> Fan power: 0.0% (Duty: 0)
+15:51:42.112 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:51:42.112 -> Fan power: 0.0% (Duty: 0)
+15:51:43.144 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:51:43.144 -> Fan power: 0.0% (Duty: 0)
+15:51:44.127 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:51:44.127 -> Fan power: 0.0% (Duty: 0)
+15:51:45.110 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:51:45.110 -> Fan power: 0.0% (Duty: 0)
+15:51:46.139 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:51:46.139 -> Fan power: 0.0% (Duty: 0)
+15:51:47.124 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:51:47.124 -> Fan power: 0.0% (Duty: 0)
+15:51:48.105 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:51:48.105 -> Fan power: 0.0% (Duty: 0)
+15:51:49.135 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:51:49.135 -> Fan power: 0.0% (Duty: 0)
+15:51:50.117 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:51:50.117 -> Fan power: 0.0% (Duty: 0)
+15:51:51.099 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:51:51.147 -> Fan power: 0.0% (Duty: 0)
+15:51:52.129 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:51:52.129 -> Fan power: 0.0% (Duty: 0)
+15:51:53.112 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:51:53.112 -> Fan power: 0.0% (Duty: 0)
+15:51:54.143 -> State: HOLDING | Error: 0.33 | Output: 5.64 | Temp: 26.67 | Setpoint: 27.00
+15:51:54.143 -> Heater set to 5.64% power (Duty: 57)
+15:51:54.143 -> Fan power: 40.0% (Duty: 409)
+15:51:55.126 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:51:55.126 -> Fan power: 40.0% (Duty: 409)
+15:51:56.108 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:51:56.108 -> Fan power: 0.0% (Duty: 0)
+15:51:57.138 -> State: HOLDING | Error: 0.36 | Output: 5.38 | Temp: 26.64 | Setpoint: 27.00
+15:51:57.138 -> Heater set to 5.38% power (Duty: 55)
+15:51:57.138 -> Fan power: 40.0% (Duty: 409)
+15:51:58.119 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:51:58.119 -> Fan power: 40.0% (Duty: 409)
+15:51:59.108 -> State: HOLDING | Error: 0.43 | Output: 5.79 | Temp: 26.57 | Setpoint: 27.00
+15:51:59.108 -> Heater set to 5.79% power (Duty: 59)
+15:51:59.108 -> Fan power: 40.0% (Duty: 409)
+15:52:00.137 -> State: HOLDING | Error: 0.57 | Output: 6.59 | Temp: 26.43 | Setpoint: 27.00
+15:52:00.137 -> Heater set to 6.59% power (Duty: 67)
+15:52:00.137 -> Fan power: 40.0% (Duty: 409)
+15:52:01.120 -> State: HOLDING | Error: 0.36 | Output: 5.40 | Temp: 26.64 | Setpoint: 27.00
+15:52:01.120 -> Heater set to 5.40% power (Duty: 55)
+15:52:01.120 -> Fan power: 40.0% (Duty: 409)
+15:52:02.106 -> State: HOLDING | Error: 0.40 | Output: 5.76 | Temp: 26.60 | Setpoint: 27.00
+15:52:02.106 -> Heater set to 5.76% power (Duty: 58)
+15:52:02.106 -> Fan power: 40.0% (Duty: 409)
+15:52:03.136 -> State: HOLDING | Error: 0.36 | Output: 5.60 | Temp: 26.64 | Setpoint: 27.00
+15:52:03.136 -> Heater set to 5.60% power (Duty: 57)
+15:52:03.136 -> Fan power: 40.0% (Duty: 409)
+15:52:04.122 -> State: HOLDING | Error: 0.36 | Output: 5.66 | Temp: 26.64 | Setpoint: 27.00
+15:52:04.122 -> Heater set to 5.66% power (Duty: 57)
+15:52:04.122 -> Fan power: 40.0% (Duty: 409)
+15:52:05.104 -> State: HOLDING | Error: 0.46 | Output: 6.29 | Temp: 26.54 | Setpoint: 27.00
+15:52:05.104 -> Heater set to 6.29% power (Duty: 64)
+15:52:05.151 -> Fan power: 40.0% (Duty: 409)
+15:52:06.135 -> State: HOLDING | Error: 0.40 | Output: 5.89 | Temp: 26.60 | Setpoint: 27.00
+15:52:06.135 -> Heater set to 5.89% power (Duty: 60)
+15:52:06.135 -> Fan power: 40.0% (Duty: 409)
+15:52:07.117 -> State: HOLDING | Error: 0.67 | Output: 7.54 | Temp: 26.33 | Setpoint: 27.00
+15:52:07.117 -> Heater set to 7.54% power (Duty: 77)
+15:52:07.117 -> Fan power: 40.0% (Duty: 409)
+15:52:08.101 -> State: HOLDING | Error: 0.50 | Output: 6.48 | Temp: 26.50 | Setpoint: 27.00
+15:52:08.148 -> Heater set to 6.48% power (Duty: 66)
+15:52:08.148 -> Fan power: 40.0% (Duty: 409)
+15:52:09.131 -> State: HOLDING | Error: 0.36 | Output: 5.86 | Temp: 26.64 | Setpoint: 27.00
+15:52:09.131 -> Heater set to 5.86% power (Duty: 59)
+15:52:09.131 -> Fan power: 40.0% (Duty: 409)
+15:52:10.117 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:52:10.117 -> Fan power: 40.0% (Duty: 409)
+15:52:11.104 -> State: HOLDING | Error: 0.53 | Output: 6.96 | Temp: 26.47 | Setpoint: 27.00
+15:52:11.104 -> Heater set to 6.96% power (Duty: 71)
+15:52:11.150 -> Fan power: 40.0% (Duty: 409)
+15:52:12.131 -> State: HOLDING | Error: 0.57 | Output: 7.12 | Temp: 26.43 | Setpoint: 27.00
+15:52:12.131 -> Heater set to 7.12% power (Duty: 72)
+15:52:12.131 -> Fan power: 40.0% (Duty: 409)
+15:52:13.112 -> State: HOLDING | Error: 0.57 | Output: 7.17 | Temp: 26.43 | Setpoint: 27.00
+15:52:13.112 -> Heater set to 7.17% power (Duty: 73)
+15:52:13.112 -> Fan power: 40.0% (Duty: 409)
+15:52:14.139 -> State: HOLDING | Error: 0.70 | Output: 8.02 | Temp: 26.30 | Setpoint: 27.00
+15:52:14.139 -> Heater set to 8.02% power (Duty: 81)
+15:52:14.139 -> Fan power: 40.0% (Duty: 409)
+15:52:15.121 -> State: HOLDING | Error: 0.50 | Output: 6.85 | Temp: 26.50 | Setpoint: 27.00
+15:52:15.121 -> Heater set to 6.85% power (Duty: 70)
+15:52:15.121 -> Fan power: 40.0% (Duty: 409)
+15:52:16.104 -> State: HOLDING | Error: 0.53 | Output: 7.23 | Temp: 26.47 | Setpoint: 27.00
+15:52:16.104 -> Heater set to 7.23% power (Duty: 73)
+15:52:16.151 -> Fan power: 40.0% (Duty: 409)
+15:52:17.128 -> State: HOLDING | Error: 0.50 | Output: 7.07 | Temp: 26.50 | Setpoint: 27.00
+15:52:17.128 -> Heater set to 7.07% power (Duty: 72)
+15:52:17.128 -> Fan power: 40.0% (Duty: 409)
+15:52:18.097 -> State: HOLDING | Error: 0.46 | Output: 6.96 | Temp: 26.54 | Setpoint: 27.00
+15:52:18.144 -> Heater set to 6.96% power (Duty: 71)
+15:52:18.144 -> Fan power: 40.0% (Duty: 409)
+15:52:19.126 -> State: HOLDING | Error: 0.40 | Output: 6.65 | Temp: 26.60 | Setpoint: 27.00
+15:52:19.126 -> Heater set to 6.65% power (Duty: 67)
+15:52:19.126 -> Fan power: 40.0% (Duty: 409)
+15:52:20.107 -> State: HOLDING | Error: 0.46 | Output: 7.12 | Temp: 26.54 | Setpoint: 27.00
+15:52:20.107 -> Heater set to 7.12% power (Duty: 72)
+15:52:20.107 -> Fan power: 40.0% (Duty: 409)
+15:52:21.136 -> State: HOLDING | Error: 0.57 | Output: 7.72 | Temp: 26.43 | Setpoint: 27.00
+15:52:21.136 -> Heater set to 7.72% power (Duty: 79)
+15:52:21.136 -> Fan power: 40.0% (Duty: 409)
+15:52:22.120 -> State: HOLDING | Error: 0.36 | Output: 6.56 | Temp: 26.64 | Setpoint: 27.00
+15:52:22.120 -> Heater set to 6.56% power (Duty: 67)
+15:52:22.120 -> Fan power: 40.0% (Duty: 409)
+15:52:23.104 -> State: HOLDING | Error: 0.57 | Output: 7.90 | Temp: 26.43 | Setpoint: 27.00
+15:52:23.104 -> Heater set to 7.90% power (Duty: 80)
+15:52:23.150 -> Fan power: 40.0% (Duty: 409)
+15:52:24.131 -> State: HOLDING | Error: 0.43 | Output: 7.06 | Temp: 26.57 | Setpoint: 27.00
+15:52:24.131 -> Heater set to 7.06% power (Duty: 72)
+15:52:24.131 -> Fan power: 40.0% (Duty: 409)
+15:52:25.112 -> State: HOLDING | Error: 0.57 | Output: 7.97 | Temp: 26.43 | Setpoint: 27.00
+15:52:25.112 -> Heater set to 7.97% power (Duty: 81)
+15:52:25.112 -> Fan power: 40.0% (Duty: 409)
+15:52:26.143 -> State: HOLDING | Error: 0.50 | Output: 7.57 | Temp: 26.50 | Setpoint: 27.00
+15:52:26.143 -> Heater set to 7.57% power (Duty: 77)
+15:52:26.143 -> Fan power: 40.0% (Duty: 409)
+15:52:27.124 -> State: HOLDING | Error: 0.40 | Output: 7.09 | Temp: 26.60 | Setpoint: 27.00
+15:52:27.124 -> Heater set to 7.09% power (Duty: 72)
+15:52:27.124 -> Fan power: 40.0% (Duty: 409)
+15:52:28.103 -> State: HOLDING | Error: 0.36 | Output: 7.00 | Temp: 26.64 | Setpoint: 27.00
+15:52:28.103 -> Heater set to 7.00% power (Duty: 71)
+15:52:28.150 -> Fan power: 40.0% (Duty: 409)
+15:52:29.129 -> State: HOLDING | Error: 0.40 | Output: 7.26 | Temp: 26.60 | Setpoint: 27.00
+15:52:29.129 -> Heater set to 7.26% power (Duty: 74)
+15:52:29.129 -> Fan power: 40.0% (Duty: 409)
+15:52:30.107 -> State: HOLDING | Error: 0.46 | Output: 7.68 | Temp: 26.54 | Setpoint: 27.00
+15:52:30.107 -> Heater set to 7.68% power (Duty: 78)
+15:52:30.107 -> Fan power: 40.0% (Duty: 409)
+15:52:31.138 -> State: HOLDING | Error: 0.43 | Output: 7.50 | Temp: 26.57 | Setpoint: 27.00
+15:52:31.138 -> Heater set to 7.50% power (Duty: 76)
+15:52:31.138 -> Fan power: 40.0% (Duty: 409)
+15:52:32.120 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:52:32.120 -> Fan power: 40.0% (Duty: 409)
+15:52:33.101 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:52:33.148 -> Fan power: 0.0% (Duty: 0)
+15:52:34.131 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:52:34.131 -> Fan power: 0.0% (Duty: 0)
+15:52:35.111 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:52:35.111 -> Fan power: 0.0% (Duty: 0)
+15:52:36.139 -> State: HOLDING | Error: 0.16 | Output: 0.00 | Temp: 26.84 | Setpoint: 27.00
+15:52:36.139 -> Fan power: 0.0% (Duty: 0)
+15:52:37.118 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:52:37.118 -> Fan power: 0.0% (Duty: 0)
+15:52:38.098 -> State: HOLDING | Error: 0.16 | Output: 0.00 | Temp: 26.84 | Setpoint: 27.00
+15:52:38.145 -> Fan power: 0.0% (Duty: 0)
+15:52:39.127 -> State: HOLDING | Error: 0.16 | Output: 0.00 | Temp: 26.84 | Setpoint: 27.00
+15:52:39.127 -> Fan power: 0.0% (Duty: 0)
+15:52:40.107 -> State: HOLDING | Error: 0.12 | Output: 0.00 | Temp: 26.88 | Setpoint: 27.00
+15:52:40.107 -> Fan power: 0.0% (Duty: 0)
+15:52:41.133 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:52:41.133 -> Fan power: 0.0% (Duty: 0)
+15:52:42.130 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:52:42.130 -> Fan power: 0.0% (Duty: 0)
+15:52:43.112 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:52:43.112 -> Fan power: 0.0% (Duty: 0)
+15:52:44.142 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:52:44.142 -> Fan power: 0.0% (Duty: 0)
+15:52:45.123 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:52:45.123 -> Fan power: 0.0% (Duty: 0)
+15:52:46.099 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:52:46.146 -> Fan power: 0.0% (Duty: 0)
+15:52:47.126 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:52:47.126 -> Fan power: 0.0% (Duty: 0)
+15:52:48.110 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:52:48.110 -> Fan power: 0.0% (Duty: 0)
+15:52:49.140 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:52:49.140 -> Fan power: 0.0% (Duty: 0)
+15:52:50.121 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:52:50.121 -> Fan power: 0.0% (Duty: 0)
+15:52:51.104 -> State: HOLDING | Error: -0.05 | Output: 0.00 | Temp: 27.05 | Setpoint: 27.00
+15:52:51.104 -> Fan power: 0.0% (Duty: 0)
+15:52:52.127 -> State: HOLDING | Error: -0.01 | Output: 0.00 | Temp: 27.01 | Setpoint: 27.00
+15:52:52.127 -> Fan power: 0.0% (Duty: 0)
+15:52:53.110 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:52:53.110 -> Fan power: 0.0% (Duty: 0)
+15:52:54.142 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:52:54.142 -> Fan power: 0.0% (Duty: 0)
+15:52:55.126 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:52:55.126 -> Fan power: 0.0% (Duty: 0)
+15:52:56.108 -> State: HOLDING | Error: -0.01 | Output: 0.00 | Temp: 27.01 | Setpoint: 27.00
+15:52:56.108 -> Fan power: 0.0% (Duty: 0)
+15:52:57.137 -> State: HOLDING | Error: 0.02 | Output: 0.00 | Temp: 26.98 | Setpoint: 27.00
+15:52:57.137 -> Fan power: 0.0% (Duty: 0)
+15:52:58.120 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:52:58.120 -> Fan power: 0.0% (Duty: 0)
+15:52:59.103 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:52:59.149 -> Fan power: 0.0% (Duty: 0)
+15:53:00.130 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:53:00.130 -> Fan power: 0.0% (Duty: 0)
+15:53:01.109 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:53:01.109 -> Fan power: 0.0% (Duty: 0)
+15:53:02.137 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:53:02.137 -> Fan power: 0.0% (Duty: 0)
+15:53:03.121 -> State: HOLDING | Error: 0.05 | Output: 0.00 | Temp: 26.95 | Setpoint: 27.00
+15:53:03.121 -> Fan power: 0.0% (Duty: 0)
+15:53:04.105 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:53:04.105 -> Fan power: 0.0% (Duty: 0)
+15:53:05.134 -> State: HOLDING | Error: 0.09 | Output: 0.00 | Temp: 26.91 | Setpoint: 27.00
+15:53:05.134 -> Fan power: 0.0% (Duty: 0)
+15:53:06.120 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:53:06.120 -> Fan power: 0.0% (Duty: 0)
+15:53:07.102 -> State: HOLDING | Error: 0.16 | Output: 0.00 | Temp: 26.84 | Setpoint: 27.00
+15:53:07.149 -> Fan power: 0.0% (Duty: 0)
+15:53:08.133 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:53:08.133 -> Fan power: 0.0% (Duty: 0)
+15:53:09.115 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:53:09.115 -> Fan power: 0.0% (Duty: 0)
+15:53:10.144 -> State: HOLDING | Error: 0.19 | Output: 0.00 | Temp: 26.81 | Setpoint: 27.00
+15:53:10.144 -> Fan power: 0.0% (Duty: 0)
+15:53:11.126 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:53:11.126 -> Fan power: 0.0% (Duty: 0)
+15:53:12.109 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:53:12.109 -> Fan power: 0.0% (Duty: 0)
+15:53:13.140 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:53:13.140 -> Fan power: 0.0% (Duty: 0)
+15:53:14.128 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:53:14.128 -> Fan power: 0.0% (Duty: 0)
+15:53:15.110 -> State: HOLDING | Error: 0.26 | Output: 0.00 | Temp: 26.74 | Setpoint: 27.00
+15:53:15.110 -> Fan power: 0.0% (Duty: 0)
+15:53:16.138 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:53:16.138 -> Fan power: 0.0% (Duty: 0)
+15:53:17.115 -> State: HOLDING | Error: 0.29 | Output: 0.00 | Temp: 26.71 | Setpoint: 27.00
+15:53:17.115 -> Fan power: 0.0% (Duty: 0)
+15:53:18.141 -> State: HOLDING | Error: 0.33 | Output: 6.98 | Temp: 26.67 | Setpoint: 27.00
+15:53:18.141 -> Heater set to 6.98% power (Duty: 71)
+15:53:18.141 -> Fan power: 40.0% (Duty: 409)
+15:53:19.125 -> State: HOLDING | Error: 0.50 | Output: 8.06 | Temp: 26.50 | Setpoint: 27.00
+15:53:19.125 -> Heater set to 8.06% power (Duty: 82)
+15:53:19.125 -> Fan power: 40.0% (Duty: 409)
+15:53:20.105 -> State: HOLDING | Error: 0.33 | Output: 7.04 | Temp: 26.67 | Setpoint: 27.00
+15:53:20.105 -> Heater set to 7.04% power (Duty: 72)
+15:53:20.152 -> Fan power: 40.0% (Duty: 409)
+15:53:21.135 -> State: HOLDING | Error: 0.23 | Output: 0.00 | Temp: 26.77 | Setpoint: 27.00
+15:53:21.135 -> Fan power: 40.0% (Duty: 409)
+15:53:22.115 -> State: HOLDING | Error: 0.43 | Output: 7.77 | Temp: 26.57 | Setpoint: 27.00
+15:53:22.115 -> Heater set to 7.77% power (Duty: 79)
+15:53:22.115 -> Fan power: 40.0% (Duty: 409)
+15:53:23.100 -> State: HOLDING | Error: 0.46 | Output: 7.95 | Temp: 26.54 | Setpoint: 27.00
+15:53:23.146 -> Heater set to 7.95% power (Duty: 81)
+15:53:23.146 -> Fan power: 40.0% (Duty: 409)
+15:53:24.126 -> State: HOLDING | Error: 0.33 | Output: 7.21 | Temp: 26.67 | Setpoint: 27.00
+15:53:24.126 -> Heater set to 7.21% power (Duty: 73)
+15:53:24.126 -> Fan power: 40.0% (Duty: 409)
+15:53:25.107 -> State: HOLDING | Error: 0.63 | Output: 9.08 | Temp: 26.37 | Setpoint: 27.00
+15:53:25.107 -> Heater set to 9.08% power (Duty: 92)
+15:53:25.153 -> Fan power: 40.0% (Duty: 409)

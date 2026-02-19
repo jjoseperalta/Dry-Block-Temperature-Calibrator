@@ -529,10 +529,10 @@ void taskControlCore(void *parameter) {
 
     // Implementa una pequeña histéresis para evitar el "titubeo" de estados
     if (thermalState == ThermalState::RAMPING) {
-      if (error < 0.2f)
+      if (error < 0.8f)
         thermalState = ThermalState::APPROACHING;
     } else if (thermalState == ThermalState::APPROACHING) {
-      if (error > 1.5f)
+      if (error > 1.2f)
         thermalState = ThermalState::RAMPING;
       if (error < 0.10f)
         thermalState = ThermalState::HOLDING;
@@ -604,14 +604,13 @@ void taskControlCore(void *parameter) {
           frenoExtra = 0.0f;
         }
 
-        // if (dTdt < -0.015f && currentMasterTemp < (setpoint + 0.0f) &&
-        //     error < 0.2f) {
-        //   if (millis() - ultimoPulsoFreno > 3000) {
-        //     frenoExtra = fabs(dTdt) * 8.0f + 0.0f;
-        //     ultimoPulsoFreno = millis();
-        //     logf("!!! FRENO INTELIGENTE !!! Potencia: +%.1f%%\n", frenoExtra);
-        //   }
-        // }
+        if (dTdt < -0.005f && currentMasterTemp < (setpoint + 0.15f)) {
+          if (millis() - ultimoPulsoFreno > 3000) {
+            frenoExtra = fabs(dTdt) * 25.0f + 2.0f;
+            ultimoPulsoFreno = millis();
+            logf("!!! FRENO INTELIGENTE !!! Potencia: +%.1f%%\n", frenoExtra);
+          }
+        }
 
         float potenciaFinal = output + frenoExtra;
 
@@ -621,28 +620,38 @@ void taskControlCore(void *parameter) {
 
         heater.setPower(potenciaFinal, true);
 
-        // --- Lógica de ventilador Adaptativa ---
+        // --- Lógica de ventilador Adaptativa --- BORRAR SI ES NECESARIO DESPUES
+        if (output > 5.0f) {
+          // Calentando significativamente
+          fan.setMode(FanMode::HEATING); // Rampa a 20%
+        } else if (output < -10.0f) {
+          // Enfriando significativamente
+          fan.setMode(FanMode::COOLING); // Rampa a 100%
+        } else {
+          // Pequeños ajustes
+          fan.setMode(FanMode::HEATING); // Rampa a 20%
+        }
 
-        // 1. Caso: Queremos ENFRIAR el bloque (Setpoint por debajo de la
-        // temperatura actual)
-        if (setpoint < currentMasterTemp - 1.0f) {
-          // Si el PID pide enfriar con fuerza, activamos ventiladores al 100%
-          // para disipar el calor que las Peltiers sacan del bloque.
-          if (output < -10.0f) {
-            fan.setMode(FanMode::COOLING);
-          } else {
-            fan.setMode(
-                FanMode::HEATING); // Mantener flujo mínimo si el ajuste es leve
-          }
-        }
-        // 2. Caso: Queremos CALENTAR o MANTENER calor (Setpoint arriba o cerca
-        // del actual)
-        else {
-          // Mientras calentamos o mantenemos, el ventilador se queda al 20%.
-          // Esto evita que el aire ambiente robe calor al bloque de aluminio,
-          // permitiendo que el PID trabaje con menos esfuerzo y más precisión.
-          fan.setMode(FanMode::HEATING);
-        }
+        // // 1. Caso: Queremos ENFRIAR el bloque (Setpoint por debajo de la
+        // // temperatura actual)
+        // if (setpoint < currentMasterTemp - 1.0f) {
+        //   // Si el PID pide enfriar con fuerza, activamos ventiladores al 100%
+        //   // para disipar el calor que las Peltiers sacan del bloque.
+        //   if (output < -10.0f) {
+        //     fan.setMode(FanMode::COOLING);
+        //   } else {
+        //     fan.setMode(
+        //         FanMode::HEATING); // Mantener flujo mínimo si el ajuste es leve
+        //   }
+        // }
+        // // 2. Caso: Queremos CALENTAR o MANTENER calor (Setpoint arriba o cerca
+        // // del actual)
+        // else {
+        //   // Mientras calentamos o mantenemos, el ventilador se queda al 20%.
+        //   // Esto evita que el aire ambiente robe calor al bloque de aluminio,
+        //   // permitiendo que el PID trabaje con menos esfuerzo y más precisión.
+        //   fan.setMode(FanMode::HEATING);
+        // }
 
         break;
       }

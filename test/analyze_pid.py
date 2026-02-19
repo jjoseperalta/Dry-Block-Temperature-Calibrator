@@ -30,7 +30,7 @@ else:
 # REGEX
 # ============================================================
 pid_line = re.compile(
-    r"(\d{2}:\d{2}:\d{2}:\d{3})\s*->\s*State:\s*(\w+)\s*\|\s*Error:\s*(-?\d+\.?\d*)\s*\|\s*Output:\s*(-?\d+\.?\d*)\s*\|\s*Temp:\s*(-?\d+\.?\d*)\s*\|\s*Setpoint:\s*(-?\d+\.?\d*)"
+    r"(\d{2}:\d{2}:\d{2}[:.]\d{3})\s*->\s*State:\s*(\w+)\s*\|\s*Error:\s*(-?\d+\.?\d*)\s*\|\s*Output:\s*(-?\d+\.?\d*)\s*\|\s*Temp:\s*(-?\d+\.?\d*)\s*\|\s*Setpoint:\s*(-?\d+\.?\d*)"
 )
 heat_line = re.compile(r"Heater set to\s*(\d+\.?\d*)%")
 cool_line = re.compile(r"Cooling set to\s*(\d+\.?\d*)%")
@@ -45,7 +45,12 @@ with open(LOG_FILE, "r", encoding="utf-8") as f:
     for line in f:
         m = pid_line.search(line)
         if m:
-            timestamps.append(datetime.strptime(m.group(1), "%H:%M:%S:%f"))
+            # Extraemos el texto capturado
+            time_str = m.group(1)
+            # Normalizamos: si hay un punto, lo cambiamos por dos puntos
+            # para que coincida con tu formato "%H:%M:%S:%f"
+            time_str_fixed = time_str.replace('.', ':')
+            timestamps.append(datetime.strptime(time_str_fixed, "%H:%M:%S:%f"))
             state = m.group(2)
             error = float(m.group(3))
             outputs.append(float(m.group(4)))
