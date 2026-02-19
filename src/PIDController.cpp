@@ -26,16 +26,16 @@ PIDGains PIDController::computeGains(float error, bool fineZone) {
   if (heating) {
     g.kp =
         kp *
-        (fineZone ? 1.2f : 1.5f); // 0.8f : 1.5f OK - pero 1.0f : 1.2f más suave
+        (fineZone ? 0.8f : 1.2f); // 0.8f : 1.5f OK - pero 1.0f : 1.2f más suave
     g.ti =
         ti *
-        (fineZone ? 0.3f : 1.0f); // 0.3f : 0.7f OK - pero 0.5f : 1.0f más suave
+        (fineZone ? 0.2f : 0.8f); // 0.3f : 0.7f OK - pero 0.5f : 1.0f más suave
     g.td =
         td *
-        (fineZone ? 1.2f : 1.0f); // 1.5f : 0.0f OK - pero 1.0f : 1.0f más suave
+        (fineZone ? 1.0f : 1.0f); // 1.5f : 0.0f OK - pero 1.0f : 1.0f más suave
   } else {
     // ENFRIAR: Suave en potencia, pero muy alto en frenado (D)
-    g.kp = kp * (fineZone ? 0.7f : 1.2f);
+    g.kp = kp * (fineZone ? 0.5f : 1.2f);
     g.ti = ti * (fineZone ? 1.2f : 1.0f);
     g.td = td * (fineZone ? 2.0f : 1.0f);
   }
@@ -100,6 +100,22 @@ float PIDController::calculate(float setpoint, float process_variable,
   //   output = -100.0f;
   //   if (error < 0)
   //     integral -= error * dt;
+  // }
+
+  // --- NUEVA LÓGICA DE ESTABILIZACIÓN ---
+  // static float filteredOutput = 0.0f;
+  // float alpha = 0.2f; // Factor de suavizado (0.1 a 0.3)
+
+  // 1. Aplicamos un filtro de paso bajo siempre para evitar el serrucho
+  // filteredOutput = (output * alpha) + (filteredOutput * (1.0f - alpha));
+
+  // // 2. Deadband más amplia (0.15°C)
+  // if (fabs(error) < 0.15f) {
+  //     // Si estamos muy cerca, mantenemos el filtro muy pesado 
+  //     // para que la línea en la gráfica sea casi plana
+  //     output = filteredOutput;
+  // } else {
+  //     output = filteredOutput; 
   // }
 
   previous_pv = process_variable;
