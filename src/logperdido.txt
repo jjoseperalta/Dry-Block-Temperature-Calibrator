@@ -1,0 +1,944 @@
+State: RAMPING | Error: 3.72 | Output: 17.35 | Temp: 21.28 | Setpoint: 25.00
+
+Heater set to 17.35% power (Duty: 177)
+
+State: RAMPING | Error: 3.72 | Output: 17.01 | Temp: 21.28 | Setpoint: 25.00
+
+Heater set to 17.01% power (Duty: 173)
+
+State: RAMPING | Error: 3.73 | Output: 17.18 | Temp: 21.27 | Setpoint: 25.00
+
+Heater set to 17.18% power (Duty: 175)
+
+State: RAMPING | Error: 3.73 | Output: 17.00 | Temp: 21.27 | Setpoint: 25.00
+
+Heater set to 17.00% power (Duty: 173)
+
+State: RAMPING | Error: 3.72 | Output: 16.84 | Temp: 21.28 | Setpoint: 25.00
+
+Heater set to 16.84% power (Duty: 172)
+
+State: RAMPING | Error: 3.73 | Output: 17.18 | Temp: 21.27 | Setpoint: 25.00
+
+Heater set to 17.18% power (Duty: 175)
+
+State: RAMPING | Error: 3.73 | Output: 17.00 | Temp: 21.27 | Setpoint: 25.00
+
+Heater set to 17.00% power (Duty: 173)
+
+State: RAMPING | Error: 3.72 | Output: 16.83 | Temp: 21.28 | Setpoint: 25.00
+
+Heater set to 16.83% power (Duty: 172)
+
+State: RAMPING | Error: 3.72 | Output: 16.84 | Temp: 21.28 | Setpoint: 25.00
+
+Heater set to 16.84% power (Duty: 172)
+
+State: RAMPING | Error: 3.72 | Output: 16.84 | Temp: 21.28 | Setpoint: 25.00
+
+Heater set to 16.84% power (Duty: 172)
+
+State: RAMPING | Error: 3.71 | Output: 16.67 | Temp: 21.29 | Setpoint: 25.00
+
+Heater set to 16.67% power (Duty: 170)
+
+State: RAMPING | Error: 3.70 | Output: 16.50 | Temp: 21.30 | Setpoint: 25.00
+
+Heater set to 16.50% power (Duty: 168)
+
+State: RAMPING | Error: 3.69 | Output: 16.17 | Temp: 21.31 | Setpoint: 25.00
+
+Heater set to 16.17% power (Duty: 165)
+
+State: RAMPING | Error: 3.68 | Output: 16.51 | Temp: 21.32 | Setpoint: 25.00
+
+Heater set to 16.51% power (Duty: 168)
+
+State: RAMPING | Error: 3.67 | Output: 16.01 | Temp: 21.33 | Setpoint: 25.00
+
+Heater set to 16.01% power (Duty: 163)
+
+State: RAMPING | Error: 3.65 | Output: 16.01 | Temp: 21.35 | Setpoint: 25.00
+
+Heater set to 16.01% power (Duty: 163)
+
+State: RAMPING | Error: 3.63 | Output: 15.51 | Temp: 21.37 | Setpoint: 25.00
+
+Heater set to 15.51% power (Duty: 158)
+
+State: RAMPING | Error: 3.61 | Output: 15.52 | Temp: 21.39 | Setpoint: 25.00
+
+Heater set to 15.52% power (Duty: 158)
+
+State: RAMPING | Error: 3.59 | Output: 15.36 | Temp: 21.41 | Setpoint: 25.00
+
+Heater set to 15.36% power (Duty: 157)
+
+State: RAMPING | Error: 3.56 | Output: 14.70 | Temp: 21.44 | Setpoint: 25.00
+
+Heater set to 14.70% power (Duty: 150)
+
+State: RAMPING | Error: 3.52 | Output: 14.37 | Temp: 21.48 | Setpoint: 25.00
+
+Heater set to 14.37% power (Duty: 147)
+
+State: RAMPING | Error: 3.48 | Output: 14.22 | Temp: 21.52 | Setpoint: 25.00
+
+Heater set to 14.22% power (Duty: 145)
+
+State: RAMPING | Error: 3.44 | Output: 13.90 | Temp: 21.56 | Setpoint: 25.00
+
+Heater set to 13.90% power (Duty: 142)
+
+State: RAMPING | Error: 3.40 | Output: 13.57 | Temp: 21.60 | Setpoint: 25.00
+
+Heater set to 13.57% power (Duty: 138)
+
+State: RAMPING | Error: 3.36 | Output: 13.42 | Temp: 21.64 | Setpoint: 25.00
+
+Heater set to 13.42% power (Duty: 137)
+
+State: RAMPING | Error: 3.31 | Output: 12.94 | Temp: 21.69 | Setpoint: 25.00
+
+Heater set to 12.94% power (Duty: 132)
+
+State: RAMPING | Error: 3.26 | Output: 12.62 | Temp: 21.74 | Setpoint: 25.00
+
+Heater set to 12.62% power (Duty: 129)
+
+State: RAMPING | Error: 3.21 | Output: 12.30 | Temp: 21.79 | Setpoint: 25.00
+
+Heater set to 12.30% power (Duty: 125)
+
+State: RAMPING | Error:15 3. | Output: 11.48 | Temp: 21.85 | Setpoint: 25.00
+
+Heater set to 11.48% power (Duty: 117)
+
+State: RAMPING | Error: 3.09 | Output: 11.34 | Temp: 21.91 | Setpoint: 25.00
+
+Heater set to 11.34% power (Duty: 115)
+
+State: RAMPING | Error: 3.04 | Output: 11.53 | Temp: 21.96 | Setpoint: 25.00
+
+Heater set to 11.53% power (Duty: 117)
+
+State: RAMPING | Error: 2.97 | Output: 10.63 | Temp: 22.03 | Setpoint: 25.00
+
+Heater set to 10.63% power (Duty: 108)
+
+State: RAMPING | Error: 2.90 | Output: 10.07 | Temp: 22.10 | Setpoint: 25.00
+
+Heater set to 10.07% power (Duty: 103)
+
+State: RAMPING | Error: 2.83 | Output: 10.19 | Temp: 22.17 | Setpoint: 25.00
+
+Heater set to 10.19% power (Duty: 104)
+
+State: RAMPING | Error: 2.77 | Output: 9.96 | Temp: 223 | Setpo.2int: 25.00
+
+Heater set to 9.96% power (Duty: 101)
+
+State: RAMPING | Error: 2.70 | Output: 9.74 | Temp: 22.30 | Setpoint: 25.00
+
+Heater set to 9.74% power (Duty: 99)
+
+State: RAMPING | Error: 2.63 | Output: 9.17 | Temp: 22.37 | Setpoint: 25.00
+
+Heater set to 9.17% power (Duty: 93)
+
+State: RAMPING | Error: 2.57 | Output: 9.45 | Temp: 22.43 | Setpoint: 25.00
+
+Heater set to 9.45% power (Duty: 96)
+
+State: RAMPING | Error: 2.50 | Output: 9.04 | Temp: 22.50 | Setpoint: 25.00
+
+Heater set to 9.04% power (Duty: 92)
+
+State: RAMPING | Error: 2.44 | Output: 8.98 | Temp: 22.56 | Setpoint: 25.00
+
+Heater set to 8.98% power (Duty: 91)
+
+State: RAMPING | Error: 2.37 | Output: 8.57 | Temp: 22.63 | Setpoint: 25.00
+
+Heater set to 8.57% power (Duty: 87)
+
+State: RAMPING | Error: 2.30 | Output: 7.99 | Temp: 22.70 | Setpoint: 25.00
+
+Heater set to 7.99% power (Duty: 81)
+
+State: RAMPING | Error: 2.22 | Output: 7.75 | Temp: 22.78 | Setpoint: 25.00
+
+Heater set to 7.75% power (Duty: 79)
+
+State: RAMPING | Error: 2.15 | Output: 7.51 | Temp: 22.85 | Setpoint: 25.00
+
+Heater set to 7.51% power (Duty: 76)
+
+State: RAMPING | Error: 2.08 | Output: 7.27 | Temp: 22.92 | Setpoint: 25.00
+
+Heater set to 7.27% power (Duty: 74)
+
+State: RAMPING | Error: 2.00 | Output: 6.86 | Temp: 23.00 | Setpoint: 25.00
+
+Heater set to 6.86% power (Duty: 70)
+
+State: RAMPING | Error: 1.93 | Output: 6.78 | Temp: 23.07 | Setpoint: 25.00
+
+Heater set to 6.78% power (Duty: 69)
+
+State: RAMPING | Error: 1.87 | Output: 6.87 | Temp: 23.13 | Setpoint: 25.00
+
+Heater set to 6.87% power (Duty: 70)
+
+State: RAMPING | Error: 1.80 | Output: 6.44 | Temp: 23.20 | Setpoint: 25.00
+
+Heater set to 6.44% power (Duty: 65)
+
+State: RAMPING | Error: 1.74 | Output: 6.53 | Temp: 23.26 | Setpoint: 25.00
+
+Heater set to 6.53% power (Duty: 66)
+
+State: RAMPING | Error: 1.68 | Output: 6.27 | Temp: 23.32 | Setpoint: 25.00
+
+Heater set to 6.27% power (Duty: 64)
+
+State: RAMPING | Error: 1.62 | Output: 6.17 | Temp: 23.38 | Setpoint: 25.00
+
+Heater set to 6.17% power (Duty: 63)
+
+State: RAMPING | Error: 1.56 | Output: 5.91 | Temp: 23.44 | Setpoint: 25.00
+
+Heater set to 5.91% power (Duty: 60)
+
+State: RAMPING | Error: 1.50 | Output: 5.47 | Temp: 23.50 | Setpoint: 25.00
+
+Heater set to 5.47% power (Duty: 55)
+
+State: RAMPING | Error: 1.44 | Output: 5.38 | Temp: 23.56 | Setpoint: 25.00
+
+Heater set to 5.38% power (Duty: 54)
+
+State: RAMPING | Error: 1.36 | Output: 4.60 | Temp: 23.64 | Setpoint: 25.00
+
+Heater set to 4.60% power (Duty: 47)
+
+State: RAMPING | Error: 1.30 | Output: 4.67 | Temp: 23.70 | Setpoint: 25.00
+
+Heater set to 4.67% power (Duty: 47)
+
+State: RAMPING | Error: 1.24 | Output: 4.74 | Temp: 23.76 | Setpoint: 25.00
+
+Heater set to 4.74% power (Duty: 48)
+
+State: RAMPING | Error: 1.19 | Output: 4.63 | Temp: 23.81 | Setpoint: 25.00
+
+Heater set to 4.63% power (Duty: 47)
+
+State: RAMPING | Error: 1.14 | Output: 4.69 | Temp: 23.86 | Setpoint: 25.00
+
+Heater set to 4.69% power (Duty: 47)
+
+State: RAMPING | Error: 1.07 | Output: 3.90 | Temp: 23.93 | Setpoint: 25.00
+
+Heater set to 3.90% power (Duty: 39)
+
+State: RAMPING | Error: 1.03 | Output: 4.30 | Temp: 23.97 | Setpoint: 25.00
+
+Heater set to 4.30% power (Duty: 43)
+
+State: RAMPING | Error: 0.97 | Output: 2.25 | Temp: 24.03 | Setpoint: 25.00
+
+Heater set to 2.25% power (Duty: 23)
+
+State: RAMPING | Error: 0.93 | Output: 2.28 | Temp: 24.07 | Setpoint: 25.00
+
+Heater set to 2.28% power (Duty: 23)
+
+State: RAMPING | Error: 0.88 | Output: 2.08 | Temp: 24.12 | Setpoint: 25.00
+
+Heater set to 2.08% power (Duty: 21)
+
+State: RAMPING | Error: 0.83 | Output: 1.88 | Temp: 24.17 | Setpoint: 25.00
+
+Heater set to 1.88% power (Duty: 19)
+
+State: APPROACHING | Error: 0.79 | Output: 2.13 | Temp: 24.21 | Setpoint: 25.00
+
+Heater set to 7.64% power (Duty: 78)
+
+State: APPROACHING | Error: 0.76 | Output: 2.04 | Temp: 24.24 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.72 | Output: 1.95 | Temp: 24.28 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.68 | Output: 1.97 | Temp: 24.32 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.65 | Output: 1.88 | Temp: 24.35 | Setpoint: 25.00
+
+Heater set to 7.56% power (Duty: 77)
+
+State: APPROACHING | Error: 0.61 | Output: 1.67 | Temp: 24.39 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.58 | Output: 1.69 | Temp: 24.42 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.55 | Output: 1.71 | Temp: 24.45 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.53 | Output: 1.95 | Temp: 24.47 | Setpoint: 25.00
+
+Heater set to 7.58% power (Duty: 77)
+
+State: APPROACHING | Error: 0.50 | Output: 1.51 | Temp: 24.50 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.48 | Output: 1.86 | Temp: 24.52 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.45 | Output: 1.54 | Temp: 24.55 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.43 | Output: 1.66 | Temp: 24.57 | Setpoint: 25.00
+
+Heater set to 7.50% power (Duty: 76)
+
+State: APPROACHING | Error: 0.41 | Output: 1.68 | Temp: 24.59 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.40 | Output: 1.91 | Temp: 24.60 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.39 | Output: 1.81 | Temp: 24.61 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.38 | Output: 1.82 | Temp: 24.62 | Setpoint: 25.00
+
+Heater set to 7.55% power (Duty: 77)
+
+State: APPROACHING | Error: 0.37 | Output: 1.71 | Temp: 24.63 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.36 | Output: 1.83 | Temp: 24.64 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.35 | Output: 1.73 | Temp: 24.65 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.34 | Output: 1.74 | Temp: 24.66 | Setpoint: 25.00
+
+Heater set to 7.52% power (Duty: 76)
+
+State: APPROACHING | Error: 0.32 | Output: 1.63 | Temp: 24.68 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.31 | Output: 1.64 | Temp: 24.69 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.31 | Output: 1.76 | Temp: 24.69 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.30 | Output: 1.77 | Temp: 24.70 | Setpoint: 25.00
+
+Heater set to 7.53% power (Duty: 77)
+
+State: APPROACHING | Error: 0.30 | Output: 2.00 | Temp: 24.70 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.30 | Output: 1.77 | Temp: 24.70 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.30 | Output: 1.89 | Temp: 24.70 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.29 | Output: 1.90 | Temp: 24.71 | Setpoint: 25.00
+
+Heater set to 7.57% power (Duty: 77)
+
+State: APPROACHING | Error: 0.29 | Output: 1.90 | Temp: 24.71 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.29 | Output: 1.91 | Temp: 24.71 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.30 | Output: 2.14 | Temp: 24.70 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.1%
+
+State: APPROACHING | Error: 0.30 | Output: 2.03 | Temp: 24.70 | Setpoint: 25.00
+
+Heater set to 8.24% power (Duty: 84)
+
+State: APPROACHING | Error: 0.30 | Output: 2.14 | Temp: 24.70 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.30 | Output: 1.92 | Temp: 24.70 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.31 | Output: 2.15 | Temp: 24.69 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.31 | Output: 2.15 | Temp: 24.69 | Setpoint: 25.00
+
+Heater set to 7.65% power (Duty: 78)
+
+State: APPROACHING | Error: 0.32 | Output: 2.38 | Temp: 24.68 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+State: APPROACHING | Error: 0.33 | Output: 2.27 | Temp: 24.67 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.33 | Output: 2.16 | Temp: 24.67 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.33 | Output: 2.28 | Temp: 24.67 | Setpoint: 25.00
+
+Heater set to 8.35% power (Duty: 85)
+
+State: APPROACHING | Error: 0.35 | Output: 2.51 | Temp: 24.65 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+State: APPROACHING | Error: 0.36 | Output: 2.51 | Temp: 24.64 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.36 | Output: 2.40 | Temp: 24.64 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.36 | Output: 2.29 | Temp: 24.64 | Setpoint: 25.00
+
+Heater set to 8.36% power (Duty: 85)
+
+State: APPROACHING | Error: 0.38 | Output: 2.63 | Temp: 24.62 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+State: APPROACHING | Error: 0.38 | Output: 2.41 | Temp: 24.62 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.39 | Output: 2.64 | Temp: 24.61 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.40 | Output: 2.64 | Temp: 24.60 | Setpoint: 25.00
+
+Heater set to 8.46% power (Duty: 86)
+
+State: APPROACHING | Error: 0.40 | Output: 2.30 | Temp: 24.60 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.40 | Output: 2.42 | Temp: 24.60 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.40 | Output: 2.54 | Temp: 24.60 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.41 | Output: 2.66 | Temp: 24.59 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+Heater set to 8.44% power (Duty: 86)
+
+State: APPROACHING | Error: 0.42 | Output: 2.77 | Temp: 24.58 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.43 | Output: 2.66 | Temp: 24.57 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.44 | Output: 2.78 | Temp: 24.56 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.45 | Output: 2.78 | Temp: 24.55 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+Heater set to 8.48% power (Duty: 86)
+
+State: APPROACHING | Error: 0.45 | Output: 2.79 | Temp: 24.55 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.47 | Output: 3.02 | Temp: 24.53 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.47 | Output: 2.79 | Temp: 24.53 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.48 | Output: 2.91 | Temp: 24.52 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+Heater set to 8.52% power (Duty: 87)
+
+State: APPROACHING | Error: 0.50 | tpOuut: 3.25 | Temp: 24.50 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.50 | Output: 2.92 | Temp: 24.50 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.51 | Output: 2.92 | Temp: 24.49 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.51 | Output: 3.04 | Temp: 24.49 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+Heater set to 8.56% power (Duty: 87)
+
+State: APPROACHING | Error: 0.52 | Output: 3.04 | Temp: 24.48 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.52 | Output: 2.94 | Temp: 24.48 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.53 | Output: 3.06 | Temp: 24.47 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.53 | Output: 2.95 | Temp: 24.47 | Setpoint: 25.00
+
+Heater set to 7.88% power (Duty: 80)
+
+State: APPROACHING | Error: 0.54 | Output: 3.29 | Temp: 24.46 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+State: APPROACHING | Error: 0.55 | Output: 3.19 | Temp: 24.45 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.56 | Output: 3.19 | Temp: 24.44 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.57 | Output: 3.31 | Temp: 24.43 | Setpoint: 25.00
+
+Heater set to 8.66% power (Duty: 88)
+
+State: APPROACHING | Error: 0.58 | Output: 3.31 | Temp: 24.42 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+State: APPROACHING | Error: 0.58 | Output: 3.21 | Temp: 24.42 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.59 | Output: 3.33 | Temp: 24.41 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.59 | Output: 3.33 | Temp: 24.41 | Setpoint: 25.00
+
+Heater set to 8.65% power (Duty: 88)
+
+State: APPROACHING | Error: 0.59 | Output: 3.11 | Temp: 24.41 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.60 | Output: 3.46 | Temp: 24.40 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+State: APPROACHING | Error: 0.61 | Output: 3.35 | Temp: 24.39 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.61 | Output: 3.35 | Temp: 24.39 | Setpoint: 25.00
+
+Heater set to 8.66% power (Duty: 88)
+
+State: APPROACHING | Error: 0.61 | Output: 3.23 | Temp: 24.39 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.62 | Output: 3.35 | Temp: 24.38 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.62 | Output: 3.35 | Temp: 24.38 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.62 | Output: 3.34 | Temp: 24.38 | Setpoint: 25.00
+
+Heater set to 8.00% power (Duty: 81)
+
+State: APPROACHING | Error: 0.64 | Output: 3.80 | Temp: 24.36 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.3%
+
+State: APPROACHING | Error: 0.65 | Output: 3.57 | Temp: 24.35 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.66 | Output: 3.56 | Temp: 24.34 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.67 | Output: 3.67 | Temp: 24.33 | Setpoint: 25.00
+
+Heater set to 8.80% power (Duty: 90)
+
+State: APPROACHING | Error: 0.67 | Output: 3.56 | Temp: 24.33 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.1%
+
+State: APPROACHING | Error: 0.68 | Output: 3.56 | Temp: 24.32 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.67 | Output: 3.33 | Temp: 24.33 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.67 | Output: 3.33 | Temp: 24.33 | Setpoint: 25.00
+
+Heater set to 8.63% power (Duty: 88)
+
+State: APPROACHING | Error: 0.68 | Output: 3.67 | Temp: 24.32 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+State: APPROACHING | Error: 0.68 | Output: 3.44 | Temp: 24.32 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.69 | Output: 3.78 | Temp: 24.31 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.69 | Output: 3.55 | Temp: 24.31 | Setpoint: 25.00
+
+Heater set to 8.71% power (Duty: 89)
+
+State: APPROACHING | Error: 0.70 | Output: 3.66 | Temp: 24.30 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.1%
+
+State: APPROACHING | Error: 0.71 | Output: 3.77 | Temp: 24.29 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.71 | Output: 3.54 | Temp: 24.29 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.71 | Output: 3.54 | Temp: 24.29 | Setpoint: 25.00
+
+Heater set to 8.70% power (Duty: 88)
+
+State: APPROACHING | Error: 0.72 | Output: 3.77 | Temp: 24.28 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+State: APPROACHING | Error: 0.72 | Output: 3.65 | Temp: 24.28 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.73 | Output: 3.65 | Temp: 24.27 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.73 | Output: 3.77 | Temp: 24.27 | Setpoint: 25.00
+
+Heater set to 8.78% power (Duty: 89)
+
+State: APPROACHING | Error: 0.73 | Output: 3.65 | Temp: 24.27 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.74 | Output: 3.88 | Temp: 24.26 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+State: APPROACHING | Error: 0.75 | Output: 3.76 | Temp: 24.25 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.75 | Output: 3.76 | Temp: 24.25 | Setpoint: 25.00
+
+Heater set to 8.78% power (Duty: 89)
+
+State: APPROACHING | Error: 0.75 | Output: 3.53 | Temp: 24.25 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.76 | Output: 3.87 | Temp: 24.24 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.1%
+
+State: APPROACHING | Error: 0.75 | Output: 3.53 | Temp: 24.25 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.75 | Output: 3.53 | Temp: 24.25 | Setpoint: 25.00
+
+Heater set to 8.70% power (Duty: 89)
+
+State: APPROACHING | Error: 0.76 | Output: 3.87 | Temp: 24.24 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.76 | Output: 3.64 | Temp: 24.24 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.76 | Output: 3.64 | Temp: 24.24 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.75 | Output: 3.53 | Temp: 24.25 | Setpoint: 25.00
+
+Heater set to 8.06% power (Duty: 82)
+
+State: APPROACHING | Error: 0.76 | Output: 3.87 | Temp: 24.24 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.1%
+
+State: APPROACHING | Error: 0.76 | Output: 3.75 | Temp: 24.24 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.76 | Output: 3.75 | Temp: 24.24 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.77 | Output: 3.75 | Temp: 24.23 | Setpoint: 25.00
+
+Heater set to 8.77% power (Duty: 89)
+
+State: APPROACHING | Error: 0.77 | Output: 3.87 | Temp: 24.23 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.1%
+
+State: APPROACHING | Error: 0.77 | Output: 3.75 | Temp: 24.23 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.78 | Output: 3.86 | Temp: 24.22 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.78 | Output: 3.64 | Temp: 24.22 | Setpoint: 25.00
+
+Heater set to 8.72% power (Duty: 89)
+
+State: APPROACHING | Error: 0.78 | Output: 3.75 | Temp: 24.22 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.78 | Out: 3.7put5 | Temp: 24.22 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.78 | Output: 3.86 | Temp: 24.22 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.79 | Output: 3.86 | Temp: 24.21 | Setpoint: 25.00
+
+Heater set to 8.16% power (Duty: 83)
+
+State: APPROACHING | Error: 0.79 | Output: 3.86 | Temp: 24.21 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.79 | Output: 3.86 | Temp: 24.21 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.80 | Output: 3.97 | Temp: 24.20 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.1%
+
+State: APPROACHING | Error: 0.81 | Output: 4.08 | Temp: 24.19 | Setpoint: 25.00
+
+Heater set to 8.86% power (Duty: 90)
+
+State: APPROACHING | Error: 0.81 | Output: 3.97 | Temp: 24.19 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.82 | Output: 3.96 | Temp: 24.18 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.82 | Output: 3.85 | Temp: 24.18 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.82 | Output: 3.96 | Temp: 24.18 | Setpoint: 25.00
+
+Heater set to 8.19% power (Duty: 83)
+
+State: APPROACHING | Error: 0.83 | Output: 4.08 | Temp: 24.17 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.1%
+
+State: APPROACHING | Error: 0.83 | Output: 3.96 | Temp: 24.17 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.83 | Output: 3.85 | Temp: 24.17 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.83 | Output: 3.85 | Temp: 24.17 | Setpoint: 25.00
+
+Heater set to 8.79% power (Duty: 89)
+
+State: APPROACHING | Error: 0.83 | Output: 3.73 | Temp: 24.17 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.82 | Output: 3.85 | Temp: 24.18 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.83 | Output: 4.19 | Temp: 24.17 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+State: APPROACHING | Error: 0.83 | Out3.| Temp: 24.put: 85 17 | Setpoint: 25.00
+
+Heater set to 8.81% power (Duty: 90)
+
+State: APPROACHING | Error: 0.84 | Output: 4.18 | Temp: 24.16 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.84 | Output: 3.96 | Temp: 24.16 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.84 | Output: 3.96 | Temp: 24.16 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.85 | Output: 3.96 | Temp: 24.15 | Setpoint: 25.00
+
+Heater set to 8.19% power (Duty: 83)
+
+State: APPROACHING | Error: 0.86 | Output: 4.29 | Temp: 24.14 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+State: APPROACHING | Error: 0.86 | Output: 3.95 | Temp: 24.14 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.86 | Output: 4.18 | Temp: 24.14 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.86 | Output: 3.95 | Temp: 24.14 | Setpoint: 25.00
+
+Heater set to 8.85% power (Duty: 90)
+
+State: APPROACHING | Error: 0.87 | Output: 4.06 | Temp: 24.13 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.87 | Output: 4.06 | Temp: 24.13 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.87 | Output: 4.17 | Temp: 24.13 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.1%
+
+State: APPROACHING | Error: 0.87 | Output: 4.06 | Temp: 24.13 | Setpoint: 25.00
+
+Heater set to 8.85% power (Duty: 90)
+
+State: APPROACHING | Error: 0.88 | Output: 4.06 | Temp: 24.12 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.88 | Output: 4.17 | Temp: 24.12 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.88 | Output: 4.06 | Temp: 24.12 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.88 | Output: 4.06 | Temp: 24.12 | Setpoint: 25.00
+
+Heater set to 8.22% power (Duty: 84)
+
+State: APPROACHING | Error: 0.90 | Output: 4.51 | Temp: 24.10 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.3%
+
+State: APPROACHING | Error: 0.89 | Output: 3.94 | Temp: 24.11 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.90 | Output: 4.17 | Temp: 24.10 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.90 | Output: 4.28 | Temp: 24.10 | Setpoint: 25.00
+
+Heater set to 8.97% power (Duty: 91)
+
+State: APPROACHING | Error: 0.90 | Output: 3.94 | Temp: 24.10 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.90 | Output: 4.17 | Temp: 24.10 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.89 | Output: 3.83 | Temp: 24.11 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.89 | Output: 4.05 | Temp: 24.11 | Setpoint: 25.00
+
+Heater set to 8.22% power (Duty: 84)
+
+State: APPROACHING | Error: 0.91 | Output: 4.51 | Temp: 24.09 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.3%
+
+State: APPROACHING | Error: 0.91 | Output: 4.28 | Temp: 24.09 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.91 | Output: 4.16 | Temp: 24.09 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.91 | Output: 4.16 | Temp: 24.09 | Setpoint: 25.00
+
+Heater set to 8.93% power (Duty: 91)
+
+State: APPROACHING | Error: 0.91 | Output: 4.16 | Temp: 24.09 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.92 | Output: 4.27 | Temp: 24.08 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.92 | Output: 4.16 | Temp: 24.08 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.93 | Output: 4.39 | Temp: 24.07 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.1%
+
+Heater set to 8.96% power (Duty: 91)
+
+State: APPROACHING | Error: 0.93 | Output: 4.27 | Temp: 24.07 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.93 | Output: 4.27 | Temp: 24.07 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.93 | Output: 4.27 | Temp: 24.07 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.93 | Output: 4.04 | Temp: 24.07 | Setpoint: 25.00
+
+Heater set to 8.21% power (Duty: 84)
+
+State: APPROACHING | Error: 0.93 | Output: 4.27 | Temp: 24.07 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.93 | Output: 4.04 | Temp: 24.07 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.93 | Output: 4.16 | Temp: 24.07 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.93 | Output: 4.27 | Temp: 24.07 | Setpoint: 25.00
+
+Heater set to 8.28% power (Duty: 84)
+
+State: APPROACHING | Error: 0.94 | Output: 4.38 | Temp: 24.06 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.1%
+
+State: APPROACHING | Error: 0.94 | Output: 4.27 | Temp: 24.06 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.94 | Output: 4.27 | Temp: 24.06 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.95 | Output: 4.38 | Temp: 24.05 | Setpoint: 25.00
+
+Heater set to 8.95% power (Duty: 91)
+
+State: APPROACHING | Error: 0.95 | Output: 4.38 | Temp: 24.05 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.94 | Output: 4.04 | Temp: 24.06 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.95 | Output: 4.38 | Temp: 24.05 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.95 | Output: 4.38 | Temp: 24.05 | Setpoint: 25.00
+
+Heater set to 8.31% power (Duty: 85)
+
+State: APPROACHING | Error: 0.96 | Output: 4.49 | Temp: 24.04 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.1%
+
+State: APPROACHING | Error: 0.97 | Output: 4.49 | Temp: 24.03 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.97 | Output: 4.37 | Temp: 24.03 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.97 | Output: 4.48 | Temp: 24.03 | Setpoint: 25.00
+
+Heater set to 8.99% power (Duty: 91)
+
+State: APPROACHING | Error: 0.98 | Output: 4.59 | Temp: 24.02 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+State: APPROACHING | Error: 0.98 | Output: 4.37 | Temp: 24.02 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.99 | Output: 4.48 | Temp: 24.01 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.99 | Output: 4.48 | Temp: 24.01 | Setpoint: 25.00
+
+Heater set to 8.99% power (Duty: 92)
+
+State: APPROACHING | Error: 0.99 | Output: 4.36 | Temp: 24.01 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.99 | Output: 4.25 | Temp: 24.01 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.98 | Output: 4.25 | Temp: 24.02 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.98 | Output: 4.25 | Temp: 24.02 | Setpoint: 25.00
+
+Heater set to 8.28% power (Duty: 84)
+
+State: APPROACHING | Error: 0.99 | Output: 4.59 | Temp: 24.01 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+State: APPROACHING | Error: 0.99 | Output: 4.48 | Temp: 24.01 | Setpoint: 25.00
+
+State: APPROACHING | Error: 1.00 | Output: 4.48 | Temp: 24.00 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.99 | Output: 4.25 | Temp: 24.01 | Setpoint: 25.00
+
+Heater set to 8.92% power (Duty: 91)
+
+State: APPROACHING | Error: 0.99 | Output: 4.14 | Temp: 24.01 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.99 | Output: 4.48 | Temp: 24.01 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.99 | Output: 4.48 | Temp: 24.01 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.99 | Output: 4.36 | Temp: 24.01 | Setpoint: 25.00
+
+Heater set to 8.31% power (Duty: 84)
+
+State: APPROACHING | Error: 0.99 | Output: 4.36 | Temp: 24.01 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.99 | Output: 4.36 | Temp: 24.01 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.99 | Output: 4.36 | Temp: 24.01 | Setpoint: 25.00
+
+State: APPROACHING | Error: 0.99 | Output: 4.36 | Temp: 24.01 | Setpoint: 25.00
+
+Heater set to 8.31% power (Duty: 84)
+
+State: APPROACHING | Error: 1.01 | Output: 8.24 | Temp: 23.99 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.3%
+
+State: APPROACHING | Error: 1.01 | Output: 7.89 | Temp: 23.99 | Setpoint: 25.00
+
+State: APPROACHING | Error: 1.01 | Output: 7.72 | Temp: 23.99 | Setpoint: 25.00
+
+State: APPROACHING | Error: 1.01 | Output: 7.55 | Temp: 23.99 | Setpoint: 25.00
+
+Heater set to 9.94% power (Duty: 101)
+
+State: APPROACHING | Error: 1.00 | Output: 7.38 | Temp: 24.00 | Setpoint: 25.00
+
+State: APPROACHING | Error: 1.01 | Output: 7.89 | Temp: 23.99 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.1%
+
+State: APPROACHING | Error: 1.01 | Output: 7.72 | Temp: 23.99 | Setpoint: 25.00
+
+State: APPROACHING | Error: 1.01 | Output: 7.72 | Temp: 23.99 | Setpoint: 25.00
+
+Heater set to 9.95% power (Duty: 101)
+
+State: APPROACHING | Error: 1.01 | Output: 7.72 | Temp: 23.99 | Setpoint: 25.00
+
+State: APPROACHING | Error: 1.01 | Output: 7.55 | Temp: 23.99 | Setpoint: 25.00
+
+State: APPROACHING | Error: 1.01 | Output: 7.72 | Temp: 23.99 | Setpoint: 25.00
+
+State: APPROACHING | Error: 1.01 | Output: 7.55 | Temp: 23.99 | Setpoint: 25.00
+
+Heater set to 9.26% power (Duty: 94)
+
+State: APPROACHING | Error: 1.01 | Output: 7.55 | Temp: 23.99 | Setpoint: 25.00
+
+State: APPROACHING | Error: 1.01 | Output: 7.89 | Temp: 23.99 | Setpoint: 25.00
+
+State: APPROACHING | Error: 1.02 | Output: 7.89 | Temp: 23.98 | Setpoint: 25.00
+
+State: APPROACHING | Error: 1.03 | Output: 8.05 | Temp: 23.97 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.1%
+
+Heater set to 10.06% power (Duty: 102)
+
+State: APPROACHING | Error: 1.03 | Output: 7.88 | Temp: 23.97 | Setpoint: 25.00
+
+State: APPROACHING | Error: 1.03 | Output: 7.88 | Temp: 23.97 | Setpoint: 25.00
+
+State: APPROACHING | Error: 1.03 | Output: 7.88 | Temp: 23.97 | Setpoint: 25.00
+
+State: APPROACHING | Error: 1.04 | Output: 7.88 | Temp: 23.96 | Setpoint: 25.00
+
+Heater set to 9.36% power (Duty: 95)
+
+State: APPROACHING | Error: 1.05 | Output: 8.22 | Temp: 23.95 | Setpoint: 25.00
+
+!!! FRENO INTELIGENTE !!! Potencia: +2.2%
+
+State: APPROACHING | Error: 1.05 | Output: 7.87 | Temp: 23.95 | Setpoint: 25.00
+
+State: APPROACHING | Error: 1.05 | Output: 8.04 | Temp: 23.95 | Setpoint: 25.00
+
+State: APPROACHING | Error: 1.05 | Output: 7.87 | Temp: 23.95 | Setpoint: 25.00
+
+Heater set to 10.01% power (Duty: 102)
+State: APPROACHING | Error: 1.06 | Output: 8.21 | Temp: 23.94 | Setpoint: 25.00
+!!! FRENO INTELIGENTE !!! Potencia: +2.1%
+State: APPROACHING | Error: 1.05 | Output: 7.53 | Temp: 23.95 | Setpoint: 25.00
+State: APPROACHING | Error: 1.05 | Output: 7.87 | Temp: 23.95 | Setpoint: 25.00
+State: APPROACHING | Error: 1.06 | Output: 8.04 | Temp: 23.94 | Setpoint: 25.00

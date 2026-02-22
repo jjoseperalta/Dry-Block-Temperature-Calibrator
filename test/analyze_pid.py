@@ -1,11 +1,17 @@
 import re
 import sys
+import os
 from statistics import mean, stdev
 from datetime import datetime
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
-from matplotlib.widgets import Cursor
+from matplotlib.widgets import Cursor, Button
+import mpl_fontkit as fk
+import threading
+
+# Hacer globales para la función de recarga
+# global elapsed_seconds, temps, outputs, setpoints, timestamps, heat_pwms, cool_pwms
 
 # ============================================================
 # CONFIGURACIÓN GENERAL
@@ -76,6 +82,8 @@ seconds = [(ts - start).total_seconds() for ts in timestamps]
 elapsed_seconds = np.array(seconds).astype(int)
 outputs = np.array(outputs)
 temps = np.array(temps)
+
+setpoints = np.array(setpoints)
 
 # Formatear el eje X para mostrar MM:SS
 def segundos_a_formato(x, pos=None):
@@ -177,7 +185,7 @@ def hover_annotate(ax, x_data, y_data, fig_reference):
         highlight.set_visible(True)
         
         # Actualizar anotación
-        text = f'Time: {segundos_a_formato(x_point)}\nTemp: {y_point:.2f}°C'
+        text = f'Time: {segundos_a_formato(x_point)}\nValue: {y_point:.2f}°C'
         annot.xy = (x_point, y_point)
         annot.set_position((offset_x, offset_y))
         annot.set_text(text)
@@ -189,6 +197,108 @@ def hover_annotate(ax, x_data, y_data, fig_reference):
     fig_reference.canvas.mpl_connect('button_press_event', on_click)
     
     return annot
+
+# ============================================================
+# FUNCIÓN PARA RECARGAR DATOS (VERSIÓN SIMPLE)
+# ============================================================
+def recargar_datos(event=None):
+    global elapsed_seconds, temps, outputs, setpoints, timestamps, heat_pwms, cool_pwms
+    global ax1, ax2, fig
+    
+    # print("\n" + "="*60)
+    # print("🔄 RECARGANDO DATOS...")
+    # print("="*60)
+    
+    # Limpiar listas globales
+    timestamps = []
+    temps = []
+    outputs = []
+    setpoints = []
+    heat_pwms = []
+    cool_pwms = []
+    
+    try:
+        with open(LOG_FILE, "r", encoding="utf-8") as f:
+            for line in f:
+                m = pid_line.search(line)
+                if m:
+                    time_str = m.group(1)
+                    time_str_fixed = time_str.replace('.', ':')
+                    timestamps.append(datetime.strptime(time_str_fixed, "%H:%M:%S:%f"))
+                    outputs.append(float(m.group(4)))
+                    temps.append(float(m.group(5)))
+                    setpoints.append(float(m.group(6)))
+                
+                m = heat_line.search(line)
+                if m:
+                    heat_pwms.append(float(m.group(1)))
+                
+                m = cool_line.search(line)
+                if m:
+                    cool_pwms.append(float(m.group(1)))
+        
+        if not temps:
+            print("❌ No se encontraron datos en el archivo")
+            return
+        
+        # Recalcular segundos
+        start = timestamps[0]
+        elapsed_seconds = [(ts - start).total_seconds() for ts in timestamps]
+        
+        # LIMPIAR COMPLETAMENTE AMBAS GRÁFICAS
+        ax1.clear()
+        ax2.clear()
+        
+        # REDIBUJAR GRÁFICA 1 - Temperatura
+        ax1.plot(elapsed_seconds, temps, 'b-', linewidth=2, label='Temperatura')
+        ax1.axhline(y=setpoints[0], color='r', linestyle='--', linewidth=1.5, 
+                   label=f'Setpoint {setpoints[0]}°C')
+        ax1.fill_between(elapsed_seconds, setpoints[0] - 0.1, setpoints[0] + 0.1, 
+                       alpha=0.1, color='green')
+        ax1.set_title(f'Setpoint {setpoints[0]}°C - Respuesta de Temperatura')
+        ax1.set_xlabel('Tiempo (m:s)')
+        ax1.set_ylabel('Temperatura (°C)')
+        ax1.grid(True, alpha=0.3)
+        ax1.legend(loc='lower right')
+        ax1.set_ylim(np.min(temps) - 0., np.max(temps) + 0.1)
+        ax1.set_xlim(np.min(elapsed_seconds), np.max(elapsed_seconds))
+        ax1.xaxis.set_major_locator(ticker.MultipleLocator(250))
+        ax1.xaxis.set_major_formatter(ticker.FuncFormatter(segundos_a_formato))
+        
+        # REDIBUJAR GRÁFICA 2 - Salida
+        ax2.plot(elapsed_seconds, outputs, 'g-', linewidth=2, label='Salida PID')
+        ax2.fill_between(elapsed_seconds, 0, outputs, alpha=0.3, color='green')
+        ax2.set_title(f'Setpoint {setpoints[0]}°C - Salida del Controlador')
+        ax2.set_xlabel('Tiempo (m:s)')
+        ax2.set_ylabel('Potencia (%)')
+        ax2.grid(True, alpha=0.3)
+        ax2.legend(loc='lower right')
+        ax2.set_ylim(np.min(outputs) - 0., np.max(outputs) + 0.1)
+        ax2.set_xlim(np.min(elapsed_seconds), np.max(elapsed_seconds))
+        ax2.xaxis.set_major_locator(ticker.MultipleLocator(250))
+        ax2.xaxis.set_major_formatter(ticker.FuncFormatter(segundos_a_formato))
+        
+        # RECONECTAR cursores y tooltips
+        Cursor(ax1, useblit=True, color='gray', linewidth=0.5, linestyle=':')
+        Cursor(ax2, useblit=True, color='gray', linewidth=0.5, linestyle=':')
+        
+        hover_annotate(ax1, elapsed_seconds, temps, fig)
+        hover_annotate(ax2, elapsed_seconds, outputs, fig)
+        
+        # Actualizar título de la ventana
+        base_filename = os.path.splitext(os.path.basename(LOG_FILE))[0]
+        fig.canvas.manager.set_window_title(f"{base_filename} - Recargado")
+        
+        # Redibujar todo
+        fig.canvas.draw_idle()
+        
+        # print(f" Datos recargados: {len(temps)} muestras")
+        # print(f"   Duración: {elapsed_seconds[-1]:.1f} segundos")
+        
+    except Exception as e:
+        print(f"❌ Error al recargar: {e}")
+
+    # threading.Timer(1.1, recargar_datos).start()  # Redibujo suave después de recargar
 
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5))
 
@@ -202,7 +312,8 @@ ax1.set_ylabel('Temperatura (°C)')
 ax1.grid(True, alpha=0.3)
 # Leyenda fija en la parte inferior derecha
 ax1.legend(loc='lower right')
-ax1.set_ylim(np.min(temps) - 0.1, np.max(temps) + 0.1)
+ax1.set_ylim(np.min(temps) - 0., np.max(temps) + 0.1)
+ax1.set_xlim(np.min(elapsed_seconds), np.max(elapsed_seconds))
 ax1.xaxis.set_major_locator(ticker.MultipleLocator(250))
 # ax1.yaxis.set_major_locator(ticker.MultipleLocator(0.25))
 ax1.xaxis.set_major_formatter(ticker.FuncFormatter(segundos_a_formato))
@@ -214,7 +325,8 @@ ax2.set_title(f'Setpoint {setpoints[0]}°C - Salida del Controlador')
 ax2.set_xlabel('Tiempo (m:s)')
 ax2.set_ylabel('Potencia (%)')
 ax2.grid(True, alpha=0.3)
-ax2.set_ylim(np.min(outputs) - 0.1, np.max(outputs) + 0.1)
+ax2.set_ylim(np.min(outputs) - 0., np.max(outputs) + 0.1)
+ax2.set_xlim(np.min(elapsed_seconds), np.max(elapsed_seconds))
 ax2.xaxis.set_major_locator(ticker.MultipleLocator(250))
 # ax2.yaxis.set_major_locator(ticker.MultipleLocator(2.5))
 ax2.xaxis.set_major_formatter(ticker.FuncFormatter(segundos_a_formato))
@@ -232,6 +344,60 @@ hover_annotate(ax1, elapsed_seconds, temps, fig)
 hover_annotate(ax2, elapsed_seconds, outputs, fig)
 
 plt.tight_layout()
+
+# ============================================================
+# CONFIGURAR NOMBRE DE ARCHIVO POR DEFECTO PARA GUARDAR
+# ============================================================
+# Obtener el nombre base del archivo de log (sin la ruta)
+base_filename = os.path.splitext(os.path.basename(LOG_FILE))[0]
+default_save_filename = f"{base_filename}.png"
+
+# Configurar el título de la figura y el nombre por defecto para guardar
+fig.canvas.manager.set_window_title(f"{base_filename}")
+fig.canvas.toolbar.set_message(f"Guardar como: {default_save_filename}") # Esto puede no funcionar en todos los backends
+
+# Esta es la línea más importante: Intenta establecer el nombre por defecto en el diálogo de guardado.
+# Nota: Su efectividad puede variar según el backend de matplotlib y el sistema operativo.
+try:
+    fig.canvas.toolbar._set_image_mode() # Pequeño truco para inicializar, a veces ayuda
+except AttributeError:
+    pass
+
+# Ajusta el administrador de figuras si es necesario (Funciona bien con el backend TkAgg)
+if hasattr(fig.canvas, 'manager') and hasattr(fig.canvas.manager, 'toolbar'):
+    try:
+        # Intenta establecer el patrón de nombre de archivo directamente (comportamiento común en TkAgg)
+        fig.canvas.manager.toolbar.set_message(f"Guardar como: {default_save_filename}")
+        # Para algunos backends, se puede intentar esto otro:
+        # fig.canvas.manager.toolbar._set_fileentry(default_save_filename)
+    except AttributeError:
+        pass
+
+# plt.tight_layout()
+
+# ============================================================
+# BOTÓN DE RECARGA
+# ============================================================
+# fk.install_fontawesome()
+fk.set_font("Font Awesome 6 Free")
+def boton_inferior_derecha(fig, texto='Recargar', 
+                          ancho=0.12, alto=0.05, 
+                          separacion_derecha=0.005, 
+                          separacion_inferior=0.01):
+    
+    # left = 1 - separacion_derecha - ancho
+    left = separacion_derecha
+    bottom = 1 - separacion_inferior - alto
+    ax = fig.add_axes([left, bottom, ancho, alto])
+    btn = Button(ax, '\uf021', color='lightgray', hovercolor='gray')
+    return btn
+
+# Usar la función
+btn = boton_inferior_derecha(fig, texto='⟲', 
+                                   ancho=0.05, alto=0.05)
+btn.on_clicked(recargar_datos)
+plt.subplots_adjust(bottom=0.1)  # Espacio para el botón
+plt.rcParams['font.family'] = 'sans-serif'
 plt.show()
 
 sys.exit()
