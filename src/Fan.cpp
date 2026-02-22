@@ -69,6 +69,7 @@ void Fan::setPower(float dutyCycle) {
 }
 
 void Fan::applyPWM(float dutyCycle) {
+  // Aplicar PWM sin hacer rampa
   dutyCycle = constrain(dutyCycle, 0.0f, 100.0f);
 
   if (dutyCycle > 0.0f && dutyCycle < MIN_FAN_POWER) {
@@ -77,7 +78,7 @@ void Fan::applyPWM(float dutyCycle) {
     dutyCycle = 0.0f;
   }
 
-  uint32_t maxDuty = (1 << pwmResolution) - 1;
+  uint32_t maxDuty = (1 << pwmResolution) - 1; // 1023
   uint32_t duty = (uint32_t)((dutyCycle * maxDuty) / 100.0f);
 
   ledcWrite(fanPwmChannel, duty);

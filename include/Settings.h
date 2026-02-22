@@ -143,9 +143,9 @@ private:
   static const int DEFAULT_SENSOR_WIRES = 2;
   static const TemperatureScale DEFAULT_TEMP_SCALE = TemperatureScale::CELSIUS;
   static constexpr float DEFAULT_SET_TEMP = 25.0f;
-  static constexpr float DEFAULT_PID_KP = 3.8f; //3.8
-  static constexpr float DEFAULT_PID_TI = 90.0f; //150
-  static constexpr float DEFAULT_PID_TD = 10.0f; //20
+  static constexpr float DEFAULT_PID_KP = 4.5f; //3.8
+  static constexpr float DEFAULT_PID_TI = 30.f; //150
+  static constexpr float DEFAULT_PID_TD = 2.0f; //20
   static constexpr float DEFAULT_PID_PERIOD = 1.0f;
   static constexpr float DEFAULT_STABILITY_TIME = 60.0f;
   static constexpr float DEFAULT_P1 = 15.0f;
