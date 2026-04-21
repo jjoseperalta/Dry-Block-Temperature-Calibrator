@@ -1,8 +1,8 @@
 #ifndef SENSORS_H
 #define SENSORS_H
 
-#include <Adafruit_MAX31865.h>
 #include "Settings.h"
+#include <Adafruit_MAX31865.h>
 
 // Valor de retorno para indicar una lectura fallida del sensor
 const float SENSOR_ERROR_VALUE = -999.0f;
@@ -26,27 +26,39 @@ const float R_NOMINAL_PT1000 = 1000.0;
 
 class Sensors {
 public:
-    Sensors(Settings& settings);
-    void begin();
-    float readMasterTemperature();
-    float readTestTemperature();
-    void configureTestSensor(SensorType type, int wires);
-    float getFilteredMasterTemperature(float alpha = 0.1f);
-    float getFilteredTestTemperature(float alpha = 0.1f);
+  Sensors(Settings &settings);
+  void begin();
+  float getRawMasterTemperature();
+  float getRawTestTemperature();
+  float getMasterTemperature();
+  float getTestTemperature();
+  float getMasterCorrectionAtTemp(float temp);
+  float getTestCorrectionAtTemp(float temp);
+  void calculateCorrectionsFromErrors(const float masterErrors[3], const float testErrors[3]);
+  float getFilteredMasterTemperature(float alpha = 0.1f, bool useRaw = false);
+  float getFilteredTestTemperature(float alpha = 0.1f, bool useRaw = false);
+
+  void configureTestSensor(SensorType type, int wires);
+  float applyEMAFilter(float newValue, float &emaValue, float alpha);
 
 private:
-    Settings& settings;
-    Adafruit_MAX31865 masterSensor;
-    Adafruit_MAX31865 testSensor;
+  Settings &settings;
+  Adafruit_MAX31865 masterSensor;
+  Adafruit_MAX31865 testSensor;
 
-    float _emaMasterTemperature = SENSOR_ERROR_VALUE;
-    float _emaTestTemperature = SENSOR_ERROR_VALUE;
+  float _emaMasterTemperature = SENSOR_ERROR_VALUE;
+  float _emaTestTemperature = SENSOR_ERROR_VALUE;
 
-    // Helper para la conversión de escala
-    float applyScaleConversion(float tempC);
-    
-    // Helper para verificar y loguear fallos del MAX31865
-    bool checkAndLogFault(Adafruit_MAX31865& sensor, const String& sensorName);
+  // Helper para la conversión de escala
+  float applyScaleConversion(float tempC);
+
+  // Helper para verificar y loguear fallos del MAX31865
+  bool checkAndLogFault(Adafruit_MAX31865 &sensor, const String &sensorName);
+
+  // Método auxiliar de interpolación
+  float interpolateCorrection(float temp, const float corrections[3]);
+
+  float generateTestTemperature();
 };
 
 #endif // SENSORS_H

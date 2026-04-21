@@ -3,13 +3,6 @@
 #include <Arduino.h>
 
 void Heater::begin() {
-  microFine.basePower = 8.5f;
-  microFine.scaleFactor = 0.5f;
-  microFine.minPower = 8.0f; // 6.1f para 25Grados
-  microFine.maxPower = 15.0f;
-  microFine.periodMs = 4000; // 4000 para 25Grados
-  microFine.onTimeMs = 400;
-
   ledcSetup(heatPwmChannel, pwmFrequency, pwmResolution);
   ledcAttachPin(PWM_HEATER_PIN, heatPwmChannel);
 
@@ -20,154 +13,35 @@ void Heater::begin() {
   pinMode(EN_COOLING_PIN, OUTPUT);
 
   stop();
-  logln("Heater/Cooler initialized with PWM Dual (5kHz).");
+  logln("Heater/Cooler initialized.");
 }
 
-void Heater::setPower(float dutyCycle, bool fineZone) {
+void Heater::setPower(float dutyCycle) {
   dutyCycle = constrain(dutyCycle, -100.0f, 100.0f);
 
-  const float magnitude = fabs(dutyCycle);
-  const float sign = (dutyCycle >= 0) ? 1.0f : -1.0f;
+  updateFanLogic(dutyCycle);
 
-  if (fineZone && magnitude > 0.0f) {
-    uint32_t now = millis();
-    if (!fineZoneActive) {  // NUEVO: flag para detectar transición
-      fineZoneActive = true;
-      fineZoneStartTime = now;
-    }
-
-    uint32_t phase = (now - fineZoneStartTime) % microFine.periodMs;
-
-    uint32_t dynamicOnTime = (magnitude / 100.0f) * microFine.periodMs;
-
-    if (magnitude > 0.01f)
-      if (dynamicOnTime < 250)
-        dynamicOnTime = 250;
-
-    if (dynamicOnTime > microFine.periodMs)
-      dynamicOnTime = microFine.periodMs;
-
-    if (phase < dynamicOnTime) {
-      float powerLevel = 7.0f + (magnitude * 0.3f);
-
-      if (powerLevel > 15.0f)
-        powerLevel = 15.0f;
-
-      dutyCycle = powerLevel * sign;
-    } else {
-      dutyCycle = 0.0f;
-    }
-  } else {
-    fineZoneActive = false; // NUEVO: reset flag al salir de zona fina
-    // fineZoneStartTime = 0;
-  }
-
-  // Despacho de potencia
   if (dutyCycle > 0.0f) {
+    if (dutyCycle > MAX_HEAT_POWER) {
+      dutyCycle = MAX_HEAT_POWER;
+    } 
     setHeat(dutyCycle);
-  } else if (dutyCycle < 0.0f) {
-    setCool(fabs(dutyCycle));
-  } else {
-    stop();
+    return;
   }
+  
+  if (dutyCycle < 0.0f) {
+    if (fabs(dutyCycle) > MAX_COOL_POWER) {
+      dutyCycle = -MAX_COOL_POWER;
+    }
+    setCool(fabs(dutyCycle));
+    return;
+  }
+
+  stop();
 }
 
-// void Heater::setPower(float dutyCycle, bool fineZone) {
-//   dutyCycle = constrain(dutyCycle, -100.0f, 100.0f);
-
-//   const float magnitude = fabs(dutyCycle);
-//   const float sign = (dutyCycle >= 0.0f) ? 1.0f : -1.0f;
-
-//   static bool wasFineZone = false;
-//   static uint32_t t0 = 0;
-
-//   if (fineZone && magnitude > 0.0f) {
-//     uint32_t now = millis();
-
-//     if (!wasFineZone)
-//       t0 = now;
-
-//     uint32_t phase = (now - t0) % microFine.periodMs;
-
-//     uint32_t onTime = (uint32_t)((magnitude * microFine.periodMs) / 100.0f);
-//     onTime = constrain(onTime, 250UL, microFine.periodMs);
-
-//     if (phase < onTime) {
-//       float powerLevel =
-//           microFine.basePower + (magnitude * microFine.scaleFactor);
-//       powerLevel =
-//           constrain(powerLevel, microFine.basePower, microFine.maxPower);
-
-//       dutyCycle = powerLevel * sign;
-//     } else {
-//       dutyCycle = 0.0f;
-//     }
-
-//     wasFineZone = true;
-//   } else {
-//     wasFineZone = false;
-//     t0 = 0;
-//   }
-
-//   // Despacho final
-//   if (dutyCycle > 0.0f)
-//     setHeat(dutyCycle);
-//   else if (dutyCycle < 0.0f)
-//     setCool(-dutyCycle);
-//   else
-//     stop();
-// }
-
-// void Heater::setPower(float dutyCycle, bool fineZone) {
-//   // 1. Limite físico universal
-//   dutyCycle = constrain(dutyCycle, -100.0f, 100.0f);
-
-//   const float magnitude = fabs(dutyCycle);
-//   const float sign = (dutyCycle >= 0) ? 1.0f : -1.0f;
-
-//   if (fineZone && magnitude > 0.01f) {
-//     uint32_t now = millis();
-//     if (!fineZoneActive) {
-//       fineZoneActive = true;
-//       fineZoneStartTime = now;
-//     }
-
-//     // Mantenemos el periodo de 4 segundos para estabilidad
-//     uint32_t phase = (now - fineZoneStartTime) % microFine.periodMs;
-
-//     // --- LÓGICA VERSÁTIL ---
-//     // En lugar de ráfagas fijas de 400ms, hacemos que el tiempo de "encendido" 
-//     // dentro del ciclo de 4s sea proporcional a la intensidad que pide el PID.
-//     // Si el PID pide 20%, estará encendido el 20% de los 4 segundos.
-//     uint32_t dynamicOnTime = (magnitude / 100.0f) * microFine.periodMs;
-
-//     // Seguridad: pulso mínimo de 250ms para que la Peltier reaccione
-//     if (dynamicOnTime < 250) dynamicOnTime = 250;
-
-//     if (phase < dynamicOnTime) {
-//       // AQUÍ ESTÁ LA MAGIA: 
-//       // No limitamos a 15.0f. Dejamos que la intensidad sea la que el PID mande.
-//       // Si necesitas vencer mucha pérdida de calor, el PID subirá esta magnitud.
-//       dutyCycle = magnitude * sign; 
-//     } else {
-//       dutyCycle = 0.0f;
-//     }
-//   } else {
-//     fineZoneActive = false;
-//   }
-
-//   // Despacho de potencia sin frenos artificiales
-//   if (dutyCycle > 0.0f) {
-//     setHeat(dutyCycle);
-//   } else if (dutyCycle < 0.0f) {
-//     setCool(fabs(dutyCycle));
-//   } else {
-//     stop();
-//   }
-// }
-
 void Heater::setHeat(float dutyCycle) {
-  dutyCycle = constrain(dutyCycle, 0.0f, 100.0f);
+  dutyCycle = constrain(dutyCycle, 0.0f, MAX_HEAT_POWER);
 
   const uint32_t maxDuty = (1 << pwmResolution) - 1;
   const uint32_t duty = (uint32_t)((dutyCycle * maxDuty) / 100.0f);
@@ -188,7 +62,7 @@ void Heater::setHeat(float dutyCycle) {
 }
 
 void Heater::setCool(float dutyCycle) {
-  dutyCycle = constrain(dutyCycle, 0.0f, 100.0f);
+  dutyCycle = constrain(dutyCycle, 0.0f, MAX_COOL_POWER);
 
   const uint32_t maxDuty = (1 << pwmResolution) - 1;
   const uint32_t duty = (uint32_t)((dutyCycle * maxDuty) / 100.0f);
@@ -208,12 +82,21 @@ void Heater::setCool(float dutyCycle) {
     logf("Cooling set to %.2f%% power (Duty: %u)\n", dutyCycle, duty);
 }
 
-void Heater::stop() {
-  ledcWrite(heatPwmChannel, 0);
-  ledcWrite(coolPwmChannel, 0);
+void Heater::updateFanLogic(float dutyCycle) {
+    if (fabs(dutyCycle) < 0.5f) {
+        fan.stop();
+        return;
+    }
 
+    fan.setPower(dutyCycle > 0 ? fan.MIN_FAN_POWER : fan.MAX_FAN_POWER);
+}
+
+void Heater::stop() {
   digitalWrite(EN_HEATER_PIN, LOW);
   digitalWrite(EN_COOLING_PIN, LOW);
 
-  // logln("Heater/Cooler stopped.");
+  ledcWrite(heatPwmChannel, 0);
+  ledcWrite(coolPwmChannel, 0);
+
+  fan.stop();
 }

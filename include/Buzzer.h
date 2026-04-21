@@ -5,11 +5,13 @@
 
 // Definiciones de los tipos de sonido para la aplicación
 enum class BeepType {
+    ACK,
     READY,              // Inicialización completada (Doble bip rápido)
     TARGET_REACHED,     // Temperatura alcanzada (Tono largo y constante)
     ALARM,              // Error grave o límite superado (Triple bip fuerte)
     POINT_REGISTERED,   // Un toque corto (Registro de dato)
     START_PROCESS,      // Nuevo sonido: Proceso de calibración iniciado (Tono ascendente)
+    SUCCESS,            // Nuevo sonido: Acción exitosa (Tono descendente)
     ERROR_SILENT,       // Nuevo sonido: Fallo de sensor no crítico (Tono muy bajo y corto)
     STOP                // Nuevo sonido: Detener proceso actual (Tono descendente)
 };

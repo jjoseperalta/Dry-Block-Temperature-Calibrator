@@ -3,180 +3,326 @@
 #include <Arduino.h>
 #include <cmath>
 
-PIDController::PIDController(Settings &settings) : settings(settings) {
-  reset();
+PIDController::PIDController(Settings &settings)
+    : settings(settings), currentInput(0.0f), currentOutput(0.0f),
+      currentSetpoint(0.0f), lastOutput(0.0f), previousPV(0.0f), firstRun(true),
+      currentState(ThermalState::RAMPING),
+      lastLoggedState(ThermalState::RAMPING), lastLoggedHeating(true),
+      lastLoggedKp(0.0f), lastLoggedKi(0.0f), lastLoggedKd(0.0f),
+      myPID(&currentInput, &currentOutput, &currentSetpoint, 1.8f, 0.05f, 1.0f,
+            QuickPID::pMode::pOnMeas, QuickPID::dMode::dOnMeas,
+            QuickPID::iAwMode::iAwClamp, QuickPID::Action::direct) {
+
+  // QuickPID operará internamente en un rango de 0 a 100 de potencia pura.
+  // El signo negativo para enfriamiento lo gestionamos en la salida de
+  // compute().
+  myPID.SetOutputLimits(0.0f, OUTPUT_MAX);
+  myPID.SetMode(QuickPID::Control::automatic);
+
+  logln("========================================");
+  logln("     PID CONTROLLER INITIALIZED (V6)");
+  logln("========================================");
+  logf("  Limits: Min=%.1f%%, Max=%.1f%%\n", OUTPUT_MIN, OUTPUT_MAX);
+  logf("  Ramping Thresholds: Heat=%.1f°C, Cool=%.1f°C\n",
+       RAMPING_THRESHOLD_HEAT, RAMPING_THRESHOLD_COOL);
+  logln("========================================");
+}
+
+float PIDController::compute(float setpoint, float input, float dt,
+                             bool forceCoolingBrake) {
+  currentSetpoint = setpoint;
+  currentInput = input;
+
+  if (dt <= 0.0f)
+    dt = 1.0f;
+  myPID.SetSampleTimeUs((unsigned long)(dt * 1000000.0f));
+
+  float error = setpoint - input;
+  float absError = fabs(error);
+  bool isHeating = (setpoint > input);
+
+  ThermalState newState = determineThermalState(absError, isHeating);
+  applyAdaptiveTunings(newState, isHeating, absError);
+  currentState = newState;
+
+  myPID.Compute();
+
+  float rawOutput = currentOutput;
+  if (!isHeating) {
+    rawOutput = -rawOutput;
+  }
+
+  float controlledOutput = applySlewRate(rawOutput, isHeating);
+
+  // PASO 5 MODIFICADO: Le pasamos el flag de enfriamiento forzado
+  controlledOutput =
+      applyBraking(controlledOutput, absError, isHeating, forceCoolingBrake);
+
+  if (controlledOutput > OUTPUT_MAX)
+    controlledOutput = OUTPUT_MAX;
+  if (controlledOutput < OUTPUT_MIN)
+    controlledOutput = OUTPUT_MIN;
+
+  static uint32_t lastDebugLog = 0;
+  if (millis() - lastDebugLog > 5000) {
+    lastDebugLog = millis();
+    logf("[PID DEBUG] Mode: %s | Err: %.2f | RawPID: %.2f | FinalOut: %.2f\n",
+         isHeating ? "HEAT" : "COOL", error, currentOutput, controlledOutput);
+  }
+
+  return controlledOutput;
 }
 
 void PIDController::reset() {
-  integral = 0.0f;
-  lastError = 0.0f;
-  previous_pv = 0.0f;
-  inFineZone = false;
+  currentOutput = 0.0f;
+  lastOutput = 0.0f;
+  previousPV = 0.0f;
+  firstRun = true;
+  currentState = ThermalState::RAMPING;
+  lastLoggedState = ThermalState::RAMPING;
+
+  myPID.Reset();
+  myPID.SetMode(QuickPID::Control::automatic);
 }
 
-PIDGains PIDController::computeGains(float error, bool fineZone) {
-  float kp = settings.getPidKp();
-  float ti = settings.getPidTi();
-  float td = settings.getPidTd();
+void PIDController::setPreviousPV(float previousPV) {
+  this->previousPV = previousPV;
+}
 
-  bool heating = (error >= 0.0f);
+void PIDController::setTunings(float kp, float ki, float kd) {
+  myPID.SetTunings(kp, ki, kd);
+}
 
-  PIDGains g;
+void PIDController::getTunings(float &kp, float &ki, float &kd) {
+  kp = myPID.GetKp();
+  ki = myPID.GetKi();
+  kd = myPID.GetKd();
+}
 
-  if (heating) {
-    g.kp =
-        kp *
-        (fineZone ? 1.1f : 1.3f); // 0.8f : 1.5f OK - pero 1.0f : 1.2f más suave
-    g.ti =
-        ti *
-        (fineZone ? 1.6f : 1.1f); // 0.3f : 0.7f OK - pero 0.5f : 1.0f más suave
-    g.td =
-        td *
-        (fineZone ? 1.0f : 1.0f); // 1.5f : 0.0f OK - pero 1.0f : 1.0f más suave
+ThermalState PIDController::determineThermalState(float absError,
+                                                  bool isHeating) {
+  float rampingThreshold =
+      isHeating ? RAMPING_THRESHOLD_HEAT : RAMPING_THRESHOLD_COOL;
+
+  if (absError > rampingThreshold) {
+    return ThermalState::RAMPING;
+  } else if (absError > HOLDING_THRESHOLD) {
+    return ThermalState::APPROACHING;
   } else {
-    // ENFRIAR: Suave en potencia, pero muy alto en frenado (D)
-    g.kp = kp * (fineZone ? 0.8f : 1.2f);
-    g.ti = ti * (fineZone ? 1.2f : 1.2f);
-    g.td = td * (fineZone ? 0.8f : 1.0f);
+    return ThermalState::HOLDING;
+  }
+}
+
+void PIDController::applyAdaptiveTunings(ThermalState state, bool isHeating,
+                                         float absError) {
+  float kp, ki, kd;
+  float rampingThreshold =
+      isHeating ? RAMPING_THRESHOLD_HEAT : RAMPING_THRESHOLD_COOL;
+
+  // Configurar Dirección del Controlador de forma dinámica
+  if (isHeating) {
+    myPID.SetControllerDirection(QuickPID::Action::direct);
+  } else {
+    myPID.SetControllerDirection(QuickPID::Action::reverse);
   }
 
-  return g;
+  if (state == ThermalState::RAMPING) {
+    if (isHeating) {
+      kp = DEFAULT_AGGR_KP_HEAT;
+      ki = DEFAULT_AGGR_KI_HEAT;
+      kd = DEFAULT_AGGR_KD_HEAT;
+    } else {
+      kp = DEFAULT_AGGR_KP_COOL;
+      ki = DEFAULT_AGGR_KI_COOL;
+      kd = DEFAULT_AGGR_KD_COOL;
+    }
+  } else if (state == ThermalState::APPROACHING) {
+    // INTERPOLACIÓN LINEAL: Suaviza la transición de Ramping a Holding para
+    // evitar baches térmicos
+    float factor =
+        (absError - HOLDING_THRESHOLD) / (rampingThreshold - HOLDING_THRESHOLD);
+    factor = constrain(factor, 0.0f, 1.0f);
+
+    if (isHeating) {
+      kp = DEFAULT_KP_HEAT + (DEFAULT_AGGR_KP_HEAT - DEFAULT_KP_HEAT) * factor;
+      ki = DEFAULT_KI_HEAT + (DEFAULT_AGGR_KI_HEAT - DEFAULT_KI_HEAT) * factor;
+      kd = DEFAULT_KD_HEAT + (DEFAULT_AGGR_KD_HEAT - DEFAULT_KD_HEAT) * factor;
+    } else {
+      kp = DEFAULT_KP_COOL + (DEFAULT_AGGR_KP_COOL - DEFAULT_KP_COOL) * factor;
+      ki = DEFAULT_KI_COOL + (DEFAULT_AGGR_KI_COOL - DEFAULT_KI_COOL) * factor;
+      kd = DEFAULT_KD_COOL + (DEFAULT_AGGR_KD_COOL - DEFAULT_KD_COOL) * factor;
+    }
+  } else { // ThermalState::HOLDING
+    if (isHeating) {
+      kp = DEFAULT_KP_HEAT;
+      ki = DEFAULT_KI_HEAT;
+      kd = DEFAULT_KD_HEAT;
+    } else {
+      kp = DEFAULT_KP_COOL;
+      ki = DEFAULT_KI_COOL;
+      kd = DEFAULT_KD_COOL;
+    }
+  }
+
+  myPID.SetTunings(kp, ki, kd);
+  logTuningChange(state, isHeating, kp, ki, kd);
 }
 
-// float PIDController::calculate(float setpoint, float process_variable,
-//                                float dt) {
-//   if (dt <= 0.0f)
-//     dt = 0.01f;
+float PIDController::applyBraking(float output, float absError, bool isHeating,
+                                  bool forceCoolingBrake) {
+  float p1 = settings.getCalibrationPoint(0, 'C'); // 1.11°C
+  float p2 = settings.getCalibrationPoint(1, 'C'); // 20°C
+  float p3 = settings.getCalibrationPoint(2, 'C'); // 38.89°C
+  float currentSetpointC = settings.getSetpoint();
 
-//   float error = setpoint - process_variable;
+  const float TOL = 0.05f;
 
-//   // --- FINE ZONE CON HISTERESIS ---
-//   inFineZone = (fabs(error) < 1.0f);
-//   // static bool fineState = false;
-//   // if (fineState) {
-//   //   if (fabs(error) > 1.2f)
-//   //     fineState = false;
-//   // } else {
-//   //   if (fabs(error) < 0.8f)
-//   //     fineState = true;
-//   // }
-//   // inFineZone = fineState;
+  // Solo frenar si NO vamos hacia 1.11°C Y (estamos en transición
+  // válida: 1.11->20, 20->38, o 38->20)
+  bool shouldBrake = (fabsf(currentSetpoint - p1) > TOL) &&
+                     ((fabsf(currentSetpoint - p2) < TOL) ||
+                      (fabsf(currentSetpoint - p3) < TOL));
 
-//   PIDGains g = computeGains(error, inFineZone);
+  if (!shouldBrake) {
+    return output;
+  }
+  // Distancia de frenado por software a 8.0 grados antes del setpoint
+  static constexpr float CUSTOM_COAST_DISTANCE = 9.0f;
 
-//   // --- PROPORCIONAL ---
-//   float p_out = g.kp * error;
+  if (absError < CUSTOM_COAST_DISTANCE) {
+    float brakeForce = 1.0f;
 
-//   // --- DERIVADA ---
-//   float derivative = (process_variable - previous_pv) / dt;
-//   derivative = constrain(derivative, -1.0f, 1.0f);
-//   float d_out = -g.kp * g.td * derivative;
+    // MODIFICADO: Subimos los pisos de fuerza para que no se quede sin energía
+    // frente al ventilador
+    if (absError < 2.0f) {
+      brakeForce = 0.70f; // ANTES: 0.20f -> Subimos al 35% para romper el
+                          // estancamiento final
+    } else if (absError < 3.0f) {
+      brakeForce = 0.80f; // ANTES: 0.40f -> Le damos un 50% de paso para
+                          // empujar con ganas
+    } else if (absError < 5.0f) {
+      brakeForce = 0.90f; // ANTES: 0.60f
+    } else if (absError < 9.0f) {
+      brakeForce = 0.95f; // Se mantiene igual
+    }
 
-//   // --- INTEGRAL CON ANTI-WINDUP ---
-//   // float i_out = 0.0f;
-//   if (g.ti > 1e-6f) {
-//     if (fabs(error) < 3.0f) // fabs(error) < 2.0f OK - pero 3.0f más suave
-//     {
-//       integral += error * dt;
+    output *= brakeForce;
+  }
 
-//       integral = constrain(integral, -5.0f,
-//                            40.0f); //-20.0f, 75.0f OK - pero 60.0f más suave
-//     }
-//     // i_out = (g.kp / g.ti) * integral;
-//   } else
-//     integral = 0.0f;
+  return output;
+}
 
-//   float i_out = (g.ti > 1e-6f) ? (g.kp / g.ti) * integral : 0.0f;
-
-//   // --- SALIDA ---
-//   float output = p_out + i_out + d_out;
-
-//   // --- BIAS TERMICO ---
-//   float thermalBias = 0.0f;
-//   if (fabs(error) < 0.3f) { //0.3 - 2.0
-//     thermalBias = 1.0f; //1.0 - 3.0
+// float PIDController::applySlewRate(float output, bool isHeating) {
+//   // Si no está calentando, guardamos la salida actual para el próximo ciclo
+//   y salimos intactos if (!isHeating) {
+//     firstRun = false;
+//     lastOutput = output;
+//     return output;
 //   }
-//   output += thermalBias;
 
-//   // Anti-windup por saturación
-//   output = constrain(output, -100.0f, 100.0f);
-//   // if (output > 100.0f) {
-//   //   output = 100.0f;
-//   //   if (error > 0)
-//   //     integral -= error * dt;
-//   // } else if (output < -100.0f) {
-//   //   output = -100.0f;
-//   //   if (error < 0)
-//   //     integral -= error * dt;
-//   // }
+//   // A partir de aquí, el control de Slew Rate aplica SOLO si isHeating es
+//   verdadero if (firstRun) {
+//     firstRun = false;
+//     lastOutput = output;
+//     return output;
+//   }
 
-//   // --- NUEVA LÓGICA DE ESTABILIZACIÓN ---
-//   // static float filteredOutput = 0.0f;
-//   // float alpha = 0.2f; // Factor de suavizado (0.1 a 0.3)
+//   float outputChange = output - lastOutput;
+//   if (fabs(outputChange) > MAX_OUTPUT_CHANGE) {
+//     output = lastOutput + (outputChange > 0 ? MAX_OUTPUT_CHANGE :
+//     -MAX_OUTPUT_CHANGE);
+//   }
 
-//   // 1. Aplicamos un filtro de paso bajo siempre para evitar el serrucho
-//   // filteredOutput = (output * alpha) + (filteredOutput * (1.0f - alpha));
-
-//   // // 2. Deadband más amplia (0.15°C)
-//   // if (fabs(error) < 0.15f) {
-//   //     // Si estamos muy cerca, mantenemos el filtro muy pesado
-//   //     // para que la línea en la gráfica sea casi plana
-//   //     output = filteredOutput;
-//   // } else {
-//   //     output = filteredOutput;
-//   // }
-
-//   previous_pv = process_variable;
+//   lastOutput = output;
 //   return output;
 // }
 
-float PIDController::calculate(float setpoint, float process_variable, float dt) {
-    if (dt <= 0.0f) dt = 1.0f; // Asumimos 1s si hay error en dt
+float PIDController::applySlewRate(float output, bool isHeating) {
+  // Aplicar slew rate para AMBAS direcciones
+  if (firstRun) {
+    firstRun = false;
+    lastOutput = output;
+    return output;
+  }
 
-    float error = setpoint - process_variable;
-    
-    // 1. Determinar zona de control (Fine Zone)
-    inFineZone = (fabs(error) < 1.0f);
-    PIDGains g = computeGains(error, inFineZone);
+  float outputChange = output - lastOutput;
+  if (fabs(outputChange) > MAX_OUTPUT_CHANGE) {
+    output = lastOutput +
+             (outputChange > 0 ? MAX_OUTPUT_CHANGE : -MAX_OUTPUT_CHANGE);
+  }
 
-    // 2. Término Proporcional
-    float p_out = g.kp * error;
+  lastOutput = output;
+  return output;
+}
 
-    // 3. Término Derivativo (con restricción para evitar ruidos locos)
-    float derivative = (process_variable - previous_pv) / dt;
-    derivative = constrain(derivative, -0.5f, 0.5f); // Filtro físico: el aluminio no cambia >0.5C/s
-    float d_out = -g.kp * g.td * derivative;
+void PIDController::logTuningChange(ThermalState newState, bool isHeating,
+                                    float newKp, float newKi, float newKd) {
+  bool stateChanged = (newState != lastLoggedState);
+  bool directionChanged = (isHeating != lastLoggedHeating);
+  bool tuningsChanged = (fabs(newKp - lastLoggedKp) > 0.01f ||
+                         fabs(newKi - lastLoggedKi) > 0.001f ||
+                         fabs(newKd - lastLoggedKd) > 0.01f);
 
-    // 4. Término Integral (con Anti-Windup inteligente)
-    if (g.ti > 1e-6f && fabs(error) < 2.0f) { // Solo integra cuando estamos cerca (<2.0C)
-        integral += error * dt;
-        integral = constrain(integral, -10.0f, 60.0f); // Valores probados en tus logs
-    } else if (fabs(error) >= 2.0f) {
-        integral *= 0.95f; // "Reset suave" si nos alejamos mucho
+  if (stateChanged || directionChanged || tuningsChanged) {
+    const char *oldStateStr =
+        lastLoggedState == ThermalState::RAMPING
+            ? "RAMPING"
+            : (lastLoggedState == ThermalState::APPROACHING ? "APPROACHING"
+                                                            : "HOLDING");
+    const char *newStateStr =
+        newState == ThermalState::RAMPING
+            ? "RAMPING"
+            : (newState == ThermalState::APPROACHING ? "APPROACHING"
+                                                     : "HOLDING");
+    const char *oldDirStr = lastLoggedHeating ? "HEAT" : "COOL";
+    const char *newDirStr = isHeating ? "HEAT" : "COOL";
+
+    if (stateChanged || directionChanged) {
+      logf("[PID SWITCH] %s->%s | %s->%s | KP: %.2f->%.2f | KI: %.3f->%.3f | "
+           "KD: %.2f->%.2f\n",
+           oldStateStr, newStateStr, oldDirStr, newDirStr, lastLoggedKp, newKp,
+           lastLoggedKi, newKi, lastLoggedKd, newKd);
+    } else if (tuningsChanged && newState != ThermalState::APPROACHING) {
+      // Evitamos inundar el log en APPROACHING ya que cambia continuamente por
+      // la interpolación lineal
+      logf(
+          "[PID UPDATE] State: %s | Dir: %s | KP: %.2f | KI: %.3f | KD: %.2f\n",
+          newStateStr, newDirStr, newKp, newKi, newKd);
     }
-    float i_out = (g.ti > 1e-6f) ? (g.kp / g.ti) * integral : 0.0f;
 
-    // 5. Cálculo de salida base y Bias Térmico
-    float output = p_out + i_out + d_out;
-    if (fabs(error) < 1.0f) { 
-        output += 4.0f; // Bias pequeño para compensar pérdida de calor al ambiente
-    }
+    lastLoggedState = newState;
+    lastLoggedHeating = isHeating;
+    lastLoggedKp = newKp;
+    lastLoggedKi = newKi;
+    lastLoggedKd = newKd;
+  }
+}
 
-    // 6. ESTABILIZACIÓN FINAL (Filtro y Deadband)
-    static float filteredOutput = 0.0f;
-    float alpha = (fabs(error) < 0.5f) ? 0.03f : 0.2f; // Filtro muy fuerte cerca del setpoint
+void PIDController::printCurrentTunings() {
+  float kp = myPID.GetKp();
+  float ki = myPID.GetKi();
+  float kd = myPID.GetKd();
+  logln("========================================");
+  logf("  State: %s | Dir: %s\n", getStateString(),
+       (currentSetpoint > currentInput) ? "HEATING" : "COOLING");
+  logf("  Kp: %.4f | Ki: %.4f | Kd: %.4f\n", kp, ki, kd);
+  logln("========================================");
+}
 
-    // Aplicamos filtro de paso bajo (suaviza el serrucho)
-    filteredOutput = (output * alpha) + (filteredOutput * (1.0f - alpha));
+void PIDController::setOutputLimits(float min, float max) {
+  // Mantenemos la consistencia interna (0 .. Max)
+  myPID.SetOutputLimits(0.0f, max);
+}
 
-    // Si el error es ínfimo, congelamos el valor para línea plana en gráfica
-    if (fabs(error) < 0.04f) {
-        output = filteredOutput; 
-    } else {
-        output = filteredOutput;
-    }
-
-    // Guardar estado para la próxima iteración
-    previous_pv = process_variable;
-    return constrain(output, -100.0f, 100.0f);
+const char *PIDController::getStateString() const {
+  switch (currentState) {
+  case ThermalState::RAMPING:
+    return "RAMPING";
+  case ThermalState::APPROACHING:
+    return "APPROACHING";
+  case ThermalState::HOLDING:
+    return "HOLDING";
+  default:
+    return "UNKNOWN";
+  }
 }

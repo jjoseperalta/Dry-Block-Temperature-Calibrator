@@ -3,6 +3,12 @@
 // Definición de Patrones de Sonido (Secuencias de Frecuencia y Duración)
 // NOTA: La duración 0 en la frecuencia indica una pausa (silencio).
 
+// ACK: Un bip corto y suave (440Hz)
+const BeepStep ackPattern[] = {
+    {440, 50, 80}, // Frecuencia, Duración, Volumen
+    {0, 1, 0}      // Silencio y final
+};
+
 // READY: Doble bip rápido (440Hz -> 550Hz)
 const BeepStep readyPattern[] = {
     // Frecuencia, Duración, Volumen
@@ -69,6 +75,19 @@ const BeepStep stopPattern[] = {
     {0, 1, 0}
 };
 
+// SUCCESS: Tono descendente más suave (660Hz -> 440Hz)
+// Estructura: {Frecuencia (Hz), Duración nota (ms), Silencio post-nota (ms)}
+const BeepStep successPattern[] = {
+    {262, 200, 50},   // tu  (Do)
+    {330, 200, 50},   // ru  (Mi)
+    {392, 200, 50},   // ru  (Sol)
+    {523, 250, 50},   // ru  (Do agudo - un poco más larga)
+    {0, 300, 0},      // Pausa corta
+    {392, 200, 30},   // tu  (Sol)
+    {523, 700, 30},    // ruuuu (Do agudo - la nota final sostenida)
+    {0, 1, 0}         // Fin de la secuencia
+};
+
 // ***************************************************************
 // IMPLEMENTACIÓN DE LA CLASE
 // ***************************************************************
@@ -86,6 +105,9 @@ void Buzzer::begin() {
 // Devuelve el patrón de secuencia y su tamaño
 const BeepStep* Buzzer::getPattern(BeepType type, size_t& size) {
     switch (type) {
+        case BeepType::ACK:
+            size = sizeof(ackPattern) / sizeof(ackPattern[0]);
+            return ackPattern;
         case BeepType::READY:
             size = sizeof(readyPattern) / sizeof(readyPattern[0]);
             return readyPattern;
@@ -101,6 +123,9 @@ const BeepStep* Buzzer::getPattern(BeepType type, size_t& size) {
         case BeepType::START_PROCESS:
             size = sizeof(startProcessPattern) / sizeof(startProcessPattern[0]);
             return startProcessPattern;
+        case BeepType::SUCCESS:
+            size = sizeof(successPattern) / sizeof(successPattern[0]);
+            return successPattern;
         case BeepType::ERROR_SILENT:
             size = sizeof(errorSilentPattern) / sizeof(errorSilentPattern[0]);
             return errorSilentPattern;

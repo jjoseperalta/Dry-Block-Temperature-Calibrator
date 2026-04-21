@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "Dry Block Temperature Calibrator",
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"new": "cpp"
+		}
+	}
+}

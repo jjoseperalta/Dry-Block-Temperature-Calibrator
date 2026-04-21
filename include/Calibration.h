@@ -6,43 +6,66 @@
 #include "Buzzer.h"
 
 struct CalibrationData {
-    float setpoint;
-    float masterTemp;
-    float testTemp;
-    float difference;
+    float setpoint = 0.0f;
+    float masterTemp = 0.0f;
+    float testTemp = 0.0f;
+    float difference = 0.0f;
+    uint32_t timeToReach = 0;
+    bool isRising = false;
+    bool reached = false;
 };
 
 typedef void (*CalibrationRegisteredCallback)(int pointIndex);
 
 class Calibration {
 public:
-    Calibration(Settings& settings, Sensors& sensors, Buzzer& buzzer);
+    static constexpr uint8_t TOTAL_POINTS = 5;
+    
+    Calibration(Settings& settings, Buzzer& buzzer);
+
     void start();
     void stop();
-    void loop();
+
+    void loop(float masterTemp, float testTemp);
+
     bool isRunning() const;
-    void targetReached();
-    // const CalibrationData& getCalibrationData() const;
+
+    float getCurrentSetpoint() const;
+
     const CalibrationData& getCalibrationData(int index) const;
     void setRegisterCallback(CalibrationRegisteredCallback callback);
-    void notifyStable(float masterTemp, float testTemp);
 
-    unsigned long stabilityStartTime;
+    String formatTimeHMS(uint32_t seconds);
+
+    // int getStabilityStartTime() const { return stabilityStartTime; }
+
+    uint32_t stableElapsed = 0;
+
+    uint32_t getStableElapsed() const { return stableElapsed; }
+
+    bool isBrakingStep() const { return running && currentPoint == 3; }
+
+    void runDemo();
 
 private:
     Settings& settings;
-    Sensors& sensors;
     Buzzer& buzzer;
 
-    bool running;
-    uint16_t currentPoint;
-    uint16_t stableCounter;
-    const uint16_t requiredStableSamples = 0;
-    CalibrationData data[6];
+    bool running = false;
+    
+    CalibrationData data[TOTAL_POINTS];
 
+    uint8_t currentPoint = 0;
+
+    uint32_t stepStartTime = 0;
+    uint32_t stabilityStartTime = 0;
+
+    float lastStableTemp = 0.0f;
+
+    void setupPoints();
     void nextPoint();
     void registerPoint(float masterTemp, float testTemp);
-    void tryRegisterPoint();
+    void printReport();
 
     CalibrationRegisteredCallback onPointRegistered = nullptr;
 };

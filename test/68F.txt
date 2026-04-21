@@ -1,0 +1,1151 @@
+>>> Point 4/5: 20.00 C (COOLING)
+09:46:18:980 -> State: HOLDING | Error: 0.04 | Output: 51.38 | Temp: 38.85 | Test: 40.06 | Diff: 1.21 | Setpoint: 38.89 | Stable: 5015s/0s
+09:46:19:794 -> [PID SWITCH] HOLDING->RAMPING | HEAT->COOL | KP: 1.20->5.50 | KI: 0.080->0.030 | KD: 3.50->0.80
+09:46:19:810 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:19:826 -> Cooling set to 49.92% power (Duty: 510)
+09:46:20:776 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:20:792 -> Cooling set to 49.92% power (Duty: 510)
+09:46:20:821 -> State: RAMPING | Error: -18.55 | Output: -49.92 | Temp: 38.55 | Test: 39.71 | Diff: 1.16 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:21:777 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:21:794 -> Cooling set to 48.94% power (Duty: 500)
+09:46:21:822 -> State: RAMPING | Error: -18.43 | Output: -48.94 | Temp: 38.43 | Test: 39.55 | Diff: 1.12 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:22:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:22:801 -> Cooling set to 48.89% power (Duty: 500)
+09:46:22:830 -> State: RAMPING | Error: -18.30 | Output: -48.89 | Temp: 38.30 | Test: 39.39 | Diff: 1.09 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:23:778 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:23:795 -> Cooling set to 48.89% power (Duty: 500)
+09:46:23:824 -> State: RAMPING | Error: -18.16 | Output: -48.89 | Temp: 38.16 | Test: 39.25 | Diff: 1.09 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:24:791 -> [PID DEBUG] Mode: COOL | Err: -18.02 | RawPID: 47.77 | FinalOut: -47.77
+09:46:24:806 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:24:823 -> Cooling set to 47.77% power (Duty: 488)
+09:46:24:852 -> State: RAMPING | Error: -18.02 | Output: -47.77 | Temp: 38.02 | Test: 39.08 | Diff: 1.06 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:25:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:25:797 -> Cooling set to 47.77% power (Duty: 488)
+09:46:26:779 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:26:795 -> Cooling set to 46.91% power (Duty: 479)
+09:46:26:823 -> State: RAMPING | Error: -17.76 | Output: -46.91 | Temp: 37.76 | Test: 38.80 | Diff: 1.04 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:27:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:27:800 -> Cooling set to 46.86% power (Duty: 479)
+09:46:27:829 -> State: RAMPING | Error: -17.64 | Output: -46.86 | Temp: 37.64 | Test: 38.65 | Diff: 1.01 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:28:777 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:28:793 -> Cooling set to 46.70% power (Duty: 477)
+09:46:28:823 -> State: RAMPING | Error: -17.52 | Output: -46.70 | Temp: 37.52 | Test: 38.52 | Diff: 1.00 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:29:776 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:29:793 -> Cooling set to 46.70% power (Duty: 477)
+09:46:29:823 -> State: RAMPING | Error: -17.40 | Output: -46.70 | Temp: 37.40 | Test: 38.36 | Diff: 0.96 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:30:786 -> [PID DEBUG] Mode: COOL | Err: -17.28 | RawPID: 45.86 | FinalOut: -45.86
+09:46:30:802 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:30:818 -> Cooling set to 45.86% power (Duty: 469)
+09:46:30:847 -> State: RAMPING | Error: -17.28 | Output: -45.86 | Temp: 37.28 | Test: 38.23 | Diff: 0.95 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:31:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:31:799 -> Cooling set to 45.86% power (Duty: 469)
+09:46:32:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:32:801 -> Cooling set to 44.91% power (Duty: 459)
+09:46:32:830 -> State: RAMPING | Error: -17.02 | Output: -44.91 | Temp: 37.02 | Test: 37.94 | Diff: 0.92 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:33:780 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:33:797 -> Cooling set to 44.92% power (Duty: 459)
+09:46:33:825 -> State: RAMPING | Error: -16.91 | Output: -44.92 | Temp: 36.91 | Test: 37.82 | Diff: 0.91 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:34:853 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:34:869 -> Cooling set to 44.74% power (Duty: 457)
+09:46:34:898 -> State: RAMPING | Error: -16.79 | Output: -44.74 | Temp: 36.79 | Test: 37.66 | Diff: 0.87 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:35:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:35:804 -> Cooling set to 44.74% power (Duty: 457)
+09:46:35:833 -> State: RAMPING | Error: -16.65 | Output: -44.74 | Temp: 36.65 | Test: 37.54 | Diff: 0.88 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:36:786 -> [PID DEBUG] Mode: COOL | Err: -16.53 | RawPID: 43.72 | FinalOut: -43.72
+09:46:36:802 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:36:819 -> Cooling set to 43.72% power (Duty: 447)
+09:46:36:847 -> State: RAMPING | Error: -16.53 | Output: -43.72 | Temp: 36.53 | Test: 37.41 | Diff: 0.87 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:37:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:37:799 -> Cooling set to 43.72% power (Duty: 447)
+09:46:38:777 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:38:793 -> Cooling set to 42.96% power (Duty: 439)
+09:46:38:822 -> State: RAMPING | Error: -16.30 | Output: -42.96 | Temp: 36.30 | Test: 37.15 | Diff: 0.85 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:39:776 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:39:793 -> Cooling set to 42.90% power (Duty: 438)
+09:46:39:821 -> State: RAMPING | Error: -16.18 | Output: -42.90 | Temp: 36.18 | Test: 37.00 | Diff: 0.82 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:40:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:40:799 -> Cooling set to 42.71% power (Duty: 436)
+09:46:40:828 -> State: RAMPING | Error: -16.06 | Output: -42.71 | Temp: 36.06 | Test: 36.88 | Diff: 0.81 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:41:779 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:41:795 -> Cooling set to 42.71% power (Duty: 436)
+09:46:41:824 -> State: RAMPING | Error: -15.95 | Output: -42.71 | Temp: 35.95 | Test: 36.75 | Diff: 0.79 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:42:789 -> [PID DEBUG] Mode: COOL | Err: -15.82 | RawPID: 41.75 | FinalOut: -41.75
+09:46:42:805 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:42:822 -> Cooling set to 41.75% power (Duty: 427)
+09:46:42:851 -> State: RAMPING | Error: -15.82 | Output: -41.75 | Temp: 35.82 | Test: 36.61 | Diff: 0.79 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:43:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:43:798 -> Cooling set to 41.75% power (Duty: 427)
+09:46:44:779 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:44:796 -> Cooling set to 41.01% power (Duty: 419)
+09:46:44:824 -> State: RAMPING | Error: -15.60 | Output: -41.01 | Temp: 35.60 | Test: 36.35 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:45:776 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:45:793 -> Cooling set to 40.90% power (Duty: 418)
+09:46:45:821 -> State: RAMPING | Error: -15.48 | Output: -40.90 | Temp: 35.48 | Test: 36.22 | Diff: 0.75 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:46:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:46:803 -> Cooling set to 40.73% power (Duty: 416)
+09:46:46:831 -> State: RAMPING | Error: -15.36 | Output: -40.73 | Temp: 35.36 | Test: 36.08 | Diff: 0.72 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:47:780 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:47:797 -> Cooling set to 40.73% power (Duty: 416)
+09:46:47:825 -> State: RAMPING | Error: -15.25 | Output: -40.73 | Temp: 35.25 | Test: 35.96 | Diff: 0.71 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:48:788 -> [PID DEBUG] Mode: COOL | Err: -15.13 | RawPID: 39.82 | FinalOut: -39.82
+09:46:48:804 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:48:821 -> Cooling set to 39.82% power (Duty: 407)
+09:46:48:850 -> State: RAMPING | Error: -15.13 | Output: -39.82 | Temp: 35.13 | Test: 35.83 | Diff: 0.70 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:49:778 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:49:794 -> Cooling set to 39.82% power (Duty: 407)
+09:46:50:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:50:800 -> Cooling set to 38.96% power (Duty: 398)
+09:46:50:828 -> State: RAMPING | Error: -14.89 | Output: -38.96 | Temp: 34.89 | Test: 35.61 | Diff: 0.72 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:51:842 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:51:858 -> Cooling set to 38.87% power (Duty: 397)
+09:46:51:887 -> State: RAMPING | Error: -14.78 | Output: -38.87 | Temp: 34.78 | Test: 35.50 | Diff: 0.72 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:52:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:52:797 -> Cooling set to 38.69% power (Duty: 395)
+09:46:52:826 -> State: RAMPING | Error: -14.67 | Output: -38.69 | Temp: 34.67 | Test: 35.38 | Diff: 0.71 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:53:779 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:53:795 -> Cooling set to 38.69% power (Duty: 395)
+09:46:53:823 -> State: RAMPING | Error: -14.55 | Output: -38.69 | Temp: 34.55 | Test: 35.26 | Diff: 0.70 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:54:786 -> [PID DEBUG] Mode: COOL | Err: -14.45 | RawPID: 37.83 | FinalOut: -37.83
+09:46:54:802 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:54:818 -> Cooling set to 37.83% power (Duty: 386)
+09:46:54:847 -> State: RAMPING | Error: -14.45 | Output: -37.83 | Temp: 34.45 | Test: 35.15 | Diff: 0.71 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:55:777 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:55:793 -> Cooling set to 37.83% power (Duty: 386)
+09:46:56:778 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:56:794 -> Cooling set to 37.02% power (Duty: 378)
+09:46:56:823 -> State: RAMPING | Error: -14.22 | Output: -37.02 | Temp: 34.22 | Test: 34.93 | Diff: 0.70 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:57:779 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:57:796 -> Cooling set to 37.07% power (Duty: 379)
+09:46:57:824 -> State: RAMPING | Error: -14.14 | Output: -37.07 | Temp: 34.14 | Test: 34.81 | Diff: 0.67 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:58:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:58:798 -> Cooling set to 36.78% power (Duty: 376)
+09:46:58:826 -> State: RAMPING | Error: -14.01 | Output: -36.78 | Temp: 34.01 | Test: 34.68 | Diff: 0.66 | Setpoint: 20.00 | Stable: 0s/0s
+09:46:59:780 -> Fan PWM set to 100.00% (Duty: 1023)
+09:46:59:797 -> Cooling set to 36.78% power (Duty: 376)
+09:46:59:825 -> State: RAMPING | Error: -13.89 | Output: -36.78 | Temp: 33.89 | Test: 34.55 | Diff: 0.66 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:00:785 -> [PID DEBUG] Mode: COOL | Err: -13.76 | RawPID: 35.71 | FinalOut: -35.71
+09:47:00:801 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:00:817 -> Cooling set to 35.71% power (Duty: 365)
+09:47:00:846 -> State: RAMPING | Error: -13.76 | Output: -35.71 | Temp: 33.76 | Test: 34.45 | Diff: 0.69 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:01:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:01:800 -> Cooling set to 35.71% power (Duty: 365)
+09:47:02:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:02:801 -> Cooling set to 34.97% power (Duty: 357)
+09:47:02:830 -> State: RAMPING | Error: -13.55 | Output: -34.97 | Temp: 33.55 | Test: 34.24 | Diff: 0.69 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:03:780 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:03:796 -> Cooling set to 34.96% power (Duty: 357)
+09:47:03:824 -> State: RAMPING | Error: -13.45 | Output: -34.96 | Temp: 33.45 | Test: 34.12 | Diff: 0.66 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:04:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:04:801 -> Cooling set to 34.79% power (Duty: 355)
+09:47:04:829 -> State: RAMPING | Error: -13.35 | Output: -34.79 | Temp: 33.35 | Test: 34.03 | Diff: 0.68 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:05:777 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:05:794 -> Cooling set to 34.79% power (Duty: 355)
+09:47:05:822 -> State: RAMPING | Error: -13.25 | Output: -34.79 | Temp: 33.25 | Test: 33.93 | Diff: 0.68 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:06:791 -> [PID DEBUG] Mode: COOL | Err: -13.15 | RawPID: 34.00 | FinalOut: -34.00
+09:47:06:807 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:06:824 -> Cooling set to 34.00% power (Duty: 347)
+09:47:06:852 -> State: RAMPING | Error: -13.15 | Output: -34.00 | Temp: 33.15 | Test: 33.83 | Diff: 0.68 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:07:780 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:07:797 -> Cooling set to 34.00% power (Duty: 347)
+09:47:08:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:08:797 -> Cooling set to 33.23% power (Duty: 339)
+09:47:08:826 -> State: RAMPING | Error: -12.94 | Output: -33.23 | Temp: 32.94 | Test: 33.65 | Diff: 0.71 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:09:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:09:801 -> Cooling set to 33.15% power (Duty: 339)
+09:47:09:829 -> State: RAMPING | Error: -12.84 | Output: -33.15 | Temp: 32.84 | Test: 33.57 | Diff: 0.73 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:10:827 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:10:844 -> Cooling set to 33.13% power (Duty: 338)
+09:47:10:872 -> State: RAMPING | Error: -12.76 | Output: -33.13 | Temp: 32.76 | Test: 33.47 | Diff: 0.71 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:11:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:11:798 -> Cooling set to 33.13% power (Duty: 338)
+09:47:11:826 -> State: RAMPING | Error: -12.65 | Output: -33.13 | Temp: 32.65 | Test: 33.39 | Diff: 0.74 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:12:790 -> [PID DEBUG] Mode: COOL | Err: -12.56 | RawPID: 32.30 | FinalOut: -32.30
+09:47:12:806 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:12:822 -> Cooling set to 32.30% power (Duty: 330)
+09:47:12:850 -> State: RAMPING | Error: -12.56 | Output: -32.30 | Temp: 32.56 | Test: 33.31 | Diff: 0.74 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:13:779 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:13:795 -> Cooling set to 32.30% power (Duty: 330)
+09:47:14:778 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:14:793 -> Cooling set to 31.74% power (Duty: 324)
+09:47:14:822 -> State: RAMPING | Error: -12.39 | Output: -31.74 | Temp: 32.39 | Test: 33.15 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:15:780 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:15:797 -> Cooling set to 31.58% power (Duty: 323)
+09:47:15:825 -> State: RAMPING | Error: -12.28 | Output: -31.58 | Temp: 32.28 | Test: 33.05 | Diff: 0.77 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:16:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:16:797 -> Cooling set to 31.47% power (Duty: 321)
+09:47:16:825 -> State: RAMPING | Error: -12.19 | Output: -31.47 | Temp: 32.19 | Test: 32.97 | Diff: 0.77 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:17:777 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:17:793 -> Cooling set to 31.47% power (Duty: 321)
+09:47:17:822 -> State: RAMPING | Error: -12.11 | Output: -31.47 | Temp: 32.11 | Test: 32.87 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:18:787 -> [PID DEBUG] Mode: COOL | Err: -12.02 | RawPID: 30.78 | FinalOut: -30.78
+09:47:18:802 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:18:819 -> Cooling set to 30.78% power (Duty: 314)
+09:47:18:847 -> State: RAMPING | Error: -12.02 | Output: -30.78 | Temp: 32.02 | Test: 32.76 | Diff: 0.75 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:19:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:19:800 -> Cooling set to 30.78% power (Duty: 314)
+09:47:20:779 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:20:795 -> Cooling set to 30.09% power (Duty: 307)
+09:47:20:823 -> State: RAMPING | Error: -11.83 | Output: -30.09 | Temp: 31.83 | Test: 32.58 | Diff: 0.75 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:21:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:21:800 -> Cooling set to 30.13% power (Duty: 308)
+09:47:21:828 -> State: RAMPING | Error: -11.75 | Output: -30.13 | Temp: 31.75 | Test: 32.49 | Diff: 0.74 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:22:778 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:22:794 -> Cooling set to 29.99% power (Duty: 306)
+09:47:22:824 -> State: RAMPING | Error: -11.67 | Output: -29.99 | Temp: 31.67 | Test: 32.41 | Diff: 0.75 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:23:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:23:802 -> Cooling set to 29.99% power (Duty: 306)
+09:47:23:830 -> State: RAMPING | Error: -11.58 | Output: -29.99 | Temp: 31.58 | Test: 32.31 | Diff: 0.73 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:24:783 -> [PID DEBUG] Mode: COOL | Err: -11.50 | RawPID: 29.37 | FinalOut: -29.37
+09:47:24:799 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:24:815 -> Cooling set to 29.37% power (Duty: 300)
+09:47:24:843 -> State: RAMPING | Error: -11.50 | Output: -29.37 | Temp: 31.50 | Test: 32.23 | Diff: 0.72 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:25:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:25:802 -> Cooling set to 29.37% power (Duty: 300)
+09:47:26:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:26:804 -> Cooling set to 28.73% power (Duty: 293)
+09:47:26:832 -> State: RAMPING | Error: -11.33 | Output: -28.73 | Temp: 31.33 | Test: 32.06 | Diff: 0.73 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:27:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:27:798 -> Cooling set to 28.61% power (Duty: 292)
+09:47:27:826 -> State: RAMPING | Error: -11.23 | Output: -28.61 | Temp: 31.23 | Test: 31.98 | Diff: 0.75 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:28:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:28:801 -> Cooling set to 28.48% power (Duty: 291)
+09:47:28:829 -> State: RAMPING | Error: -11.14 | Output: -28.48 | Temp: 31.14 | Test: 31.89 | Diff: 0.74 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:29:841 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:29:858 -> Cooling set to 28.48% power (Duty: 291)
+09:47:29:888 -> State: RAMPING | Error: -11.05 | Output: -28.48 | Temp: 31.05 | Test: 31.83 | Diff: 0.78 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:30:787 -> [PID DEBUG] Mode: COOL | Err: -10.97 | RawPID: 27.79 | FinalOut: -27.79
+09:47:30:803 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:30:819 -> Cooling set to 27.79% power (Duty: 284)
+09:47:30:903 -> State: RAMPING | Error: -10.97 | Output: -27.79 | Temp: 30.97 | Test: 31.75 | Diff: 0.78 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:31:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:31:799 -> Cooling set to 27.79% power (Duty: 284)
+09:47:32:779 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:32:795 -> Cooling set to 27.24% power (Duty: 278)
+09:47:32:824 -> State: RAMPING | Error: -10.81 | Output: -27.24 | Temp: 30.81 | Test: 31.59 | Diff: 0.78 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:33:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:33:798 -> Cooling set to 27.31% power (Duty: 279)
+09:47:33:826 -> State: RAMPING | Error: -10.75 | Output: -27.31 | Temp: 30.75 | Test: 31.51 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:34:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:34:802 -> Cooling set to 27.22% power (Duty: 278)
+09:47:34:830 -> State: RAMPING | Error: -10.68 | Output: -27.22 | Temp: 30.68 | Test: 31.44 | Diff: 0.77 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:35:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:35:798 -> Cooling set to 27.22% power (Duty: 278)
+09:47:35:826 -> State: RAMPING | Error: -10.59 | Output: -27.22 | Temp: 30.59 | Test: 31.40 | Diff: 0.81 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:36:788 -> [PID DEBUG] Mode: COOL | Err: -10.52 | RawPID: 26.58 | FinalOut: -26.58
+09:47:36:803 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:36:820 -> Cooling set to 26.58% power (Duty: 271)
+09:47:36:848 -> State: RAMPING | Error: -10.52 | Output: -26.58 | Temp: 30.52 | Test: 31.32 | Diff: 0.81 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:37:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:37:797 -> Cooling set to 26.58% power (Duty: 271)
+09:47:38:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:38:798 -> Cooling set to 26.18% power (Duty: 267)
+09:47:38:827 -> State: RAMPING | Error: -10.38 | Output: -26.18 | Temp: 30.38 | Test: 31.18 | Diff: 0.79 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:39:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:39:800 -> Cooling set to 26.18% power (Duty: 267)
+09:47:39:828 -> State: RAMPING | Error: -10.32 | Output: -26.18 | Temp: 30.32 | Test: 31.11 | Diff: 0.79 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:40:778 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:40:794 -> Cooling set to 26.06% power (Duty: 266)
+09:47:40:823 -> State: RAMPING | Error: -10.24 | Output: -26.06 | Temp: 30.24 | Test: 31.02 | Diff: 0.78 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:41:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:41:800 -> Cooling set to 26.06% power (Duty: 266)
+09:47:41:829 -> State: RAMPING | Error: -10.17 | Output: -26.06 | Temp: 30.17 | Test: 30.96 | Diff: 0.78 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:42:784 -> [PID DEBUG] Mode: COOL | Err: -10.11 | RawPID: 25.62 | FinalOut: -25.62
+09:47:42:800 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:42:817 -> Cooling set to 25.62% power (Duty: 262)
+09:47:42:847 -> State: RAMPING | Error: -10.11 | Output: -25.62 | Temp: 30.11 | Test: 30.90 | Diff: 0.78 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:43:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:43:799 -> Cooling set to 25.62% power (Duty: 262)
+09:47:44:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:44:798 -> Cooling set to 25.22% power (Duty: 258)
+09:47:44:826 -> State: RAMPING | Error: -9.99 | Output: -25.22 | Temp: 29.99 | Test: 30.75 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:45:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:45:798 -> Cooling set to 25.20% power (Duty: 257)
+09:47:45:826 -> State: RAMPING | Error: -9.92 | Output: -25.20 | Temp: 29.92 | Test: 30.68 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:46:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:46:800 -> Cooling set to 25.21% power (Duty: 257)
+09:47:46:828 -> State: RAMPING | Error: -9.87 | Output: -25.21 | Temp: 29.87 | Test: 30.62 | Diff: 0.75 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:47:817 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:47:833 -> Cooling set to 25.21% power (Duty: 257)
+09:47:47:861 -> State: RAMPING | Error: -9.80 | Output: -25.21 | Temp: 29.80 | Test: 30.56 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:48:788 -> [PID DEBUG] Mode: COOL | Err: -9.73 | RawPID: 24.70 | FinalOut: -24.70
+09:47:48:805 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:48:886 -> Cooling set to 24.70% power (Duty: 252)
+09:47:48:915 -> State: RAMPING | Error: -9.73 | Output: -24.70 | Temp: 29.73 | Test: 30.50 | Diff: 0.77 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:49:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:49:802 -> Cooling set to 24.70% power (Duty: 252)
+09:47:50:778 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:50:795 -> Cooling set to 24.34% power (Duty: 249)
+09:47:50:822 -> State: RAMPING | Error: -9.61 | Output: -24.34 | Temp: 29.61 | Test: 30.38 | Diff: 0.77 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:51:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:51:800 -> Cooling set to 24.30% power (Duty: 248)
+09:47:51:827 -> State: RAMPING | Error: -9.55 | Output: -24.30 | Temp: 29.55 | Test: 30.31 | Diff: 0.77 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:52:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:52:803 -> Cooling set to 24.19% power (Duty: 247)
+09:47:52:831 -> State: RAMPING | Error: -9.47 | Output: -24.19 | Temp: 29.47 | Test: 30.26 | Diff: 0.79 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:53:788 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:53:804 -> Cooling set to 24.19% power (Duty: 247)
+09:47:53:832 -> State: RAMPING | Error: -9.42 | Output: -24.19 | Temp: 29.42 | Test: 30.20 | Diff: 0.78 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:54:788 -> [PID DEBUG] Mode: COOL | Err: -9.34 | RawPID: 23.67 | FinalOut: -23.67
+09:47:54:804 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:54:820 -> Cooling set to 23.67% power (Duty: 242)
+09:47:54:848 -> State: RAMPING | Error: -9.34 | Output: -23.67 | Temp: 29.34 | Test: 30.14 | Diff: 0.80 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:55:778 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:55:795 -> Cooling set to 23.67% power (Duty: 242)
+09:47:56:788 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:56:804 -> Cooling set to 23.24% power (Duty: 237)
+09:47:56:832 -> State: RAMPING | Error: -9.21 | Output: -23.24 | Temp: 29.21 | Test: 30.02 | Diff: 0.81 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:57:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:57:798 -> Cooling set to 23.26% power (Duty: 237)
+09:47:57:826 -> State: RAMPING | Error: -9.15 | Output: -23.26 | Temp: 29.15 | Test: 29.94 | Diff: 0.79 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:58:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:58:803 -> Cooling set to 23.16% power (Duty: 236)
+09:47:58:831 -> State: RAMPING | Error: -9.09 | Output: -23.16 | Temp: 29.09 | Test: 29.88 | Diff: 0.79 | Setpoint: 20.00 | Stable: 0s/0s
+09:47:59:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:47:59:799 -> Cooling set to 23.16% power (Duty: 236)
+09:47:59:827 -> State: RAMPING | Error: -9.04 | Output: -23.16 | Temp: 29.04 | Test: 29.82 | Diff: 0.78 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:00:783 -> [PID DEBUG] Mode: COOL | Err: -8.99 | RawPID: 22.85 | FinalOut: -22.85
+09:48:00:798 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:00:815 -> Cooling set to 22.85% power (Duty: 233)
+09:48:00:843 -> State: RAMPING | Error: -8.99 | Output: -22.85 | Temp: 28.99 | Test: 29.77 | Diff: 0.78 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:01:778 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:01:795 -> Cooling set to 22.85% power (Duty: 233)
+09:48:02:778 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:02:795 -> Cooling set to 22.51% power (Duty: 230)
+09:48:02:823 -> State: RAMPING | Error: -8.88 | Output: -22.51 | Temp: 28.88 | Test: 29.65 | Diff: 0.77 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:03:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:03:799 -> Cooling set to 22.51% power (Duty: 230)
+09:48:03:827 -> State: RAMPING | Error: -8.82 | Output: -22.51 | Temp: 28.82 | Test: 29.60 | Diff: 0.78 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:04:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:04:801 -> Cooling set to 22.44% power (Duty: 229)
+09:48:04:829 -> State: RAMPING | Error: -8.76 | Output: -22.44 | Temp: 28.76 | Test: 29.55 | Diff: 0.79 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:05:828 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:05:844 -> Cooling set to 22.44% power (Duty: 229)
+09:48:05:872 -> State: RAMPING | Error: -8.70 | Output: -22.44 | Temp: 28.70 | Test: 29.49 | Diff: 0.79 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:06:788 -> [PID DEBUG] Mode: COOL | Err: -8.63 | RawPID: 21.92 | FinalOut: -21.92
+09:48:06:805 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:06:821 -> Cooling set to 21.92% power (Duty: 224)
+09:48:06:898 -> State: RAMPING | Error: -8.63 | Output: -21.92 | Temp: 28.63 | Test: 29.44 | Diff: 0.81 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:07:778 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:07:794 -> Cooling set to 21.92% power (Duty: 224)
+09:48:08:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:08:803 -> Cooling set to 21.59% power (Duty: 220)
+09:48:08:831 -> State: RAMPING | Error: -8.52 | Output: -21.59 | Temp: 28.52 | Test: 29.34 | Diff: 0.82 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:09:779 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:09:796 -> Cooling set to 21.59% power (Duty: 220)
+09:48:09:825 -> State: RAMPING | Error: -8.47 | Output: -21.59 | Temp: 28.47 | Test: 29.28 | Diff: 0.82 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:10:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:10:799 -> Cooling set to 21.56% power (Duty: 220)
+09:48:10:827 -> State: RAMPING | Error: -8.41 | Output: -21.56 | Temp: 28.41 | Test: 29.21 | Diff: 0.80 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:11:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:11:802 -> Cooling set to 21.56% power (Duty: 220)
+09:48:11:830 -> State: RAMPING | Error: -8.35 | Output: -21.56 | Temp: 28.35 | Test: 29.17 | Diff: 0.81 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:12:784 -> [PID DEBUG] Mode: COOL | Err: -8.30 | RawPID: 21.15 | FinalOut: -21.15
+09:48:12:799 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:12:816 -> Cooling set to 21.15% power (Duty: 216)
+09:48:12:844 -> State: RAMPING | Error: -8.30 | Output: -21.15 | Temp: 28.30 | Test: 29.12 | Diff: 0.82 | Setpoint: 20.00 | Stable: 0s/0s
+
+09:48:13:294 -> → $set tolerance 0.5c
+09:48:13:354 -> Config: Configuración guardada en LittleFS:
+09:48:13:396 -> Old Tolerance: 0.700°C / 1.260°F | New Tolerance: 0.500°C / 0.900°F
+09:48:13:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:13:803 -> Cooling set to 21.15% power (Duty: 216)
+09:48:14:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:14:799 -> Cooling set to 20.88% power (Duty: 213)
+09:48:14:827 -> State: RAMPING | Error: -8.21 | Output: -20.88 | Temp: 28.21 | Test: 29.03 | Diff: 0.82 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:15:788 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:15:804 -> Cooling set to 20.80% power (Duty: 212)
+09:48:15:833 -> State: RAMPING | Error: -8.14 | Output: -20.80 | Temp: 28.14 | Test: 28.98 | Diff: 0.83 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:16:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:16:799 -> Cooling set to 20.78% power (Duty: 212)
+09:48:16:827 -> State: RAMPING | Error: -8.09 | Output: -20.78 | Temp: 28.09 | Test: 28.93 | Diff: 0.83 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:17:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:17:804 -> Cooling set to 20.78% power (Duty: 212)
+09:48:17:832 -> State: RAMPING | Error: -8.05 | Output: -20.78 | Temp: 28.05 | Test: 28.87 | Diff: 0.82 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:18:789 -> [PID DEBUG] Mode: COOL | Err: -8.00 | RawPID: 20.46 | FinalOut: -20.46
+09:48:18:805 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:18:821 -> Cooling set to 20.46% power (Duty: 209)
+09:48:18:849 -> State: RAMPING | Error: -8.00 | Output: -20.46 | Temp: 28.00 | Test: 28.87 | Diff: 0.87 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:19:780 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:19:796 -> Cooling set to 20.46% power (Duty: 209)
+09:48:20:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:20:801 -> Cooling set to 20.07% power (Duty: 205)
+09:48:20:829 -> State: RAMPING | Error: -7.89 | Output: -20.07 | Temp: 27.89 | Test: 28.76 | Diff: 0.88 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:21:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:21:800 -> Cooling set to 20.05% power (Duty: 205)
+09:48:21:828 -> State: RAMPING | Error: -7.83 | Output: -20.05 | Temp: 27.83 | Test: 28.71 | Diff: 0.87 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:22:797 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:22:813 -> Cooling set to 20.33% power (Duty: 207)
+09:48:22:841 -> State: RAMPING | Error: -7.83 | Output: -20.33 | Temp: 27.83 | Test: 28.65 | Diff: 0.82 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:23:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:23:861 -> Cooling set to 20.33% power (Duty: 207)
+09:48:23:889 -> State: RAMPING | Error: -7.78 | Output: -20.33 | Temp: 27.78 | Test: 28.60 | Diff: 0.83 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:24:785 -> [PID DEBUG] Mode: COOL | Err: -7.72 | RawPID: 19.84 | FinalOut: -19.84
+09:48:24:801 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:24:817 -> Cooling set to 19.84% power (Duty: 202)
+09:48:24:845 -> State: RAMPING | Error: -7.72 | Output: -19.84 | Temp: 27.72 | Test: 28.56 | Diff: 0.84 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:25:780 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:25:796 -> Cooling set to 19.84% power (Duty: 202)
+09:48:26:795 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:26:801 -> Cooling set to 19.53% power (Duty: 199)
+09:48:26:837 -> State: RAMPING | Error: -7.62 | Output: -19.53 | Temp: 27.62 | Test: 28.49 | Diff: 0.88 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:27:796 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:27:802 -> Cooling set to 19.53% power (Duty: 199)
+09:48:27:837 -> State: RAMPING | Error: -7.57 | Output: -19.53 | Temp: 27.57 | Test: 28.45 | Diff: 0.88 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:28:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:28:795 -> Cooling set to 19.46% power (Duty: 199)
+09:48:28:841 -> State: RAMPING | Error: -7.52 | Output: -19.46 | Temp: 27.52 | Test: 28.41 | Diff: 0.89 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:29:797 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:29:804 -> Cooling set to 19.46% power (Duty: 199)
+09:48:29:845 -> State: RAMPING | Error: -7.46 | Output: -19.46 | Temp: 27.46 | Test: 28.36 | Diff: 0.90 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:30:787 -> [PID DEBUG] Mode: COOL | Err: -7.42 | RawPID: 19.10 | FinalOut: -19.10
+09:48:30:802 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:30:818 -> Cooling set to 19.10% power (Duty: 195)
+09:48:30:846 -> State: RAMPING | Error: -7.42 | Output: -19.10 | Temp: 27.42 | Test: 28.30 | Diff: 0.89 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:31:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:31:800 -> Cooling set to 19.10% power (Duty: 195)
+09:48:32:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:32:803 -> Cooling set to 18.85% power (Duty: 192)
+09:48:32:831 -> State: RAMPING | Error: -7.33 | Output: -18.85 | Temp: 27.33 | Test: 28.19 | Diff: 0.86 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:33:780 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:33:797 -> Cooling set to 18.86% power (Duty: 192)
+09:48:33:826 -> State: RAMPING | Error: -7.29 | Output: -18.86 | Temp: 27.29 | Test: 28.14 | Diff: 0.86 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:34:788 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:34:804 -> Cooling set to 18.82% power (Duty: 192)
+09:48:34:832 -> State: RAMPING | Error: -7.24 | Output: -18.82 | Temp: 27.24 | Test: 28.09 | Diff: 0.85 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:35:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:35:800 -> Cooling set to 18.82% power (Duty: 192)
+09:48:35:829 -> State: RAMPING | Error: -7.19 | Output: -18.82 | Temp: 27.19 | Test: 28.03 | Diff: 0.84 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:36:783 -> [PID DEBUG] Mode: COOL | Err: -7.14 | RawPID: 18.48 | FinalOut: -18.48
+09:48:36:799 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:36:815 -> Cooling set to 18.48% power (Duty: 189)
+09:48:36:843 -> State: RAMPING | Error: -7.14 | Output: -18.48 | Temp: 27.14 | Test: 27.98 | Diff: 0.83 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:37:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:37:799 -> Cooling set to 18.48% power (Duty: 189)
+09:48:38:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:38:800 -> Cooling set to 18.12% power (Duty: 185)
+09:48:38:828 -> State: RAMPING | Error: -7.04 | Output: -18.12 | Temp: 27.04 | Test: 27.87 | Diff: 0.83 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:39:779 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:39:795 -> Cooling set to 18.41% power (Duty: 188)
+09:48:39:823 -> State: RAMPING | Error: -7.04 | Output: -18.41 | Temp: 27.04 | Test: 27.87 | Diff: 0.83 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:40:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:40:803 -> Cooling set to 18.62% power (Duty: 190)
+09:48:40:831 -> State: RAMPING | Error: -7.04 | Output: -18.62 | Temp: 27.04 | Test: 27.82 | Diff: 0.78 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:41:845 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:41:862 -> Cooling set to 18.62% power (Duty: 190)
+09:48:41:890 -> State: RAMPING | Error: -7.00 | Output: -18.62 | Temp: 27.00 | Test: 27.77 | Diff: 0.77 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:42:787 -> [PID DEBUG] Mode: COOL | Err: -6.94 | RawPID: 18.17 | FinalOut: -18.17
+09:48:42:803 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:42:819 -> Cooling set to 18.17% power (Duty: 185)
+09:48:42:914 -> State: RAMPING | Error: -6.94 | Output: -18.17 | Temp: 26.94 | Test: 27.73 | Diff: 0.79 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:43:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:43:799 -> Cooling set to 18.17% power (Duty: 185)
+09:48:44:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:44:797 -> Cooling set to 17.92% power (Duty: 183)
+09:48:44:825 -> State: RAMPING | Error: -6.85 | Output: -17.92 | Temp: 26.85 | Test: 27.63 | Diff: 0.78 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:45:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:45:798 -> Cooling set to 17.92% power (Duty: 183)
+09:48:45:826 -> State: RAMPING | Error: -6.81 | Output: -17.92 | Temp: 26.81 | Test: 27.63 | Diff: 0.82 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:46:779 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:46:795 -> Cooling set to 18.15% power (Duty: 185)
+09:48:46:823 -> State: RAMPING | Error: -6.81 | Output: -18.15 | Temp: 26.81 | Test: 27.57 | Diff: 0.77 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:47:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:47:802 -> Cooling set to 18.15% power (Duty: 185)
+09:48:47:830 -> State: RAMPING | Error: -6.75 | Output: -18.15 | Temp: 26.75 | Test: 27.57 | Diff: 0.82 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:48:790 -> [PID DEBUG] Mode: COOL | Err: -6.71 | RawPID: 17.75 | FinalOut: -17.75
+09:48:48:806 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:48:823 -> Cooling set to 17.75% power (Duty: 181)
+09:48:48:851 -> State: RAMPING | Error: -6.71 | Output: -17.75 | Temp: 26.71 | Test: 27.53 | Diff: 0.82 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:49:779 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:49:795 -> Cooling set to 17.75% power (Duty: 181)
+09:48:50:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:50:799 -> Cooling set to 17.40% power (Duty: 177)
+09:48:50:827 -> State: RAMPING | Error: -6.61 | Output: -17.40 | Temp: 26.61 | Test: 27.43 | Diff: 0.82 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:51:778 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:51:794 -> Cooling set to 17.40% power (Duty: 178)
+09:48:51:823 -> State: RAMPING | Error: -6.57 | Output: -17.40 | Temp: 26.57 | Test: 27.37 | Diff: 0.80 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:52:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:52:803 -> Cooling set to 17.32% power (Duty: 177)
+09:48:52:831 -> State: RAMPING | Error: -6.52 | Output: -17.32 | Temp: 26.52 | Test: 27.33 | Diff: 0.81 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:53:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:53:800 -> Cooling set to 17.32% power (Duty: 177)
+09:48:53:829 -> State: RAMPING | Error: -6.47 | Output: -17.32 | Temp: 26.47 | Test: 27.28 | Diff: 0.81 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:54:784 -> [PID DEBUG] Mode: COOL | Err: -6.43 | RawPID: 16.98 | FinalOut: -16.98
+09:48:54:800 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:54:816 -> Cooling set to 16.98% power (Duty: 173)
+09:48:54:844 -> State: RAMPING | Error: -6.43 | Output: -16.98 | Temp: 26.43 | Test: 27.23 | Diff: 0.80 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:55:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:55:799 -> Cooling set to 16.98% power (Duty: 173)
+09:48:56:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:56:800 -> Cooling set to 16.59% power (Duty: 169)
+09:48:56:828 -> State: RAMPING | Error: -6.32 | Output: -16.59 | Temp: 26.32 | Test: 27.14 | Diff: 0.81 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:57:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:57:800 -> Cooling set to 16.86% power (Duty: 172)
+09:48:57:828 -> State: RAMPING | Error: -6.32 | Output: -16.86 | Temp: 26.32 | Test: 27.14 | Diff: 0.81 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:58:795 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:58:812 -> Cooling set to 16.77% power (Duty: 171)
+09:48:58:839 -> State: RAMPING | Error: -6.28 | Output: -16.77 | Temp: 26.28 | Test: 27.09 | Diff: 0.81 | Setpoint: 20.00 | Stable: 0s/0s
+09:48:59:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:48:59:860 -> Cooling set to 16.77% power (Duty: 171)
+09:48:59:888 -> State: RAMPING | Error: -6.22 | Output: -16.77 | Temp: 26.22 | Test: 27.09 | Diff: 0.87 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:00:792 -> [PID DEBUG] Mode: COOL | Err: -6.18 | RawPID: 16.38 | FinalOut: -16.38
+09:49:00:808 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:00:824 -> Cooling set to 16.38% power (Duty: 167)
+09:49:00:852 -> State: RAMPING | Error: -6.18 | Output: -16.38 | Temp: 26.18 | Test: 27.04 | Diff: 0.86 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:01:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:01:801 -> Cooling set to 16.38% power (Duty: 167)
+09:49:02:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:02:803 -> Cooling set to 16.64% power (Duty: 170)
+09:49:02:831 -> State: RAMPING | Error: -6.18 | Output: -16.64 | Temp: 26.18 | Test: 26.95 | Diff: 0.77 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:03:780 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:03:796 -> Cooling set to 16.50% power (Duty: 168)
+09:49:03:824 -> State: RAMPING | Error: -6.13 | Output: -16.50 | Temp: 26.13 | Test: 26.90 | Diff: 0.77 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:04:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:04:798 -> Cooling set to 16.72% power (Duty: 171)
+09:49:04:826 -> State: RAMPING | Error: -6.13 | Output: -16.72 | Temp: 26.13 | Test: 26.85 | Diff: 0.72 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:05:780 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:05:796 -> Cooling set to 16.72% power (Duty: 171)
+09:49:05:825 -> State: RAMPING | Error: -6.09 | Output: -16.72 | Temp: 26.09 | Test: 26.81 | Diff: 0.72 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:06:787 -> [PID DEBUG] Mode: COOL | Err: -6.09 | RawPID: 16.63 | FinalOut: -16.63
+09:49:06:803 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:06:819 -> Cooling set to 16.63% power (Duty: 170)
+09:49:06:847 -> State: RAMPING | Error: -6.09 | Output: -16.63 | Temp: 26.09 | Test: 26.81 | Diff: 0.72 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:07:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:07:800 -> Cooling set to 16.63% power (Duty: 170)
+09:49:08:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:08:802 -> Cooling set to 16.30% power (Duty: 166)
+09:49:08:830 -> State: RAMPING | Error: -6.00 | Output: -16.30 | Temp: 26.00 | Test: 26.76 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:09:789 -> [PID SWITCH] RAMPING->APPROACHING | COOL->COOL | KP: 5.50->5.47 | KI: 0.030->0.030 | KD: 0.80->0.81
+09:49:09:805 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:09:822 -> Cooling set to 16.28% power (Duty: 166)
+09:49:09:850 -> State: APPROACHING | Error: -5.96 | Output: -16.28 | Temp: 25.96 | Test: 26.72 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:10:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:10:798 -> Cooling set to 16.28% power (Duty: 166)
+09:49:11:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:11:798 -> Cooling set to 16.22% power (Duty: 165)
+09:49:11:827 -> State: APPROACHING | Error: -5.91 | Output: -16.22 | Temp: 25.91 | Test: 26.63 | Diff: 0.72 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:12:793 -> [PID DEBUG] Mode: COOL | Err: -5.86 | RawPID: 16.14 | FinalOut: -16.14
+09:49:12:808 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:12:825 -> Cooling set to 16.14% power (Duty: 165)
+09:49:12:854 -> State: APPROACHING | Error: -5.86 | Output: -16.14 | Temp: 25.86 | Test: 26.58 | Diff: 0.72 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:13:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:13:801 -> Cooling set to 16.14% power (Duty: 165)
+09:49:14:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:14:803 -> Cooling set to 16.09% power (Duty: 164)
+09:49:14:831 -> State: APPROACHING | Error: -5.82 | Output: -16.09 | Temp: 25.82 | Test: 26.52 | Diff: 0.70 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:15:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:15:800 -> Cooling set to 16.00% power (Duty: 163)
+09:49:15:829 -> State: APPROACHING | Error: -5.77 | Output: -16.00 | Temp: 25.77 | Test: 26.48 | Diff: 0.70 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:16:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:16:805 -> Cooling set to 15.91% power (Duty: 162)
+09:49:16:834 -> State: APPROACHING | Error: -5.72 | Output: -15.91 | Temp: 25.72 | Test: 26.42 | Diff: 0.70 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:17:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:17:797 -> Cooling set to 15.91% power (Duty: 162)
+09:49:17:826 -> State: APPROACHING | Error: -5.67 | Output: -15.91 | Temp: 25.67 | Test: 26.42 | Diff: 0.75 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:18:842 -> [PID DEBUG] Mode: COOL | Err: -5.63 | RawPID: 15.58 | FinalOut: -15.58
+09:49:18:857 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:18:874 -> Cooling set to 15.58% power (Duty: 159)
+09:49:18:949 -> State: APPROACHING | Error: -5.63 | Output: -15.58 | Temp: 25.63 | Test: 26.38 | Diff: 0.75 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:19:798 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:19:829 -> Cooling set to 15.58% power (Duty: 159)
+09:49:20:779 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:20:795 -> Cooling set to 15.27% power (Duty: 156)
+09:49:20:824 -> State: APPROACHING | Error: -5.54 | Output: -15.27 | Temp: 25.54 | Test: 26.34 | Diff: 0.80 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:21:788 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:21:804 -> Cooling set to 15.25% power (Duty: 156)
+09:49:21:832 -> State: APPROACHING | Error: -5.49 | Output: -15.25 | Temp: 25.49 | Test: 26.29 | Diff: 0.80 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:22:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:22:799 -> Cooling set to 15.18% power (Duty: 155)
+09:49:22:829 -> State: APPROACHING | Error: -5.44 | Output: -15.18 | Temp: 25.44 | Test: 26.24 | Diff: 0.80 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:23:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:23:805 -> Cooling set to 15.18% power (Duty: 155)
+09:49:23:834 -> State: APPROACHING | Error: -5.39 | Output: -15.18 | Temp: 25.39 | Test: 26.24 | Diff: 0.85 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:24:788 -> [PID DEBUG] Mode: COOL | Err: -5.39 | RawPID: 15.12 | FinalOut: -15.12
+09:49:24:804 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:24:821 -> Cooling set to 15.12% power (Duty: 154)
+09:49:24:850 -> State: APPROACHING | Error: -5.39 | Output: -15.12 | Temp: 25.39 | Test: 26.19 | Diff: 0.81 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:25:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:25:799 -> Cooling set to 15.07% power (Duty: 154)
+09:49:26:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:26:805 -> Cooling set to 15.07% power (Duty: 154)
+09:49:26:834 -> State: APPROACHING | Error: -5.34 | Output: -15.07 | Temp: 25.34 | Test: 26.15 | Diff: 0.81 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:27:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:27:801 -> Cooling set to 15.03% power (Duty: 153)
+09:49:27:830 -> State: APPROACHING | Error: -5.29 | Output: -15.03 | Temp: 25.29 | Test: 26.09 | Diff: 0.80 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:28:788 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:28:804 -> Cooling set to 15.00% power (Duty: 153)
+09:49:28:833 -> State: APPROACHING | Error: -5.25 | Output: -15.00 | Temp: 25.25 | Test: 26.04 | Diff: 0.79 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:29:779 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:29:796 -> Cooling set to 15.00% power (Duty: 153)
+09:49:29:825 -> State: APPROACHING | Error: -5.25 | Output: -15.00 | Temp: 25.25 | Test: 26.00 | Diff: 0.75 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:30:793 -> [PID DEBUG] Mode: COOL | Err: -5.21 | RawPID: 14.97 | FinalOut: -14.97
+09:49:30:809 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:30:825 -> Cooling set to 14.97% power (Duty: 153)
+09:49:30:853 -> State: APPROACHING | Error: -5.21 | Output: -14.97 | Temp: 25.21 | Test: 25.94 | Diff: 0.73 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:31:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:31:797 -> Cooling set to 14.97% power (Duty: 153)
+09:49:32:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:32:797 -> Cooling set to 15.21% power (Duty: 155)
+09:49:32:826 -> State: APPROACHING | Error: -5.21 | Output: -15.21 | Temp: 25.21 | Test: 25.90 | Diff: 0.69 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:33:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:33:805 -> Cooling set to 15.10% power (Duty: 154)
+09:49:33:832 -> State: APPROACHING | Error: -5.16 | Output: -15.10 | Temp: 25.16 | Test: 25.90 | Diff: 0.74 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:34:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:34:799 -> Cooling set to 15.00% power (Duty: 153)
+09:49:34:828 -> State: APPROACHING | Error: -5.10 | Output: -15.00 | Temp: 25.10 | Test: 25.85 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:35:792 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:35:809 -> Cooling set to 15.00% power (Duty: 153)
+09:49:35:837 -> State: APPROACHING | Error: -5.10 | Output: -15.00 | Temp: 25.10 | Test: 25.80 | Diff: 0.71 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:36:785 -> [PID DEBUG] Mode: COOL | Err: -5.10 | RawPID: 15.25 | FinalOut: -15.25
+09:49:36:865 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:36:881 -> Cooling set to 15.25% power (Duty: 156)
+09:49:36:910 -> State: APPROACHING | Error: -5.10 | Output: -15.25 | Temp: 25.10 | Test: 25.76 | Diff: 0.66 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:37:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:37:803 -> Cooling set to 15.11% power (Duty: 154)
+09:49:38:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:38:799 -> Cooling set to 15.11% power (Duty: 154)
+09:49:38:827 -> State: APPROACHING | Error: -5.00 | Output: -15.11 | Temp: 25.00 | Test: 25.67 | Diff: 0.67 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:39:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:39:801 -> Cooling set to 15.08% power (Duty: 154)
+09:49:39:830 -> State: APPROACHING | Error: -5.00 | Output: -15.08 | Temp: 25.00 | Test: 25.67 | Diff: 0.67 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:40:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:40:806 -> Cooling set to 15.05% power (Duty: 154)
+09:49:40:834 -> State: APPROACHING | Error: -4.95 | Output: -15.05 | Temp: 24.95 | Test: 25.67 | Diff: 0.72 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:41:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:41:799 -> Cooling set to 15.05% power (Duty: 154)
+09:49:41:827 -> State: APPROACHING | Error: -4.95 | Output: -15.05 | Temp: 24.95 | Test: 25.62 | Diff: 0.67 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:42:785 -> [PID DEBUG] Mode: COOL | Err: -4.90 | RawPID: 14.97 | FinalOut: -14.97
+09:49:42:801 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:42:818 -> Cooling set to 14.97% power (Duty: 153)
+09:49:42:847 -> State: APPROACHING | Error: -4.90 | Output: -14.97 | Temp: 24.90 | Test: 25.56 | Diff: 0.66 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:43:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:43:801 -> Cooling set to 14.97% power (Duty: 153)
+09:49:44:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:44:800 -> Cooling set to 14.71% power (Duty: 150)
+09:49:44:829 -> State: APPROACHING | Error: -4.81 | Output: -14.71 | Temp: 24.81 | Test: 25.56 | Diff: 0.75 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:45:790 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:45:806 -> Cooling set to 15.01% power (Duty: 153)
+09:49:45:835 -> State: APPROACHING | Error: -4.81 | Output: -15.01 | Temp: 24.81 | Test: 25.51 | Diff: 0.70 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:46:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:46:800 -> Cooling set to 15.20% power (Duty: 155)
+09:49:46:829 -> State: APPROACHING | Error: -4.81 | Output: -15.20 | Temp: 24.81 | Test: 25.46 | Diff: 0.65 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:47:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:47:806 -> Cooling set to 15.12% power (Duty: 154)
+09:49:47:835 -> State: APPROACHING | Error: -4.76 | Output: -15.12 | Temp: 24.76 | Test: 25.41 | Diff: 0.65 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:48:789 -> [PID DEBUG] Mode: COOL | Err: -4.76 | RawPID: 15.12 | FinalOut: -15.12
+09:49:48:805 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:48:821 -> Cooling set to 15.12% power (Duty: 154)
+09:49:48:850 -> State: APPROACHING | Error: -4.76 | Output: -15.12 | Temp: 24.76 | Test: 25.41 | Diff: 0.65 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:49:790 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:49:806 -> Cooling set to 15.11% power (Duty: 154)
+09:49:50:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:50:805 -> Cooling set to 15.11% power (Duty: 154)
+09:49:50:834 -> State: APPROACHING | Error: -4.67 | Output: -15.11 | Temp: 24.67 | Test: 25.32 | Diff: 0.65 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:51:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:51:801 -> Cooling set to 14.85% power (Duty: 151)
+09:49:51:829 -> State: APPROACHING | Error: -4.63 | Output: -14.85 | Temp: 24.63 | Test: 25.26 | Diff: 0.63 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:52:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:52:802 -> Cooling set to 14.85% power (Duty: 151)
+09:49:52:830 -> State: APPROACHING | Error: -4.63 | Output: -14.85 | Temp: 24.63 | Test: 25.26 | Diff: 0.63 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:53:812 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:53:829 -> Cooling set to 14.90% power (Duty: 152)
+09:49:53:858 -> State: APPROACHING | Error: -4.59 | Output: -14.90 | Temp: 24.59 | Test: 25.21 | Diff: 0.62 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:54:784 -> [PID DEBUG] Mode: COOL | Err: -4.55 | RawPID: 14.89 | FinalOut: -14.89
+09:49:54:800 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:54:879 -> Cooling set to 14.89% power (Duty: 152)
+09:49:54:908 -> State: APPROACHING | Error: -4.55 | Output: -14.89 | Temp: 24.55 | Test: 25.15 | Diff: 0.60 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:55:788 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:55:805 -> Cooling set to 14.89% power (Duty: 152)
+09:49:56:788 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:56:804 -> Cooling set to 14.88% power (Duty: 152)
+09:49:56:833 -> State: APPROACHING | Error: -4.50 | Output: -14.88 | Temp: 24.50 | Test: 25.15 | Diff: 0.64 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:57:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:57:797 -> Cooling set to 15.13% power (Duty: 154)
+09:49:57:825 -> State: APPROACHING | Error: -4.50 | Output: -15.13 | Temp: 24.50 | Test: 25.09 | Diff: 0.59 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:58:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:58:801 -> Cooling set to 15.07% power (Duty: 154)
+09:49:58:830 -> State: APPROACHING | Error: -4.46 | Output: -15.07 | Temp: 24.46 | Test: 25.09 | Diff: 0.64 | Setpoint: 20.00 | Stable: 0s/0s
+09:49:59:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:49:59:802 -> Cooling set to 15.07% power (Duty: 154)
+09:49:59:830 -> State: APPROACHING | Error: -4.46 | Output: -15.07 | Temp: 24.46 | Test: 25.04 | Diff: 0.59 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:00:787 -> [PID DEBUG] Mode: COOL | Err: -4.46 | RawPID: 15.32 | FinalOut: -15.32
+09:50:00:802 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:00:819 -> Cooling set to 15.32% power (Duty: 156)
+09:50:00:847 -> State: APPROACHING | Error: -4.46 | Output: -15.32 | Temp: 24.46 | Test: 24.99 | Diff: 0.53 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:01:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:01:805 -> Cooling set to 15.22% power (Duty: 155)
+09:50:02:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:02:803 -> Cooling set to 15.22% power (Duty: 155)
+09:50:02:832 -> State: APPROACHING | Error: -4.36 | Output: -15.22 | Temp: 24.36 | Test: 24.94 | Diff: 0.58 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:03:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:03:803 -> Cooling set to 14.87% power (Duty: 152)
+09:50:03:832 -> State: APPROACHING | Error: -4.30 | Output: -14.87 | Temp: 24.30 | Test: 24.88 | Diff: 0.58 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:04:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:04:797 -> Cooling set to 14.87% power (Duty: 152)
+09:50:04:826 -> State: APPROACHING | Error: -4.30 | Output: -14.87 | Temp: 24.30 | Test: 24.84 | Diff: 0.54 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:05:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:05:799 -> Cooling set to 14.94% power (Duty: 152)
+09:50:05:827 -> State: APPROACHING | Error: -4.26 | Output: -14.94 | Temp: 24.26 | Test: 24.78 | Diff: 0.52 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:06:791 -> [PID DEBUG] Mode: COOL | Err: -4.21 | RawPID: 14.90 | FinalOut: -14.90
+09:50:06:807 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:06:823 -> Cooling set to 14.90% power (Duty: 152)
+09:50:06:852 -> State: APPROACHING | Error: -4.21 | Output: -14.90 | Temp: 24.21 | Test: 24.73 | Diff: 0.53 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:07:788 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:07:804 -> Cooling set to 14.90% power (Duty: 152)
+09:50:08:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:08:805 -> Cooling set to 14.66% power (Duty: 150)
+09:50:08:833 -> State: APPROACHING | Error: -4.12 | Output: -14.66 | Temp: 24.12 | Test: 24.68 | Diff: 0.56 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:09:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:09:800 -> Cooling set to 14.68% power (Duty: 150)
+09:50:09:829 -> State: APPROACHING | Error: -4.07 | Output: -14.68 | Temp: 24.07 | Test: 24.63 | Diff: 0.56 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:10:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:10:805 -> Cooling set to 14.70% power (Duty: 150)
+09:50:10:834 -> State: APPROACHING | Error: -4.03 | Output: -14.70 | Temp: 24.03 | Test: 24.63 | Diff: 0.60 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:11:780 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:11:857 -> Cooling set to 14.70% power (Duty: 150)
+09:50:11:886 -> State: APPROACHING | Error: -4.03 | Output: -14.70 | Temp: 24.03 | Test: 24.63 | Diff: 0.60 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:12:790 -> [PID DEBUG] Mode: COOL | Err: -3.96 | RawPID: 14.52 | FinalOut: -14.52
+09:50:12:806 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:12:822 -> Cooling set to 14.52% power (Duty: 148)
+09:50:12:851 -> State: APPROACHING | Error: -3.96 | Output: -14.52 | Temp: 23.96 | Test: 24.57 | Diff: 0.62 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:13:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:13:797 -> Cooling set to 14.52% power (Duty: 148)
+09:50:14:780 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:14:796 -> Cooling set to 14.14% power (Duty: 144)
+09:50:14:825 -> State: APPROACHING | Error: -3.84 | Output: -14.14 | Temp: 23.84 | Test: 24.53 | Diff: 0.69 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:15:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:15:801 -> Cooling set to 14.22% power (Duty: 145)
+09:50:15:830 -> State: APPROACHING | Error: -3.79 | Output: -14.22 | Temp: 23.79 | Test: 24.48 | Diff: 0.70 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:16:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:16:801 -> Cooling set to 14.19% power (Duty: 145)
+09:50:16:831 -> State: APPROACHING | Error: -3.74 | Output: -14.19 | Temp: 23.74 | Test: 24.48 | Diff: 0.75 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:17:788 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:17:804 -> Cooling set to 14.19% power (Duty: 145)
+09:50:17:867 -> State: APPROACHING | Error: -3.68 | Output: -14.19 | Temp: 23.68 | Test: 24.48 | Diff: 0.81 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:18:796 -> [PID DEBUG] Mode: COOL | Err: -3.68 | RawPID: 14.12 | FinalOut: -14.12
+09:50:18:811 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:18:828 -> Cooling set to 14.12% power (Duty: 144)
+09:50:18:857 -> State: APPROACHING | Error: -3.68 | Output: -14.12 | Temp: 23.68 | Test: 24.43 | Diff: 0.75 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:19:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:19:804 -> Cooling set to 14.15% power (Duty: 144)
+09:50:20:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:20:803 -> Cooling set to 14.15% power (Duty: 144)
+09:50:20:832 -> State: APPROACHING | Error: -3.59 | Output: -14.15 | Temp: 23.59 | Test: 24.39 | Diff: 0.80 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:21:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:21:801 -> Cooling set to 14.14% power (Duty: 144)
+09:50:21:830 -> State: APPROACHING | Error: -3.59 | Output: -14.14 | Temp: 23.59 | Test: 24.33 | Diff: 0.74 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:22:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:22:797 -> Cooling set to 14.11% power (Duty: 144)
+09:50:22:825 -> State: APPROACHING | Error: -3.54 | Output: -14.11 | Temp: 23.54 | Test: 24.29 | Diff: 0.75 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:23:780 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:23:797 -> Cooling set to 14.11% power (Duty: 144)
+09:50:23:826 -> State: APPROACHING | Error: -3.54 | Output: -14.11 | Temp: 23.54 | Test: 24.24 | Diff: 0.71 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:24:789 -> [PID DEBUG] Mode: COOL | Err: -3.54 | RawPID: 14.37 | FinalOut: -14.37
+09:50:24:804 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:24:821 -> Cooling set to 14.37% power (Duty: 147)
+09:50:24:849 -> State: APPROACHING | Error: -3.54 | Output: -14.37 | Temp: 23.54 | Test: 24.19 | Diff: 0.65 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:25:790 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:25:807 -> Cooling set to 14.28% power (Duty: 146)
+09:50:26:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:26:797 -> Cooling set to 14.28% power (Duty: 146)
+09:50:26:826 -> State: APPROACHING | Error: -3.45 | Output: -14.28 | Temp: 23.45 | Test: 24.19 | Diff: 0.75 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:27:788 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:27:804 -> Cooling set to 14.00% power (Duty: 143)
+09:50:27:832 -> State: APPROACHING | Error: -3.39 | Output: -14.00 | Temp: 23.39 | Test: 24.15 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:28:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:28:799 -> Cooling set to 14.00% power (Duty: 143)
+09:50:28:828 -> State: APPROACHING | Error: -3.39 | Output: -14.00 | Temp: 23.39 | Test: 24.15 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:29:848 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:29:864 -> Cooling set to 14.33% power (Duty: 146)
+09:50:29:893 -> State: APPROACHING | Error: -3.39 | Output: -14.33 | Temp: 23.39 | Test: 24.11 | Diff: 0.71 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:30:787 -> [PID DEBUG] Mode: COOL | Err: -3.35 | RawPID: 14.28 | FinalOut: -14.28
+09:50:30:802 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:30:818 -> Cooling set to 14.28% power (Duty: 146)
+09:50:30:848 -> State: APPROACHING | Error: -3.35 | Output: -14.28 | Temp: 23.35 | Test: 24.06 | Diff: 0.71 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:31:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:31:799 -> Cooling set to 14.28% power (Duty: 146)
+09:50:32:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:32:805 -> Cooling set to 13.99% power (Duty: 143)
+09:50:32:833 -> State: APPROACHING | Error: -3.25 | Output: -13.99 | Temp: 23.25 | Test: 24.02 | Diff: 0.77 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:33:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:33:799 -> Cooling set to 14.32% power (Duty: 146)
+09:50:33:828 -> State: APPROACHING | Error: -3.25 | Output: -14.32 | Temp: 23.25 | Test: 23.97 | Diff: 0.72 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:34:790 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:34:806 -> Cooling set to 14.27% power (Duty: 145)
+09:50:34:835 -> State: APPROACHING | Error: -3.21 | Output: -14.27 | Temp: 23.21 | Test: 23.97 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:35:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:35:803 -> Cooling set to 14.27% power (Duty: 145)
+09:50:35:832 -> State: APPROACHING | Error: -3.16 | Output: -14.27 | Temp: 23.16 | Test: 23.92 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:36:788 -> [PID DEBUG] Mode: COOL | Err: -3.12 | RawPID: 14.01 | FinalOut: -14.01
+09:50:36:804 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:36:820 -> Cooling set to 14.01% power (Duty: 143)
+09:50:36:849 -> State: APPROACHING | Error: -3.12 | Output: -14.01 | Temp: 23.12 | Test: 23.88 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:37:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:37:798 -> Cooling set to 14.01% power (Duty: 143)
+09:50:38:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:38:799 -> Cooling set to 14.11% power (Duty: 144)
+09:50:38:828 -> State: APPROACHING | Error: -3.08 | Output: -14.11 | Temp: 23.08 | Test: 23.84 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:39:790 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:39:806 -> Cooling set to 14.35% power (Duty: 146)
+09:50:39:835 -> State: APPROACHING | Error: -3.08 | Output: -14.35 | Temp: 23.08 | Test: 23.79 | Diff: 0.71 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:40:790 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:40:806 -> Cooling set to 14.28% power (Duty: 146)
+09:50:40:835 -> State: APPROACHING | Error: -3.04 | Output: -14.28 | Temp: 23.04 | Test: 23.75 | Diff: 0.71 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:41:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:41:802 -> Cooling set to 14.28% power (Duty: 146)
+09:50:41:830 -> State: APPROACHING | Error: -2.99 | Output: -14.28 | Temp: 22.99 | Test: 23.75 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:42:795 -> [PID DEBUG] Mode: COOL | Err: -2.95 | RawPID: 14.03 | FinalOut: -14.03
+09:50:42:811 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:42:827 -> Cooling set to 14.03% power (Duty: 143)
+09:50:42:856 -> State: APPROACHING | Error: -2.95 | Output: -14.03 | Temp: 22.95 | Test: 23.69 | Diff: 0.75 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:43:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:43:801 -> Cooling set to 14.03% power (Duty: 143)
+09:50:44:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:44:803 -> Cooling set to 14.09% power (Duty: 144)
+09:50:44:832 -> State: APPROACHING | Error: -2.90 | Output: -14.09 | Temp: 22.90 | Test: 23.64 | Diff: 0.75 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:45:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:45:797 -> Cooling set to 14.34% power (Duty: 146)
+09:50:45:826 -> State: APPROACHING | Error: -2.90 | Output: -14.34 | Temp: 22.90 | Test: 23.64 | Diff: 0.75 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:46:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:46:806 -> Cooling set to 14.22% power (Duty: 145)
+09:50:46:834 -> State: APPROACHING | Error: -2.84 | Output: -14.22 | Temp: 22.84 | Test: 23.64 | Diff: 0.80 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:47:853 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:47:869 -> Cooling set to 14.22% power (Duty: 145)
+09:50:47:898 -> State: APPROACHING | Error: -2.84 | Output: -14.22 | Temp: 22.84 | Test: 23.60 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:48:788 -> [PID DEBUG] Mode: COOL | Err: -2.79 | RawPID: 14.19 | FinalOut: -14.19
+09:50:48:803 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:48:820 -> Cooling set to 14.19% power (Duty: 145)
+09:50:48:848 -> State: APPROACHING | Error: -2.79 | Output: -14.19 | Temp: 22.79 | Test: 23.55 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:49:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:49:797 -> Cooling set to 14.19% power (Duty: 145)
+09:50:50:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:50:800 -> Cooling set to 14.45% power (Duty: 147)
+09:50:50:829 -> State: APPROACHING | Error: -2.79 | Output: -14.45 | Temp: 22.79 | Test: 23.55 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:51:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:51:802 -> Cooling set to 14.61% power (Duty: 149)
+09:50:51:831 -> State: APPROACHING | Error: -2.79 | Output: -14.61 | Temp: 22.79 | Test: 23.51 | Diff: 0.72 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:52:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:52:800 -> Cooling set to 14.54% power (Duty: 148)
+09:50:52:828 -> State: APPROACHING | Error: -2.75 | Output: -14.54 | Temp: 22.75 | Test: 23.51 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:53:790 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:53:806 -> Cooling set to 14.54% power (Duty: 148)
+09:50:53:835 -> State: APPROACHING | Error: -2.75 | Output: -14.54 | Temp: 22.75 | Test: 23.51 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:54:788 -> [PID DEBUG] Mode: COOL | Err: -2.70 | RawPID: 14.50 | FinalOut: -14.50
+09:50:54:804 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:54:820 -> Cooling set to 14.50% power (Duty: 148)
+09:50:54:849 -> State: APPROACHING | Error: -2.70 | Output: -14.50 | Temp: 22.70 | Test: 23.45 | Diff: 0.76 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:55:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:55:801 -> Cooling set to 14.50% power (Duty: 148)
+09:50:56:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:56:798 -> Cooling set to 14.52% power (Duty: 148)
+09:50:56:827 -> State: APPROACHING | Error: -2.65 | Output: -14.52 | Temp: 22.65 | Test: 23.36 | Diff: 0.71 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:57:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:57:799 -> Cooling set to 14.50% power (Duty: 148)
+09:50:57:828 -> State: APPROACHING | Error: -2.61 | Output: -14.50 | Temp: 22.61 | Test: 23.32 | Diff: 0.72 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:58:791 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:58:807 -> Cooling set to 14.50% power (Duty: 148)
+09:50:58:836 -> State: APPROACHING | Error: -2.61 | Output: -14.50 | Temp: 22.61 | Test: 23.28 | Diff: 0.67 | Setpoint: 20.00 | Stable: 0s/0s
+09:50:59:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:50:59:801 -> Cooling set to 14.52% power (Duty: 148)
+09:50:59:830 -> State: APPROACHING | Error: -2.56 | Output: -14.52 | Temp: 22.56 | Test: 23.24 | Diff: 0.67 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:00:791 -> [PID DEBUG] Mode: COOL | Err: -2.56 | RawPID: 14.52 | FinalOut: -14.52
+09:51:00:807 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:00:823 -> Cooling set to 14.52% power (Duty: 148)
+09:51:00:851 -> State: APPROACHING | Error: -2.56 | Output: -14.52 | Temp: 22.56 | Test: 23.19 | Diff: 0.62 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:01:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:01:797 -> Cooling set to 14.75% power (Duty: 150)
+09:51:02:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:02:797 -> Cooling set to 14.75% power (Duty: 150)
+09:51:02:826 -> State: APPROACHING | Error: -2.51 | Output: -14.75 | Temp: 22.51 | Test: 23.19 | Diff: 0.67 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:03:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:03:805 -> Cooling set to 14.63% power (Duty: 149)
+09:51:03:834 -> State: APPROACHING | Error: -2.51 | Output: -14.63 | Temp: 22.51 | Test: 23.13 | Diff: 0.62 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:04:806 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:04:822 -> Cooling set to 14.88% power (Duty: 152)
+09:51:04:851 -> State: APPROACHING | Error: -2.51 | Output: -14.88 | Temp: 22.51 | Test: 23.09 | Diff: 0.57 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:05:781 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:05:797 -> Cooling set to 14.77% power (Duty: 151)
+09:51:05:881 -> State: APPROACHING | Error: -2.46 | Output: -14.77 | Temp: 22.46 | Test: 23.09 | Diff: 0.62 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:06:795 -> [PID DEBUG] Mode: COOL | Err: -2.42 | RawPID: 14.80 | FinalOut: -14.80
+09:51:06:811 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:06:827 -> Cooling set to 14.80% power (Duty: 151)
+09:51:06:855 -> State: APPROACHING | Error: -2.42 | Output: -14.80 | Temp: 22.42 | Test: 23.04 | Diff: 0.61 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:07:790 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:07:807 -> Cooling set to 14.80% power (Duty: 151)
+09:51:08:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:08:798 -> Cooling set to 14.56% power (Duty: 148)
+09:51:08:827 -> State: APPROACHING | Error: -2.34 | Output: -14.56 | Temp: 22.34 | Test: 22.99 | Diff: 0.65 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:09:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:09:805 -> Cooling set to 14.87% power (Duty: 152)
+09:51:09:834 -> State: APPROACHING | Error: -2.34 | Output: -14.87 | Temp: 22.34 | Test: 22.99 | Diff: 0.65 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:10:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:10:803 -> Cooling set to 14.69% power (Duty: 150)
+09:51:10:832 -> State: APPROACHING | Error: -2.27 | Output: -14.69 | Temp: 22.27 | Test: 22.93 | Diff: 0.65 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:11:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:11:801 -> Cooling set to 14.69% power (Duty: 150)
+09:51:11:830 -> State: APPROACHING | Error: -2.27 | Output: -14.69 | Temp: 22.27 | Test: 22.89 | Diff: 0.61 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:12:833 -> [PID DEBUG] Mode: COOL | Err: -2.27 | RawPID: 14.95 | FinalOut: -14.95
+09:51:12:865 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:12:897 -> Cooling set to 14.95% power (Duty: 152)
+09:51:12:960 -> State: APPROACHING | Error: -2.27 | Output: -14.95 | Temp: 22.27 | Test: 22.89 | Diff: 0.61 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:13:802 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:13:835 -> Cooling set to 14.86% power (Duty: 151)
+09:51:14:790 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:14:822 -> Cooling set to 14.86% power (Duty: 151)
+09:51:14:887 -> State: APPROACHING | Error: -2.19 | Output: -14.86 | Temp: 22.19 | Test: 22.80 | Diff: 0.61 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:15:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:15:821 -> Cooling set to 14.87% power (Duty: 152)
+09:51:15:886 -> State: APPROACHING | Error: -2.19 | Output: -14.87 | Temp: 22.19 | Test: 22.76 | Diff: 0.57 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:16:791 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:16:808 -> Cooling set to 15.09% power (Duty: 154)
+09:51:16:872 -> State: APPROACHING | Error: -2.19 | Output: -15.09 | Temp: 22.19 | Test: 22.76 | Diff: 0.57 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:17:797 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:17:829 -> Cooling set to 15.09% power (Duty: 154)
+09:51:17:900 -> State: APPROACHING | Error: -2.19 | Output: -15.09 | Temp: 22.19 | Test: 22.76 | Diff: 0.57 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:18:816 -> [PID DEBUG] Mode: COOL | Err: -2.19 | RawPID: 15.23 | FinalOut: -15.23
+09:51:18:847 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:18:882 -> Cooling set to 15.23% power (Duty: 155)
+09:51:18:912 -> State: APPROACHING | Error: -2.19 | Output: -15.23 | Temp: 22.19 | Test: 22.76 | Diff: 0.57 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:19:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:19:803 -> Cooling set to 15.15% power (Duty: 155)
+09:51:20:798 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:20:831 -> Cooling set to 15.15% power (Duty: 155)
+09:51:20:895 -> State: APPROACHING | Error: -2.15 | Output: -15.15 | Temp: 22.15 | Test: 22.71 | Diff: 0.56 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:21:854 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:21:855 -> Cooling set to 15.37% power (Duty: 157)
+09:51:21:899 -> State: APPROACHING | Error: -2.15 | Output: -15.37 | Temp: 22.15 | Test: 22.66 | Diff: 0.51 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:22:816 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:22:850 -> Cooling set to 15.51% power (Duty: 158)
+09:51:22:952 -> State: APPROACHING | Error: -2.15 | Output: -15.51 | Temp: 22.15 | Test: 22.62 | Diff: 0.47 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:23:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:23:802 -> Cooling set to 15.51% power (Duty: 158)
+09:51:23:831 -> State: APPROACHING | Error: -2.15 | Output: -15.51 | Temp: 22.15 | Test: 22.62 | Diff: 0.47 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:24:795 -> [PID DEBUG] Mode: COOL | Err: -2.10 | RawPID: 15.40 | FinalOut: -15.40
+09:51:24:811 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:24:827 -> Cooling set to 15.40% power (Duty: 157)
+09:51:24:856 -> State: APPROACHING | Error: -2.10 | Output: -15.40 | Temp: 22.10 | Test: 22.57 | Diff: 0.47 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:25:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:25:802 -> Cooling set to 15.40% power (Duty: 157)
+09:51:26:817 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:26:848 -> Cooling set to 15.18% power (Duty: 155)
+09:51:26:910 -> State: APPROACHING | Error: -2.01 | Output: -15.18 | Temp: 22.01 | Test: 22.57 | Diff: 0.55 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:27:791 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:27:807 -> Cooling set to 15.27% power (Duty: 156)
+09:51:27:835 -> State: APPROACHING | Error: -1.97 | Output: -15.27 | Temp: 21.97 | Test: 22.50 | Diff: 0.53 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:28:808 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:28:840 -> Cooling set to 15.24% power (Duty: 155)
+09:51:28:905 -> State: APPROACHING | Error: -1.93 | Output: -15.24 | Temp: 21.93 | Test: 22.50 | Diff: 0.58 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:29:797 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:29:832 -> Cooling set to 15.24% power (Duty: 155)
+09:51:29:897 -> State: APPROACHING | Error: -1.93 | Output: -15.24 | Temp: 21.93 | Test: 22.46 | Diff: 0.53 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:30:787 -> [PID DEBUG] Mode: COOL | Err: -1.93 | RawPID: 15.46 | FinalOut: -15.46
+09:51:30:802 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:30:818 -> Cooling set to 15.46% power (Duty: 158)
+09:51:30:847 -> State: APPROACHING | Error: -1.93 | Output: -15.46 | Temp: 21.93 | Test: 22.46 | Diff: 0.53 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:31:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:31:802 -> Cooling set to 15.46% power (Duty: 158)
+09:51:32:788 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:32:804 -> Cooling set to 15.34% power (Duty: 156)
+09:51:32:833 -> State: APPROACHING | Error: -1.88 | Output: -15.34 | Temp: 21.88 | Test: 22.41 | Diff: 0.54 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:33:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:33:800 -> Cooling set to 15.28% power (Duty: 156)
+09:51:33:829 -> State: APPROACHING | Error: -1.82 | Output: -15.28 | Temp: 21.82 | Test: 22.37 | Diff: 0.55 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:34:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:34:805 -> Cooling set to 15.28% power (Duty: 156)
+09:51:34:834 -> State: APPROACHING | Error: -1.82 | Output: -15.28 | Temp: 21.82 | Test: 22.33 | Diff: 0.51 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:35:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:35:802 -> Cooling set to 15.52% power (Duty: 158)
+09:51:35:831 -> State: APPROACHING | Error: -1.82 | Output: -15.52 | Temp: 21.82 | Test: 22.33 | Diff: 0.51 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:36:797 -> [PID DEBUG] Mode: COOL | Err: -1.78 | RawPID: 15.42 | FinalOut: -15.42
+09:51:36:812 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:36:829 -> Cooling set to 15.42% power (Duty: 157)
+09:51:36:858 -> State: APPROACHING | Error: -1.78 | Output: -15.42 | Temp: 21.78 | Test: 22.29 | Diff: 0.51 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:37:843 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:37:860 -> Cooling set to 15.42% power (Duty: 157)
+09:51:38:791 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:38:808 -> Cooling set to 15.40% power (Duty: 157)
+09:51:38:836 -> State: APPROACHING | Error: -1.74 | Output: -15.40 | Temp: 21.74 | Test: 22.25 | Diff: 0.51 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:39:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:39:800 -> Cooling set to 15.37% power (Duty: 157)
+09:51:39:829 -> State: APPROACHING | Error: -1.69 | Output: -15.37 | Temp: 21.69 | Test: 22.20 | Diff: 0.50 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:40:788 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:40:804 -> Cooling set to 15.37% power (Duty: 157)
+09:51:40:833 -> State: APPROACHING | Error: -1.69 | Output: -15.37 | Temp: 21.69 | Test: 22.15 | Diff: 0.46 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:41:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:41:799 -> Cooling set to 15.59% power (Duty: 159)
+09:51:41:827 -> State: APPROACHING | Error: -1.69 | Output: -15.59 | Temp: 21.69 | Test: 22.15 | Diff: 0.46 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:42:794 -> [PID DEBUG] Mode: COOL | Err: -1.65 | RawPID: 15.47 | FinalOut: -15.47
+09:51:42:809 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:42:826 -> Cooling set to 15.47% power (Duty: 158)
+09:51:42:854 -> State: APPROACHING | Error: -1.65 | Output: -15.47 | Temp: 21.65 | Test: 22.11 | Diff: 0.46 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:43:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:43:802 -> Cooling set to 15.47% power (Duty: 158)
+09:51:44:788 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:44:804 -> Cooling set to 15.21% power (Duty: 155)
+09:51:44:833 -> State: APPROACHING | Error: -1.56 | Output: -15.21 | Temp: 21.56 | Test: 22.06 | Diff: 0.50 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:45:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:45:802 -> Cooling set to 15.52% power (Duty: 158)
+09:51:45:831 -> State: APPROACHING | Error: -1.56 | Output: -15.52 | Temp: 21.56 | Test: 22.06 | Diff: 0.50 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:46:786 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:46:802 -> Cooling set to 15.38% power (Duty: 157)
+09:51:46:831 -> State: APPROACHING | Error: -1.51 | Output: -15.38 | Temp: 21.51 | Test: 22.06 | Diff: 0.55 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:47:784 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:47:800 -> Cooling set to 15.38% power (Duty: 157)
+09:51:47:829 -> State: APPROACHING | Error: -1.51 | Output: -15.38 | Temp: 21.51 | Test: 22.01 | Diff: 0.50 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:48:788 -> [PID DEBUG] Mode: COOL | Err: -1.46 | RawPID: 15.35 | FinalOut: -15.35
+09:51:48:804 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:48:820 -> Cooling set to 15.35% power (Duty: 156)
+09:51:48:849 -> State: APPROACHING | Error: -1.46 | Output: -15.35 | Temp: 21.46 | Test: 21.97 | Diff: 0.51 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:49:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:49:801 -> Cooling set to 15.35% power (Duty: 156)
+09:51:50:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:50:801 -> Cooling set to 15.01% power (Duty: 153)
+09:51:50:831 -> State: APPROACHING | Error: -1.35 | Output: -15.01 | Temp: 21.35 | Test: 21.92 | Diff: 0.57 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:51:811 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:51:843 -> Cooling set to 15.34% power (Duty: 156)
+09:51:51:908 -> State: APPROACHING | Error: -1.35 | Output: -15.34 | Temp: 21.35 | Test: 21.92 | Diff: 0.57 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:52:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:52:798 -> Cooling set to 15.44% power (Duty: 157)
+09:51:52:827 -> State: APPROACHING | Error: -1.35 | Output: -15.44 | Temp: 21.35 | Test: 21.92 | Diff: 0.57 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:53:828 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:53:861 -> Cooling set to 15.29% power (Duty: 156)
+09:51:53:924 -> State: APPROACHING | Error: -1.30 | Output: -15.29 | Temp: 21.30 | Test: 21.88 | Diff: 0.57 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:54:787 -> [PID DEBUG] Mode: COOL | Err: -1.30 | RawPID: 15.29 | FinalOut: -15.29
+09:51:54:803 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:54:819 -> Cooling set to 15.29% power (Duty: 156)
+09:51:54:905 -> State: APPROACHING | Error: -1.30 | Output: -15.29 | Temp: 21.30 | Test: 21.88 | Diff: 0.57 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:55:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:55:802 -> Cooling set to 15.49% power (Duty: 158)
+09:51:56:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:56:804 -> Cooling set to 15.49% power (Duty: 158)
+09:51:56:833 -> State: APPROACHING | Error: -1.26 | Output: -15.49 | Temp: 21.26 | Test: 21.84 | Diff: 0.58 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:57:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:57:801 -> Cooling set to 15.15% power (Duty: 154)
+09:51:57:830 -> State: APPROACHING | Error: -1.22 | Output: -15.15 | Temp: 21.22 | Test: 21.75 | Diff: 0.54 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:58:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:58:803 -> Cooling set to 15.15% power (Duty: 154)
+09:51:58:832 -> State: APPROACHING | Error: -1.22 | Output: -15.15 | Temp: 21.22 | Test: 21.75 | Diff: 0.54 | Setpoint: 20.00 | Stable: 0s/0s
+09:51:59:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:51:59:803 -> Cooling set to 15.14% power (Duty: 154)
+09:51:59:832 -> State: APPROACHING | Error: -1.16 | Output: -15.14 | Temp: 21.16 | Test: 21.75 | Diff: 0.60 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:00:793 -> [PID DEBUG] Mode: COOL | Err: -1.16 | RawPID: 15.14 | FinalOut: -15.14
+09:52:00:809 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:00:825 -> Cooling set to 15.14% power (Duty: 154)
+09:52:00:854 -> State: APPROACHING | Error: -1.16 | Output: -15.14 | Temp: 21.16 | Test: 21.75 | Diff: 0.60 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:01:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:01:801 -> Cooling set to 15.35% power (Duty: 157)
+09:52:02:790 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:02:806 -> Cooling set to 15.35% power (Duty: 157)
+09:52:02:835 -> State: APPROACHING | Error: -1.11 | Output: -15.35 | Temp: 21.11 | Test: 21.70 | Diff: 0.59 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:03:791 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:03:808 -> Cooling set to 15.00% power (Duty: 153)
+09:52:03:837 -> State: APPROACHING | Error: -1.07 | Output: -15.00 | Temp: 21.07 | Test: 21.66 | Diff: 0.59 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:04:792 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:04:808 -> Cooling set to 15.08% power (Duty: 154)
+09:52:04:836 -> State: APPROACHING | Error: -1.03 | Output: -15.08 | Temp: 21.03 | Test: 21.66 | Diff: 0.63 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:05:788 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:05:805 -> Cooling set to 15.08% power (Duty: 154)
+09:52:05:834 -> State: APPROACHING | Error: -1.03 | Output: -15.08 | Temp: 21.03 | Test: 21.61 | Diff: 0.59 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:06:789 -> [PID DEBUG] Mode: COOL | Err: -1.03 | RawPID: 15.25 | FinalOut: -15.25
+09:52:06:805 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:06:821 -> Cooling set to 15.25% power (Duty: 155)
+09:52:06:850 -> State: APPROACHING | Error: -1.03 | Output: -15.25 | Temp: 21.03 | Test: 21.61 | Diff: 0.59 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:07:806 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:07:839 -> Cooling set to 15.07% power (Duty: 154)
+09:52:08:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:08:800 -> Cooling set to 15.07% power (Duty: 154)
+09:52:08:828 -> State: APPROACHING | Error: -0.98 | Output: -15.07 | Temp: 20.98 | Test: 21.56 | Diff: 0.58 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:09:815 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:09:849 -> Cooling set to 15.26% power (Duty: 156)
+09:52:09:914 -> State: APPROACHING | Error: -0.98 | Output: -15.26 | Temp: 20.98 | Test: 21.50 | Diff: 0.52 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:10:782 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:10:859 -> Cooling set to 15.08% power (Duty: 154)
+09:52:10:931 -> State: APPROACHING | Error: -0.93 | Output: -15.08 | Temp: 20.93 | Test: 21.44 | Diff: 0.52 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:11:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:11:822 -> Cooling set to 15.08% power (Duty: 154)
+09:52:11:944 -> State: APPROACHING | Error: -0.93 | Output: -15.08 | Temp: 20.93 | Test: 21.39 | Diff: 0.46 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:12:789 -> [PID DEBUG] Mode: COOL | Err: -0.93 | RawPID: 15.27 | FinalOut: -15.27
+09:52:12:804 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:12:820 -> Cooling set to 15.27% power (Duty: 156)
+09:52:12:849 -> State: APPROACHING | Error: -0.93 | Output: -15.27 | Temp: 20.93 | Test: 21.39 | Diff: 0.46 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:13:792 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:13:809 -> Cooling set to 15.14% power (Duty: 154)
+09:52:14:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:14:802 -> Cooling set to 15.14% power (Duty: 154)
+09:52:14:831 -> State: APPROACHING | Error: -0.84 | Output: -15.14 | Temp: 20.84 | Test: 21.34 | Diff: 0.50 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:15:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:15:801 -> Cooling set to 15.09% power (Duty: 154)
+09:52:15:830 -> State: APPROACHING | Error: -0.84 | Output: -15.09 | Temp: 20.84 | Test: 21.30 | Diff: 0.45 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:16:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:16:801 -> Cooling set to 15.26% power (Duty: 156)
+09:52:16:830 -> State: APPROACHING | Error: -0.84 | Output: -15.26 | Temp: 20.84 | Test: 21.30 | Diff: 0.45 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:17:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:17:801 -> Cooling set to 15.10% power (Duty: 154)
+09:52:17:831 -> State: APPROACHING | Error: -0.80 | Output: -15.10 | Temp: 20.80 | Test: 21.25 | Diff: 0.45 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:18:790 -> [PID DEBUG] Mode: COOL | Err: -0.76 | RawPID: 15.06 | FinalOut: -15.06
+09:52:18:806 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:18:822 -> Cooling set to 15.06% power (Duty: 154)
+09:52:18:851 -> State: APPROACHING | Error: -0.76 | Output: -15.06 | Temp: 20.76 | Test: 21.25 | Diff: 0.49 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:19:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:19:805 -> Cooling set to 15.06% power (Duty: 154)
+09:52:20:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:20:799 -> Cooling set to 14.80% power (Duty: 151)
+09:52:20:828 -> State: APPROACHING | Error: -0.67 | Output: -14.80 | Temp: 20.67 | Test: 21.21 | Diff: 0.54 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:21:790 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:21:806 -> Cooling set to 15.06% power (Duty: 154)
+09:52:21:835 -> State: APPROACHING | Error: -0.67 | Output: -15.06 | Temp: 20.67 | Test: 21.21 | Diff: 0.54 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:22:788 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:22:804 -> Cooling set to 15.11% power (Duty: 154)
+09:52:22:834 -> State: APPROACHING | Error: -0.67 | Output: -15.11 | Temp: 20.67 | Test: 21.17 | Diff: 0.50 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:23:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:23:802 -> Cooling set to 14.93% power (Duty: 152)
+09:52:23:831 -> State: APPROACHING | Error: -0.62 | Output: -14.93 | Temp: 20.62 | Test: 21.17 | Diff: 0.55 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:24:788 -> [PID DEBUG] Mode: COOL | Err: -0.62 | RawPID: 14.93 | FinalOut: -14.93
+09:52:24:804 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:24:820 -> Cooling set to 14.93% power (Duty: 152)
+09:52:24:849 -> State: APPROACHING | Error: -0.62 | Output: -14.93 | Temp: 20.62 | Test: 21.13 | Diff: 0.51 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:25:790 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:25:806 -> Cooling set to 15.09% power (Duty: 154)
+09:52:26:794 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:26:810 -> Cooling set to 15.09% power (Duty: 154)
+09:52:26:839 -> State: APPROACHING | Error: -0.62 | Output: -15.09 | Temp: 20.62 | Test: 21.08 | Diff: 0.46 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:27:853 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:27:869 -> Cooling set to 14.94% power (Duty: 152)
+09:52:27:898 -> State: APPROACHING | Error: -0.58 | Output: -14.94 | Temp: 20.58 | Test: 21.04 | Diff: 0.46 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:28:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:28:805 -> Cooling set to 14.94% power (Duty: 152)
+09:52:28:834 -> State: APPROACHING | Error: -0.58 | Output: -14.94 | Temp: 20.58 | Test: 21.00 | Diff: 0.42 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:29:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:29:799 -> Cooling set to 15.09% power (Duty: 154)
+09:52:29:828 -> State: APPROACHING | Error: -0.58 | Output: -15.09 | Temp: 20.58 | Test: 21.00 | Diff: 0.42 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:30:794 -> [PID DEBUG] Mode: COOL | Err: -0.58 | RawPID: 15.13 | FinalOut: -15.13
+09:52:30:810 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:30:826 -> Cooling set to 15.13% power (Duty: 154)
+09:52:30:855 -> State: APPROACHING | Error: -0.58 | Output: -15.13 | Temp: 20.58 | Test: 20.96 | Diff: 0.38 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:31:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:31:804 -> Cooling set to 14.89% power (Duty: 152)
+09:52:32:787 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:32:804 -> Cooling set to 14.89% power (Duty: 152)
+09:52:32:832 -> State: APPROACHING | Error: -0.52 | Output: -14.89 | Temp: 20.52 | Test: 20.91 | Diff: 0.39 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:33:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:33:806 -> Cooling set to 15.08% power (Duty: 154)
+09:52:33:835 -> State: APPROACHING | Error: -0.52 | Output: -15.08 | Temp: 20.52 | Test: 20.91 | Diff: 0.39 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:34:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:34:802 -> Cooling set to 14.92% power (Duty: 152)
+09:52:34:818 -> [20.48 C STABLE] Holding for 5 seconds...
+09:52:34:847 -> State: APPROACHING | Error: -0.48 | Output: -14.92 | Temp: 20.48 | Test: 20.91 | Diff: 0.43 | Setpoint: 20.00 | Stable: 0s/0s
+09:52:35:790 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:35:807 -> Cooling set to 14.92% power (Duty: 152)
+09:52:36:791 -> [PID DEBUG] Mode: COOL | Err: -0.44 | RawPID: 14.85 | FinalOut: -14.85
+09:52:36:807 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:36:823 -> Cooling set to 14.85% power (Duty: 151)
+09:52:36:853 -> State: APPROACHING | Error: -0.44 | Output: -14.85 | Temp: 20.44 | Test: 20.91 | Diff: 0.48 | Setpoint: 20.00 | Stable: 2007s/0s
+09:52:37:785 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:37:801 -> Cooling set to 14.73% power (Duty: 150)
+09:52:38:789 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:38:805 -> Cooling set to 14.73% power (Duty: 150)
+09:52:38:834 -> State: APPROACHING | Error: -0.38 | Output: -14.73 | Temp: 20.38 | Test: 20.86 | Diff: 0.48 | Setpoint: 20.00 | Stable: 4000s/0s
+09:52:39:783 -> Fan PWM set to 100.00% (Duty: 1023)
+09:52:39:799 -> Cooling set to 14.90% power (Duty: 152)
+09:52:39:837 -> State: CAL POINT REACHED | Setpoint: 20.00 | Master: 20.38 | Test: 20.86 | Diff: 0.484 | Time: 00:06:20 | Dir: DOWN
+09:52:39:855 -> MAIN: Callback recibido. El punto 3 fue registrado.
+09:52:39:882 -> SETP: 68.0°F (20.0°C) | MASTER: 68.68°F (20.38°C) | TEST: 69.56°F (20.86°C) | DIFF: 0.871°F (0.484°C)

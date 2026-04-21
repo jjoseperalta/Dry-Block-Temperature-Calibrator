@@ -38,20 +38,22 @@ void Settings::resetToDefaults() {
   sensorType = DEFAULT_SENSOR_TYPE;
   sensorWires = DEFAULT_SENSOR_WIRES;
   tempScale = DEFAULT_TEMP_SCALE;
-  setTemperature = DEFAULT_SET_TEMP;
+  setpoint = DEFAULT_SETPOINT;
   pidKp = DEFAULT_PID_KP;
   pidTi = DEFAULT_PID_TI;
   pidTd = DEFAULT_PID_TD;
   pidPeriod = DEFAULT_PID_PERIOD;
   stabilityTime = DEFAULT_STABILITY_TIME;
+  maxProcessTime = DEFAULT_MAX_PROCESS_TIME;
   calibrationPoints[0] = DEFAULT_P1;
   calibrationPoints[1] = DEFAULT_P2;
   calibrationPoints[2] = DEFAULT_P3;
-  // calibrationPoints[3] = DEFAULT_P4;
   alarmUpperLimit = DEFAULT_ALARM_UPPER;
   alarmLowerLimit = DEFAULT_ALARM_LOWER;
-  masterOffset = DEFAULT_MASTER_OFFSET;
-  testOffset = DEFAULT_TEST_OFFSET;
+  for (int i = 0; i < 3; i++) {
+    masterCorrections[i] = DEFAULT_MASTER_CORRECTIONS[i];
+    testCorrections[i] = DEFAULT_TEST_CORRECTIONS[i];
+  }
   dangerTemperature = DEFAULT_DANGER_TEMP;
   safeTemperature = DEFAULT_SAFE_TEMP;
   minHeatPower = DEFAULT_MIN_HEAT_POWER;
@@ -96,16 +98,15 @@ void Settings::load() {
   sensorType = (SensorType)doc["sensor_type"].as<int>();
   sensorWires = doc["sensor_wires"].as<int>();
   tempScale = (TemperatureScale)doc["temp_scale"].as<int>();
-  setTemperature = doc["set_temp"].as<float>();
+  setpoint = doc["setpoint"].as<float>();
   pidKp = doc["pid_kp"].as<float>();
   pidTi = doc["pid_ti"].as<float>();
   pidTd = doc["pid_td"].as<float>();
   pidPeriod = doc["pid_period"].as<int>();
   stabilityTime = doc["stability_time"].as<int>();
+  maxProcessTime = doc["max_process_time"].as<float>();
   alarmUpperLimit = doc["alarm_upper"].as<float>();
   alarmLowerLimit = doc["alarm_lower"].as<float>();
-  masterOffset = doc["m_cal_off"].as<float>();
-  testOffset = doc["t_cal_off"].as<float>();
   dangerTemperature = doc["danger_temp"].as<float>();
   safeTemperature = doc["safe_temp"].as<float>();
   minHeatPower = doc["min_heat_power"].as<float>();
@@ -126,10 +127,34 @@ void Settings::load() {
     }
   }
 
+  // Manejo del Array de Correcciones Master
+  JsonArray masterCalArray = doc["master_corrections"].as<JsonArray>();
+  if (!masterCalArray.isNull()) {
+    int i = 0;
+    for (float offset : masterCalArray) {
+      if (i < N_POINTS) {
+        masterCorrections[i] = offset;
+        i++;
+      }
+    }
+  }
+
+  // Manejo del Array de Correcciones Test
+  JsonArray testCalArray = doc["test_corrections"].as<JsonArray>();
+  if (!testCalArray.isNull()) {
+    int i = 0;
+    for (float offset : testCalArray) {
+      if (i < N_POINTS) {
+        testCorrections[i] = offset;
+        i++;
+      }
+    }
+  }
+
   // DEBUG: Verificar qué valores leyó del JSON
   logln("--- DEBUG: Valores Leídos del Archivo ---");
   log("  DEBUG - SETP (File): ");
-  logf("%.2f\n", getSetTemperature());
+  logf("%.2f\n", getSetpoint());
   logln("------------------------------------------");
 }
 
@@ -143,16 +168,15 @@ void Settings::save() {
   doc["sensor_type"] = (int)sensorType;
   doc["sensor_wires"] = sensorWires;
   doc["temp_scale"] = (int)tempScale;
-  doc["set_temp"] = setTemperature;
+  doc["setpoint"] = setpoint;
   doc["pid_kp"] = pidKp;
   doc["pid_ti"] = pidTi;
   doc["pid_td"] = pidTd;
   doc["pid_period"] = pidPeriod;
   doc["stability_time"] = stabilityTime;
+  doc["max_process_time"] = maxProcessTime;
   doc["alarm_upper"] = alarmUpperLimit;
   doc["alarm_lower"] = alarmLowerLimit;
-  doc["m_cal_off"] = masterOffset;
-  doc["t_cal_off"] = testOffset;
   doc["danger_temp"] = dangerTemperature;
   doc["safe_temp"] = safeTemperature;
   doc["min_heat_power"] = minHeatPower;
@@ -163,8 +187,20 @@ void Settings::save() {
 
   // Creación del Array de Puntos de Calibración
   JsonArray calPoints = doc.createNestedArray("cal_points");
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < 3; i++) {
     calPoints.add(calibrationPoints[i]);
+  }
+
+  JsonArray masterCalArray = doc.createNestedArray("master_corrections");
+  // size_t size = sizeof(masterCorrections) / sizeof(masterCorrections[0]);
+  for (int i = 0; i < N_POINTS; i++) {
+    masterCalArray.add(masterCorrections[i]);
+  }
+
+  JsonArray testCalArray = doc.createNestedArray("test_corrections");
+  // size_t size = sizeof(testCorrections) / sizeof(testCorrections[0]);
+  for (int i = 0; i < N_POINTS; i++) {
+    testCalArray.add(testCorrections[i]);
   }
 
   // Abre el archivo en modo escritura (crea si no existe, trunca si existe)
@@ -178,12 +214,107 @@ void Settings::save() {
   if (serializeJson(doc, configFile) == 0) {
     logln("Config: Falló la escritura en el archivo.");
   } else {
-    log("Config: Configuración guardada en LittleFS: ");
+    logln("Config: Configuración guardada en LittleFS:");
     // Opcional: imprimir el JSON serializado al serial
     // serializeJson(doc, Serial);
   }
 
   configFile.close();
+}
+
+// ============================================================
+// HELPERS DE CONVERSIÓN
+// ============================================================
+float Settings::celsiusTo(float tempC, char targetUnit) const {
+  if (targetUnit == 'F' || targetUnit == 'f') {
+    return tempC * 1.8f + 32.0f;
+  }
+  return tempC;
+}
+
+float Settings::toCelsius(float temp, char inputUnit) const {
+  if (inputUnit == 'F' || inputUnit == 'f') {
+    return (temp - 32.0f) / 1.8f;
+  }
+  return temp;
+}
+
+float Settings::deltaToCelsius(float delta, char inputUnit) const {
+  if (inputUnit == 'F' || inputUnit == 'f') {
+    return delta / 1.8f; // ¡Diferencia, no temperatura!
+  }
+  return delta;
+}
+
+// ============================================================
+// SETPOINT
+// ============================================================
+void Settings::setSetpoint(float temp, char inputUnit) {
+  setpoint = toCelsius(temp, inputUnit);
+}
+
+float Settings::getSetpoint() const { return setpoint; }
+
+float Settings::getSetpoint(char outputUnit) const {
+  return celsiusTo(setpoint, outputUnit);
+}
+
+// ============================================================
+// PUNTOS DE CALIBRACIÓN
+// ============================================================
+void Settings::setCalibrationPoint(int index, float temp, char inputUnit) {
+  if (index >= 0 && index < 3) {
+    calibrationPoints[index] = toCelsius(temp, inputUnit);
+  }
+}
+
+float Settings::getCalibrationPoint(int index) const {
+  if (index >= 0 && index < 3) {
+    return calibrationPoints[index];
+  }
+  return 0.0f;
+}
+
+float Settings::getCalibrationPoint(int index, char outputUnit) const {
+  return celsiusTo(getCalibrationPoint(index), outputUnit);
+}
+
+// ============================================================
+// CORRECCIONES
+// ============================================================
+void Settings::setMasterCorrections(int index, float correction,
+                                    char inputUnit) {
+  if (index >= 0 && index < 3) {
+    masterCorrections[index] = deltaToCelsius(correction, inputUnit);
+  }
+}
+
+void Settings::setTestCorrections(int index, float correction, char inputUnit) {
+  if (index >= 0 && index < 3) {
+    testCorrections[index] = deltaToCelsius(correction, inputUnit);
+  }
+}
+
+float Settings::getMasterCorrections(int index) const {
+  if (index >= 0 && index < 3) {
+    return masterCorrections[index];
+  }
+  return 0.0f;
+}
+
+float Settings::getTestCorrections(int index) const {
+  if (index >= 0 && index < 3) {
+    return testCorrections[index];
+  }
+  return 0.0f;
+}
+
+float Settings::getMasterCorrections(int index, char outputUnit) const {
+  return celsiusTo(getMasterCorrections(index), outputUnit);
+}
+
+float Settings::getTestCorrections(int index, char outputUnit) const {
+  return celsiusTo(getTestCorrections(index), outputUnit);
 }
 
 // ***************************************************************
@@ -201,9 +332,6 @@ void Settings::setTemperatureScale(TemperatureScale scale) {
   tempScale = scale;
 }
 
-float Settings::getSetTemperature() const { return setTemperature; }
-void Settings::setSetTemperature(float temp) { setTemperature = temp; }
-
 float Settings::getPidKp() const { return pidKp; }
 void Settings::setPidKp(float kp) { pidKp = kp; }
 
@@ -219,62 +347,72 @@ void Settings::setPidPeriod(float period) { pidPeriod = period; }
 float Settings::getStabilityTime() const { return stabilityTime; }
 void Settings::setStabilityTime(float time) { stabilityTime = time; }
 
+float Settings::getMaxProcessTime() const { return maxProcessTime; }
+void Settings::setMaxProcessTime(float time) { maxProcessTime = time; }
+
+// ============================================================
+// LÍMITES Y ALARMAS
+// ============================================================
+void Settings::setAlarmUpperLimit(float temp, char inputUnit) {
+  alarmUpperLimit = toCelsius(temp, inputUnit);
+}
+
 float Settings::getAlarmUpperLimit() const { return alarmUpperLimit; }
-void Settings::setAlarmUpperLimit(float limit) { alarmUpperLimit = limit; }
+
+float Settings::getAlarmUpperLimit(char outputUnit) const {
+  return celsiusTo(alarmUpperLimit, outputUnit);
+}
+
+void Settings::setAlarmLowerLimit(float temp, char inputUnit) {
+  alarmLowerLimit = toCelsius(temp, inputUnit);
+}
 
 float Settings::getAlarmLowerLimit() const { return alarmLowerLimit; }
-void Settings::setAlarmLowerLimit(float limit) { alarmLowerLimit = limit; }
 
-float Settings::getCalibrationPoint(int index) const {
-  if (index >= 0 && index < 3) {
-    return calibrationPoints[index];
-  }
-  return 0.0;
+float Settings::getAlarmLowerLimit(char outputUnit) const {
+  return celsiusTo(alarmLowerLimit, outputUnit);
 }
 
-void Settings::setCalibrationPoint(int index, float temp) {
-  if (index >= 0 && index < 3) {
-    calibrationPoints[index] = temp;
-  }
+void Settings::setDangerTemperature(float temp, char inputUnit) {
+  dangerTemperature = toCelsius(temp, inputUnit);
 }
-
-float Settings::getMasterOffset() const { return masterOffset; }
-
-void Settings::setMasterOffset(float offset) { masterOffset = offset; }
-
-float Settings::getTestOffset() const { return testOffset; }
-
-void Settings::setTestOffset(float offset) { testOffset = offset; }
 
 float Settings::getDangerTemperature() const { return dangerTemperature; }
 
-void Settings::setDangerTemperature(float temp) { dangerTemperature = temp; }
+float Settings::getDangerTemperature(char outputUnit) const {
+  return celsiusTo(dangerTemperature, outputUnit);
+} 
+
+void Settings::setSafeTemperature(float temp, char inputUnit) {
+  safeTemperature = toCelsius(temp, inputUnit);
+}
 
 float Settings::getSafeTemperature() const { return safeTemperature; }
 
-void Settings::setSafeTemperature(float temp) { safeTemperature = temp; }
+float Settings::getSafeTemperature(char outputUnit) const {
+  return celsiusTo(safeTemperature, outputUnit);
+} 
 
-// float Settings::getMinHeatPower() const { return minHeatPower; }
-// void Settings::setMinHeatPower(float power) {
-//   minHeatPower = constrain(power, 0.0f, 100.0f);
-// }
+// ============================================================
+// CALIBRATION TOLERANCE (es un DELTA)
+// ============================================================
 
-// float Settings::getMinCoolPower() const { return minCoolPower; }
-// void Settings::setMinCoolPower(float power) {
-//   minCoolPower = constrain(power, 0.0f, 100.0f);
-// }
-
-// float Settings::getMaxHeatPower() const { return maxHeatPower; }
-// void Settings::setMaxHeatPower(float power) {
-//   maxHeatPower = constrain(power, 0.0f, 100.0f);
-// }
-
-// float Settings::getMaxCoolPower() const { return maxCoolPower; }
-// void Settings::setMaxCoolPower(float power) {
-//   maxCoolPower = constrain(power, 0.0f, 100.0f);
-// }
-
+// Siempre devuelve en °C (para cálculos internos)
 float Settings::getCalibrationTolerance() const { return calibrationTolerance; }
-void Settings::setCalibrationTolerance(float tol) {
-  calibrationTolerance = constrain(tol, 0.02f, 0.5f);
+
+// Devuelve en la unidad solicitada
+float Settings::getCalibrationTolerance(char outputUnit) const {
+  if (outputUnit == 'F' || outputUnit == 'f') {
+    return calibrationTolerance * 1.8f; // Δ°F = Δ°C × 1.8
+  }
+  return calibrationTolerance;
+}
+
+// Establecer tolerancia (inputUnit indica la unidad del valor ingresado)
+void Settings::setCalibrationTolerance(float tol, char inputUnit) {
+  if (inputUnit == 'F' || inputUnit == 'f') {
+    calibrationTolerance = tol / 1.8f; // Convertir delta a °C
+  } else {
+    calibrationTolerance = tol;
+  }
 }

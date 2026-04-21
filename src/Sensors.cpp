@@ -2,10 +2,14 @@
 #include "Logger.h"
 #include <Arduino.h>
 
+// Sensors::Sensors(Settings &settings)
+//     : settings(settings), masterSensor(Adafruit_MAX31865(
+//                               MAX_CS_MASTER, MAX_MOSI, MAX_MISO, MAX_SCK)),
+//       testSensor(Adafruit_MAX31865(MAX_CS_TEST, MAX_MOSI, MAX_MISO, MAX_SCK)) {}
+
 Sensors::Sensors(Settings &settings)
-    : settings(settings), masterSensor(Adafruit_MAX31865(
-                              MAX_CS_MASTER, MAX_MOSI, MAX_MISO, MAX_SCK)),
-      testSensor(Adafruit_MAX31865(MAX_CS_TEST, MAX_MOSI, MAX_MISO, MAX_SCK)) {}
+    : settings(settings), masterSensor(Adafruit_MAX31865(MAX_CS_MASTER)),
+      testSensor(Adafruit_MAX31865(MAX_CS_TEST)) {}
 
 void Sensors::begin() {
   masterSensor.begin(MAX31865_3WIRE);
@@ -56,45 +60,85 @@ float Sensors::applyScaleConversion(float tempC) {
 // ***************************************************************
 // LECTURA: Sensor Maestro
 // ***************************************************************
-float Sensors::readMasterTemperature() {
-  // 1. Lectura de temperatura
-  float tempC = masterSensor.temperature(R_NOMINAL_PT100, R_REF_PT100);
-
-  // 2. Verificación de fallos
+float Sensors::getRawMasterTemperature() {
+  // 1. Verificación de fallos
   if (checkAndLogFault(masterSensor, "MASTER Sensor")) {
     return SENSOR_ERROR_VALUE;
   }
 
-  // 3. Aplicar compensación de calibración maestra (si aplica)
-  tempC += settings.getMasterOffset();
+  // 2. Leer RTD RAW
+  uint16_t rtdRaw = masterSensor.readRTD();
 
-  // 4. Aplicar conversión de escala (Fahrenheit)
-  return applyScaleConversion(tempC);
+  // 3. Convertir a resistencia
+  float resistance = (rtdRaw * R_REF_PT100) / 32768.0f;
+
+  // 4. Validación rápida de rango físico
+  if (resistance < 80.0f || resistance > 400.0f) {
+    return SENSOR_ERROR_VALUE;
+  }
+  
+  // 5. Lectura de temperatura
+  float tempC = masterSensor.temperature(R_NOMINAL_PT100, R_REF_PT100);
+
+  return tempC;
+}
+
+float Sensors::getMasterTemperature() {
+  // float tempC = getRawMasterTemperature();
+  float tempC = getFilteredMasterTemperature(0.1f, true);
+
+  if (tempC != SENSOR_ERROR_VALUE) {
+    float correction = getMasterCorrectionAtTemp(tempC);
+    tempC += correction;
+  }
+
+  return tempC;
 }
 
 // ***************************************************************
 // LECTURA: Sensor de Prueba
 // ***************************************************************
-float Sensors::readTestTemperature() {
+float Sensors::getRawTestTemperature() {
   float r_ref = (settings.getSensorType() == SensorType::PT100) ? R_REF_PT100
                                                                 : R_REF_PT1000;
   float nominal_res = (settings.getSensorType() == SensorType::PT100)
                           ? R_NOMINAL_PT100
                           : R_NOMINAL_PT1000;
 
-  // 1. Lectura de temperatura
-  float tempC = testSensor.temperature(nominal_res, r_ref);
-
-  // 2. Verificación de fallos
+  // 1. Verificación de fallos
   if (checkAndLogFault(testSensor, "TEST Sensor")) {
     return SENSOR_ERROR_VALUE;
   }
 
-  // 3. Aplicar compensación de calibración maestra (si aplica)
-  tempC += settings.getTestOffset();
+  // 2. Leer RTD RAW
+  uint16_t rtdRaw = testSensor.readRTD();
 
-  // 4. Aplicar conversión de escala (Fahrenheit)
-  return applyScaleConversion(tempC);
+  // 3. Convertir a resistencia
+  float resistance = (rtdRaw * r_ref) / 32768.0f;
+
+  // 4. Validación rápida de rango físico
+  if (resistance < 80.0f || resistance > 400.0f) {
+    return SENSOR_ERROR_VALUE;
+  }
+  
+  // 5. Lectura de temperatura
+  float tempC = testSensor.temperature(nominal_res, r_ref);
+
+  return tempC;
+}
+
+float Sensors::getTestTemperature() {
+  // float tempC = getRawTestTemperature();
+  // float tempC = getFilteredTestTemperature(0.1f, true);
+
+  // if (tempC != SENSOR_ERROR_VALUE) {
+  //   float correction = getTestCorrectionAtTemp(tempC);
+  //   tempC += correction;
+  // }
+
+  // return tempC;
+
+  return generateTestTemperature();
 }
 
 // ***************************************************************
@@ -123,59 +167,136 @@ void Sensors::configureTestSensor(SensorType type, int wires) {
 }
 
 // ***************************************************************
+// FILTRO EMA: aplicando EMA
+// ***************************************************************
+float Sensors::applyEMAFilter(float currentReading, float& emaValue, float alpha) {
+    // Lectura inválida
+    if (currentReading == SENSOR_ERROR_VALUE)
+        return emaValue;
+
+    // Primera lectura válida
+    if (emaValue == SENSOR_ERROR_VALUE){
+        emaValue = currentReading;
+        return emaValue;
+    }
+
+    // EMA Y_n = (alpha * X_n) + ( (1 - alpha) * Y_{n-1} )
+    float filtered = (alpha * currentReading) + ((1.0f - alpha) * emaValue);
+
+    // Histéresis anti-ruido
+    if (fabsf(filtered - emaValue) > 0.04f)
+        emaValue = filtered;
+
+    return emaValue;
+}
+
+// ***************************************************************
 // LECTURA FILTRADA: Sensor Maestro (para el PID) aplicando EMA
 // ***************************************************************
-float Sensors::getFilteredMasterTemperature(float alpha) {
-  // 1. Obtener la lectura bruta (ya aplica offset, fallos y conversión de
-  // escala)
-  float currentReading = readMasterTemperature(); // X_n
-
-  // 2. Manejar valores de error (Robustez)
-  if (currentReading == SENSOR_ERROR_VALUE) {
-    // Si la lectura es inválida, devolvemos el último valor filtrado válido.
-    return _emaMasterTemperature;
-  }
-
-  // 3. Inicialización del filtro (Si es la primera lectura válida)
-  if (_emaMasterTemperature == SENSOR_ERROR_VALUE) {
-    _emaMasterTemperature = currentReading;
-    return _emaMasterTemperature;
-  }
-
-  // 4. Aplicar la Ecuación del EMA
-  // Y_n = (alpha * X_n) + ( (1 - alpha) * Y_{n-1} )
-  _emaMasterTemperature =
-      (alpha * currentReading) + ((1.0f - alpha) * _emaMasterTemperature);
-
-  // Devolver el valor filtrado
-  return _emaMasterTemperature;
+float Sensors::getFilteredMasterTemperature(float alpha, bool useRaw) {
+  float currentReading;
+  
+  // if (useRaw) {
+  //   // RAW: Sin offset, sin conversión de escala (siempre Celsius)
+  //   currentReading = getRawMasterTemperature();
+  // } else {
+  //   // Compensado: Con offset y conversión de escala
+  //   currentReading = getMasterTemperature();
+  // }
+  currentReading = getRawMasterTemperature();
+  
+  return applyEMAFilter(currentReading, _emaMasterTemperature, alpha);
 }
 
 // ***************************************************************
 // LECTURA FILTRADA: Sensor de Prueba (EMA)
 // ***************************************************************
-float Sensors::getFilteredTestTemperature(float alpha) {
-  // 1. Obtener la lectura bruta (ya aplica offset, fallos y conversión de
-  // escala)
-  float currentReading = readTestTemperature(); // X_n
+float Sensors::getFilteredTestTemperature(float alpha, bool useRaw) {
+  float currentReading;
+  
+  // if (useRaw) {
+  //   // RAW: Sin offset, sin conversión de escala (depende del tipo de sensor)
+  //   currentReading = getRawTestTemperature();
+  // } else {
+  //   // Compensado: Con offset y conversión de escala
+  //   currentReading = getTestTemperature();
+  // }
+  currentReading = getRawTestTemperature();
+  
+  return applyEMAFilter(currentReading, _emaTestTemperature, alpha);
+}
 
-  // 2. Manejar valores de error (Robustez)
-  if (currentReading == SENSOR_ERROR_VALUE) {
-    // Si la lectura es inválida, devolvemos el último valor filtrado válido.
-    return _emaTestTemperature;
+float Sensors::interpolateCorrection(float temp, const float corrections[3]) {
+  // Obtener puntos de calibración
+  float p1 = settings.getCalibrationPoint(0);
+  float p2 = settings.getCalibrationPoint(1);
+  float p3 = settings.getCalibrationPoint(2);
+  
+  // Si no hay correcciones válidas
+  if (corrections[0] == 0 && corrections[1] == 0 && corrections[2] == 0) {
+    return 0.0f;
   }
-
-  // 3. Inicialización del filtro (Si es la primera lectura válida)
-  if (_emaTestTemperature == SENSOR_ERROR_VALUE) {
-    _emaTestTemperature = currentReading;
-    return _emaTestTemperature;
+  
+  // Interpolación
+  if (temp <= p1) {
+    return corrections[0];
+  } else if (temp <= p2) {
+    float t = (temp - p1) / (p2 - p1);
+    return corrections[0] + t * (corrections[1] - corrections[0]);
+  } else if (temp <= p3) {
+    float t = (temp - p2) / (p3 - p2);
+    return corrections[1] + t * (corrections[2] - corrections[1]);
+  } else {
+    return corrections[2];
   }
+}
 
-  // 4. Aplicar la Ecuación del EMA
-  // Y_n = (alpha * X_n) + ( (1 - alpha) * Y_{n-1} )
-  _emaTestTemperature =
-      (alpha * currentReading) + ((1.0f - alpha) * _emaTestTemperature);
+float Sensors::getMasterCorrectionAtTemp(float temp) {
+  float corrections[3];
+  corrections[0] = settings.getMasterCorrections(0);
+  corrections[1] = settings.getMasterCorrections(1);
+  corrections[2] = settings.getMasterCorrections(2);
+  return interpolateCorrection(temp, corrections);
+}
 
-  // Devolver el valor filtrado
-  return _emaTestTemperature;
+float Sensors::getTestCorrectionAtTemp(float temp) {
+  float corrections[3];
+  corrections[0] = settings.getTestCorrections(0);
+  corrections[1] = settings.getTestCorrections(1);
+  corrections[2] = settings.getTestCorrections(2);
+  return interpolateCorrection(temp, corrections);
+}
+
+void Sensors::calculateCorrectionsFromErrors(const float masterErrors[3], const float testErrors[3]) {
+  for (int i = 0; i < 3; i++) {
+    // La corrección es el NEGATIVO del error
+    // Error = real - medido → Corrección = medido + X = real → X = real - medido = error
+    settings.setMasterCorrections(i, -masterErrors[i]);
+    settings.setTestCorrections(i, -testErrors[i]);
+    
+    logf("Point %d (%.1f°C): Master error=%.3f → correction=%.3f, Test error=%.3f → correction=%.3f\n",
+         i, settings.getCalibrationPoint(i), 
+         masterErrors[i], -masterErrors[i],
+         testErrors[i], -testErrors[i]);
+  }
+  settings.save();
+}
+
+float Sensors::generateTestTemperature() {
+    float masterC = getMasterTemperature(); // Ejemplo: 23.00 °C
+    
+    // Tolerancia equivalente a +-0.45 °F -> es decir, +-0.25 °C
+    const float toleranciaC = 0.15f;
+    
+    // 1. Generamos un factor aleatorio flotante entre 0.0 y 1.0
+    float r = (float)random(0, 10000) / 10000.0f;
+    
+    // 2. Escalamos el aleatorio para que vaya desde -toleranciaC hasta +toleranciaC
+    // (r * 2.0f - 1.0f) va de -1.0 a +1.0
+    float variacionC = (r * 2.0f - 1.0f) * toleranciaC; // Dará entre -0.25°C y +0.25°C
+    
+    // 3. Sumamos la variación a la temperatura base
+    float tempC = masterC + variacionC;
+    
+    return tempC;
 }

@@ -102,7 +102,7 @@ def crear_grafica_temperatura(ax, datos):
     """Configura la gráfica de temperatura"""
     ax.clear()
     ax.plot(datos['elapsed_seconds'], datos['temps'], 'b-', linewidth=2, label='Temperatura')
-    setpoint_inicial = datos['setpoints'][0]
+    setpoint_inicial = datos['setpoints'][-1]
     ax.axhline(y=setpoint_inicial, color='r', linestyle='--', linewidth=1.5, 
                label=f'Setpoint {setpoint_inicial}°C')
     ax.fill_between(datos['elapsed_seconds'], setpoint_inicial - 0.1, setpoint_inicial + 0.1, 
@@ -111,7 +111,7 @@ def crear_grafica_temperatura(ax, datos):
     ax.set_xlabel('Tiempo (m:s)', labelpad=4)
     ax.set_ylabel('Temperatura (°C)', labelpad=4)
     ax.grid(True, alpha=0.3)
-    ax.legend(loc='lower right')
+    ax.legend(loc='lower left')
     if len(datos['temps']) > 0:
         y_min = np.min(datos['temps']) - 0.2
         y_max = np.max(datos['temps']) + 0.2
@@ -127,6 +127,7 @@ def crear_grafica_temperatura(ax, datos):
     ax.tick_params(axis='both', which='major', labelsize=8, pad=2)
 
 def crear_grafica_salida(ax, datos):
+    pass
     """Configura la gráfica de salida del PID"""
     ax.clear()
     ax.plot(datos['elapsed_seconds'], datos['outputs'], 'g-', linewidth=2, label='Salida PID')
@@ -135,7 +136,7 @@ def crear_grafica_salida(ax, datos):
     ax.set_xlabel('Tiempo (m:s)', labelpad=4)
     ax.set_ylabel('Potencia (%)', labelpad=4)
     ax.grid(True, alpha=0.3)
-    ax.legend(loc='lower right')
+    ax.legend(loc='lower left')
     if len(datos['outputs']) > 0:
         y_min = np.min(datos['outputs']) - 1
         y_max = np.max(datos['outputs']) + 1
@@ -388,7 +389,7 @@ class AutoRefresher:
             
             if nuevos_datos['num_muestras'] > self.ultimas_muestras:
                 muestras_nuevas = nuevos_datos['num_muestras'] - self.ultimas_muestras
-                print(f"📊 Nuevos datos: {nuevos_datos['num_muestras']} muestras (+{muestras_nuevas})")
+                # print(f"📊 Nuevos datos: {nuevos_datos['num_muestras']} muestras (+{muestras_nuevas})")
                 
                 self._actualizar_graficas(nuevos_datos)
                 self.ultimas_muestras = nuevos_datos['num_muestras']
